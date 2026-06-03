@@ -1,0 +1,77 @@
+[
+ {
+  "land": "Brasilien",
+  "gini": 0.82,
+  "hinweis": "UBS GWR 2025 \u2013 hoch"
+ },
+ {
+  "land": "Russland",
+  "gini": 0.82,
+  "hinweis": "UBS GWR 2025 \u2013 hoch"
+ },
+ {
+  "land": "S\u00fcdafrika",
+  "gini": 0.81,
+  "hinweis": "UBS GWR 2025 \u2013 h\u00f6chste der Stichprobe"
+ },
+ {
+  "land": "Schweiz",
+  "gini": 0.78,
+  "hinweis": "UBS GWR 2025 \u2013 UBS-Basis (Gesamtverm\u00f6gen)"
+ },
+ {
+  "land": "USA",
+  "gini": 0.74,
+  "hinweis": "UBS GWR 2025"
+ },
+ {
+  "land": "Schweden",
+  "gini": 0.74,
+  "hinweis": "UBS GWR 2025 \u2013 hoch trotz Skandinavien"
+ },
+ {
+  "land": "Indien",
+  "gini": 0.75,
+  "hinweis": "UBS GWR 2025 \u2013 ca."
+ },
+ {
+  "land": "Deutschland",
+  "gini": 0.72,
+  "hinweis": "UBS GWR 2025 \u2013 ca."
+ },
+ {
+  "land": "China",
+  "gini": 0.7,
+  "hinweis": "UBS GWR 2025 \u2013 ca."
+ },
+ {
+  "land": "Vereinigtes K\u00f6nigreich",
+  "gini": 0.7,
+  "hinweis": "UBS GWR 2025 \u2013 ca."
+ },
+ {
+  "land": "Frankreich",
+  "gini": 0.7,
+  "hinweis": "UBS GWR 2025 \u2013 ca."
+ },
+ {
+  "land": "Japan",
+  "gini": 0.65,
+  "hinweis": "UBS GWR 2025 \u2013 ca."
+ },
+ {
+  "land": "Portugal",
+  "gini": 0.61,
+  "hinweis": "UBS GWR 2025"
+ },
+ {
+  "land": "Belgien",
+  "gini": 0.59,
+  "hinweis": "UBS GWR 2025 \u2013 tief"
+ },
+ {
+  "land": "Slowakei",
+  "gini": 0.38,
+  "hinweis": "UBS GWR 2025 \u2013 tiefste der Stichprobe"
+ }
+]

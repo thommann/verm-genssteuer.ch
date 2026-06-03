@@ -1,0 +1,74 @@
+[
+  {
+    "id": "estv_vermoegen",
+    "kurz": "ESTV Vermögenssteuerstatistik",
+    "titel": "Gesamtschweizerische Statistik der besteuerten Vermögen (Vermögenssteuerstatistik), 2012–2022",
+    "herausgeber": "Eidgenössische Steuerverwaltung (ESTV), Steuerpolitik – Volkswirtschaft und Steuerstatistik",
+    "url": "https://www.estv.admin.ch/de/gesamtschweizerische-vermoegenssteuerstatistik",
+    "stand": "Abruf Mai 2026",
+    "hinweis": "Steuerbares Reinvermögen pro Steuerfall (Ehepaare = eine Einheit). 2./3. Säule und Hausrat nicht enthalten. Liegenschaften zu Steuerwerten. Eher Unterschätzung des Marktvermögens."
+  },
+  {
+    "id": "wid",
+    "kurz": "WID.world",
+    "titel": "World Inequality Database – Variable shwealj992 (net personal wealth, Erwachsene, equal-split), Zeitreihen 1995–2024",
+    "herausgeber": "World Inequality Lab",
+    "url": "https://wid.world",
+    "stand": "Bulk-Download, Stand 04/2026",
+    "hinweis": "Gesamtes Netto-Privatvermögen zu Marktwerten. p99p100 = Top 1 %, p90p100 = Top 10 %, p50p90 = mittlere 40 %, p0p50 = untere 50 %. Untere 50 % kann negativ sein (Nettoschulden)."
+  },
+  {
+    "id": "ubs",
+    "kurz": "UBS Global Wealth Report 2025",
+    "titel": "UBS Global Wealth Report 2025 – Vermögens-Gini je Land (Ende 2024)",
+    "herausgeber": "UBS (vormals Credit Suisse Global Wealth Report)",
+    "url": "https://www.ubs.com/global/en/family-office-uhnw/reports/global-wealth-report.html",
+    "stand": "Daten Ende 2024",
+    "hinweis": "Modelliertes Gesamt-Nettovermögen pro Erwachsenem. Einzelne Werte als «ca.» markiert."
+  },
+  {
+    "id": "wir2022",
+    "kurz": "World Inequality Report 2022",
+    "titel": "World Inequality Report 2022",
+    "herausgeber": "World Inequality Lab",
+    "url": "https://wir2022.wid.world",
+    "stand": "Daten 2021",
+    "hinweis": "Langfrist-Kontext zur Vermögenskonzentration."
+  },
+  {
+    "id": "fdk",
+    "kurz": "FDK Aufwandbesteuerung",
+    "titel": "Erhebung zur Aufwandbesteuerung («Pauschalbesteuerung»), Stand 31.12.2018",
+    "herausgeber": "Konferenz der kantonalen Finanzdirektorinnen und Finanzdirektoren (FDK)",
+    "url": "https://www.fdk-cdf.ch",
+    "stand": "Medienmitteilung 7. Juni 2019",
+    "hinweis": "Anzahl Personen und bezahlte Steuern – NICHT das Vermögen. Aufwandbesteuerte sind in der ESTV-Vermögensstatistik nicht enthalten."
+  },
+  {
+    "id": "efv",
+    "kurz": "EFV / ESTV Fiskaleinnahmen",
+    "titel": "Einnahmen des Bundes & Fiskaleinnahmen von Bund, Kantonen und Gemeinden",
+    "herausgeber": "Eidgenössische Finanzverwaltung (EFV) / ESTV",
+    "url": "https://www.efv.admin.ch/de/einnahmen",
+    "stand": "2022/2023",
+    "hinweis": "Einkommenssteuern natürlicher Personen über alle Staatsebenen rund CHF 63 Mrd. (2023); direkte Bundessteuer natürliche Personen rund CHF 13,5 Mrd."
+  },
+  {
+    "id": "bag",
+    "kurz": "BAG Krankenversicherung",
+    "titel": "Statistik der obligatorischen Krankenpflegeversicherung (OKP)",
+    "herausgeber": "Bundesamt für Gesundheit (BAG)",
+    "url": "https://www.bag.admin.ch/bag/de/home/zahlen-und-statistiken/statistiken-zur-krankenversicherung.html",
+    "stand": "2023",
+    "hinweis": "OKP-Leistungen rund CHF 52 Mrd. (2023); davon über Prämien der Versicherten finanziert rund CHF 36 Mrd."
+  },
+  {
+    "id": "bfs",
+    "kurz": "BFS Bevölkerung",
+    "titel": "Ständige Wohnbevölkerung der Schweiz, Stand und Entwicklung",
+    "herausgeber": "Bundesamt für Statistik (BFS)",
+    "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung/stand-entwicklung.html",
+    "stand": "Ende 2024 (provisorisch)",
+    "hinweis": "9 048 900 Personen Ende 2024."
+  }
+]
