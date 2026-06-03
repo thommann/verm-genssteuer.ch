@@ -35,12 +35,12 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Voraussetzung: Pages ist einmalig unter
+      # Settings -> Pages -> Source = "GitHub Actions" aktiviert.
+      # (Auto-Enablement ist nicht möglich, da der GITHUB_TOKEN keine
+      #  Admin-Rechte zum Erstellen der Pages-Site besitzt.)
       - name: Setup Pages
         uses: actions/configure-pages@v6
-        with:
-          # Aktiviert GitHub Pages automatisch (Source = GitHub Actions),
-          # falls noch nicht im Repo eingeschaltet
-          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
