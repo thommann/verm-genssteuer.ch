@@ -118,7 +118,12 @@ onUnmounted(() => {
   <nav class="nav" :class="{ solid: scrolled || menuOpen }">
     <div class="wrap nav-inner">
       <a href="#start" class="brand" @click="closeMenu">
-        <span class="brand-dot" /> vermögenssteuer.ch
+        <svg class="brand-flag" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="6" fill="#d52b1e" />
+          <rect x="13" y="6" width="6" height="20" fill="#fff" />
+          <rect x="6" y="13" width="20" height="6" fill="#fff" />
+        </svg>
+        vermögenssteuer.ch
       </a>
 
       <div class="nav-actions">
@@ -188,7 +193,7 @@ onUnmounted(() => {
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; gap: 16px; }
 .brand { display: flex; align-items: center; gap: 9px; font-weight: 800; color: var(--text); text-decoration: none; font-size: 0.98rem; }
 .brand:hover { text-decoration: none; }
-.brand-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(255, 84, 112, 0.18); }
+.brand-flag { width: 20px; height: 20px; flex: none; border-radius: 6px; box-shadow: 0 0 0 3px rgba(213, 43, 30, 0.16); }
 .nav-actions { display: flex; align-items: center; gap: 12px; }
 .nav-cta { padding: 8px 16px; font-size: 0.85rem; }
 

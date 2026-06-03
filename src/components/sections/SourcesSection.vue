@@ -76,8 +76,9 @@ import sources from '@/data/sources.json';
 .src-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 28px 0; }
 .src { padding: 20px; text-decoration: none; color: inherit; transition: border-color 0.15s ease, transform 0.15s ease; display: block; }
 .src:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
-.src-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
-.src-kurz { font-weight: 800; color: var(--text); }
+.src-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
+.src-kurz { font-weight: 800; color: var(--text); min-width: 0; overflow-wrap: anywhere; }
+.src-head .pill { max-width: 100%; overflow-wrap: anywhere; }
 .src-titel { font-size: 0.9rem; color: var(--text-soft); margin-bottom: 4px; }
 .src-hg { font-size: 0.8rem; color: var(--text-mute); }
 .src-hinweis { font-size: 0.8rem; color: var(--text-mute); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
