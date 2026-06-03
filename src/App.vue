@@ -118,7 +118,7 @@ onUnmounted(() => {
   <nav class="nav" :class="{ solid: scrolled || menuOpen }">
     <div class="wrap nav-inner">
       <a href="#start" class="brand" @click="closeMenu">
-        <img class="brand-flag" src="/swiss-cross.svg" alt="" aria-hidden="true" />
+        <img class="brand-flag" src="/logo.svg" alt="" aria-hidden="true" />
         vermögenssteuer.ch
       </a>
 
