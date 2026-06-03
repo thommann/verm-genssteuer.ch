@@ -39,13 +39,26 @@ npm run preview  # Build lokal ansehen
 ## Datenherkunft & Reproduzierbarkeit
 
 Alle Daten unter `src/data/*.json` wurden aus drei Original-Workbooks extrahiert.
-Die Extraktions-Skripte liegen in `scripts/` (Python + `openpyxl`):
+Die Skripte liegen in `scripts/` (Python + `openpyxl`):
 
 | Skript | Inhalt |
 | --- | --- |
-| `01_extract_calculator.py` | Tarif-Engine, Jahresparameter, **Validierung** des Aufkommens |
+| `00_reproduce_statistics.py` | **Rechnet alle statistischen Verfahren nach und prüft sie** gegen die publizierten Werte |
+| `01_extract_calculator.py` | Tarif-Engine, Jahresparameter, Validierung des Aufkommens |
 | `02_extract_distribution_wid.py` | ESTV-Verteilung, berechnete Kennzahlen, WID-Zeitreihen |
-| `03_extract_projektion.py` | Kohorten der dynamischen Hochrechnung, **Validierung** |
+| `03_extract_projektion.py` | Kohorten der dynamischen Hochrechnung, Validierung |
+
+Ausführliche Dokumentation:
+
+- **[`docs/METHODIK.md`](docs/METHODIK.md)** — alle statistischen Verfahren exakt und
+  reproduzierbar (Perzentil-Interpolation, Pareto-Tail, Gini-Zerlegung, Populationsmodell,
+  Steuermodell) inkl. Validierungstabelle.
+- **[`docs/QUELLEN.md`](docs/QUELLEN.md)** — Provenance-Runbook: woher jede Rohzahl stammt
+  und wie man sie Schritt für Schritt von den Originalquellen beschafft.
+
+```bash
+python3 scripts/00_reproduce_statistics.py   # erwartet: alle Prüfungen OK
+```
 
 ### Validierung des Steuermodells
 
