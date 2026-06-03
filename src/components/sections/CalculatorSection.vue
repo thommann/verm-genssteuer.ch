@@ -106,7 +106,7 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
         <SourceTag id="wir2026" note="Globale Mindeststeuer auf Multimillionäre, Kap. 7" />
       </p>
 
-      <p class="threshold-info">
+      <p v-if="!isWirActive" class="threshold-info">
         <strong>Warum der Freibetrag bei 5 Mio. beginnt:</strong>
         Bei rund 5 Mio. Franken verläuft die Grenze zum reichsten 1 %. Nur
         <strong>{{ num(k.cnt_ge5M) }}</strong> Steuerpflichtige liegen darüber –
