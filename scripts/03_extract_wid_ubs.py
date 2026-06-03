@@ -132,8 +132,8 @@ def main():
     }
 
     # Neuester Wert je Land (max. Jahr, fuer das alle vier Anteile vorliegen).
-    # Der Gini ist hier der WID-EIGENE Vermögens-Gini (ghwealj992), passend zu den
-    # ebenfalls aus WID stammenden Anteilen. Der UBS-Gini lebt separat in ubs_gini.json.
+    # Der WID-Gini wird nicht hier als Einzelwert gefuehrt, sondern als Jahresreihe
+    # in timeseries["gini"] (und im UI ueber den Metrik-Umschalter gezeigt).
     latest = []
     for de, iso, _ in COUNTRIES:
         s = wid[iso]["shares"]
@@ -145,7 +145,6 @@ def main():
             "land": de, "jahr": y,
             "top1": s["p99p100"][y], "top10": s["p90p100"][y],
             "mid40": s["p50p90"][y], "bot50": s["p0p50"][y],
-            "gini": wid[iso]["gini"].get(y),
         })
 
     # Kuratierter Gini-Vergleich für die UBS-Studie-Sektion (Werte exakt aus dem Report).
@@ -166,9 +165,10 @@ def main():
         json.dump(ubs_rows, fh, indent=1)
 
     ch = next(x for x in latest if x["land"] == "Schweiz")
+    ch_gini = timeseries["gini"]["Schweiz"][str(ch["jahr"])]
     print("  [OK ] wid_timeseries.json, wid_latest.json, ubs_gini.json")
     print(f"        Schweiz {ch['jahr']}: Top1={ch['top1']:.4f} Top10={ch['top10']:.4f} "
-          f"untere50={ch['bot50']:.4f}  WID-Gini={ch['gini']}")
+          f"untere50={ch['bot50']:.4f}  WID-Gini (Zeitreihe)={ch_gini}")
     print(f"        UBS-Gini erkannt fuer {len(gini)} Maerkte "
           f"(z. B. CH={gini.get('Switzerland')}, DE={gini.get('Germany')}, US={gini.get('United States')})")
 

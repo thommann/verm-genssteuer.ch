@@ -103,9 +103,9 @@ ESTV) — das ist so in der Quelle und wird unverändert übernommen.
 - **Perzentil-Codes:** `p99p100` = Top 1 %, `p90p100` = Top 10 %, `p50p90` = mittlere
   40 %, `p0p50` = untere 50 %.
 - **Gini:** Variable `ghwealj992` (Perzentil `p0p100`) — WID-**eigener** Vermögens-Gini.
-  Dieser (nicht der UBS-Gini) steht in `wid_latest.json` und im Länderranking, passend zu
-  den dort gezeigten WID-Anteilen (CH 2024 ≈ 0,76). Der UBS-Gini ist methodisch anders
-  und lebt getrennt in `ubs_gini.json` / der UBS-Studie-Sektion (Quelle 3).
+  Als Jahresreihe in `wid_timeseries.json` (im UI über den Metrik-Umschalter, CH 2024
+  ≈ 0,76). Der UBS-Gini ist eine methodisch andere Grösse und lebt getrennt in
+  `ubs_gini.json` / der UBS-Studie-Sektion (Quelle 3).
 
 **Direkter Bezug:** Bulk-Download **pro Land** als CSV (die öffentliche REST-API
 `api.wid.world` antwortet mit `403 Forbidden`; der Bulk-Datensatz ist die offizielle,
@@ -120,8 +120,8 @@ mit `<ISO>` ∈ { **US, CN, CH, FR, DE, GB, SE, JP, IT, ES, IN, RU, BR, WO** }
 `country;variable;percentile;year;value;age;pop`.
 
 **Runbook** (`scripts/03_extract_wid_ubs.py`): je Land die vier `shwealj992`-Perzentile
-über 1995–2024 lesen → `wid_timeseries.json`; je Land das neueste Jahr mit allen vier
-Anteilen plus den WID-Gini `ghwealj992` → `wid_latest.json` (Welt endet 2023, übrige 2024).
+sowie den WID-Gini `ghwealj992` über 1995–2024 lesen → `wid_timeseries.json`; je Land das
+neueste Jahr mit allen vier Anteilen → `wid_latest.json` (Welt endet 2023, übrige 2024).
 
 **Verwendet für:** International-Sektion (Zeitreihen + Länderranking).
 **Vergleichbarkeit:** WID misst Gesamt-Marktvermögen, ESTV nur steuerbares Vermögen —
