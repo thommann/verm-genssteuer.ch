@@ -31,6 +31,20 @@ const xTicks = computed(() => projection.value.map((p) => p.year).filter((_, i) 
 
 const first = computed(() => projection.value[0].revenue);
 const last = computed(() => projection.value[projection.value.length - 1].revenue);
+
+// Richtung der Hochrechnung: steile Modelle sinken auf ein tragbares Niveau,
+// milde Modelle bremsen kaum – dann wächst das Aufkommen weiter.
+const trend = computed(() => {
+  const delta = last.value - first.value;
+  if (Math.abs(delta) < first.value * 0.02) return 'flat';
+  return delta < 0 ? 'down' : 'up';
+});
+const trendArrow = computed(() => ({ down: '↓', up: '↑', flat: '→' })[trend.value]);
+const lastLabel = computed(() => ({
+  down: 'dauerhaft tragbares Niveau (2032)',
+  up: 'Aufkommen 2032 – Vermögen wächst weiter',
+  flat: 'stabiles Niveau (2032)',
+})[trend.value]);
 </script>
 
 <template>
@@ -40,9 +54,10 @@ const last = computed(() => projection.value[projection.value.length - 1].revenu
       <h2>Einmaliger Schock oder dauerhafte Quelle?</h2>
       <p class="lead">
         Vermögen wächst (Rendite), die Steuer bremst. Diese mechanische Hochrechnung
-        zeigt: Bei steilen Modellen ist das erste Jahr ein Ausreisser – die Spitze wird
-        einmalig stark besteuert. Danach pendelt sich das Aufkommen auf ein
-        <strong>stabiles, dauerhaftes Niveau</strong> ein.
+        zeigt beide Fälle: <strong>steile</strong> Modelle besteuern die Spitze im ersten
+        Jahr stark und pendeln sich danach auf ein tieferes, dauerhaft tragbares Niveau
+        ein; <strong>milde</strong> Modelle bremsen kaum – dann wächst die
+        Bemessungsgrundlage weiter und das Aufkommen steigt mit.
       </p>
 
       <div class="proj-grid">
@@ -64,10 +79,10 @@ const last = computed(() => projection.value[projection.value.length - 1].revenu
             <span class="sv accent">{{ chfCompact(first, 1) }}</span>
             <span class="sl">Aufkommen im ersten Jahr</span>
           </div>
-          <div class="arrow">↓</div>
+          <div class="arrow">{{ trendArrow }}</div>
           <div class="sidestat">
             <span class="sv gold">{{ chfCompact(last, 1) }}</span>
-            <span class="sl">dauerhaft tragbares Niveau (2032)</span>
+            <span class="sl">{{ lastLabel }}</span>
           </div>
 
           <RangeControl

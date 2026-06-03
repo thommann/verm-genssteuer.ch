@@ -225,8 +225,7 @@ def population(params_year, edges):
 def make_tax(d):
     k = d["exponent"]
     kp = k + 1
-    basis = d["ankerSatz"] * d["ankerVermoegen"] * kp / (
-        d["schwelle"] * ((d["ankerVermoegen"] / d["schwelle"]) ** kp - 1))
+    basis = d["basis"]
     wcap = d["schwelle"] * (d["cap"] / basis) ** (1.0 / k)
 
     def tax(W):
@@ -240,10 +239,32 @@ def make_tax(d):
     return tax
 
 
+def low_classes(dist):
+    """ESTV-Klassen 1-5 Mio. als (bins, cohorts). mid/W0 = mittleres Vermoegen 2022."""
+    def cls(rows, lo, hi):
+        for r in rows:
+            if r["lo"] == lo and r["hi"] == hi:
+                return r["values"]
+        raise KeyError((lo, hi))
+    bins, cohorts = [], []
+    for lo, hi in ((1_000_000, 2_000_000), (2_000_000, 3_000_000), (3_000_000, 5_000_000)):
+        cnt = cls(dist["unb_counts"], lo, hi)
+        wl = cls(dist["unb_wealth"], lo, hi)
+        mid = wl["2022"] / cnt["2022"]
+        bins.append({"lo": lo, "hi": hi, "mid": mid,
+                     "cnt2020": cnt["2020"], "cnt2021": cnt["2021"], "cnt2022": cnt["2022"]})
+        cohorts.append({"von": lo, "bis": hi, "W0": mid, "anzahl": cnt["2022"]})
+    return bins, cohorts
+
+
 def build_calculator(dist, m_pauschal):
+    # Tarif-Komponente «basis» = Grenzsatz an der Schwelle (direkte Modell-Komponente).
+    # Default so gewaehlt, dass der Oe-Satz beim Anker-Vermoegen A=100 Mio. 2 % betraegt:
+    #   basis = tau * A * (k+1) / (S * ((A/S)^(k+1) - 1))
+    EXP, S, CAP = 0.9, 5_000_000, 1.0
+    basis = 0.02 * 1e8 * (EXP + 1) / (S * ((1e8 / S) ** (EXP + 1) - 1))
     defaults = {
-        "schwelle": 5000000, "exponent": 0.9, "cap": 1,
-        "ankerVermoegen": 100000000, "ankerSatz": 0.02,
+        "schwelle": S, "exponent": EXP, "cap": CAP, "basis": basis,
         "mPauschal": m_pauschal, "rendite": 0.05,
     }
     years = year_params(dist, m_pauschal)
@@ -257,6 +278,13 @@ def build_calculator(dist, m_pauschal):
         "lo": edges[i], "hi": edges[i + 1], "mid": math.sqrt(edges[i] * edges[i + 1]),
         "cnt2020": pops[2020][i], "cnt2021": pops[2021][i], "cnt2022": pops[2022][i],
     } for i in range(NB)]
+
+    # ESTV-Klassen 1-5 Mio. als zusaetzliche Bins voranstellen (mid = mittleres Vermoegen der
+    # Klasse, Stand 2022). Modelle mit Freibetrag >= 5 Mio. besteuern sie mit 0; WIR 2022
+    # (ab 1 Mio.) erfasst diese ~324k Pflichtigen im statischen Aufkommen. Die dynamische
+    # Projektion bleibt bewusst auf >= 5 Mio. (sonst wachsen 1-5-Mio-Kohorten ins Steuernetz).
+    low_bins, _ = low_classes(dist)
+    bins = low_bins + bins
 
     # Referenz-Aufkommen des Modells bei Default-Parametern (vom Skript berechnet,
     # keine externe Publikation – dient als Regressions-Anker fuer 00_reproduce).
@@ -273,6 +301,7 @@ def build_calculator(dist, m_pauschal):
         "von": cedges[i], "bis": cedges[i + 1],
         "W0": math.sqrt(cedges[i] * cedges[i + 1]), "anzahl": cpop[i],
     } for i in range(NC)]
+    cohorts = low_cohorts + cohorts
 
     params = {"defaults": defaults, "years": years, "published_revenue": published}
     return params, bins, cohorts

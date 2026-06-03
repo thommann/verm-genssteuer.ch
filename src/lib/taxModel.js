@@ -5,7 +5,9 @@
  * Die Steuer wird nur auf den Vermögensteil über der Schwelle erhoben:
  *   Steuer(W) = ∫_Schwelle^W min(Cap, Basis·(x/Schwelle)^k) dx
  *
- * «Basis» wird so kalibriert, dass der Ø-Satz beim Anker-Vermögen den Zielwert trifft.
+ * «basis» ist der Grenzsatz direkt an der Schwelle und eine direkte Modell-Komponente.
+ * (computeBasis bleibt als Hilfsfunktion erhalten, um basis aus einem gewünschten
+ * Ø-Satz an einem Anker-Vermögen abzuleiten – etwa für die Pipeline-Reproduktion.)
  * Herleitung und Formeln: docs/METHODIK.md, Abschnitt 6 (Verfahren E).
  *
  * Validierung (scripts/00_reproduce_statistics.py): mit den Default-Parametern und der
@@ -27,12 +29,11 @@ export function capCrossing(schwelle, k, cap, basis) {
 
 /**
  * Erzeugt das Steuer-Funktionsbündel für einen Parametersatz.
- * params = { schwelle, exponent (k), cap, ankerVermoegen, ankerSatz }
+ * params = { schwelle, exponent (k), cap, basis } – basis = Grenzsatz an der Schwelle.
  */
-export function makeModel({ schwelle, exponent, cap, ankerVermoegen, ankerSatz }) {
+export function makeModel({ schwelle, exponent, cap, basis }) {
   const k = exponent;
   const kp = k + 1;
-  const basis = computeBasis(schwelle, k, ankerVermoegen, ankerSatz);
   const wcap = capCrossing(schwelle, k, cap, basis);
 
   const tax = (W) => {
@@ -52,6 +53,51 @@ export function makeModel({ schwelle, exponent, cap, ankerVermoegen, ankerSatz }
   return { tax, marginalRate, avgRate, basis, wcap, schwelle, cap, k };
 }
 
+/**
+ * Exakte progressive Grenzsatz-Staffel (Bänder) – für die WIR-2022-Szenarien.
+ * brackets = [{ from, rate }] aufsteigend; `rate` ist der Grenzsatz vom jeweiligen
+ * `from` bis zur nächsten Bandgrenze. Steuer = Σ rate_i · (in das Band fallender Anteil).
+ */
+export function makeBracketModel(brackets) {
+  const b = [...brackets].sort((x, y) => x.from - y.from);
+  const schwelle = b[0].from;
+
+  const tax = (W) => {
+    let sum = 0;
+    for (let i = 0; i < b.length; i += 1) {
+      if (W <= b[i].from) break;
+      const hi = i + 1 < b.length ? Math.min(W, b[i + 1].from) : W;
+      sum += b[i].rate * (hi - b[i].from);
+    }
+    return sum;
+  };
+
+  const marginalRate = (W) => {
+    let r = 0;
+    for (let i = 0; i < b.length; i += 1) {
+      if (W >= b[i].from) r = b[i].rate;
+      else break;
+    }
+    return r;
+  };
+
+  const avgRate = (W) => (W <= 0 ? 0 : tax(W) / W);
+
+  return { tax, marginalRate, avgRate, schwelle, cap: null, wcap: null, k: null, basis: null, brackets: b };
+}
+
+/**
+ * Mindeststeuer auf das Gesamtvermögen oberhalb einer Schwelle – für WIR 2026
+ * (nach Zucman/G20): Wer ≥ threshold besitzt, zahlt `rate` des gesamten Vermögens.
+ * Effektiv- wie Grenzsatz sind oberhalb der Schwelle konstant = `rate`.
+ */
+export function makeMinTaxModel(threshold, rate) {
+  const tax = (W) => (W >= threshold ? rate * W : 0);
+  const marginalRate = (W) => (W >= threshold ? rate : 0);
+  const avgRate = (W) => (W >= threshold ? rate : 0);
+  return { tax, marginalRate, avgRate, schwelle: threshold, cap: null, wcap: null, k: null, basis: null, minRate: rate };
+}
+
 /** Statisches Jahresaufkommen: Σ Anzahl(Band) · Steuer(Bandmitte). */
 export function revenueForYear(bins, model, year) {
   const key = `cnt${year}`;
@@ -61,6 +107,7 @@ export function revenueForYear(bins, model, year) {
 }
 
 const BANDS = [
+  { label: '1–5 Mio.', lo: 1e6, hi: 5e6 },
   { label: '5–10 Mio.', lo: 5e6, hi: 10e6 },
   { label: '10–100 Mio.', lo: 10e6, hi: 100e6 },
   { label: '100 Mio.–1 Mrd.', lo: 100e6, hi: 1e9 },

@@ -17,11 +17,14 @@ erlebbar/experimentierbar macht.
    *Pro-Kopf-Dividende* — live aus dem Rechner.
 4. **Dynamik** — ehrliche Hochrechnung: Einmaleffekt vs. dauerhaft tragbares Niveau.
 5. **International** — Vermögenskonzentration im Zeitverlauf (WID) und im Ländervergleich (WID/UBS-Gini).
-6. **UBS-Studie** — der UBS Global Wealth Report (vormals Credit Suisse): Vermögens-Gini
-   im Ländervergleich, die Lücke zwischen Durchschnitts- und Median-Vermögen, die globale
-   Vermögenspyramide und die Zahl der USD-Millionäre.
-7. **Pauschalbesteuerung** — der statistische blinde Fleck an der Spitze (FDK).
-8. **Quellen & Methodik** — alle Quellen, transparent verlinkt.
+6. **WIR 2022 & 2026** — die Steuermodelle des World Inequality Report (progressive Staffel
+   vs. Mindeststeuer), kurz verglichen und verlinkt; dazu der interaktive *Global Wealth Tax
+   Simulator* und ein Video mit Gabriel Zucman. Beide Modelle sind im Rechner als Presets.
+7. **UBS-Studie** — der UBS Global Wealth Report (vormals Credit Suisse): Vermögens-Gini
+   im Ländervergleich, die Lücke zwischen Durchschnitts- und Median-Vermögen und die globale
+   Vermögenspyramide.
+8. **Pauschalbesteuerung** — der statistische blinde Fleck an der Spitze (FDK).
+9. **Quellen & Methodik** — alle Quellen, transparent verlinkt.
 
 ## Stack
 
@@ -50,7 +53,7 @@ Zwischen-Workbook, keine Handarbeit. Die Skripte liegen in `scripts/` (Bash + Py
 | `fetch_sources.sh` | Lädt **alle Rohquellen** (ESTV-XLSX ×11, WID-CSV ×14, FDK-PDF, UBS-PDF, BFS-PXWeb) nach `data/raw/` und schreibt SHA256-Prüfsummen |
 | `01_extract_fdk.py` | FDK-Medienmitteilung → `pauschal.json` (Anzahl/Ertrag Pauschalbesteuerte) |
 | `02_extract_estv.py` | ESTV-Verteilung, Kennzahlen, Rechner-Parameter, 170 Bins, 30 Kohorten |
-| `03_extract_wid_ubs.py` | WID-Zeitreihen + Ranking, UBS-Gini, Ø/Median, Pyramide, Millionäre |
+| `03_extract_wid_ubs.py` | WID-Zeitreihen + Ranking, UBS-Gini, Ø/Median, Vermögenspyramide |
 | `04_extract_spend_reference.py` | BFS-Bevölkerung (live, PXWeb) + kuratierte EFV/BAG-Bezugsgrössen → `spend_reference.json` |
 | `00_reproduce_statistics.py` | **Rechnet alle statistischen Verfahren unabhängig nach** und prüft sie (extern gegen den offiziellen ESTV-Gini, intern gegen die Skript-Ausgabe) |
 
@@ -89,6 +92,7 @@ Default-Parametern ergibt das Modell das Referenz-Aufkommen reproduzierbar:
 - **ESTV** — Gesamtschweizerische Vermögenssteuerstatistik 2012–2022
 - **WID.world** — net personal wealth (`shwealj992`), 1995–2024
 - **UBS** Global Wealth Report 2025 — Vermögens-Gini
+- **World Inequality Report 2022 & 2026** — Steuermodelle (Rechner-Presets, WIR-Abschnitt)
 - **FDK** — Erhebung zur Aufwandbesteuerung (Stand 31.12.2018)
 - **EFV/ESTV, BAG, BFS** — Bezugsgrössen für das «Was tun»-Modul
 

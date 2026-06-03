@@ -6,6 +6,7 @@ import CalculatorSection from '@/components/sections/CalculatorSection.vue';
 import SpendSection from '@/components/sections/SpendSection.vue';
 import ProjectionSection from '@/components/sections/ProjectionSection.vue';
 import InternationalSection from '@/components/sections/InternationalSection.vue';
+import WirSection from '@/components/sections/WirSection.vue';
 import UbsStudySection from '@/components/sections/UbsStudySection.vue';
 import PauschalSection from '@/components/sections/PauschalSection.vue';
 import SourcesSection from '@/components/sections/SourcesSection.vue';
@@ -16,6 +17,7 @@ const NAV = [
   { id: 'verwendung', label: 'Was tun?' },
   { id: 'dynamik', label: 'Dynamik' },
   { id: 'international', label: 'International' },
+  { id: 'wir-reports', label: 'WIR-Reports' },
   { id: 'ubs-studie', label: 'UBS-Studie' },
   { id: 'quellen', label: 'Quellen' },
 ];
@@ -46,6 +48,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
     <SpendSection />
     <ProjectionSection />
     <InternationalSection />
+    <WirSection />
     <UbsStudySection />
     <PauschalSection />
     <SourcesSection />

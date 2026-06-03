@@ -29,11 +29,20 @@
   {
     "id": "wir2022",
     "kurz": "World Inequality Report 2022",
-    "titel": "World Inequality Report 2022",
+    "titel": "World Inequality Report 2022 – Progressive Vermögenssteuer-Szenarien (Tabelle 7.2)",
     "herausgeber": "World Inequality Lab",
     "url": "https://wir2022.wid.world",
     "stand": "Daten 2021",
-    "hinweis": "Langfrist-Kontext zur Vermögenskonzentration."
+    "hinweis": "Drei progressive Szenarien (Grenzsätze 1 % ab 1 Mio. bis 3,5/10/90 % über 100 Mrd.). Szenario «moderat» bringt rund 1,6 % des Welteinkommens. Vorlage für das Rechner-Preset «WIR 2022»."
+  },
+  {
+    "id": "wir2026",
+    "kurz": "World Inequality Report 2026",
+    "titel": "World Inequality Report 2026 – Globale Mindeststeuer auf Multimillionäre (Kapitel 7)",
+    "herausgeber": "World Inequality Lab",
+    "url": "https://wir2026.wid.world",
+    "stand": "Dezember 2025, Daten 2025",
+    "hinweis": "Dritte Ausgabe (nach 2018, 2022). Statt der progressiven Staffel nun eine flache Mindeststeuer von 2–5 % auf Centi-Millionäre/Milliardäre (nach Zucman 2024 / G20), um die Regressivität an der Spitze zu beenden. Vorlage für die Rechner-Presets «WIR 2026»."
   },
   {
     "id": "fdk",

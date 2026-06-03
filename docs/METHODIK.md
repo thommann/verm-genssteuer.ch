@@ -190,14 +190,16 @@ Steuer(W) = Basis·Schwelle/(k+1) · ((W/Schwelle)^(k+1) − 1)                 
           = Steuer(W_cap) + Cap·(W − W_cap)                                  für W > W_cap
 ```
 
-**Kalibrierung von `Basis`** — so, dass der Ø-Satz beim Anker-Vermögen `A` den Zielwert
-`τ̄` trifft (gilt, solange der Cap unterhalb von A nicht greift):
+**`Basis` (Grenzsatz an der Schwelle)** ist eine direkte Modell-Komponente und wird
+so in `calculator_params.json` hinterlegt. Der Default-Wert ist so gewählt, dass der
+Ø-Satz beim Anker-Vermögen `A` den Zielwert `τ̄` trifft (gilt, solange der Cap
+unterhalb von A nicht greift):
 ```
 Basis = τ̄ · A · (k+1) / ( Schwelle · ((A/Schwelle)^(k+1) − 1) )
 ```
 Default (Schwelle 5 Mio., k = 0,9, A = 100 Mio., τ̄ = 2 %): **Basis = 0,00257231…**,
-Cap-Grenze = **3 770 402 679 CHF**. `taxModel.js` (Frontend) und das Prüfskript rechnen
-denselben Wert.
+Cap = 1,0, Cap-Grenze = **3 770 402 679 CHF**. `taxModel.js` (Frontend), die
+JSON-Defaults und das Prüfskript verwenden denselben `Basis`-Wert direkt.
 
 **Statisches Jahresaufkommen** = Summe über die Bins:
 ```
@@ -212,6 +214,61 @@ W(t+1) = W(t) · (1 + r) − Steuer(W(t))
 Zeigt den Einmaleffekt im Startjahr und das danach stabile, dauerhaft tragbare Niveau.
 Das Gleichgewichts-Vermögen `W*` (Ø-Satz = r) ist der Punkt, an dem ein Vermögen genau
 seine Rendite abgibt — darüber schrumpft es, darunter wächst es.
+
+### 6a. Voreingestellte Modelle (Presets)
+
+Die Presets in [`src/composables/useCalculator.js`](../src/composables/useCalculator.js)
+gliedern sich in drei Zeilen:
+
+- **«Unsere»** (Flach / Moderat / Stark progressiv): Startpunkte des Potenzkurven-Modells
+  aus Verfahren E, gesteuert durch die vier Regler.
+- **«WIR 2022»** und **«WIR 2026»**: bilden die Steuermodelle des World Inequality Report
+  **exakt** ab — über zwei eigene Funktionen in `taxModel.js` (`makeBracketModel`,
+  `makeMinTaxModel`), **nicht** über die Potenzkurve. Solange ein WIR-Preset aktiv ist,
+  steuern die Regler das angezeigte Modell nicht (im Rechner abgedunkelt).
+
+**Warum nicht die Potenzkurve?** Die Kurve `τ(W)=min(Cap, Basis·(W/Schwelle)^k)` ist stetig
+und besteuert nur den Anteil *über* der Schwelle. Die WIR-Modelle haben eine andere Form:
+WIR 2022 ist eine **Stufenfunktion** (sprunghafte Grenzsätze je Band), WIR 2026 eine
+**Mindeststeuer auf das Gesamtvermögen** (konstanter Ø-Satz mit Sprung an der Schwelle).
+Beides lässt sich mit einer glatten Potenzkurve nur annähern, nicht exakt treffen — daher
+die zwei dedizierten Modelltypen.
+
+**WIR 2022 — exakte Grenzsatz-Staffel** (`makeBracketModel`, Marginalsätze aus Tabelle 7.2):
+
+| Vermögensband        | moderat | hoch  | sehr hoch |
+|----------------------|---------|-------|-----------|
+| 1–10 Mio.            | 1 %     | 1 %   | 1 %       |
+| 10–100 Mio.          | 1,5 %   | 1,5 % | 1,5 %     |
+| 100 Mio.–1 Mrd.      | 2 %     | 3 %   | 7 %       |
+| 1–10 Mrd.            | 2,5 %   | 5 %   | 15 %      |
+| 10–100 Mrd.          | 3 %     | 7 %   | 50 %      |
+| > 100 Mrd.           | 3,5 %   | 10 %  | 90 %      |
+
+Die Steuer beginnt **ab 1 Mio.** wie im Original. Dafür ist das Populationsmodell des
+Rechners um die ESTV-Klassen 1–5 Mio. erweitert (drei zusätzliche Bins; `mid` = mittleres
+Klassenvermögen 2022). Diese Klassen liegen vollständig im 1-%-Band, daher ist der
+Klassenmittel-Punkt für die lineare Steuer exakt. WIR 2022 erfasst damit rund **324 000**
+Pflichtige mehr als die «Unsere»-Modelle (die beim 5-Mio-Freibetrag bleiben).
+
+**WIR 2026 — Mindeststeuer** (`makeMinTaxModel`, nach Zucman 2024 / G20): Wer **≥ 100 Mio. $**
+(Centi-Millionär) besitzt, zahlt **2 / 3 / 5 % des gesamten Vermögens**; darunter nichts.
+Effektiv- und Grenzsatz sind oberhalb der Schwelle konstant = Mindeststeuersatz.
+
+**Verbleibende Näherungen (explizit):**
+
+1. **Währung (CHF vs. USD):** Die WIR-Sätze (%) sind währungsunabhängig — übertragen wird
+   die Satz-Struktur. Die Vermögens-Schwellen (USD im WIR) werden ohne Wechselkurs-Umrechnung
+   in CHF behandelt (≈ Parität). Folge: Die angezeigten CHF-Beträge sind **nicht** mit den
+   globalen USD-/BIP-Erträgen des WIR vergleichbar.
+2. **Statisches Aufkommen** wird auf den ESTV-Bins gerechnet — für WIR 2022 ab **1 Mio.**
+   (Bins 1 Mio.–50 Mrd.), für WIR 2026 ab 100 Mio. Die **dynamische Projektion** bleibt
+   bewusst auf ≥ 5 Mio.-Kohorten: sonst würden 1–5-Mio-Kohorten über die Jahre ins
+   Steuernetz hineinwachsen und die Referenz-Projektion (Verfahren E) verfälschen.
+
+Quellen: WIR 2022, Tabelle 7.2; WIR 2026, Kapitel 7 (nach Zucman 2024 / G20). Vgl.
+Quellen-IDs `wir2022` / `wir2026` in `src/data/sources.json`. Dieselben Hinweise erscheinen
+im Rechner als Box je aktivem WIR-Preset.
 
 ---
 
@@ -287,7 +344,7 @@ bash scripts/fetch_sources.sh
 # 2. Aus den Rohdaten alle JSON erzeugen (benötigt openpyxl + pdftotext/poppler-utils):
 python3 scripts/01_extract_fdk.py        # -> pauschal.json
 python3 scripts/02_extract_estv.py       # -> Verteilung, Kennzahlen, Rechner-Parameter/Bins/Kohorten
-python3 scripts/03_extract_wid_ubs.py    # -> WID-Zeitreihen, Ranking, UBS-Gini/Ø-Median/Pyramide/Millionäre
+python3 scripts/03_extract_wid_ubs.py    # -> WID-Zeitreihen, Ranking, UBS-Gini/Ø-Median/Pyramide
 python3 scripts/04_extract_spend_reference.py  # -> spend_reference.json (BFS live + EFV/BAG kuratiert)
 
 # 3. Alle Verfahren unabhängig nachrechnen und prüfen:
