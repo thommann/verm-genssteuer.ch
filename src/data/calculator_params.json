@@ -2,7 +2,7 @@
   "defaults": {
     "schwelle": 5000000,
     "exponent": 0.9,
-    "cap": 1,
+    "cap": 0.5,
     "ankerVermoegen": 100000000,
     "ankerSatz": 0.02,
     "mPauschal": 4557,
