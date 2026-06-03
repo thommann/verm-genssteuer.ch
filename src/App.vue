@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 import HeroSection from '@/components/sections/HeroSection.vue';
 import DistributionSection from '@/components/sections/DistributionSection.vue';
 import CalculatorSection from '@/components/sections/CalculatorSection.vue';
@@ -26,8 +26,41 @@ const NAV = [
   { id: 'quellen', label: 'Quellen' },
 ];
 
+const SECTION_IDS = NAV.map((n) => n.id);
 const scrolled = ref(false);
-const onScroll = () => (scrolled.value = window.scrollY > 40);
+const activeId = ref(SECTION_IDS[0]);
+
+// Scroll-Spy: ermittelt den aktuell sichtbaren Abschnitt und spiegelt dessen
+// Anker in die URL (ohne neue History-Einträge), damit Links jederzeit teilbar
+// sind und der aktive Eintrag im Menü markiert werden kann.
+const updateActive = () => {
+  const line = 90; // knapp unter der Sticky-Navigation
+  let current = SECTION_IDS[0];
+  for (const id of SECTION_IDS) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= line) current = id;
+  }
+  // Am Seitenende den letzten Abschnitt aktiv setzen, auch wenn er kurz ist.
+  if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) {
+    current = SECTION_IDS[SECTION_IDS.length - 1];
+  }
+  if (current !== activeId.value) activeId.value = current;
+  if (location.hash !== `#${current}`) {
+    history.replaceState(null, '', `#${current}`);
+  }
+};
+
+let ticking = false;
+const onScroll = () => {
+  scrolled.value = window.scrollY > 40;
+  if (!ticking) {
+    ticking = true;
+    requestAnimationFrame(() => {
+      ticking = false;
+      updateActive();
+    });
+  }
+};
 
 const menuOpen = ref(false);
 const toggleMenu = () => (menuOpen.value = !menuOpen.value);
@@ -36,9 +69,44 @@ const onKeydown = (e) => {
   if (e.key === 'Escape') closeMenu();
 };
 
+// Externe Deeplinks (#abschnitt) zuverlässig anspringen: Diagramme werden
+// asynchron gerendert und schieben das Layout nach. Wir korrigieren das
+// Anspringen daher so lange nach, bis das Layout steht – brechen aber ab,
+// sobald der Nutzer selbst scrollt. Das Ziel wird einmal aus der initialen
+// URL gelesen, bevor der Scroll-Spy den Hash verändern kann.
+const settleDeeplink = async () => {
+  const id = decodeURIComponent(location.hash.slice(1));
+  await nextTick();
+  const target = id && document.getElementById(id);
+  if (!target) {
+    updateActive(); // ohne Deeplink: Hash auf den obersten Abschnitt setzen
+    return;
+  }
+  const jumpToTarget = () => target.scrollIntoView({ behavior: 'instant', block: 'start' });
+  jumpToTarget();
+
+  let userScrolled = false;
+  const cancel = () => (userScrolled = true);
+  window.addEventListener('wheel', cancel, { passive: true, once: true });
+  window.addEventListener('touchmove', cancel, { passive: true, once: true });
+
+  // Bei Höhenänderungen (nachladende Charts) erneut zum Anker springen.
+  const ro = new ResizeObserver(() => { if (!userScrolled) jumpToTarget(); });
+  ro.observe(document.body);
+
+  // Beobachtung nach kurzer Stabilisierungsphase wieder lösen.
+  setTimeout(() => {
+    ro.disconnect();
+    window.removeEventListener('wheel', cancel);
+    window.removeEventListener('touchmove', cancel);
+  }, 1800);
+};
+
 onMounted(() => {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('keydown', onKeydown);
+  settleDeeplink();
 });
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll);
@@ -52,10 +120,6 @@ onUnmounted(() => {
       <a href="#start" class="brand" @click="closeMenu">
         <span class="brand-dot" /> vermögenssteuer.ch
       </a>
-
-      <div class="nav-links">
-        <a v-for="n in NAV" :key="n.id" :href="`#${n.id}`">{{ n.label }}</a>
-      </div>
 
       <div class="nav-actions">
         <a href="#rechner" class="btn btn-primary nav-cta" @click="closeMenu">Ausprobieren</a>
@@ -80,7 +144,12 @@ onUnmounted(() => {
           <p class="menu-title">Abschnitte</p>
           <ul class="menu-list">
             <li v-for="(n, i) in NAV" :key="n.id">
-              <a :href="`#${n.id}`" @click="closeMenu">
+              <a
+                :href="`#${n.id}`"
+                :class="{ active: activeId === n.id }"
+                :aria-current="activeId === n.id ? 'true' : undefined"
+                @click="closeMenu"
+              >
                 <span class="menu-num">{{ String(i + 1).padStart(2, '0') }}</span>
                 {{ n.label }}
               </a>
@@ -120,9 +189,6 @@ onUnmounted(() => {
 .brand { display: flex; align-items: center; gap: 9px; font-weight: 800; color: var(--text); text-decoration: none; font-size: 0.98rem; }
 .brand:hover { text-decoration: none; }
 .brand-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(255, 84, 112, 0.18); }
-.nav-links { display: flex; gap: 22px; }
-.nav-links a { color: var(--text-soft); font-size: 0.88rem; font-weight: 600; text-decoration: none; }
-.nav-links a:hover { color: var(--text); }
 .nav-actions { display: flex; align-items: center; gap: 12px; }
 .nav-cta { padding: 8px 16px; font-size: 0.85rem; }
 
@@ -158,14 +224,12 @@ onUnmounted(() => {
   color: var(--text); font-weight: 600; text-decoration: none;
 }
 .menu-list a:hover { background: rgba(255, 255, 255, 0.06); }
+.menu-list a.active { background: rgba(255, 84, 112, 0.12); color: var(--accent-soft); }
 .menu-num { color: var(--accent-soft); font-variant-numeric: tabular-nums; font-size: 0.82rem; font-weight: 700; }
 
 .menu-enter-active, .menu-leave-active { transition: opacity 0.18s ease, transform 0.18s ease; }
 .menu-enter-from, .menu-leave-to { opacity: 0; transform: translateY(-6px); }
 
-@media (max-width: 860px) {
-  .nav-links { display: none; }
-}
 @media (max-width: 460px) {
   .nav-cta { display: none; }
 }
