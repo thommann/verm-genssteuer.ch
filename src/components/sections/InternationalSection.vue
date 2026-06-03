@@ -106,12 +106,10 @@ const maxTop1 = computed(() => Math.max(...ranking.value.map((c) => c.top1)));
               <div class="rfill" :style="{ width: `${(c.top1 / maxTop1) * 100}%` }" />
             </div>
             <div class="rval tnum">{{ pct(c.top1, 1) }}</div>
-            <div class="rgini tnum muted">Gini {{ c.gini != null ? c.gini : '–' }}</div>
           </div>
         </div>
         <div class="legend2">
           <SourceTag id="wid" note="Anteile" />
-          <SourceTag id="ubs" note="Gini-Werte" />
         </div>
         <p class="muted small">
           Hinweis: WID-Anteile (Gesamtvermögen) und die ESTV-Steuerdaten messen
@@ -138,7 +136,7 @@ const maxTop1 = computed(() => Math.max(...ranking.value.map((c) => c.top1)));
 
 .compare { margin-top: 40px; }
 .rank { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
-.rrow { display: grid; grid-template-columns: 130px 1fr auto auto; align-items: center; gap: 12px; padding: 4px 8px; border-radius: 8px; }
+.rrow { display: grid; grid-template-columns: 130px 1fr auto; align-items: center; gap: 12px; padding: 4px 8px; border-radius: 8px; }
 .rrow.ch { background: rgba(255, 84, 112, 0.12); border: 1px solid rgba(255, 84, 112, 0.4); }
 .rland { font-weight: 600; font-size: 0.9rem; }
 .rrow.ch .rland { color: var(--accent-soft); }
@@ -146,11 +144,9 @@ const maxTop1 = computed(() => Math.max(...ranking.value.map((c) => c.top1)));
 .rfill { height: 100%; background: var(--gold); border-radius: 999px; }
 .rrow.ch .rfill { background: var(--accent); }
 .rval { font-weight: 700; font-size: 0.9rem; min-width: 56px; text-align: right; }
-.rgini { font-size: 0.78rem; min-width: 64px; text-align: right; }
 .legend2 { display: flex; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
 .small { font-size: 0.8rem; margin-top: 14px; max-width: 75ch; }
 @media (max-width: 620px) {
   .rrow { grid-template-columns: 96px 1fr auto; }
-  .rgini { display: none; }
 }
 </style>
