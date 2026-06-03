@@ -30,10 +30,25 @@ export const PRESETS = {
     desc: 'Steile Kurve, 2 % Ø-Satz bei 100 Mio.',
     schwelle: 5e6, exponent: 0.9, cap: 0.5, ankerSatz: 0.02,
   },
-  wir: {
-    label: 'World Inequality Lab',
-    desc: 'Effektivsätze nach WIR 2022: 0,6 % ab 1 Mio. bis 3,2 % über 100 Mrd.',
+  wir2022: {
+    label: 'WIR 2022',
+    desc: 'Progressives Szenario «moderat»: Effektivsätze 0,6 % ab 1 Mio. bis 3,2 % über 100 Mrd.',
     schwelle: 5e6, exponent: 0.15, cap: 0.05, ankerSatz: 0.013,
+  },
+  wir2026_2: {
+    label: 'WIR 2026 · 2 %',
+    desc: 'Mindeststeuer 2 % – beendet die Regressivität an der Spitze.',
+    schwelle: 5e6, exponent: 0, cap: 0.05, ankerSatz: 0.019,
+  },
+  wir2026_3: {
+    label: 'WIR 2026 · 3 %',
+    desc: 'Mindeststeuer 3 % – stellt moderate Progression wieder her.',
+    schwelle: 5e6, exponent: 0, cap: 0.05, ankerSatz: 0.0285,
+  },
+  wir2026_5: {
+    label: 'WIR 2026 · 5 %',
+    desc: 'Ambitionierte Mindeststeuer 5 %.',
+    schwelle: 5e6, exponent: 0, cap: 0.10, ankerSatz: 0.0475,
   },
 };
 

@@ -44,6 +44,10 @@ const bandItems = computed(() =>
 );
 
 const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
+
+const isWir2026 = computed(() =>
+  ['wir2026_2', 'wir2026_3', 'wir2026_5'].includes(state.activePreset)
+);
 </script>
 
 <template>
@@ -70,12 +74,19 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
         </button>
       </div>
 
-      <p v-if="state.activePreset === 'wir'" class="preset-note">
-        Nachbau des Steuermodells des <strong>World Inequality Lab</strong> (World&nbsp;Inequality&nbsp;Report&nbsp;2022,
-        Szenario «moderat»): effektive Sätze von 0,6&nbsp;% ab 1&nbsp;Mio. bis 3,2&nbsp;% über 100&nbsp;Mrd.&nbsp;$.
+      <p v-if="state.activePreset === 'wir2022'" class="preset-note">
+        Progressives Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>
+        (Szenario «moderat»): effektive Sätze von 0,6&nbsp;% ab 1&nbsp;Mio. bis 3,2&nbsp;% über 100&nbsp;Mrd.&nbsp;$.
         Hier auf die Schweizer ESTV-Daten und den 5-Mio-Freibetrag übertragen – die Bezugsgrösse
         ist also enger als im globalen Original.
-        <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 1" />
+        <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 7.2 (Szenario 1)" />
+      </p>
+      <p v-else-if="isWir2026" class="preset-note">
+        Mindeststeuer-Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2026</strong> (nach Zucman&nbsp;2024 / G20):
+        ein <strong>flacher Mindestsatz</strong> auf grosse Vermögen, der die heute regressive
+        Spitzenbelastung beendet. Der WIR&nbsp;2026 setzt erst bei 100&nbsp;Mio.&nbsp;$ an
+        (Centi-Millionäre); hier auf den 5-Mio-Freibetrag der Seite übertragen.
+        <SourceTag id="wir2026" note="Globale Mindeststeuer auf Multimillionäre, Kap. 7" />
       </p>
 
       <p class="threshold-info">
