@@ -68,23 +68,29 @@ def fail(msg):
 
 
 def read_wid_country(iso):
-    """{shwealj992-Perzentilcode: {year:int -> value:float}} eines Landes."""
+    """Liest aus dem Länder-CSV:
+      - 'shares': {shwealj992-Perzentilcode: {year -> Anteil}} (Top 1/10 %, …)
+      - 'gini':   {year -> WID-eigener Vermögens-Gini ghwealj992 (p0p100)}
+    """
     path = os.path.join(WID, f"WID_data_{iso}.csv")
     if not os.path.exists(path):
         fail(f"WID-Datei fehlt: {path} — zuerst `bash scripts/fetch_sources.sh`.")
-    series = {code: {} for code in PCTL.values()}
+    shares = {code: {} for code in PCTL.values()}
+    gini = {}
     with open(path, encoding="utf-8") as fh:
         for row in csv.reader(fh, delimiter=";"):
-            if len(row) < 5 or row[1] != "shwealj992":
+            if len(row) < 5:
                 continue
-            code = row[2]
-            if code not in series:
-                continue
+            var, code = row[1], row[2]
             try:
-                series[code][int(row[3])] = float(row[4])
+                year, value = int(row[3]), float(row[4])
             except ValueError:
                 continue
-    return series
+            if var == "shwealj992" and code in shares:
+                shares[code][year] = value
+            elif var == "ghwealj992" and code == "p0p100":
+                gini[year] = value
+    return {"shares": shares, "gini": gini}
 
 
 def parse_ubs_gini():
@@ -118,13 +124,15 @@ def main():
     for metric, code in PCTL.items():
         timeseries[metric] = {}
         for de, iso, _ in COUNTRIES:
-            s = wid[iso][code]
+            s = wid[iso]["shares"][code]
             timeseries[metric][de] = {str(y): s.get(y) for y in YEARS}
 
-    # Neuester Wert je Land (max. Jahr, fuer das alle vier Anteile vorliegen) + UBS-Gini
+    # Neuester Wert je Land (max. Jahr, fuer das alle vier Anteile vorliegen).
+    # Der Gini ist hier der WID-EIGENE Vermögens-Gini (ghwealj992), passend zu den
+    # ebenfalls aus WID stammenden Anteilen. Der UBS-Gini lebt separat in ubs_gini.json.
     latest = []
-    for de, iso, ubs_name in COUNTRIES:
-        s = wid[iso]
+    for de, iso, _ in COUNTRIES:
+        s = wid[iso]["shares"]
         common = set.intersection(*[set(s[code]) for code in PCTL.values()])
         if not common:
             fail(f"{de}: keine gemeinsamen Jahre fuer alle vier Anteile.")
@@ -133,7 +141,7 @@ def main():
             "land": de, "jahr": y,
             "top1": s["p99p100"][y], "top10": s["p90p100"][y],
             "mid40": s["p50p90"][y], "bot50": s["p0p50"][y],
-            "gini": gini.get(ubs_name) if ubs_name else None,
+            "gini": wid[iso]["gini"].get(y),
         })
 
     # Kuratierter Gini-Vergleich für die UBS-Studie-Sektion (Werte exakt aus dem Report).
@@ -156,7 +164,7 @@ def main():
     ch = next(x for x in latest if x["land"] == "Schweiz")
     print("  [OK ] wid_timeseries.json, wid_latest.json, ubs_gini.json")
     print(f"        Schweiz {ch['jahr']}: Top1={ch['top1']:.4f} Top10={ch['top10']:.4f} "
-          f"untere50={ch['bot50']:.4f}  UBS-Gini={ch['gini']}")
+          f"untere50={ch['bot50']:.4f}  WID-Gini={ch['gini']}")
     print(f"        UBS-Gini erkannt fuer {len(gini)} Maerkte "
           f"(z. B. CH={gini.get('Switzerland')}, DE={gini.get('Germany')}, US={gini.get('United States')})")
 

@@ -15,7 +15,7 @@
     "herausgeber": "World Inequality Lab",
     "url": "https://wid.world",
     "stand": "Bulk-Download je Land (WID_data_<ISO>.csv), Abruf Juni 2026",
-    "hinweis": "Gesamtes Netto-Privatvermögen zu Marktwerten. p99p100 = Top 1 %, p90p100 = Top 10 %, p50p90 = mittlere 40 %, p0p50 = untere 50 %. Untere 50 % kann negativ sein (Nettoschulden). Welt-Reihe endet 2023."
+    "hinweis": "Gesamtes Netto-Privatvermögen zu Marktwerten. p99p100 = Top 1 %, p90p100 = Top 10 %, p50p90 = mittlere 40 %, p0p50 = untere 50 %. Untere 50 % kann negativ sein (Nettoschulden). Vermögens-Gini = WID-Variable ghwealj992 (methodisch verschieden vom UBS-Gini). Welt-Reihe endet 2023."
   },
   {
     "id": "ubs",
