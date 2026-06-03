@@ -124,7 +124,7 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
             <strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell
             (Gruppe «Unsere») – bewege einen, um dorthin zu wechseln.
           </p>
-          <div :class="{ dimmed: isWirActive }">
+          <div v-if="!isWirActive">
             <RangeControl
               v-model="state.schwelle"
               :min="5e6"
@@ -297,7 +297,6 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
   border: 1px solid var(--border); border-left: 3px solid var(--teal);
 }
 .controls-lock strong { color: var(--text); }
-.dimmed { opacity: 0.4; transition: opacity 0.15s ease; }
 .result {
   padding: 28px 24px;
   background: linear-gradient(160deg, #1d2952, #161f3d);
