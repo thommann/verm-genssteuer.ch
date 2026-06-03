@@ -82,7 +82,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 
       <div class="presets">
         <div v-for="g in presetRows" :key="g.id" class="preset-row">
-          <span class="presets-label">{{ g.label }}</span>
+          <span v-if="g.label" class="presets-label">{{ g.label }}</span>
           <button
             v-for="p in g.items"
             :key="p.key"
