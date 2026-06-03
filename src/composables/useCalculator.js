@@ -15,20 +15,20 @@ const d = paramsData.defaults;
 
 // Voreingestellte Steuermodelle zum Durchprobieren.
 export const PRESETS = {
+  flach: {
+    label: 'Flach',
+    desc: 'Fast flacher Satz, 2 % Ø-Satz bei 100 Mio.',
+    schwelle: 5e6, exponent: 0.3, cap: 1, ankerSatz: 0.02,
+  },
   moderat: {
     label: 'Moderat',
-    desc: '2 % Ø-Satz ab 100 Mio., Freibetrag 5 Mio.',
-    schwelle: 5e6, exponent: 0.9, cap: 1, ankerSatz: 0.02,
-  },
-  sanft: {
-    label: 'Sanft',
-    desc: 'Fast flacher Satz, ~0,8 % ab 100 Mio.',
-    schwelle: 5e6, exponent: 0.45, cap: 1, ankerSatz: 0.008,
+    desc: 'Sanft progressiv, 2 % Ø-Satz bei 100 Mio.',
+    schwelle: 5e6, exponent: 0.5, cap: 1, ankerSatz: 0.02,
   },
   steil: {
     label: 'Stark progressiv',
-    desc: 'Steile Kurve, 3,5 % ab 100 Mio.',
-    schwelle: 5e6, exponent: 1.2, cap: 1, ankerSatz: 0.035,
+    desc: 'Steile Kurve, 2 % Ø-Satz bei 100 Mio.',
+    schwelle: 5e6, exponent: 0.9, cap: 1, ankerSatz: 0.02,
   },
 };
 
