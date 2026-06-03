@@ -49,18 +49,18 @@
     "kurz": "EFV / ESTV Fiskaleinnahmen",
     "titel": "Einnahmen des Bundes & Fiskaleinnahmen von Bund, Kantonen und Gemeinden",
     "herausgeber": "Eidgenössische Finanzverwaltung (EFV) / ESTV",
-    "url": "https://www.efv.admin.ch/de/overview-finanzstatistik",
+    "url": "https://www.efv.admin.ch/de/fs-daten",
     "stand": "Daten 2023",
-    "hinweis": "Einkommenssteuern natürlicher Personen über alle Staatsebenen rund CHF 63 Mrd. (2023); direkte Bundessteuer natürliche Personen rund CHF 13,5 Mrd. Nominal, gerundet – nur Einordnungsgrösse."
+    "hinweis": "Einkommenssteuern natürlicher Personen über alle Staatsebenen rund CHF 62,7 Mrd. (2023; EFV-Finanzstatistik, Einnahmen nach Arten Bund/Kantone/Gemeinden, Artencode 4000 = 62 717 546 Tsd.). Direkte Bundessteuer natürlicher Personen rund CHF 13,5 Mrd. (ESTV «Fiskaleinnahmen des Bundes», Blatt «DBST neu ab 2023», Fiskalertrag NP). Nominal, gerundet – nur Einordnungsgrösse."
   },
   {
     "id": "bag",
     "kurz": "BAG Krankenversicherung",
     "titel": "Statistik der obligatorischen Krankenpflegeversicherung (OKP)",
     "herausgeber": "Bundesamt für Gesundheit (BAG)",
-    "url": "https://www.bag.admin.ch/de/statistiken-zur-krankenversicherung",
+    "url": "https://www.bag.admin.ch/de/newnsb/pwGPlqnWtp7n-FU2nvwJ0",
     "stand": "Daten 2023",
-    "hinweis": "OKP-Leistungen rund CHF 52 Mrd. (2023); davon über Prämien der Versicherten finanziert rund CHF 36 Mrd. Nominal, gerundet – nur Einordnungsgrösse."
+    "hinweis": "Von den Gesundheitskosten total rund CHF 95 Mrd. (2023) entfallen rund CHF 52 Mrd. auf Leistungen, die unter die OKP fallen; davon rund CHF 36 Mrd. über Prämien der Versicherten finanziert (BAG, Kostenoptik). Die insurer-Buchhaltung der STATKV (Rechnungsjahr) weist tiefere Werte aus: Bruttoleistungen ~39,9 Mrd., Prämien ~35,3 Mrd. Nominal, gerundet – nur Einordnungsgrösse."
   },
   {
     "id": "bfs",
