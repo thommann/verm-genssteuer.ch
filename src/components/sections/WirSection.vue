@@ -29,7 +29,7 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
               <strong>3,5&nbsp;/ 10&nbsp;/ 90&nbsp;%</strong> über 100&nbsp;Mrd.&nbsp;$.</li>
             <li>Ertrag je nach Szenario <strong>1,6&nbsp;– 5,3&nbsp;%</strong> des globalen
               Einkommens.</li>
-            <li>Ein klassischer, fein gestufter Vermögenssteuer-Tarif.</li>
+            <li>Sechs Vermögensbänder mit je eigenem Grenzsatz (Tabelle&nbsp;7.2).</li>
           </ul>
           <a class="btn btn-ghost" :href="'https://wir2022.wid.world'" target="_blank" rel="noopener">
             wir2022.wid.world ↗
@@ -41,12 +41,12 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
             <span class="badge teal">2026</span>
             <h3>Flache Mindeststeuer</h3>
           </div>
-          <p class="wir-sub">Neueste Ausgabe (Dez.&nbsp;2025), nach Zucman&nbsp;/ G20</p>
+          <p class="wir-sub">3.&nbsp;Ausgabe (nach 2018 &amp; 2022), nach Zucman&nbsp;/ G20</p>
           <ul>
             <li>Neuer Befund: Milliardäre zahlen effektiv nur <strong>~20&nbsp;%</strong> –
-              <strong>weniger</strong> als normale Haushalte (regressiv).</li>
+              <strong>weniger</strong> als Haushalte mit tieferem Einkommen (regressiv).</li>
             <li>Antwort: Mindeststeuer <strong>2&nbsp;/ 3&nbsp;/ 5&nbsp;%</strong> auf
-              Centi-Millionäre&nbsp;/ Milliardäre.</li>
+              Centi-Millionäre&nbsp;und&nbsp;Milliardäre.</li>
             <li>2&nbsp;% auf Milliardäre ≈ <strong>200–250&nbsp;Mrd.&nbsp;$</strong> pro Jahr.</li>
           </ul>
           <a class="btn btn-ghost" :href="'https://wir2026.wid.world'" target="_blank" rel="noopener">
@@ -56,11 +56,11 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
       </div>
 
       <p class="shift">
-        <strong>Was sich geändert hat:</strong> Weg vom theoretischen Progressionstarif (2022),
-        hin zu einer pragmatischen <strong>Mindeststeuer</strong> (2026) – orientiert am
-        politisch lebendigen Vorschlag, den die brasilianische G20-Präsidentschaft 2024 auf die
-        Agenda gesetzt hat. Der Fokus verschiebt sich von «mehr Progression» zu «die
-        Regressivität an der Spitze stoppen». Beide Modelle kannst du
+        <strong>Was sich geändert hat:</strong> 2022 schlägt einen progressiven Mehrband-Tarif
+        vor, 2026 eine <strong>flache Mindeststeuer</strong> auf Centi-Millionäre und Milliardäre –
+        aufbauend auf Zucman&nbsp;(2024), den die brasilianische G20-Präsidentschaft 2024 auf die
+        Agenda setzte. Laut WIR&nbsp;2026 «neutralisiert» bereits ein Satz von 2&nbsp;% die
+        Regressivität an der Spitze. Beide Modelle kannst du
         <a href="#rechner">im Rechner</a> als Presets durchprobieren.
       </p>
 
