@@ -11,8 +11,9 @@ UBS Global Wealth Report 2025 (data/raw/ubs/ubs_gwr_2025.pdf): Tabelle
 je Markt ein Gini-Wert.
 
 Erzeugt:
-  src/data/wid_timeseries.json   Zeitreihen 1995-2024, vier Anteile + WID-Gini, je Land
-  src/data/ubs_gini.json         kuratierter Gini-Ländervergleich (UBS-Studie-Sektion)
+  src/data/wid_timeseries.json     Zeitreihen 1995-2024, vier Anteile + WID-Gini, je Land
+  src/data/ubs_gini.json           kuratierter Gini-Ländervergleich (UBS-Studie-Sektion)
+  src/data/ubs_wealth_levels.json  Ø- vs. Median-Vermögen pro Erwachsenem je Markt (USD)
 
 Benoetigt `pdftotext` (poppler-utils) fuer die UBS-Tabelle.
 """
@@ -60,6 +61,19 @@ UBS_RANKING = [
     ("Japan", "Japan"), ("Belgien", "Belgium"), ("Slowakei", "Slovakia"),
 ]
 
+# Tabelle «Wealth per adult: the top 25»: Durchschnitt vs. Median je Markt (Ende 2024).
+# Zeigt die Mittelwert-Median-Lücke – Kernaussage der Seite. EN→DE der Märkte, die in
+# beiden Ranglisten (Ø und Median) vorkommen.
+WEALTH_LEVEL_NAMES = {
+    "Switzerland": "Schweiz", "United States": "USA", "Hong Kong SAR": "Hongkong",
+    "Luxembourg": "Luxemburg", "Australia": "Australien", "Denmark": "Dänemark",
+    "Singapore": "Singapur", "New Zealand": "Neuseeland", "Netherlands": "Niederlande",
+    "Norway": "Norwegen", "Canada": "Kanada", "Belgium": "Belgien",
+    "United Kingdom": "Vereinigtes Königreich", "Sweden": "Schweden", "Taiwan": "Taiwan",
+    "France": "Frankreich", "Israel": "Israel", "Ireland": "Irland", "Spain": "Spanien",
+    "Italy": "Italien", "Japan": "Japan", "Finland": "Finnland", "South Korea": "Südkorea",
+}
+
 
 def fail(msg):
     print(f"  [FAIL] {msg}", file=sys.stderr)
@@ -92,15 +106,20 @@ def read_wid_country(iso):
     return {"shares": shares, "gini": gini}
 
 
-def parse_ubs_gini():
-    """UBS-Markt -> Gini (Ende 2024) aus der Ranking-Tabelle des Reports."""
+def ubs_text():
+    """Layout-Text des UBS-Reports (einmal pro Lauf via pdftotext)."""
     if not os.path.exists(UBS_PDF):
         fail(f"UBS-PDF fehlt: {UBS_PDF} — zuerst `bash scripts/fetch_sources.sh`.")
     try:
-        text = subprocess.run(["pdftotext", "-layout", UBS_PDF, "-"],
+        return subprocess.run(["pdftotext", "-layout", UBS_PDF, "-"],
                               check=True, capture_output=True, text=True).stdout
     except FileNotFoundError:
         fail("`pdftotext` nicht gefunden — bitte poppler-utils installieren.")
+
+
+def parse_ubs_gini():
+    """UBS-Markt -> Gini (Ende 2024) aus der Ranking-Tabelle des Reports."""
+    text = ubs_text()
     gini = {}
     # Tabellenzeilen enden mit "<rang>  <Markt>  <0.NN>". Im zweispaltigen
     # -layout-Text steht links evtl. Fliesstext davor -> am Zeilenende suchen.
@@ -114,9 +133,37 @@ def parse_ubs_gini():
     return gini
 
 
+def parse_ubs_wealth_levels():
+    """Ø- und Median-Vermögen pro Erwachsenem je Markt (USD, Ende 2024) aus der
+    Tabelle «Wealth per adult: the top 25». Rueckgabe: Liste {land, avg, median}."""
+    text = ubs_text()
+    # Zeilen enden mit "<Markt> <Ø> <rang> <Markt> <Median>"; links steht evtl. Fliesstext,
+    # daher am Spaltenabstand (>=2 Leerzeichen) verankern und Namen ggf. nachsaeubern.
+    rx = re.compile(r"(?:^|\s{2,})([A-Z][A-Za-z .'-]+?)\s+([\d,]{4,})\s+(\d{1,2})\s+"
+                    r"([A-Z][A-Za-z .'-]+?)\s+([\d,]{4,})\s*$")
+    avg, med = {}, {}
+    for ln in text.splitlines():
+        m = rx.search(ln)
+        if not m:
+            continue
+        am = re.split(r"\s{2,}", m.group(1).strip())[-1].strip()
+        mm = re.split(r"\s{2,}", m.group(4).strip())[-1].strip()
+        avg[am] = int(m.group(2).replace(",", ""))
+        med[mm] = int(m.group(5).replace(",", ""))
+    rows = [
+        {"land": de, "avg": avg[en], "median": med[en]}
+        for en, de in WEALTH_LEVEL_NAMES.items() if en in avg and en in med
+    ]
+    rows.sort(key=lambda r: -r["avg"])
+    if not rows or avg.get("Switzerland") != 687166 or med.get("Switzerland") != 182248:
+        fail(f"UBS-Vermoegensniveau-Tabelle nicht plausibel erkannt ({len(rows)} Laender).")
+    return rows
+
+
 def main():
     wid = {iso: read_wid_country(iso) for _, iso, _ in COUNTRIES}
     gini = parse_ubs_gini()
+    wealth_levels = parse_ubs_wealth_levels()
 
     # Zeitreihen 1995-2024: vier Anteile (shwealj992) + WID-Gini (ghwealj992)
     timeseries = {}
@@ -144,14 +191,19 @@ def main():
         json.dump(timeseries, fh, indent=1)
     with open(os.path.join(DATA, "ubs_gini.json"), "w") as fh:
         json.dump(ubs_rows, fh, indent=1)
+    with open(os.path.join(DATA, "ubs_wealth_levels.json"), "w") as fh:
+        json.dump(wealth_levels, fh, indent=1)
 
     ch_top1 = timeseries["top1"]["Schweiz"]
     cy = max(y for y in ch_top1 if ch_top1[y] is not None)
-    print("  [OK ] wid_timeseries.json, ubs_gini.json")
+    chw = next(r for r in wealth_levels if r["land"] == "Schweiz")
+    print("  [OK ] wid_timeseries.json, ubs_gini.json, ubs_wealth_levels.json")
     print(f"        Schweiz {cy}: Top1={ch_top1[cy]:.4f} "
           f"Top10={timeseries['top10']['Schweiz'][cy]:.4f} "
           f"untere50={timeseries['bot50']['Schweiz'][cy]:.4f}  "
           f"WID-Gini={timeseries['gini']['Schweiz'][cy]}")
+    print(f"        UBS Vermoegen/Erwachsenem: Ø {chw['avg']:,} USD vs. Median "
+          f"{chw['median']:,} USD (Faktor {chw['avg']/chw['median']:.2f}) — {len(wealth_levels)} Laender")
     print(f"        UBS-Gini erkannt fuer {len(gini)} Maerkte "
           f"(z. B. CH={gini.get('Switzerland')}, DE={gini.get('Germany')}, US={gini.get('United States')})")
 

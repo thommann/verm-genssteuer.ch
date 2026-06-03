@@ -152,7 +152,19 @@ France 0,59 · United Kingdom 0,58 · Italy 0,57 · Spain 0,56 · Japan 0,54.
 > Diese Werte stammen direkt aus dem Report 2025 und ersetzen eine frühere, fehlerhafte
 > Gini-Tabelle (u. a. Schweiz irrtümlich 0,78 statt 0,67).
 
-**Verwendet für:** Gini-Spalte im Länderranking.
+**Zweite Tabelle:** **«Wealth per adult: the top 25»** — Durchschnitts- *und* Median-Vermögen
+pro Erwachsenem je Markt (USD, Ende 2024). Dasselbe Skript parst beide Ranglisten und
+schreibt die Märkte, die in beiden vorkommen, nach `ubs_wealth_levels.json`
+(`{land, avg, median}`). Beleg Schweiz: Ø **687 166 USD** (Weltrang 1) vs. Median
+**182 248 USD** (Rang 7) — Faktor ≈ 3,8. Genutzt von der UBS-Studie-Sektion (Mittelwert-
+vs-Median-Lücke).
+
+**Keine Zeitreihe:** Der Report ist eine Momentaufnahme (Ende 2024) und enthält keine
+jährliche Länder-Zeitreihe; die historische UBS-Reihe steckt im separaten, **nicht frei
+abrufbaren** Databook. Für Ungleichheit *im Zeitverlauf* dient WID (Quelle 2, volle
+Jahresreihen 1995–2024).
+
+**Verwendet für:** Gini-Ländervergleich und Ø/Median-Vergleich in der UBS-Studie-Sektion.
 
 ---
 
