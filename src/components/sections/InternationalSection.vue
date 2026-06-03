@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
 import wid from '@/data/wid_timeseries.json';
-import latest from '@/data/wid_latest.json';
 import { pct } from '@/lib/format.js';
 import LineChart from '@/components/charts/LineChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
@@ -53,9 +52,18 @@ const yTicks = computed(() => {
 });
 const xTicks = [1995, 2000, 2005, 2010, 2015, 2020, 2024];
 
+// Ranking direkt aus der Zeitreihe: je Land der jüngste Top-1%-Wert (Welt endet 2023).
 const ranking = computed(() =>
-  [...latest]
-    .filter((c) => c.top1 != null)
+  Object.keys(wid.top1)
+    .map((land) => {
+      const ys = Object.keys(wid.top1[land])
+        .map(Number)
+        .filter((y) => wid.top1[land][y] != null);
+      if (!ys.length) return null;
+      const jahr = Math.max(...ys);
+      return { land, jahr, top1: wid.top1[land][jahr] };
+    })
+    .filter((c) => c != null)
     .sort((a, b) => b.top1 - a.top1)
 );
 const maxTop1 = computed(() => Math.max(...ranking.value.map((c) => c.top1)));

@@ -120,8 +120,9 @@ mit `<ISO>` ∈ { **US, CN, CH, FR, DE, GB, SE, JP, IT, ES, IN, RU, BR, WO** }
 `country;variable;percentile;year;value;age;pop`.
 
 **Runbook** (`scripts/03_extract_wid_ubs.py`): je Land die vier `shwealj992`-Perzentile
-sowie den WID-Gini `ghwealj992` über 1995–2024 lesen → `wid_timeseries.json`; je Land das
-neueste Jahr mit allen vier Anteilen → `wid_latest.json` (Welt endet 2023, übrige 2024).
+sowie den WID-Gini `ghwealj992` über 1995–2024 lesen → `wid_timeseries.json`. Das
+Länderranking «heute» leitet das UI direkt aus der Zeitreihe ab (jüngstes Jahr je Land;
+Welt endet 2023, übrige 2024) – keine separate Letztwert-Datei nötig.
 
 **Verwendet für:** International-Sektion (Zeitreihen + Länderranking).
 **Vergleichbarkeit:** WID misst Gesamt-Marktvermögen, ESTV nur steuerbares Vermögen —
@@ -141,9 +142,8 @@ Erwachsenem).
 
 **Wo genau:** Tabelle **«Wealth inequality, measured by the Gini coefficient»**
 (Ranking 1–32, Spalte *Gini coefficient 2024*). `scripts/03_extract_wid_ubs.py` liest sie
-über `pdftotext -layout` aus dem PDF und ordnet die englischen Marktnamen den 13 Ländern
-des Rankings zu (Welt: kein UBS-Gini). Die erkannten Werte werden in die `gini`-Spalte von
-`wid_latest.json` geschrieben.
+über `pdftotext -layout` aus dem PDF und ordnet die englischen Marktnamen einem kuratierten
+Ländervergleich zu → `ubs_gini.json` (genutzt von der UBS-Studie-Sektion).
 
 **Reproduzierte Schlüsselwerte (Ende 2024):** Brazil 0,82 · Russia 0,82 · Sweden 0,75 ·
 United States 0,74 · India 0,74 · Germany 0,68 · **Switzerland 0,67** · Mainland China 0,62 ·

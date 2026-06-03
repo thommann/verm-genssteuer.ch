@@ -11,8 +11,7 @@ UBS Global Wealth Report 2025 (data/raw/ubs/ubs_gwr_2025.pdf): Tabelle
 je Markt ein Gini-Wert.
 
 Erzeugt:
-  src/data/wid_timeseries.json   Zeitreihen 1995-2024, vier Anteile, je Land
-  src/data/wid_latest.json       neuester Wert je Land + UBS-Gini
+  src/data/wid_timeseries.json   Zeitreihen 1995-2024, vier Anteile + WID-Gini, je Land
   src/data/ubs_gini.json         kuratierter Gini-Ländervergleich (UBS-Studie-Sektion)
 
 Benoetigt `pdftotext` (poppler-utils) fuer die UBS-Tabelle.
@@ -131,22 +130,6 @@ def main():
         for de, iso, _ in COUNTRIES
     }
 
-    # Neuester Wert je Land (max. Jahr, fuer das alle vier Anteile vorliegen).
-    # Der WID-Gini wird nicht hier als Einzelwert gefuehrt, sondern als Jahresreihe
-    # in timeseries["gini"] (und im UI ueber den Metrik-Umschalter gezeigt).
-    latest = []
-    for de, iso, _ in COUNTRIES:
-        s = wid[iso]["shares"]
-        common = set.intersection(*[set(s[code]) for code in PCTL.values()])
-        if not common:
-            fail(f"{de}: keine gemeinsamen Jahre fuer alle vier Anteile.")
-        y = max(common)
-        latest.append({
-            "land": de, "jahr": y,
-            "top1": s["p99p100"][y], "top10": s["p90p100"][y],
-            "mid40": s["p50p90"][y], "bot50": s["p0p50"][y],
-        })
-
     # Kuratierter Gini-Vergleich für die UBS-Studie-Sektion (Werte exakt aus dem Report).
     ubs_rows = []
     for de, en in UBS_RANKING:
@@ -159,16 +142,16 @@ def main():
 
     with open(os.path.join(DATA, "wid_timeseries.json"), "w") as fh:
         json.dump(timeseries, fh, indent=1)
-    with open(os.path.join(DATA, "wid_latest.json"), "w") as fh:
-        json.dump(latest, fh, indent=1)
     with open(os.path.join(DATA, "ubs_gini.json"), "w") as fh:
         json.dump(ubs_rows, fh, indent=1)
 
-    ch = next(x for x in latest if x["land"] == "Schweiz")
-    ch_gini = timeseries["gini"]["Schweiz"][str(ch["jahr"])]
-    print("  [OK ] wid_timeseries.json, wid_latest.json, ubs_gini.json")
-    print(f"        Schweiz {ch['jahr']}: Top1={ch['top1']:.4f} Top10={ch['top10']:.4f} "
-          f"untere50={ch['bot50']:.4f}  WID-Gini (Zeitreihe)={ch_gini}")
+    ch_top1 = timeseries["top1"]["Schweiz"]
+    cy = max(y for y in ch_top1 if ch_top1[y] is not None)
+    print("  [OK ] wid_timeseries.json, ubs_gini.json")
+    print(f"        Schweiz {cy}: Top1={ch_top1[cy]:.4f} "
+          f"Top10={timeseries['top10']['Schweiz'][cy]:.4f} "
+          f"untere50={timeseries['bot50']['Schweiz'][cy]:.4f}  "
+          f"WID-Gini={timeseries['gini']['Schweiz'][cy]}")
     print(f"        UBS-Gini erkannt fuer {len(gini)} Maerkte "
           f"(z. B. CH={gini.get('Switzerland')}, DE={gini.get('Germany')}, US={gini.get('United States')})")
 
