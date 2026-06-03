@@ -1,7 +1,10 @@
 <script setup>
 import { computed } from 'vue';
 import { useCalculator, PRESETS } from '@/composables/useCalculator.js';
+import kennzahlen from '@/data/estv_kennzahlen.json';
 import { chfCompact, chf, pct, num } from '@/lib/format.js';
+
+const k = kennzahlen.unbeschraenkt['2022'];
 import RangeControl from '@/components/ui/RangeControl.vue';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
@@ -66,6 +69,17 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
           {{ p.label }}
         </button>
       </div>
+
+      <p class="threshold-info">
+        <strong>Warum der Freibetrag bei 5 Mio. beginnt:</strong>
+        Bei rund 5 Mio. Franken verläuft die Grenze zum reichsten 1 %. Nur
+        <strong>{{ num(k.cnt_ge5M) }}</strong> Steuerpflichtige liegen darüber –
+        die übrigen <strong>{{ pct(1 - k.pct_ge5M, 0) }}</strong> bleiben komplett
+        steuerfrei. Trotzdem erfasst dieses eine Prozent
+        <strong>{{ pct(k.share_ge5M, 0) }}</strong> des gesamten steuerbaren Vermögens.
+        Du kannst die Schwelle unten höher ziehen, aber nicht tiefer als 5 Mio. –
+        damit die breite Mehrheit garantiert unbelastet bleibt.
+      </p>
 
       <div class="calc-grid">
         <!-- Controls -->
@@ -206,6 +220,15 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 }
 .preset:hover { color: var(--text); border-color: var(--accent); }
 .preset.active { background: var(--accent); border-color: var(--accent); color: #1a0008; }
+
+.threshold-info {
+  font-size: 0.86rem; line-height: 1.55; color: var(--text-soft);
+  max-width: 72ch; margin: 0 0 24px;
+  padding: 14px 16px; border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border); border-left: 3px solid var(--gold);
+}
+.threshold-info strong { color: var(--text); }
 
 .calc-grid {
   display: grid;
