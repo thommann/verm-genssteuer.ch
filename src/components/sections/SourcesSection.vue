@@ -48,13 +48,23 @@ import sources from '@/data/sources.json';
             <strong>Verschiedene Bezugsgrössen.</strong> WID/UBS messen das gesamte Netto-Privatvermögen,
             die ESTV nur das steuerbare. Vergleiche sind indikativ, nicht zellengenau.
           </li>
+          <li>
+            <strong>WIR-Referenzmodelle (2022 &amp; 2026).</strong> Die Presets «WIR 2022» (progressive
+            Grenzsatz-Staffel, Tabelle 7.2) und «WIR 2026» (flache Mindeststeuer von 2–5 % auf das
+            Gesamtvermögen ab 100&nbsp;Mio. $, nach Zucman 2024 / G20) bilden die Steuermodelle des
+            World Inequality Report exakt ab – über dedizierte Funktionen, nicht über die Potenzkurve.
+            Übertragen wird die Satz-Struktur; die USD-Schwellen werden ohne Wechselkurs (≈&nbsp;Parität)
+            in CHF behandelt, daher sind die CHF-Beträge nicht mit den globalen USD-Erträgen des Reports
+            vergleichbar.
+          </li>
         </ul>
       </div>
 
       <footer class="foot">
         <p class="muted">
-          Erstellt aus drei Daten-Workbooks (ESTV-Vermögenssteuerstatistik 2012–2022,
-          globale Vermögensverteilung WID/UBS, Vermögenssteuer-Rechner). Diese Seite ist ein
+          Erstellt direkt aus den Primärquellen (ESTV-Vermögenssteuerstatistik 2012–2022,
+          WID/UBS-Vermögensverteilung, World Inequality Report 2022 &amp; 2026, FDK, EFV, BAG, BFS)
+          über eine reproduzierbare Fetch- und Extraktions-Pipeline. Diese Seite ist ein
           unabhängiges, politisches Argument für eine Vermögenssteuer auf das reichste 1 %.
         </p>
       </footer>
