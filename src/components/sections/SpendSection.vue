@@ -104,7 +104,7 @@ const over = (v) => v > 1;
           <div class="spend-big accent">{{ chf(dividendYear) }}</div>
           <p class="spend-text">
             Pro Person und Jahr – an <strong>jede und jeden</strong> der
-            {{ num(K.population.value) }} Einwohner:innen, bedingungslos.
+            {{ num(K.population.value) }} Einwohner:innen.
           </p>
           <div class="spend-meter"><div class="fill accent" style="width: 100%" /></div>
           <p class="spend-foot muted">
