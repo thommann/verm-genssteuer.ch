@@ -119,13 +119,17 @@ def main():
     wid = {iso: read_wid_country(iso) for _, iso, _ in COUNTRIES}
     gini = parse_ubs_gini()
 
-    # Zeitreihen 1995-2024
+    # Zeitreihen 1995-2024: vier Anteile (shwealj992) + WID-Gini (ghwealj992)
     timeseries = {}
     for metric, code in PCTL.items():
         timeseries[metric] = {}
         for de, iso, _ in COUNTRIES:
             s = wid[iso]["shares"][code]
             timeseries[metric][de] = {str(y): s.get(y) for y in YEARS}
+    timeseries["gini"] = {
+        de: {str(y): wid[iso]["gini"].get(y) for y in YEARS}
+        for de, iso, _ in COUNTRIES
+    }
 
     # Neuester Wert je Land (max. Jahr, fuer das alle vier Anteile vorliegen).
     # Der Gini ist hier der WID-EIGENE Vermögens-Gini (ghwealj992), passend zu den

@@ -10,8 +10,15 @@ const METRICS = {
   top1: { key: 'top1', label: 'Top 1 %', desc: 'Vermögensanteil des reichsten Prozents' },
   top10: { key: 'top10', label: 'Top 10 %', desc: 'Vermögensanteil der reichsten 10 %' },
   bot50: { key: 'bot50', label: 'Untere 50 %', desc: 'Vermögensanteil der ärmeren Hälfte' },
+  gini: { key: 'gini', label: 'Vermögens-Gini', desc: 'Gini des Netto-Privatvermögens (0 = gleich, 1 = einer hat alles)' },
 };
 const metric = ref('top1');
+const isGini = computed(() => metric.value === 'gini');
+// Anteile als Prozent, Gini als Index (0–1).
+const formatY = computed(() => (isGini.value ? (v) => v.toFixed(2) : (v) => pct(v, 0)));
+const widNote = computed(() => (isGini.value
+  ? 'Variable ghwealj992 (Vermögens-Gini)'
+  : 'Variable shwealj992, net personal wealth'));
 
 const SHOWN = [
   { name: 'Schweiz', color: 'var(--accent)', width: 3.2, marker: true },
@@ -32,8 +39,9 @@ const series = computed(() => {
 });
 
 const yDomain = computed(() => {
-  const all = series.value.flatMap((s) => s.points.map((p) => p.y));
-  const lo = Math.min(0, ...all);
+  const all = series.value.flatMap((s) => s.points.map((p) => p.y)).filter((v) => v != null);
+  // Anteile ab 0; der Gini liegt hoch (~0,7–1) und startet daher nah am Minimum.
+  const lo = isGini.value ? Math.min(...all) : Math.min(0, ...all);
   const hi = Math.max(...all);
   return [Math.floor(lo * 20) / 20, Math.ceil(hi * 20) / 20];
 });
@@ -81,7 +89,7 @@ const maxTop1 = computed(() => Math.max(...ranking.value.map((c) => c.top1)));
           :x-ticks="xTicks"
           :y-ticks="yTicks"
           :format-x="(v) => String(v)"
-          :format-y="(v) => pct(v, 0)"
+          :format-y="formatY"
           :height="340"
         />
         <div class="legend">
@@ -89,7 +97,7 @@ const maxTop1 = computed(() => Math.max(...ranking.value.map((c) => c.top1)));
             <i class="sw" :style="{ background: s.color }" /> {{ s.name }}
           </span>
         </div>
-        <SourceTag id="wid" note="Variable shwealj992, net personal wealth" />
+        <SourceTag id="wid" :note="widNote" />
       </div>
 
       <div class="compare">
