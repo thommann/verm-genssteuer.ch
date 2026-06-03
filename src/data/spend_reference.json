@@ -1,40 +1,45 @@
 {
-  "hinweis": "Einordnungsgrössen für das «Was tun mit dem Geld?»-Modul. Diese Makrozahlen stammen NICHT aus den drei Steuer-Workbooks, sondern aus offiziellen Bundesquellen (EFV/ESTV, BAG, BFS). Sie dienen nur als Bezugsgrösse für anschauliche Vergleiche – Nominalwerte, gerundet.",
+  "hinweis": "Einordnungsgrössen für das «Was tun mit dem Geld?»-Modul – reine Bezugsgrössen, nominal, gerundet. Bevölkerung live aus BFS-PXWeb (bezug=skript); EFV-/BAG-Aggregate belegte Konstanten (bezug=kuratiert, Runbook in docs/QUELLEN.md §5).",
   "kennzahlen": {
     "population": {
-      "value": 9048900,
+      "value": 9051029,
       "label": "Ständige Wohnbevölkerung",
       "jahr": 2024,
       "einheit": "Personen",
-      "source": "bfs"
+      "source": "bfs",
+      "bezug": "skript"
     },
     "einkommenssteuer_np_alle_ebenen": {
       "value": 62700000000,
       "label": "Einkommenssteuern natürlicher Personen (Bund + Kantone + Gemeinden)",
       "jahr": 2023,
       "einheit": "CHF/Jahr",
-      "source": "efv"
+      "source": "efv",
+      "bezug": "kuratiert"
     },
     "direkte_bundessteuer_np": {
       "value": 13500000000,
       "label": "Direkte Bundessteuer natürlicher Personen",
       "jahr": 2023,
       "einheit": "CHF/Jahr",
-      "source": "efv"
+      "source": "efv",
+      "bezug": "kuratiert"
     },
     "okp_praemien": {
       "value": 36000000000,
       "label": "Krankenkassenprämien (OKP, von Versicherten finanziert)",
       "jahr": 2023,
       "einheit": "CHF/Jahr",
-      "source": "bag"
+      "source": "bag",
+      "bezug": "kuratiert"
     },
     "okp_leistungen": {
       "value": 52100000000,
       "label": "OKP-Leistungen total",
       "jahr": 2023,
       "einheit": "CHF/Jahr",
-      "source": "bag"
+      "source": "bag",
+      "bezug": "kuratiert"
     }
   }
 }

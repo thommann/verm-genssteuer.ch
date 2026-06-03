@@ -1,17 +1,17 @@
 /**
- * Vermögenssteuer-Modell — exakte Nachbildung des Excel-Rechners
- * ("Vermoegenssteuer_Rechner.xlsx", Blätter «Steuerrechner» / «Engine» / «Projektion»).
+ * Vermögenssteuer-Modell — progressive Vermögenssteuer auf das reichste 1 %.
  *
  * Marginaler Tarif:  τ(W) = Basis · (W / Schwelle)^k,  gedeckelt bei «Cap».
  * Die Steuer wird nur auf den Vermögensteil über der Schwelle erhoben:
  *   Steuer(W) = ∫_Schwelle^W min(Cap, Basis·(x/Schwelle)^k) dx
  *
  * «Basis» wird so kalibriert, dass der Ø-Satz beim Anker-Vermögen den Zielwert trifft.
+ * Herleitung und Formeln: docs/METHODIK.md, Abschnitt 6 (Verfahren E).
  *
- * Validierung (siehe scripts/01_extract_calculator.py):
- *   Mit den Default-Parametern reproduziert dieses Modell die im Workbook
- *   publizierten Aufkommen exakt: 76,0512 / 91,1598 / 91,5437 Mrd. CHF (2020/21/22)
- *   sowie die dynamische Projektion (92,30 → 23,87 Mrd.).
+ * Validierung (scripts/00_reproduce_statistics.py): mit den Default-Parametern und der
+ * ESTV-/FDK-Population (calculator_bins.json) ergibt dieses Modell das Referenz-Aufkommen
+ * 76,0512 / 91,1598 / 91,5437 Mrd. CHF (2020/21/22) sowie die dynamische Projektion
+ * (92,30 → 23,87 Mrd.) – beides exakt reproduzierbar.
  */
 
 /** Kalibrierter Basis-Satz (Grenzsatz bei der Schwelle). */
