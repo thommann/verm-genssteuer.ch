@@ -45,7 +45,10 @@ const bandItems = computed(() =>
 
 const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 
-// Presets in drei Anzeige-Zeilen gruppieren (Meine / WIR 2022 / WIR 2026).
+// Cap-Hinweis nur zeigen, wenn das Modell überhaupt einen (endlichen) Cap hat.
+const capBinds = computed(() => Number.isFinite(model.value.wcap));
+
+// Presets in drei Anzeige-Zeilen gruppieren (Unsere / WIR 2022 / WIR 2026).
 const presetRows = PRESET_GROUPS.map((g) => ({
   ...g,
   items: Object.entries(PRESETS)
@@ -59,6 +62,8 @@ const isWir2022 = computed(() =>
 const isWir2026 = computed(() =>
   ['wir2026_2', 'wir2026_3', 'wir2026_5'].includes(state.activePreset)
 );
+// Bei aktivem WIR-Modell steuern die Regler (Potenzkurve) nicht das angezeigte Modell.
+const isWirActive = computed(() => isWir2022.value || isWir2026.value);
 </script>
 
 <template>
@@ -88,17 +93,15 @@ const isWir2026 = computed(() =>
       </div>
 
       <p v-if="isWir2022" class="preset-note">
-        Progressives Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: drei Szenarien
-        (moderat / hoch / sehr hoch) mit Grenzsätzen von 1&nbsp;% ab 1&nbsp;Mio. bis 3,5&nbsp;/&nbsp;10&nbsp;/&nbsp;90&nbsp;%
-        über 100&nbsp;Mrd.&nbsp;$. Hier auf die Schweizer ESTV-Daten und den 5-Mio-Freibetrag übertragen –
-        die Bezugsgrösse ist also enger als im globalen Original.
+        Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je
+        Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), angewandt auf die
+        Schweizer ESTV-Daten. Freibetrag 5&nbsp;Mio. wie auf der ganzen Seite (Original ab 1&nbsp;Mio.&nbsp;$).
         <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 7.2" />
       </p>
       <p v-else-if="isWir2026" class="preset-note">
         Mindeststeuer-Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2026</strong> (nach Zucman&nbsp;2024 / G20):
-        ein <strong>flacher Mindestsatz</strong> auf grosse Vermögen, der die heute regressive
-        Spitzenbelastung beendet. Der WIR&nbsp;2026 setzt erst bei 100&nbsp;Mio.&nbsp;$ an
-        (Centi-Millionäre); hier auf den 5-Mio-Freibetrag der Seite übertragen.
+        ein <strong>fester Prozentsatz auf das gesamte Vermögen ab 100&nbsp;Mio.&nbsp;$</strong>
+        (Centi-Millionäre), der die heute regressive Spitzenbelastung beendet.
         <SourceTag id="wir2026" note="Globale Mindeststeuer auf Multimillionäre, Kap. 7" />
       </p>
 
@@ -116,46 +119,52 @@ const isWir2026 = computed(() =>
       <div class="calc-grid">
         <!-- Controls -->
         <div class="card controls">
-          <RangeControl
-            v-model="state.schwelle"
-            :min="5e6"
-            :max="5e7"
-            :step="5e5"
-            label="Freibetrag (steuerfrei bis)"
-            :display="schwelleDisplay"
-            hint="Vermögen darunter bleibt komplett steuerfrei. 5 Mio. ≈ das reichste 1 %."
-            @update:modelValue="onSlider"
-          />
-          <RangeControl
-            v-model="state.basis"
-            :min="0.0005"
-            :max="0.05"
-            :step="0.0005"
-            label="Grenzsatz an der Schwelle"
-            :display="pct(state.basis, 2)"
-            hint="Satz auf den ersten Franken über dem Freibetrag. Steigt mit der Progression bis zum Cap."
-            @update:modelValue="onSlider"
-          />
-          <RangeControl
-            v-model="state.exponent"
-            :min="0"
-            :max="1.6"
-            :step="0.05"
-            label="Progression (Steilheit)"
-            :display="num(state.exponent, 2)"
-            hint="0 = flacher Satz für alle. Höher = die ganz Grossen zahlen überproportional."
-            @update:modelValue="onSlider"
-          />
-          <RangeControl
-            v-model="state.cap"
-            :min="0.05"
-            :max="1"
-            :step="0.05"
-            label="Höchst-Grenzsatz (Cap)"
-            :display="pct(state.cap, 0)"
-            hint="Deckel für den Grenzsatz der allergrössten Vermögen."
-            @update:modelValue="onSlider"
-          />
+          <p v-if="isWirActive" class="controls-lock">
+            <strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell
+            (Gruppe «Unsere») – bewege einen, um dorthin zu wechseln.
+          </p>
+          <div :class="{ dimmed: isWirActive }">
+            <RangeControl
+              v-model="state.schwelle"
+              :min="5e6"
+              :max="5e7"
+              :step="5e5"
+              label="Freibetrag (steuerfrei bis)"
+              :display="schwelleDisplay"
+              hint="Vermögen darunter bleibt komplett steuerfrei. 5 Mio. ≈ das reichste 1 %."
+              @update:modelValue="onSlider"
+            />
+            <RangeControl
+              v-model="state.basis"
+              :min="0.0005"
+              :max="0.05"
+              :step="0.0005"
+              label="Grenzsatz an der Schwelle"
+              :display="pct(state.basis, 2)"
+              hint="Satz auf den ersten Franken über dem Freibetrag. Steigt mit der Progression bis zum Cap."
+              @update:modelValue="onSlider"
+            />
+            <RangeControl
+              v-model="state.exponent"
+              :min="0"
+              :max="1.6"
+              :step="0.05"
+              label="Progression (Steilheit)"
+              :display="num(state.exponent, 2)"
+              hint="0 = flacher Satz für alle. Höher = die ganz Grossen zahlen überproportional."
+              @update:modelValue="onSlider"
+            />
+            <RangeControl
+              v-model="state.cap"
+              :min="0.05"
+              :max="1"
+              :step="0.05"
+              label="Höchst-Grenzsatz (Cap)"
+              :display="pct(state.cap, 0)"
+              hint="Deckel für den Grenzsatz der allergrössten Vermögen."
+              @update:modelValue="onSlider"
+            />
+          </div>
 
           <div class="year-pick">
             <span>Datenjahr:</span>
@@ -182,12 +191,12 @@ const isWir2026 = computed(() =>
               <span class="rs-lab">dauerhaft tragbares Niveau<br />(dynamisch, siehe unten)</span>
             </div>
             <div>
-              <span class="rs-val">{{ pct(model.avgRate(state.schwelle * 2), 1) }}</span>
-              <span class="rs-lab">Ø-Satz bei {{ chfCompact(state.schwelle * 2, 0) }}</span>
+              <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
+              <span class="rs-lab">Ø-Satz bei {{ chfCompact(model.schwelle * 2, 0) }}</span>
             </div>
           </div>
           <p class="readout muted">
-            Grenzsatz erreicht den Cap bei ~{{ chfCompact(model.wcap, 0) }}.
+            <template v-if="capBinds">Grenzsatz erreicht den Cap bei ~{{ chfCompact(model.wcap, 0) }}.</template>
             <template v-if="equilibrium">
               Vermögen über ~{{ chfCompact(equilibrium, 0) }} zahlen mehr als ihre Rendite –
               sie schrumpfen, statt zu wachsen.
@@ -200,7 +209,7 @@ const isWir2026 = computed(() =>
           <h3>Steuersatz nach Vermögen</h3>
           <LineChart
             :series="curveSeries"
-            :x-domain="[Math.log10(state.schwelle), Math.log10(2e10)]"
+            :x-domain="[Math.log10(model.schwelle), Math.log10(2e10)]"
             :y-domain="[0, yMax]"
             :x-ticks="TICKS_W.map((w) => Math.log10(w))"
             :y-ticks="yTicks"
@@ -280,6 +289,14 @@ const isWir2026 = computed(() =>
   align-items: start;
 }
 .controls { padding: 24px; }
+.controls-lock {
+  font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
+  margin: 0 0 18px; padding: 10px 12px; border-radius: 8px;
+  background: rgba(56, 214, 196, 0.08);
+  border: 1px solid var(--border); border-left: 3px solid var(--teal);
+}
+.controls-lock strong { color: var(--text); }
+.dimmed { opacity: 0.4; transition: opacity 0.15s ease; }
 .result {
   padding: 28px 24px;
   background: linear-gradient(160deg, #1d2952, #161f3d);

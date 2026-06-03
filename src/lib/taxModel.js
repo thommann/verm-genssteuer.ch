@@ -53,6 +53,51 @@ export function makeModel({ schwelle, exponent, cap, basis }) {
   return { tax, marginalRate, avgRate, basis, wcap, schwelle, cap, k };
 }
 
+/**
+ * Exakte progressive Grenzsatz-Staffel (Bänder) – für die WIR-2022-Szenarien.
+ * brackets = [{ from, rate }] aufsteigend; `rate` ist der Grenzsatz vom jeweiligen
+ * `from` bis zur nächsten Bandgrenze. Steuer = Σ rate_i · (in das Band fallender Anteil).
+ */
+export function makeBracketModel(brackets) {
+  const b = [...brackets].sort((x, y) => x.from - y.from);
+  const schwelle = b[0].from;
+
+  const tax = (W) => {
+    let sum = 0;
+    for (let i = 0; i < b.length; i += 1) {
+      if (W <= b[i].from) break;
+      const hi = i + 1 < b.length ? Math.min(W, b[i + 1].from) : W;
+      sum += b[i].rate * (hi - b[i].from);
+    }
+    return sum;
+  };
+
+  const marginalRate = (W) => {
+    let r = 0;
+    for (let i = 0; i < b.length; i += 1) {
+      if (W >= b[i].from) r = b[i].rate;
+      else break;
+    }
+    return r;
+  };
+
+  const avgRate = (W) => (W <= 0 ? 0 : tax(W) / W);
+
+  return { tax, marginalRate, avgRate, schwelle, cap: null, wcap: null, k: null, basis: null, brackets: b };
+}
+
+/**
+ * Mindeststeuer auf das Gesamtvermögen oberhalb einer Schwelle – für WIR 2026
+ * (nach Zucman/G20): Wer ≥ threshold besitzt, zahlt `rate` des gesamten Vermögens.
+ * Effektiv- wie Grenzsatz sind oberhalb der Schwelle konstant = `rate`.
+ */
+export function makeMinTaxModel(threshold, rate) {
+  const tax = (W) => (W >= threshold ? rate * W : 0);
+  const marginalRate = (W) => (W >= threshold ? rate : 0);
+  const avgRate = (W) => (W >= threshold ? rate : 0);
+  return { tax, marginalRate, avgRate, schwelle: threshold, cap: null, wcap: null, k: null, basis: null, minRate: rate };
+}
+
 /** Statisches Jahresaufkommen: Σ Anzahl(Band) · Steuer(Bandmitte). */
 export function revenueForYear(bins, model, year) {
   const key = `cnt${year}`;

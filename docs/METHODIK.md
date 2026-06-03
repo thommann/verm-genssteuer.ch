@@ -215,54 +215,58 @@ Zeigt den Einmaleffekt im Startjahr und das danach stabile, dauerhaft tragbare N
 Das Gleichgewichts-Vermögen `W*` (Ø-Satz = r) ist der Punkt, an dem ein Vermögen genau
 seine Rendite abgibt — darüber schrumpft es, darunter wächst es.
 
-### 6a. Voreingestellte Modelle (Presets) und die WIR-Näherung
+### 6a. Voreingestellte Modelle (Presets)
 
 Die Presets in [`src/composables/useCalculator.js`](../src/composables/useCalculator.js)
-sind nur Startpunkte desselben Tarifmodells (Verfahren E) mit unterschiedlichen
-Parametern. Die Gruppe **«Meine»** (Flach / Moderat / Stark progressiv) zeigt
-illustrative Kurvenformen. Die Gruppen **«WIR 2022»** und **«WIR 2026»** bilden die
-Steuermodelle des World Inequality Report nach. Weil der Rechner schweizspezifisch ist
-und eine feste Struktur hat, werden die WIR-Modelle **übertragen, nicht 1:1 reproduziert**.
-Die Näherungen sind explizit:
+gliedern sich in drei Zeilen:
 
-1. **Währung (CHF vs. USD):** Die WIR-Tarife sind in USD definiert, ihre **Sätze (%) sind
-   aber währungsunabhängig** — übertragen wird die Satz-*Struktur*. Die Vermögens-Schwellen
-   (WIR-Bänder in USD vs. unsere 5 Mio. CHF) werden ohne Wechselkurs-Umrechnung in
-   denselben Einheiten behandelt (≈ Parität CHF/USD). Folge: Die im Rechner angezeigten
-   CHF-Beträge sind **nicht** mit den globalen USD-/BIP-Erträgen des WIR vergleichbar.
+- **«Unsere»** (Flach / Moderat / Stark progressiv): Startpunkte des Potenzkurven-Modells
+  aus Verfahren E, gesteuert durch die vier Regler.
+- **«WIR 2022»** und **«WIR 2026»**: bilden die Steuermodelle des World Inequality Report
+  **exakt** ab — über zwei eigene Funktionen in `taxModel.js` (`makeBracketModel`,
+  `makeMinTaxModel`), **nicht** über die Potenzkurve. Solange ein WIR-Preset aktiv ist,
+  steuern die Regler das angezeigte Modell nicht (im Rechner abgedunkelt).
 
-2. **Freibetrag / Schwelle:** Der Rechner beginnt fix bei **5 Mio. CHF** (≈ reichstes 1 %,
-   breite Mehrheit steuerfrei). Das Original setzt anders an — WIR 2022 ab **1 Mio. $**, die
-   WIR-2026-Mindeststeuer ab **100 Mio. $** (Centi-Millionäre). Übertragen wird die
-   Tarif-*Form* auf die 5-Mio-Schwelle; die Bemessungsbasis ist damit bei 2022 enger und bei
-   2026 breiter als im Original.
+**Warum nicht die Potenzkurve?** Die Kurve `τ(W)=min(Cap, Basis·(W/Schwelle)^k)` ist stetig
+und besteuert nur den Anteil *über* der Schwelle. Die WIR-Modelle haben eine andere Form:
+WIR 2022 ist eine **Stufenfunktion** (sprunghafte Grenzsätze je Band), WIR 2026 eine
+**Mindeststeuer auf das Gesamtvermögen** (konstanter Ø-Satz mit Sprung an der Schwelle).
+Beides lässt sich mit einer glatten Potenzkurve nur annähern, nicht exakt treffen — daher
+die zwei dedizierten Modelltypen.
 
-3. **Tarif-Form WIR 2022:** Das Rechnermodell ist eine **glatte** Potenzkurve, WIR 2022 eine
-   **stufige** 6-Band-Staffel (Tabelle 7.2). `Basis`, `k` und `Cap` sind so kalibriert, dass
-   die glatte Kurve die publizierten **Effektivsätze** (Tabelle 7.1) im für die Schweiz
-   relevanten Bereich (5 Mio.–10 Mrd.) möglichst genau trifft. An der äussersten Spitze
-   (> 100 Mrd.) bleiben kleine Abweichungen, die für die CH-Population (dort ~niemand)
-   folgenlos sind.
+**WIR 2022 — exakte Grenzsatz-Staffel** (`makeBracketModel`, Marginalsätze aus Tabelle 7.2):
 
-4. **Tarif-Form WIR 2026:** Die Mindeststeuer ist ein **flacher** Satz → `k = 0`, `Basis` =
-   Mindeststeuersatz (2 / 3 / 5 %). Zucmans Mindeststeuer meint X % des **Gesamtvermögens**;
-   der Rechner besteuert den Teil **über 5 Mio.** — für grosse Vermögen praktisch
-   deckungsgleich.
+| Vermögensband        | moderat | hoch  | sehr hoch |
+|----------------------|---------|-------|-----------|
+| 5–10 Mio. *          | 1 %     | 1 %   | 1 %       |
+| 10–100 Mio.          | 1,5 %   | 1,5 % | 1,5 %     |
+| 100 Mio.–1 Mrd.      | 2 %     | 3 %   | 7 %       |
+| 1–10 Mrd.            | 2,5 %   | 5 %   | 15 %      |
+| 10–100 Mrd.          | 3 %     | 7 %   | 50 %      |
+| > 100 Mrd.           | 3,5 %   | 10 %  | 90 %      |
 
-**Preset-Parameter** (alle Schwelle 5 Mio., direkt in `useCalculator.js` hinterlegt):
+\* Im Original beginnt das erste Band bei **1 Mio.**; durch den Seiten-Freibetrag von
+5 Mio. setzt die Steuer erst ab 5 Mio. ein (das 5–10-Mio-Band trägt den 1-%-Satz des
+WIR-Bands «1–10 Mio.»).
 
-| Preset               | Vorlage                  | `Basis` (Grenzsatz @5 Mio.) | `k`  | `Cap` |
-|----------------------|--------------------------|-----------------------------|------|-------|
-| WIR 2022 · moderat   | WIR 2022, Szenario 1     | 0,99 %                      | 0,15 | 5 %   |
-| WIR 2022 · hoch      | WIR 2022, Szenario 2     | 1,36 %                      | 0,20 | 10 %  |
-| WIR 2022 · sehr hoch | WIR 2022, Szenario 3     | 1,18 %                      | 0,45 | 90 %  |
-| WIR 2026 · 2 %       | WIR 2026, Mindeststeuer  | 2,00 %                      | 0    | 100 % |
-| WIR 2026 · 3 %       | WIR 2026, Mindeststeuer  | 3,00 %                      | 0    | 100 % |
-| WIR 2026 · 5 %       | WIR 2026, Mindeststeuer  | 5,00 %                      | 0    | 100 % |
+**WIR 2026 — Mindeststeuer** (`makeMinTaxModel`, nach Zucman 2024 / G20): Wer **≥ 100 Mio. $**
+(Centi-Millionär) besitzt, zahlt **2 / 3 / 5 % des gesamten Vermögens**; darunter nichts.
+Effektiv- und Grenzsatz sind oberhalb der Schwelle konstant = Mindeststeuersatz.
 
-Quellen: WIR 2022, Tabelle 7.1/7.2; WIR 2026, Kapitel 7 (nach Zucman 2024 / G20). Vgl.
-Quellen-IDs `wir2022` / `wir2026` in `src/data/sources.json`. Dieselben Näherungen werden
-im Rechner als kurze Hinweis-Box je aktivem WIR-Preset angezeigt.
+**Verbleibende Näherungen (explizit):**
+
+1. **Währung (CHF vs. USD):** Die WIR-Sätze (%) sind währungsunabhängig — übertragen wird
+   die Satz-Struktur. Die Vermögens-Schwellen (USD im WIR) werden ohne Wechselkurs-Umrechnung
+   in CHF behandelt (≈ Parität). Folge: Die angezeigten CHF-Beträge sind **nicht** mit den
+   globalen USD-/BIP-Erträgen des WIR vergleichbar.
+2. **5-Mio-Freibetrag bei WIR 2022** (Original ab 1 Mio.): das Band 1–5 Mio. bleibt
+   steuerfrei. Da die ESTV-Daten ohnehin erst ab 5 Mio. vorliegen, ist das auch eine
+   Datengrenze, nicht nur eine Designentscheidung.
+3. **Aufkommen** wird stets auf den Schweizer ESTV-Bins (5 Mio.–50 Mrd.) gerechnet.
+
+Quellen: WIR 2022, Tabelle 7.2; WIR 2026, Kapitel 7 (nach Zucman 2024 / G20). Vgl.
+Quellen-IDs `wir2022` / `wir2026` in `src/data/sources.json`. Dieselben Hinweise erscheinen
+im Rechner als Box je aktivem WIR-Preset.
 
 ---
 
