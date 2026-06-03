@@ -30,11 +30,6 @@ export const PRESETS = {
     desc: 'Steile Kurve, 3,5 % ab 100 Mio.',
     schwelle: 5e6, exponent: 1.2, cap: 1, ankerSatz: 0.035,
   },
-  millionaere: {
-    label: 'Ab 1 % (≈ 5 Mio.)',
-    desc: 'Nur das reichste Prozent, moderat.',
-    schwelle: 5e6, exponent: 0.9, cap: 1, ankerSatz: 0.02,
-  },
 };
 
 const state = reactive({
