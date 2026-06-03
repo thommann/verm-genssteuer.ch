@@ -70,6 +70,14 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
         </button>
       </div>
 
+      <p v-if="state.activePreset === 'wir'" class="preset-note">
+        Nachbau des Steuermodells des <strong>World Inequality Lab</strong> (World&nbsp;Inequality&nbsp;Report&nbsp;2022,
+        Szenario «moderat»): effektive Sätze von 0,6&nbsp;% ab 1&nbsp;Mio. bis 3,2&nbsp;% über 100&nbsp;Mrd.&nbsp;$.
+        Hier auf die Schweizer ESTV-Daten und den 5-Mio-Freibetrag übertragen – die Bezugsgrösse
+        ist also enger als im globalen Original.
+        <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 1" />
+      </p>
+
       <p class="threshold-info">
         <strong>Warum der Freibetrag bei 5 Mio. beginnt:</strong>
         Bei rund 5 Mio. Franken verläuft die Grenze zum reichsten 1 %. Nur
@@ -220,6 +228,16 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 }
 .preset:hover { color: var(--text); border-color: var(--accent); }
 .preset.active { background: var(--accent); border-color: var(--accent); color: #1a0008; }
+
+.preset-note {
+  font-size: 0.84rem; line-height: 1.55; color: var(--text-soft);
+  max-width: 72ch; margin: 0 0 18px;
+  padding: 12px 16px; border-radius: 10px;
+  background: rgba(124, 92, 255, 0.08);
+  border: 1px solid var(--border); border-left: 3px solid var(--violet);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.preset-note strong { color: var(--text); }
 
 .threshold-info {
   font-size: 0.86rem; line-height: 1.55; color: var(--text-soft);

@@ -30,6 +30,11 @@ export const PRESETS = {
     desc: 'Steile Kurve, 2 % Ø-Satz bei 100 Mio.',
     schwelle: 5e6, exponent: 0.9, cap: 0.5, ankerSatz: 0.02,
   },
+  wir: {
+    label: 'World Inequality Lab',
+    desc: 'Effektivsätze nach WIR 2022: 0,6 % ab 1 Mio. bis 3,2 % über 100 Mrd.',
+    schwelle: 5e6, exponent: 0.15, cap: 0.05, ankerSatz: 0.013,
+  },
 };
 
 const state = reactive({
