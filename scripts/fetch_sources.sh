@@ -17,7 +17,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 RAW="$ROOT/data/raw"
-mkdir -p "$RAW/estv" "$RAW/wid" "$RAW/fdk" "$RAW/ubs"
+mkdir -p "$RAW/estv" "$RAW/wid" "$RAW/fdk" "$RAW/ubs" "$RAW/bfs"
 
 ua='Mozilla/5.0 (compatible; verm-genssteuer-fetch/1.0)'
 get() { # get <url> <zielpfad>
@@ -55,8 +55,23 @@ echo "== 4/4  UBS Global Wealth Report 2025 (Vermoegens-Gini) =="
 # Inhalt (Integritaet via data/CHECKSUMS.txt verifizierbar):
 get "https://elements.visualcapitalist.com/wp-content/uploads/2025/08/global-wealth-report-09072025.pdf" "$RAW/ubs/ubs_gwr_2025.pdf"
 
+echo "== 5/5  BFS — Staendige Wohnbevoelkerung (PXWeb, Bestand 31.12.2024) =="
+# Bundesamt fuer Statistik, Cube px-x-0102020000_101 «Demografische Bilanz nach Kanton».
+# Deterministische PXWeb-Abfrage: Schweiz-Total, Bestand am 31. Dezember 2024.
+echo "  -> $RAW/bfs/population.json"
+curl -fsS --retry 4 --retry-delay 2 --max-time 60 -A "$ua" \
+  -H "Content-Type: application/json" \
+  -X POST "https://www.pxweb.bfs.admin.ch/api/v1/de/px-x-0102020000_101/px-x-0102020000_101.px" \
+  -d '{"query":[
+    {"code":"Jahr","selection":{"filter":"item","values":["2024"]}},
+    {"code":"Kanton","selection":{"filter":"item","values":["0"]}},
+    {"code":"Staatsangehörigkeit (Kategorie)","selection":{"filter":"item","values":["0"]}},
+    {"code":"Geschlecht","selection":{"filter":"item","values":["0"]}},
+    {"code":"Demografische Komponente","selection":{"filter":"item","values":["14"]}}
+  ],"response":{"format":"json-stat2"}}' -o "$RAW/bfs/population.json"
+
 echo
 echo "== Pruefsummen =="
-( cd "$RAW" && sha256sum estv/* wid/*.csv fdk/*.pdf ubs/*.pdf )
+( cd "$RAW" && sha256sum estv/* wid/*.csv fdk/*.pdf ubs/*.pdf bfs/*.json )
 echo
 echo "Fertig. Vergleiche bei Bedarf mit data/CHECKSUMS.txt."

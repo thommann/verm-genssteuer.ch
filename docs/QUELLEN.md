@@ -15,18 +15,19 @@ den Eintrag in `src/data/sources.json` zeigt.
 | Hero | Anteil ≥ 5 Mio., Anzahl, Median, Ø/Median | ESTV (`estv_vermoegen`) | `estv_kennzahlen.json` | `02_extract_estv.py` |
 | Verteilung | Anteile/Anzahl je Klasse, Median, Mittel | ESTV (`estv_vermoegen`) | `estv_distribution.json`, `estv_kennzahlen.json` | `02_extract_estv.py` |
 | Rechner | Aufkommen, Tarifkurve, Bänder, Gleichgewicht | ESTV (`estv_vermoegen`) + FDK (`fdk`, M im Tail) | `calculator_bins.json`, `calculator_params.json` | `02_extract_estv.py` (M aus `01`) |
-| Was tun? | Aufkommen (Zähler); Vergleichsgrössen (Nenner) | ESTV+FDK; EFV (`efv`), BAG (`bag`), BFS (`bfs`) | (Rechner) + `spend_reference.json` | `02`/`01`; `spend_reference` kuratiert (§5) |
+| Was tun? | Aufkommen (Zähler); Vergleichsgrössen (Nenner) | ESTV+FDK; BFS (`bfs`), EFV (`efv`), BAG (`bag`) | (Rechner) + `spend_reference.json` | `02`/`01`; `04` (BFS live, EFV/BAG kuratiert, §5) |
 | Dynamik | dynamisches Aufkommen je Jahr | ESTV (`estv_vermoegen`) + FDK (`fdk`) | `projektion_cohorts.json` | `02_extract_estv.py` |
 | International | Anteils-Zeitreihen + WID-Gini | WID (`wid`) | `wid_timeseries.json` | `03_extract_wid_ubs.py` |
 | UBS-Studie | Gini, Ø/Median, Pyramide, Millionäre | UBS (`ubs`) | `ubs_gini.json`, `ubs_wealth_levels.json`, `ubs_wealth_pyramid.json`, `ubs_millionaires.json` | `03_extract_wid_ubs.py` |
 | Pauschalbesteuerung | Anzahl, Ertrag, Spannweite | FDK (`fdk`) | `pauschal.json` | `01_extract_fdk.py` |
 | Quellen & Methodik | Quellenliste | — | `sources.json` | kuratiert (Metadaten) |
 
-**Lesart der Reproduzierbarkeit:** alle Dateien ausser `spend_reference.json` und
-`sources.json` werden **skriptbasiert** aus den Primärquellen erzeugt (byte-/zahlengenau
-prüfbar, siehe unten und `00_reproduce_statistics.py`). `spend_reference.json` (Makro-
-Bezugsgrössen) und `sources.json` (Quellen-Metadaten) sind **kuratiert**; ihr Bezug ist als
-manuelles Runbook in Abschnitt 5 dokumentiert.
+**Lesart der Reproduzierbarkeit:** alle Datendateien werden **skriptbasiert** erzeugt
+(byte-/zahlengenau prüfbar, siehe `00_reproduce_statistics.py`). Einzige Ausnahme sind vier
+Makro-Bezugsgrössen in `spend_reference.json` (EFV/BAG), die als belegte Konstanten im
+Skript `04` gepflegt werden (Feld `bezug: "kuratiert"`); die Bevölkerung darin kommt live
+aus BFS-PXWeb (`bezug: "skript"`). `sources.json` enthält Quellen-Metadaten (kuratiert).
+Details in Abschnitt 5.
 
 ## Überblick: ein Befehl pro Schritt
 
@@ -34,11 +35,12 @@ Der gesamte Datenbestand unter `src/data/*.json` wird **direkt aus den Primärqu
 erzeugt. Kein Zwischen-Workbook, keine Handarbeit:
 
 ```bash
-bash   scripts/fetch_sources.sh          # 1. Rohdaten von ESTV/WID/FDK/UBS laden -> data/raw/
-python3 scripts/01_extract_fdk.py        # 2. FDK-PDF       -> pauschal.json
-python3 scripts/02_extract_estv.py       # 3. ESTV-XLSX     -> Verteilung, Kennzahlen, Rechner
-python3 scripts/03_extract_wid_ubs.py    # 4. WID-CSV+UBS   -> Zeitreihen, Länderranking
-python3 scripts/00_reproduce_statistics.py  # 5. alles unabhängig nachrechnen/prüfen
+bash   scripts/fetch_sources.sh             # 1. Rohdaten von ESTV/WID/FDK/UBS/BFS laden -> data/raw/
+python3 scripts/01_extract_fdk.py           # 2. FDK-PDF       -> pauschal.json
+python3 scripts/02_extract_estv.py          # 3. ESTV-XLSX     -> Verteilung, Kennzahlen, Rechner
+python3 scripts/03_extract_wid_ubs.py       # 4. WID-CSV+UBS   -> Zeitreihen, Ranking, Gini, Pyramide
+python3 scripts/04_extract_spend_reference.py  # 5. BFS-PXWeb + kuratierte EFV/BAG -> spend_reference.json
+python3 scripts/00_reproduce_statistics.py  # 6. statistische Verfahren unabhängig nachrechnen/prüfen
 ```
 
 **Voraussetzungen:** Python 3 mit `openpyxl` (`pip install openpyxl`) und das
@@ -225,10 +227,24 @@ Erhebungsjahre 2008–2018. Letzte zentral publizierte Gesamterhebung.
 
 ## 5. Bezugsgrössen «Was tun mit dem Geld?» (nur Einordnung)
 
-Diese Makrozahlen (`src/data/spend_reference.json`) sind **kein** Teil des Steuer-Modells und
-dienen nur als anschauliche Bezugsgrösse — nominal, gerundet, **kuratiert** (nicht
-skriptextrahiert). Jeweils den neuesten publizierten Jahreswert übernehmen und Jahr/Quelle
-hier festhalten:
+Diese Makrozahlen (`src/data/spend_reference.json`, erzeugt von
+`scripts/04_extract_spend_reference.py`) sind **kein** Teil des Steuermodells, sondern reine
+Nenner für anschauliche Vergleiche — nominal, gerundet. Jede Grösse trägt ein Feld `bezug`:
+
+**`bezug: "skript"` — Ständige Wohnbevölkerung (BFS, live).**
+Bundesamt für Statistik, PXWeb-Cube **`px-x-0102020000_101`** «Demografische Bilanz nach
+Kanton». `fetch_sources.sh` stellt die deterministische Abfrage (Schweiz-Total, Bestand am
+31. Dezember, neuestes Jahr) und speichert die JSON-stat2-Antwort nach
+`data/raw/bfs/population.json`; `04` liest daraus Wert und Jahr.
+- Endpunkt: `POST https://www.pxweb.bfs.admin.ch/api/v1/de/px-x-0102020000_101/px-x-0102020000_101.px`
+- Auswahl: `Jahr=2024`, `Kanton=0` (Schweiz), `Staatsangehörigkeit=0`, `Geschlecht=0`,
+  `Demografische Komponente=14` (Bestand am 31. Dezember).
+- Wert Ende 2024: **9 051 029** (Quelle: BFS – ESPOP/STATPOP).
+
+**`bezug: "kuratiert"` — EFV-/BAG-Aggregate (belegte Konstanten in `04`).**
+Für diese Einzelwerte gibt es keine stabile, eindeutige maschinenlesbare Einzelquelle
+(EFV-Finanzstatistik nach FS-Klassifikationscodes bzw. BAG-T-Tabellen). Sie werden daher als
+nachgewiesene Konstanten im Skript gepflegt; beim Jahreswechsel dort aktualisieren:
 
 | Grösse | Wert | Jahr | Quelle | Beleg |
 |---|---|---|---|---|
@@ -236,7 +252,6 @@ hier festhalten:
 | Direkte Bundessteuer nat. Personen | ~ 13,5 Mrd. | 2023 | EFV | s. o. |
 | OKP-Leistungen total | ~ 52,1 Mrd. | 2023 | BAG | <https://www.bag.admin.ch/bag/de/home/zahlen-und-statistiken/statistiken-zur-krankenversicherung.html> |
 | OKP-Prämien (von Versicherten finanziert) | ~ 36 Mrd. | 2023 | BAG | s. o. |
-| Ständige Wohnbevölkerung | 9 048 900 | 2024 | BFS | <https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung/stand-entwicklung.html> |
 
 ---
 

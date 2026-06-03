@@ -1,6 +1,6 @@
 # SHA256-Pruefsummen der Roh-Primaerquellen
 # Erzeugt: 2026-06-03 - Bezug via scripts/fetch_sources.sh
-# Re-Download kann bei WID neuere Werte liefern (Serien werden laufend revidiert).
+# Re-Download kann bei WID/BFS neuere Werte liefern (Serien werden laufend revidiert).
 
 27bdefd65442bf637c2d392c2372c80aef39d5f44f00b63583910eec8462b964  estv/estv-vermoegen-2012.xlsx
 0df5769185a520eed26e3aad2b4b44d9e0620d7fb1fc8abc020afa547e34d87c  estv/estv-vermoegen-2013.xlsx
@@ -29,3 +29,4 @@ fd86e58003d2ba34f9899d333e149f0dd3eb82fe9fc617faaaf684982dc2aabe  wid/WID_data_U
 2b3e5d23cd54e9c20a40fff91a06226e896da094416a214ed2ce47b09608e51b  wid/WID_data_WO.csv
 32591c21714330e20a6c44b1ab6fd6dce64a6b95b38302e451fb89940060abf5  fdk/fdk_aufwandbesteuerung_2019_D.pdf
 b4a7badd44c25e253fdb26bcd0531d4fc8a8a0cc6f439edb88b9ae3a5b0a36dd  ubs/ubs_gwr_2025.pdf
+4919da345d76ddd5be72fe73829a11a8e9ac4f3da929f96e512ec36d01f4c079  bfs/population.json

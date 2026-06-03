@@ -47,10 +47,11 @@ Zwischen-Workbook, keine Handarbeit. Die Skripte liegen in `scripts/` (Bash + Py
 
 | Skript | Inhalt |
 | --- | --- |
-| `fetch_sources.sh` | Lädt **alle Rohquellen** (ESTV-XLSX ×11, WID-CSV ×14, FDK-PDF, UBS-PDF) nach `data/raw/` und schreibt SHA256-Prüfsummen |
+| `fetch_sources.sh` | Lädt **alle Rohquellen** (ESTV-XLSX ×11, WID-CSV ×14, FDK-PDF, UBS-PDF, BFS-PXWeb) nach `data/raw/` und schreibt SHA256-Prüfsummen |
 | `01_extract_fdk.py` | FDK-Medienmitteilung → `pauschal.json` (Anzahl/Ertrag Pauschalbesteuerte) |
 | `02_extract_estv.py` | ESTV-Verteilung, Kennzahlen, Rechner-Parameter, 170 Bins, 30 Kohorten |
-| `03_extract_wid_ubs.py` | WID-Zeitreihen + Länderranking, UBS-Vermögens-Gini |
+| `03_extract_wid_ubs.py` | WID-Zeitreihen + Ranking, UBS-Gini, Ø/Median, Pyramide, Millionäre |
+| `04_extract_spend_reference.py` | BFS-Bevölkerung (live, PXWeb) + kuratierte EFV/BAG-Bezugsgrössen → `spend_reference.json` |
 | `00_reproduce_statistics.py` | **Rechnet alle statistischen Verfahren unabhängig nach** und prüft sie (extern gegen den offiziellen ESTV-Gini, intern gegen die Skript-Ausgabe) |
 
 Ausführliche Dokumentation:
@@ -67,6 +68,7 @@ bash    scripts/fetch_sources.sh          # Rohdaten laden -> data/raw/
 python3 scripts/01_extract_fdk.py
 python3 scripts/02_extract_estv.py
 python3 scripts/03_extract_wid_ubs.py
+python3 scripts/04_extract_spend_reference.py
 python3 scripts/00_reproduce_statistics.py   # erwartet: alle Prüfungen OK
 ```
 

@@ -287,7 +287,8 @@ bash scripts/fetch_sources.sh
 # 2. Aus den Rohdaten alle JSON erzeugen (benötigt openpyxl + pdftotext/poppler-utils):
 python3 scripts/01_extract_fdk.py        # -> pauschal.json
 python3 scripts/02_extract_estv.py       # -> Verteilung, Kennzahlen, Rechner-Parameter/Bins/Kohorten
-python3 scripts/03_extract_wid_ubs.py    # -> WID-Zeitreihen, Länderranking + UBS-Gini
+python3 scripts/03_extract_wid_ubs.py    # -> WID-Zeitreihen, Ranking, UBS-Gini/Ø-Median/Pyramide/Millionäre
+python3 scripts/04_extract_spend_reference.py  # -> spend_reference.json (BFS live + EFV/BAG kuratiert)
 
 # 3. Alle Verfahren unabhängig nachrechnen und prüfen:
 python3 scripts/00_reproduce_statistics.py   # erwartet: alle Prüfungen OK
