@@ -62,7 +62,10 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
         aufbauend auf Zucman&nbsp;(2024), den die brasilianische G20-Präsidentschaft 2024 auf die
         Agenda setzte. Laut WIR&nbsp;2026 «neutralisiert» bereits ein Satz von 2&nbsp;% die
         Regressivität an der Spitze. Beide Modelle kannst du
-        <a href="#rechner">im Rechner</a> als Presets durchprobieren.
+        <a href="#rechner">im Rechner</a> als Presets durchprobieren. Das interaktive
+        Original-Tool dazu ist der
+        <a href="https://wid.world/world-wealth-tax-simulator/" target="_blank" rel="noopener">Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator</a>
+        des World&nbsp;Inequality&nbsp;Lab.
       </p>
 
       <a class="videocard card" :href="VIDEO_URL" target="_blank" rel="noopener">
@@ -100,7 +103,7 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 .btn-ghost:hover { border-color: var(--accent); text-decoration: none; }
 
 .shift {
-  font-size: 0.95rem; line-height: 1.6; color: var(--text-soft); max-width: 74ch;
+  font-size: 0.95rem; line-height: 1.6; color: var(--text-soft);
   padding: 16px 18px; border-radius: 12px;
   background: rgba(167, 139, 250, 0.08);
   border: 1px solid var(--border); border-left: 3px solid var(--violet);
