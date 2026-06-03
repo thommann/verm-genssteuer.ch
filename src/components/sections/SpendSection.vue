@@ -120,6 +120,11 @@ const over = (v) => v > 1;
         Es ist <em>entweder/oder</em>: jeder Franken kann nur einmal ausgegeben werden.
         Die Beispiele zeigen die Grössenordnung, keine fertige Politik.
       </p>
+      <div class="srcs">
+        <span class="srcs-lab">Aufkommen (Zähler):</span>
+        <SourceTag id="estv_vermoegen" note="Aufkommen aus dem Rechner, Pareto-Tail >10 Mio." />
+        <SourceTag id="fdk" note="Pauschalbesteuerte im Tail (M)" />
+      </div>
     </div>
   </section>
 </template>
@@ -149,4 +154,6 @@ const over = (v) => v > 1;
 .fill.accent { background: var(--accent); }
 .spend-foot { font-size: 0.8rem; margin: 2px 0 8px; }
 .disclaimer { font-size: 0.82rem; margin-top: 24px; max-width: 75ch; }
+.srcs { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.srcs-lab { font-size: 0.74rem; font-weight: 600; color: var(--text-mute); }
 </style>

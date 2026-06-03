@@ -6,3 +6,6 @@ dist-ssr
 .vite
 *.log
 .env
+
+# Heruntergeladene Rohquellen (re-fetchbar via scripts/fetch_sources.sh; Integrität über data/CHECKSUMS.txt)
+data/raw/

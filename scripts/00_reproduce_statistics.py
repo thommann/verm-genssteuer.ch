@@ -12,10 +12,10 @@ Ausführen:
 
 Erwartete Ausgabe: alle Prüfungen «OK». Details siehe docs/METHODIK.md.
 
-Eingaben (alle aus den Original-Workbooks extrahiert, siehe scripts/01–03):
+Eingaben (alle direkt aus den Primärquellen erzeugt, siehe scripts/01–03 + fetch_sources.sh):
     src/data/estv_distribution.json   ESTV-Klassendaten (Anzahl + Reinvermögen je Klasse/Jahr)
     src/data/calculator_params.json   Jahresparameter (f, N, alpha, x_max) + Tarif-Defaults
-    src/data/calculator_bins.json     Vorgerechnete 170 Bins (nur zur Gegenprobe)
+    src/data/calculator_bins.json     von 02_extract_estv.py erzeugte 170 Bins (Gegenprobe)
 """
 import json
 import math
@@ -34,6 +34,7 @@ def load(name):
 DIST = load("estv_distribution.json")
 PARAMS = load("calculator_params.json")
 BINS_REF = load("calculator_bins.json")
+COHORTS = load("projektion_cohorts.json")
 
 failures = []
 
@@ -169,6 +170,18 @@ for year in (2020, 2021, 2022):
     pub = PARAMS["published_revenue"][str(year)]
     check(f"Bins {year} == vorgerechnet", bin_err < 1e-3, f"max Abw. {bin_err:.6f} Personen")
     check(f"Aufkommen {year}", abs(rev - pub) < 1e-3, f"{rev:.4f} Mrd. (publiziert {pub:.4f})")
+
+print("\n== A2. Dynamische Projektion (mechanisch, je Kohorte) ==")
+# W(t+1) = W(t)·(1+r) − Steuer(W(t)); Aufkommen = Σ Anzahl · Steuer(W(t)).
+r = PARAMS["defaults"]["rendite"]
+W = [c["W0"] for c in COHORTS]
+n = [c["anzahl"] for c in COHORTS]
+proj = {}
+for yr in range(2022, 2033):
+    proj[yr] = sum(n[i] * tax(W[i]) for i in range(len(W))) / 1e9
+    W = [max(0.0, W[i] * (1 + r) - tax(W[i])) for i in range(len(W))]
+check("Projektion 2022 (Einmaleffekt)", abs(proj[2022] - 92.30) < 5e-2, f"{proj[2022]:.3f} Mrd.")
+check("Projektion 2032 (tragbares Niveau)", abs(proj[2032] - 23.87) < 5e-2, f"{proj[2032]:.3f} Mrd.")
 
 print("\n== B. Pareto-Tail (> 10 Mio.) ==")
 for year in (2020, 2021, 2022):
