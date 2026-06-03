@@ -45,6 +45,9 @@ const bandItems = computed(() =>
 
 const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 
+const isWir2022 = computed(() =>
+  ['wir2022_1', 'wir2022_2', 'wir2022_3'].includes(state.activePreset)
+);
 const isWir2026 = computed(() =>
   ['wir2026_2', 'wir2026_3', 'wir2026_5'].includes(state.activePreset)
 );
@@ -74,12 +77,12 @@ const isWir2026 = computed(() =>
         </button>
       </div>
 
-      <p v-if="state.activePreset === 'wir2022'" class="preset-note">
-        Progressives Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>
-        (Szenario «moderat»): effektive Sätze von 0,6&nbsp;% ab 1&nbsp;Mio. bis 3,2&nbsp;% über 100&nbsp;Mrd.&nbsp;$.
-        Hier auf die Schweizer ESTV-Daten und den 5-Mio-Freibetrag übertragen – die Bezugsgrösse
-        ist also enger als im globalen Original.
-        <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 7.2 (Szenario 1)" />
+      <p v-if="isWir2022" class="preset-note">
+        Progressives Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: drei Szenarien
+        (moderat / hoch / sehr hoch) mit Grenzsätzen von 1&nbsp;% ab 1&nbsp;Mio. bis 3,5&nbsp;/&nbsp;10&nbsp;/&nbsp;90&nbsp;%
+        über 100&nbsp;Mrd.&nbsp;$. Hier auf die Schweizer ESTV-Daten und den 5-Mio-Freibetrag übertragen –
+        die Bezugsgrösse ist also enger als im globalen Original.
+        <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 7.2" />
       </p>
       <p v-else-if="isWir2026" class="preset-note">
         Mindeststeuer-Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2026</strong> (nach Zucman&nbsp;2024 / G20):
