@@ -17,7 +17,7 @@ const props = defineProps({
 
 const pad = { t: 16, r: 18, b: 34, l: 52 };
 
-const allPts = computed(() => props.series.flatMap((s) => s.points));
+const allPts = computed(() => props.series.flatMap((s) => s.points).filter((p) => p.y != null && Number.isFinite(p.y)));
 
 const xd = computed(() => props.xDomain || [
   Math.min(...allPts.value.map((p) => p.x)),
@@ -31,8 +31,12 @@ const yd = computed(() => props.yDomain || [
 const sx = (x) => pad.l + ((x - xd.value[0]) / (xd.value[1] - xd.value[0] || 1)) * (props.width - pad.l - pad.r);
 const sy = (y) => props.height - pad.b - ((y - yd.value[0]) / (yd.value[1] - yd.value[0] || 1)) * (props.height - pad.t - pad.b);
 
+// Nur reale Messpunkte zeichnen – fehlende Werte (z. B. Welt 2024) brechen die Linie,
+// statt auf 0 zu stürzen.
+const finitePts = (pts) => pts.filter((p) => p.y != null && Number.isFinite(p.y) && Number.isFinite(p.x));
 const linePath = (pts) =>
-  pts.map((p, i) => `${i ? 'L' : 'M'}${sx(p.x).toFixed(2)},${sy(p.y).toFixed(2)}`).join(' ');
+  finitePts(pts).map((p, i) => `${i ? 'L' : 'M'}${sx(p.x).toFixed(2)},${sy(p.y).toFixed(2)}`).join(' ');
+const lastPt = (s) => { const f = finitePts(s.points); return f[f.length - 1]; };
 </script>
 
 <template>
@@ -75,9 +79,9 @@ const linePath = (pts) =>
         stroke-linecap="round"
       />
       <circle
-        v-if="s.marker"
-        :cx="sx(s.points[s.points.length - 1].x)"
-        :cy="sy(s.points[s.points.length - 1].y)"
+        v-if="s.marker && lastPt(s)"
+        :cx="sx(lastPt(s).x)"
+        :cy="sy(lastPt(s).y)"
         r="3.5"
         :fill="s.color"
       />

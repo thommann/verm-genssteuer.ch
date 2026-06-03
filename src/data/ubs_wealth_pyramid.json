@@ -1,0 +1,30 @@
+[
+ {
+  "band": "> 1 Mio. USD",
+  "adults_m": 60.0,
+  "adults_share": 0.016,
+  "wealth_tn": 226.47,
+  "wealth_share": 0.48100000000000004
+ },
+ {
+  "band": "100k \u2013 1 Mio. USD",
+  "adults_m": 628.0,
+  "adults_share": 0.16399999999999998,
+  "wealth_tn": 184.51,
+  "wealth_share": 0.392
+ },
+ {
+  "band": "10k \u2013 100k USD",
+  "adults_m": 1570.0,
+  "adults_share": 0.413,
+  "wealth_tn": 56.82,
+  "wealth_share": 0.121
+ },
+ {
+  "band": "< 10k USD",
+  "adults_m": 1550.0,
+  "adults_share": 0.40700000000000003,
+  "wealth_tn": 2.71,
+  "wealth_share": 0.006
+ }
+]

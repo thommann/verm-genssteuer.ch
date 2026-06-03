@@ -1,0 +1,117 @@
+[
+ {
+  "land": "Schweiz",
+  "avg": 687166,
+  "median": 182248
+ },
+ {
+  "land": "USA",
+  "avg": 620654,
+  "median": 124041
+ },
+ {
+  "land": "Hongkong",
+  "avg": 601195,
+  "median": 222015
+ },
+ {
+  "land": "Luxemburg",
+  "avg": 566735,
+  "median": 395340
+ },
+ {
+  "land": "Australien",
+  "avg": 516640,
+  "median": 268424
+ },
+ {
+  "land": "D\u00e4nemark",
+  "avg": 481558,
+  "median": 216098
+ },
+ {
+  "land": "Singapur",
+  "avg": 441596,
+  "median": 113976
+ },
+ {
+  "land": "Neuseeland",
+  "avg": 393773,
+  "median": 207707
+ },
+ {
+  "land": "Niederlande",
+  "avg": 370697,
+  "median": 131896
+ },
+ {
+  "land": "Norwegen",
+  "avg": 368410,
+  "median": 142501
+ },
+ {
+  "land": "Kanada",
+  "avg": 365953,
+  "median": 151910
+ },
+ {
+  "land": "Belgien",
+  "avg": 349404,
+  "median": 253539
+ },
+ {
+  "land": "Vereinigtes K\u00f6nigreich",
+  "avg": 339700,
+  "median": 176370
+ },
+ {
+  "land": "Schweden",
+  "avg": 334391,
+  "median": 89430
+ },
+ {
+  "land": "Taiwan",
+  "avg": 312075,
+  "median": 114871
+ },
+ {
+  "land": "Frankreich",
+  "avg": 301503,
+  "median": 146017
+ },
+ {
+  "land": "Israel",
+  "avg": 284224,
+  "median": 88866
+ },
+ {
+  "land": "Irland",
+  "avg": 258357,
+  "median": 105626
+ },
+ {
+  "land": "S\u00fcdkorea",
+  "avg": 251223,
+  "median": 104067
+ },
+ {
+  "land": "Spanien",
+  "avg": 233739,
+  "median": 126290
+ },
+ {
+  "land": "Italien",
+  "avg": 214663,
+  "median": 124473
+ },
+ {
+  "land": "Japan",
+  "avg": 205221,
+  "median": 102198
+ },
+ {
+  "land": "Finnland",
+  "avg": 183367,
+  "median": 94794
+ }
+]

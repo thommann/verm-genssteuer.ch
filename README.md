@@ -17,8 +17,9 @@ erlebbar/experimentierbar macht.
    *Pro-Kopf-Dividende* — live aus dem Rechner.
 4. **Dynamik** — ehrliche Hochrechnung: Einmaleffekt vs. dauerhaft tragbares Niveau.
 5. **International** — Vermögenskonzentration im Zeitverlauf (WID) und im Ländervergleich (WID/UBS-Gini).
-6. **UBS-Studie** — der UBS Global Wealth Report (vormals Credit Suisse) und der
-   Vermögens-Gini der Schweiz im Ländervergleich.
+6. **UBS-Studie** — der UBS Global Wealth Report (vormals Credit Suisse): Vermögens-Gini
+   im Ländervergleich, die Lücke zwischen Durchschnitts- und Median-Vermögen, die globale
+   Vermögenspyramide und die Zahl der USD-Millionäre.
 7. **Pauschalbesteuerung** — der statistische blinde Fleck an der Spitze (FDK).
 8. **Quellen & Methodik** — alle Quellen, transparent verlinkt.
 
@@ -40,15 +41,18 @@ npm run preview  # Build lokal ansehen
 
 ## Datenherkunft & Reproduzierbarkeit
 
-Alle Daten unter `src/data/*.json` wurden aus drei Original-Workbooks extrahiert.
-Die Skripte liegen in `scripts/` (Python + `openpyxl`):
+Alle Daten unter `src/data/*.json` werden **direkt aus den Primärquellen** erzeugt — kein
+Zwischen-Workbook, keine Handarbeit. Die Skripte liegen in `scripts/` (Bash + Python mit
+`openpyxl`; PDF-Quellen über `pdftotext`/`poppler-utils`):
 
 | Skript | Inhalt |
 | --- | --- |
-| `00_reproduce_statistics.py` | **Rechnet alle statistischen Verfahren nach und prüft sie** gegen die publizierten Werte |
-| `01_extract_calculator.py` | Tarif-Engine, Jahresparameter, Validierung des Aufkommens |
-| `02_extract_distribution_wid.py` | ESTV-Verteilung, berechnete Kennzahlen, WID-Zeitreihen |
-| `03_extract_projektion.py` | Kohorten der dynamischen Hochrechnung, Validierung |
+| `fetch_sources.sh` | Lädt **alle Rohquellen** (ESTV-XLSX ×11, WID-CSV ×14, FDK-PDF, UBS-PDF, BFS-PXWeb) nach `data/raw/` und schreibt SHA256-Prüfsummen |
+| `01_extract_fdk.py` | FDK-Medienmitteilung → `pauschal.json` (Anzahl/Ertrag Pauschalbesteuerte) |
+| `02_extract_estv.py` | ESTV-Verteilung, Kennzahlen, Rechner-Parameter, 170 Bins, 30 Kohorten |
+| `03_extract_wid_ubs.py` | WID-Zeitreihen + Ranking, UBS-Gini, Ø/Median, Pyramide, Millionäre |
+| `04_extract_spend_reference.py` | BFS-Bevölkerung (live, PXWeb) + kuratierte EFV/BAG-Bezugsgrössen → `spend_reference.json` |
+| `00_reproduce_statistics.py` | **Rechnet alle statistischen Verfahren unabhängig nach** und prüft sie (extern gegen den offiziellen ESTV-Gini, intern gegen die Skript-Ausgabe) |
 
 Ausführliche Dokumentation:
 
@@ -56,16 +60,25 @@ Ausführliche Dokumentation:
   reproduzierbar (Perzentil-Interpolation, Pareto-Tail, Gini-Zerlegung, Populationsmodell,
   Steuermodell) inkl. Validierungstabelle.
 - **[`docs/QUELLEN.md`](docs/QUELLEN.md)** — Provenance-Runbook: woher jede Rohzahl stammt
-  und wie man sie Schritt für Schritt von den Originalquellen beschafft.
+  und wie man sie Schritt für Schritt von den Originalquellen beschafft (exakte URLs,
+  Blatt-/Spaltenpositionen, Prüfsummen).
 
 ```bash
+bash    scripts/fetch_sources.sh          # Rohdaten laden -> data/raw/
+python3 scripts/01_extract_fdk.py
+python3 scripts/02_extract_estv.py
+python3 scripts/03_extract_wid_ubs.py
+python3 scripts/04_extract_spend_reference.py
 python3 scripts/00_reproduce_statistics.py   # erwartet: alle Prüfungen OK
 ```
 
+Die Rohdateien (`data/raw/`) sind bewusst **nicht eingecheckt** (Umfang); ihre Integrität
+ist über [`data/CHECKSUMS.txt`](data/CHECKSUMS.txt) belegt.
+
 ### Validierung des Steuermodells
 
-`src/lib/taxModel.js` bildet den Excel-Rechner exakt nach. Mit den Default-Parametern
-reproduziert es die im Workbook publizierten Werte auf die letzte Stelle:
+`src/lib/taxModel.js` und das Prüfskript teilen sich dieselben Formeln. Mit den
+Default-Parametern ergibt das Modell das Referenz-Aufkommen reproduzierbar:
 
 - Statisches Aufkommen: **76,0512 / 91,1598 / 91,5437 Mrd. CHF** (2020/21/22)
 - Dynamische Projektion: **92,30 → 23,87 Mrd. CHF** (2022 → 2032)

@@ -187,7 +187,10 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
         Statisches Modell: keine Abwanderung, kein Verhalten, kein Vermögenszuwachs –
         die grössten Realfaktoren bleiben aussen vor. Die Zahlen zeigen das
         <em>Potenzial</em> der Bemessungsgrundlage, nicht eine politische Prognose.
-        <SourceTag id="estv_vermoegen" note="ESTV-Vermögensstatistik + Pareto-Tail >10 Mio." />
+        <span class="srcs">
+          <SourceTag id="estv_vermoegen" note="Vermögensverteilung + Pareto-Tail >10 Mio." />
+          <SourceTag id="fdk" note="Pauschalbesteuerte im Tail (M)" />
+        </span>
       </p>
     </div>
   </section>
@@ -241,6 +244,7 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 .ychip.active { background: var(--gold); border-color: var(--gold); color: #1a1400; }
 
 .disclaimer { font-size: 0.82rem; color: var(--text-mute); margin-top: 22px; max-width: 75ch; display: flex; flex-direction: column; gap: 8px; }
+.disclaimer .srcs { display: flex; gap: 18px; flex-wrap: wrap; }
 
 @media (max-width: 820px) {
   .calc-grid { grid-template-columns: 1fr; }

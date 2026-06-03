@@ -52,7 +52,7 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
         </div>
         <div class="ministat">
           <span class="mv accent">{{ num(k.cnt_ge10M) }}</span>
-          <span class="ml">Steuerpflichtige (0,4&nbsp;%) ab 10&nbsp;Mio. besitzen {{ pct(k.share_ge10M, 0) }} des Vermögens.</span>
+          <span class="ml">Steuerpflichtige ({{ pct(k.pct_ge10M, 1) }}) ab 10&nbsp;Mio. besitzen {{ pct(k.share_ge10M, 0) }} des Vermögens.</span>
         </div>
         <div class="ministat">
           <span class="mv">{{ chf(k.median) }}</span>
