@@ -18,17 +18,17 @@ export const PRESETS = {
   flach: {
     label: 'Flach',
     desc: 'Fast flacher Satz, 2 % Ø-Satz bei 100 Mio.',
-    schwelle: 5e6, exponent: 0.3, cap: 1, ankerSatz: 0.02,
+    schwelle: 5e6, exponent: 0.3, cap: 0.5, ankerSatz: 0.02,
   },
   moderat: {
     label: 'Moderat',
     desc: 'Sanft progressiv, 2 % Ø-Satz bei 100 Mio.',
-    schwelle: 5e6, exponent: 0.5, cap: 1, ankerSatz: 0.02,
+    schwelle: 5e6, exponent: 0.5, cap: 0.5, ankerSatz: 0.02,
   },
   steil: {
     label: 'Stark progressiv',
     desc: 'Steile Kurve, 2 % Ø-Satz bei 100 Mio.',
-    schwelle: 5e6, exponent: 0.9, cap: 1, ankerSatz: 0.02,
+    schwelle: 5e6, exponent: 0.9, cap: 0.5, ankerSatz: 0.02,
   },
 };
 
