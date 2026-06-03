@@ -99,7 +99,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
         Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je
         Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), <strong>ab 1&nbsp;Mio.</strong>
         wie im Original – inklusive der rund 324'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der
-        5-Mio-Freibetrag der «Unsere»-Modelle).
+        5-Mio-Freibetrag der eigenen Modelle).
         <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 7.2" />
       </p>
       <p v-else-if="isWir2026" class="preset-note">
@@ -124,8 +124,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
         <!-- Controls -->
         <div class="card controls">
           <p v-if="isWirActive" class="controls-lock">
-            <strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell
-            (Gruppe «Unsere»).
+            <strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell.
             <button type="button" class="controls-lock-link" @click="calc.applyPreset(firstOwnPreset)">Klicke hier</button>,
             um zum eigenen Modell zurückzukehren.
           </p>
