@@ -7,5 +7,9 @@ dist-ssr
 *.log
 .env
 
+# Python
+__pycache__/
+*.pyc
+
 # Heruntergeladene Rohquellen (re-fetchbar via scripts/fetch_sources.sh; Integrität über data/CHECKSUMS.txt)
 data/raw/
