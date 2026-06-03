@@ -85,12 +85,16 @@ const last = computed(() => projection.value[projection.value.length - 1].revenu
           </p>
         </div>
       </div>
-      <SourceTag id="estv_vermoegen" note="Kohorten ab 2022, dynamische Projektion" />
+      <div class="srcs">
+        <SourceTag id="estv_vermoegen" note="Kohorten ab 2022, dynamische Projektion" />
+        <SourceTag id="fdk" note="Pauschalbesteuerte im Pareto-Tail (M)" />
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
+.srcs { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; }
 .proj-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; align-items: stretch; }
 .chartbox { padding: 22px 24px; }
 .side { padding: 24px; display: flex; flex-direction: column; gap: 6px; justify-content: center; }

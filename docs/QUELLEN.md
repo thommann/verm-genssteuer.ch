@@ -4,6 +4,30 @@
 > Schritt für Schritt selbst beschafft — exakt, reproduzierbar, prüfbar. Das **Wie der
 > Berechnung** steht in [`docs/METHODIK.md`](./METHODIK.md).
 
+## Datenherkunft pro Sektion (Audit-Überblick)
+
+Jeder Datenpunkt auf der Seite trägt im UI einen **Quellen-Tag** (`Quelle: …`, verlinkt) und
+ist über die folgende Pipeline reproduzierbar. `id` = Wert des `SourceTag` im UI, der auf
+den Eintrag in `src/data/sources.json` zeigt.
+
+| Sektion (UI) | Datenpunkte | Quelle (`id`) | Datei in `src/data/` | erzeugt durch |
+|---|---|---|---|---|
+| Hero | Anteil ≥ 5 Mio., Anzahl, Median, Ø/Median | ESTV (`estv_vermoegen`) | `estv_kennzahlen.json` | `02_extract_estv.py` |
+| Verteilung | Anteile/Anzahl je Klasse, Median, Mittel | ESTV (`estv_vermoegen`) | `estv_distribution.json`, `estv_kennzahlen.json` | `02_extract_estv.py` |
+| Rechner | Aufkommen, Tarifkurve, Bänder, Gleichgewicht | ESTV (`estv_vermoegen`) + FDK (`fdk`, M im Tail) | `calculator_bins.json`, `calculator_params.json` | `02_extract_estv.py` (M aus `01`) |
+| Was tun? | Aufkommen (Zähler); Vergleichsgrössen (Nenner) | ESTV+FDK; EFV (`efv`), BAG (`bag`), BFS (`bfs`) | (Rechner) + `spend_reference.json` | `02`/`01`; `spend_reference` kuratiert (§5) |
+| Dynamik | dynamisches Aufkommen je Jahr | ESTV (`estv_vermoegen`) + FDK (`fdk`) | `projektion_cohorts.json` | `02_extract_estv.py` |
+| International | Anteils-Zeitreihen + WID-Gini | WID (`wid`) | `wid_timeseries.json` | `03_extract_wid_ubs.py` |
+| UBS-Studie | Gini, Ø/Median, Pyramide, Millionäre | UBS (`ubs`) | `ubs_gini.json`, `ubs_wealth_levels.json`, `ubs_wealth_pyramid.json`, `ubs_millionaires.json` | `03_extract_wid_ubs.py` |
+| Pauschalbesteuerung | Anzahl, Ertrag, Spannweite | FDK (`fdk`) | `pauschal.json` | `01_extract_fdk.py` |
+| Quellen & Methodik | Quellenliste | — | `sources.json` | kuratiert (Metadaten) |
+
+**Lesart der Reproduzierbarkeit:** alle Dateien ausser `spend_reference.json` und
+`sources.json` werden **skriptbasiert** aus den Primärquellen erzeugt (byte-/zahlengenau
+prüfbar, siehe unten und `00_reproduce_statistics.py`). `spend_reference.json` (Makro-
+Bezugsgrössen) und `sources.json` (Quellen-Metadaten) sind **kuratiert**; ihr Bezug ist als
+manuelles Runbook in Abschnitt 5 dokumentiert.
+
 ## Überblick: ein Befehl pro Schritt
 
 Der gesamte Datenbestand unter `src/data/*.json` wird **direkt aus den Primärquellen**
