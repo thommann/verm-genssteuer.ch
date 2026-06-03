@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { useCalculator, PRESETS } from '@/composables/useCalculator.js';
+import { useCalculator, PRESETS, PRESET_GROUPS } from '@/composables/useCalculator.js';
 import kennzahlen from '@/data/estv_kennzahlen.json';
 import { chfCompact, chf, pct, num } from '@/lib/format.js';
 
@@ -44,6 +44,26 @@ const bandItems = computed(() =>
 );
 
 const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
+
+// Cap-Hinweis nur zeigen, wenn das Modell überhaupt einen (endlichen) Cap hat.
+const capBinds = computed(() => Number.isFinite(model.value.wcap));
+
+// Presets in drei Anzeige-Zeilen gruppieren (Unsere / WIR 2022 / WIR 2026).
+const presetRows = PRESET_GROUPS.map((g) => ({
+  ...g,
+  items: Object.entries(PRESETS)
+    .filter(([, p]) => p.group === g.id)
+    .map(([key, p]) => ({ key, label: p.label })),
+}));
+
+const isWir2022 = computed(() =>
+  ['wir2022_1', 'wir2022_2', 'wir2022_3'].includes(state.activePreset)
+);
+const isWir2026 = computed(() =>
+  ['wir2026_2', 'wir2026_3', 'wir2026_5'].includes(state.activePreset)
+);
+// Bei aktivem WIR-Modell steuern die Regler (Potenzkurve) nicht das angezeigte Modell.
+const isWirActive = computed(() => isWir2022.value || isWir2026.value);
 </script>
 
 <template>
@@ -58,17 +78,33 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
       </p>
 
       <div class="presets">
-        <span class="presets-label">Schnellstart:</span>
-        <button
-          v-for="(p, key) in PRESETS"
-          :key="key"
-          class="preset"
-          :class="{ active: state.activePreset === key }"
-          @click="calc.applyPreset(key)"
-        >
-          {{ p.label }}
-        </button>
+        <div v-for="g in presetRows" :key="g.id" class="preset-row">
+          <span class="presets-label">{{ g.label }}</span>
+          <button
+            v-for="p in g.items"
+            :key="p.key"
+            class="preset"
+            :class="{ active: state.activePreset === p.key }"
+            @click="calc.applyPreset(p.key)"
+          >
+            {{ p.label }}
+          </button>
+        </div>
       </div>
+
+      <p v-if="isWir2022" class="preset-note">
+        Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je
+        Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), <strong>ab 1&nbsp;Mio.</strong>
+        wie im Original – inklusive der rund 324'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der
+        5-Mio-Freibetrag der «Unsere»-Modelle).
+        <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 7.2" />
+      </p>
+      <p v-else-if="isWir2026" class="preset-note">
+        Mindeststeuer-Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2026</strong> (nach Zucman&nbsp;2024 / G20):
+        ein <strong>fester Prozentsatz auf das gesamte Vermögen ab 100&nbsp;Mio.&nbsp;$</strong>
+        (Centi-Millionäre), der die heute regressive Spitzenbelastung beendet.
+        <SourceTag id="wir2026" note="Globale Mindeststeuer auf Multimillionäre, Kap. 7" />
+      </p>
 
       <p class="threshold-info">
         <strong>Warum der Freibetrag bei 5 Mio. beginnt:</strong>
@@ -84,46 +120,52 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
       <div class="calc-grid">
         <!-- Controls -->
         <div class="card controls">
-          <RangeControl
-            v-model="state.schwelle"
-            :min="5e6"
-            :max="5e7"
-            :step="5e5"
-            label="Freibetrag (steuerfrei bis)"
-            :display="schwelleDisplay"
-            hint="Vermögen darunter bleibt komplett steuerfrei. 5 Mio. ≈ das reichste 1 %."
-            @update:modelValue="onSlider"
-          />
-          <RangeControl
-            v-model="state.ankerSatz"
-            :min="0.002"
-            :max="0.05"
-            :step="0.001"
-            label="Ø-Steuersatz bei 100 Mio."
-            :display="pct(state.ankerSatz, 1)"
-            hint="Kalibrierpunkt: so viel zahlt ein 100-Mio-Vermögen im Schnitt."
-            @update:modelValue="onSlider"
-          />
-          <RangeControl
-            v-model="state.exponent"
-            :min="0"
-            :max="1.6"
-            :step="0.05"
-            label="Progression (Steilheit)"
-            :display="num(state.exponent, 2)"
-            hint="0 = flacher Satz für alle. Höher = die ganz Grossen zahlen überproportional."
-            @update:modelValue="onSlider"
-          />
-          <RangeControl
-            v-model="state.cap"
-            :min="0.05"
-            :max="1"
-            :step="0.05"
-            label="Höchst-Grenzsatz (Cap)"
-            :display="pct(state.cap, 0)"
-            hint="Deckel für den Grenzsatz der allergrössten Vermögen."
-            @update:modelValue="onSlider"
-          />
+          <p v-if="isWirActive" class="controls-lock">
+            <strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell
+            (Gruppe «Unsere») – bewege einen, um dorthin zu wechseln.
+          </p>
+          <div :class="{ dimmed: isWirActive }">
+            <RangeControl
+              v-model="state.schwelle"
+              :min="5e6"
+              :max="5e7"
+              :step="5e5"
+              label="Freibetrag (steuerfrei bis)"
+              :display="schwelleDisplay"
+              hint="Vermögen darunter bleibt komplett steuerfrei. 5 Mio. ≈ das reichste 1 %."
+              @update:modelValue="onSlider"
+            />
+            <RangeControl
+              v-model="state.basis"
+              :min="0.0005"
+              :max="0.05"
+              :step="0.0005"
+              label="Grenzsatz an der Schwelle"
+              :display="pct(state.basis, 2)"
+              hint="Satz auf den ersten Franken über dem Freibetrag. Steigt mit der Progression bis zum Cap."
+              @update:modelValue="onSlider"
+            />
+            <RangeControl
+              v-model="state.exponent"
+              :min="0"
+              :max="1.6"
+              :step="0.05"
+              label="Progression (Steilheit)"
+              :display="num(state.exponent, 2)"
+              hint="0 = flacher Satz für alle. Höher = die ganz Grossen zahlen überproportional."
+              @update:modelValue="onSlider"
+            />
+            <RangeControl
+              v-model="state.cap"
+              :min="0.05"
+              :max="1"
+              :step="0.05"
+              label="Höchst-Grenzsatz (Cap)"
+              :display="pct(state.cap, 0)"
+              hint="Deckel für den Grenzsatz der allergrössten Vermögen."
+              @update:modelValue="onSlider"
+            />
+          </div>
 
           <div class="year-pick">
             <span>Datenjahr:</span>
@@ -150,12 +192,12 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
               <span class="rs-lab">dauerhaft tragbares Niveau<br />(dynamisch, siehe unten)</span>
             </div>
             <div>
-              <span class="rs-val">{{ pct(model.avgRate(state.schwelle * 2), 1) }}</span>
-              <span class="rs-lab">Ø-Satz bei {{ chfCompact(state.schwelle * 2, 0) }}</span>
+              <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
+              <span class="rs-lab">Ø-Satz bei {{ chfCompact(model.schwelle * 2, 0) }}</span>
             </div>
           </div>
           <p class="readout muted">
-            Grenzsatz erreicht den Cap bei ~{{ chfCompact(model.wcap, 0) }}.
+            <template v-if="capBinds">Grenzsatz erreicht den Cap bei ~{{ chfCompact(model.wcap, 0) }}.</template>
             <template v-if="equilibrium">
               Vermögen über ~{{ chfCompact(equilibrium, 0) }} zahlen mehr als ihre Rendite –
               sie schrumpfen, statt zu wachsen.
@@ -168,7 +210,7 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
           <h3>Steuersatz nach Vermögen</h3>
           <LineChart
             :series="curveSeries"
-            :x-domain="[Math.log10(state.schwelle), Math.log10(2e10)]"
+            :x-domain="[Math.log10(model.schwelle), Math.log10(2e10)]"
             :y-domain="[0, yMax]"
             :x-ticks="TICKS_W.map((w) => Math.log10(w))"
             :y-ticks="yTicks"
@@ -211,8 +253,9 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 </template>
 
 <style scoped>
-.presets { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 26px 0 22px; }
-.presets-label { color: var(--text-mute); font-size: 0.85rem; font-weight: 600; }
+.presets { display: flex; flex-direction: column; gap: 10px; margin: 26px 0 22px; }
+.preset-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.presets-label { color: var(--text-mute); font-size: 0.85rem; font-weight: 600; min-width: 76px; }
 .preset {
   padding: 8px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-soft);
@@ -220,6 +263,16 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 }
 .preset:hover { color: var(--text); border-color: var(--accent); }
 .preset.active { background: var(--accent); border-color: var(--accent); color: #1a0008; }
+
+.preset-note {
+  font-size: 0.84rem; line-height: 1.55; color: var(--text-soft);
+  max-width: 72ch; margin: 0 0 18px;
+  padding: 12px 16px; border-radius: 10px;
+  background: rgba(124, 92, 255, 0.08);
+  border: 1px solid var(--border); border-left: 3px solid var(--violet);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.preset-note strong { color: var(--text); }
 
 .threshold-info {
   font-size: 0.86rem; line-height: 1.55; color: var(--text-soft);
@@ -237,6 +290,14 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
   align-items: start;
 }
 .controls { padding: 24px; }
+.controls-lock {
+  font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
+  margin: 0 0 18px; padding: 10px 12px; border-radius: 8px;
+  background: rgba(56, 214, 196, 0.08);
+  border: 1px solid var(--border); border-left: 3px solid var(--teal);
+}
+.controls-lock strong { color: var(--text); }
+.dimmed { opacity: 0.4; transition: opacity 0.15s ease; }
 .result {
   padding: 28px 24px;
   background: linear-gradient(160deg, #1d2952, #161f3d);

@@ -15,7 +15,6 @@ Erzeugt:
   src/data/ubs_gini.json           kuratierter Gini-Ländervergleich (UBS-Studie-Sektion)
   src/data/ubs_wealth_levels.json  Ø- vs. Median-Vermögen pro Erwachsenem je Markt (USD)
   src/data/ubs_wealth_pyramid.json globale Vermögenspyramide (Anteile Erwachsene/Vermögen)
-  src/data/ubs_millionaires.json   Anzahl USD-Millionäre je Markt
 
 Benoetigt `pdftotext` (poppler-utils) fuer die UBS-Tabelle.
 """
@@ -74,19 +73,6 @@ WEALTH_LEVEL_NAMES = {
     "United Kingdom": "Vereinigtes Königreich", "Sweden": "Schweden", "Taiwan": "Taiwan",
     "France": "Frankreich", "Israel": "Israel", "Ireland": "Irland", "Spain": "Spanien",
     "Italy": "Italien", "Japan": "Japan", "Finland": "Finnland", "South Korea": "Südkorea",
-}
-
-# Tabelle «UBS Millionaire Index»: Anzahl USD-Millionäre je Markt (in Tausend).
-MILLIONAIRE_NAMES = {
-    "United States": "USA", "Mainland China": "China", "France": "Frankreich",
-    "Japan": "Japan", "Germany": "Deutschland", "United Kingdom": "Vereinigtes Königreich",
-    "Canada": "Kanada", "Australia": "Australien", "Italy": "Italien",
-    "South Korea": "Südkorea", "Netherlands": "Niederlande", "Spain": "Spanien",
-    "Switzerland": "Schweiz", "India": "Indien", "Taiwan": "Taiwan",
-    "Hong Kong SAR": "Hongkong", "Belgium": "Belgien", "Sweden": "Schweden",
-    "Brazil": "Brasilien", "Russia": "Russland", "Mexico": "Mexiko",
-    "Denmark": "Dänemark", "Norway": "Norwegen", "Saudi Arabia": "Saudi-Arabien",
-    "Singapore": "Singapur",
 }
 
 # Globale Vermögenspyramide: Bänder von oben nach unten.
@@ -211,32 +197,11 @@ def parse_ubs_pyramid():
              "wealth_tn": r["wealth_tn"], "wealth_share": r["wealth_share"]} for r in rows]
 
 
-def parse_ubs_millionaires():
-    """Anzahl USD-Millionäre je Markt (UBS Millionaire Index, in Tausend -> absolut)."""
-    text = ubs_text()
-    rx = re.compile(r"(?:^|\s{2,})([A-Z][A-Za-z .'-]+?)\s+([\d,]{3,})\s*$")
-    found = {}
-    for ln in text.splitlines():
-        m = rx.search(ln)
-        if not m:
-            continue
-        name = re.split(r"\s{2,}", m.group(1).strip())[-1].strip()
-        if name in MILLIONAIRE_NAMES:
-            found[name] = int(m.group(2).replace(",", "")) * 1000  # Tausend -> Personen
-    rows = [{"land": MILLIONAIRE_NAMES[en], "anzahl": found[en]}
-            for en in MILLIONAIRE_NAMES if en in found]
-    rows.sort(key=lambda r: -r["anzahl"])
-    if found.get("United States") != 23831000 or found.get("Switzerland") != 1119000:
-        fail(f"UBS-Millionaers-Tabelle nicht plausibel erkannt ({len(rows)} Maerkte).")
-    return rows
-
-
 def main():
     wid = {iso: read_wid_country(iso) for _, iso, _ in COUNTRIES}
     gini = parse_ubs_gini()
     wealth_levels = parse_ubs_wealth_levels()
     pyramid = parse_ubs_pyramid()
-    millionaires = parse_ubs_millionaires()
 
     # Zeitreihen 1995-2024: vier Anteile (shwealj992) + WID-Gini (ghwealj992)
     timeseries = {}
@@ -268,19 +233,15 @@ def main():
         json.dump(wealth_levels, fh, indent=1)
     with open(os.path.join(DATA, "ubs_wealth_pyramid.json"), "w") as fh:
         json.dump(pyramid, fh, indent=1)
-    with open(os.path.join(DATA, "ubs_millionaires.json"), "w") as fh:
-        json.dump(millionaires, fh, indent=1)
 
     ch_top1 = timeseries["top1"]["Schweiz"]
     cy = max(y for y in ch_top1 if ch_top1[y] is not None)
     chw = next(r for r in wealth_levels if r["land"] == "Schweiz")
     top = pyramid[0]
     print("  [OK ] wid_timeseries.json, ubs_gini.json, ubs_wealth_levels.json, "
-          "ubs_wealth_pyramid.json, ubs_millionaires.json")
+          "ubs_wealth_pyramid.json")
     print(f"        Pyramide: oberstes Band besitzt {top['wealth_share']*100:.1f} % des "
-          f"Vermoegens bei {top['adults_share']*100:.1f} % der Erwachsenen; "
-          f"USA {millionaires[0]['anzahl']:,} Millionaere, Schweiz "
-          f"{next(m['anzahl'] for m in millionaires if m['land']=='Schweiz'):,}")
+          f"Vermoegens bei {top['adults_share']*100:.1f} % der Erwachsenen")
     print(f"        Schweiz {cy}: Top1={ch_top1[cy]:.4f} "
           f"Top10={timeseries['top10']['Schweiz'][cy]:.4f} "
           f"untere50={timeseries['bot50']['Schweiz'][cy]:.4f}  "

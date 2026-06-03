@@ -18,7 +18,8 @@ den Eintrag in `src/data/sources.json` zeigt.
 | Was tun? | Aufkommen (Zähler); Vergleichsgrössen (Nenner) | ESTV+FDK; BFS (`bfs`), EFV (`efv`), BAG (`bag`) | (Rechner) + `spend_reference.json` | `02`/`01`; `04` (BFS live, EFV/BAG kuratiert, §5) |
 | Dynamik | dynamisches Aufkommen je Jahr | ESTV (`estv_vermoegen`) + FDK (`fdk`) | `projektion_cohorts.json` | `02_extract_estv.py` |
 | International | Anteils-Zeitreihen + WID-Gini | WID (`wid`) | `wid_timeseries.json` | `03_extract_wid_ubs.py` |
-| UBS-Studie | Gini, Ø/Median, Pyramide, Millionäre | UBS (`ubs`) | `ubs_gini.json`, `ubs_wealth_levels.json`, `ubs_wealth_pyramid.json`, `ubs_millionaires.json` | `03_extract_wid_ubs.py` |
+| WIR 2022 & 2026 | Vergleich der Steuermodelle (Rechner-Presets) | World Inequality Lab (`wir2022`, `wir2026`) | — (Texte + `sources.json`) | — |
+| UBS-Studie | Gini, Ø/Median, Pyramide | UBS (`ubs`) | `ubs_gini.json`, `ubs_wealth_levels.json`, `ubs_wealth_pyramid.json` | `03_extract_wid_ubs.py` |
 | Pauschalbesteuerung | Anzahl, Ertrag, Spannweite | FDK (`fdk`) | `pauschal.json` | `01_extract_fdk.py` |
 | Quellen & Methodik | Quellenliste | — | `sources.json` | kuratiert (Metadaten) |
 
@@ -190,8 +191,6 @@ vs-Median-Lücke).
   mit Anteil der Erwachsenen und Anteil am Gesamtvermögen. Beleg: oberstes Band
   (> 1 Mio. USD) = 1,6 % der Erwachsenen / 48,1 % des Vermögens; unterstes (< 10k) = 40,7 % /
   0,6 %. (Geprüft: Anteile summieren auf 100 %.)
-- **«UBS Millionaire Index»** → `ubs_millionaires.json`: Anzahl USD-Millionäre je Markt
-  (in Tausend → Personen). Beleg: USA 23 831 000, Schweiz 1 119 000.
 
 **Keine Zeitreihe:** Der Report ist eine Momentaufnahme (Ende 2024) und enthält keine
 jährliche Länder-Zeitreihe; die historische UBS-Reihe steckt im separaten, **nicht frei
