@@ -2,6 +2,8 @@
 import { computed } from 'vue';
 import ubs from '@/data/ubs_gini.json';
 import wealthLevels from '@/data/ubs_wealth_levels.json';
+import pyramid from '@/data/ubs_wealth_pyramid.json';
+import millionaires from '@/data/ubs_millionaires.json';
 import { num, pct } from '@/lib/format.js';
 import BarChart from '@/components/charts/BarChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
@@ -48,6 +50,30 @@ const ratioItems = computed(() =>
 );
 const usd = (v) => `${num(v)} USD`;
 const ratioFmt = (v) => `×${num(v, 1)}`;
+
+// Globale Vermögenspyramide.
+const pyrTop = computed(() => pyramid[0]);
+const pyrBottom = computed(() => pyramid[pyramid.length - 1]);
+const pyramidItems = computed(() =>
+  pyramid.map((b) => ({
+    label: b.band,
+    value: b.wealth_share,
+    color: b.band.startsWith('> 1') ? 'var(--accent)' : 'var(--gold)',
+    sub: `${pct(b.adults_share, 1)} der Erwachsenen`,
+  }))
+);
+
+// USD-Millionäre je Markt (grösste 15, Schweiz hervorgehoben).
+const chMill = computed(() => millionaires.find((m) => m.land === 'Schweiz'));
+const millItems = computed(() =>
+  millionaires.slice(0, 15).map((m) => ({
+    label: m.land,
+    value: m.anzahl,
+    color: m.land === 'Schweiz' ? 'var(--accent)' : 'var(--gold)',
+    sub: m.land === 'Schweiz' ? 'eine der höchsten Dichten weltweit' : undefined,
+  }))
+);
+const mio = (v) => `${num(v / 1e6, 2)} Mio.`;
 </script>
 
 <template>
@@ -126,6 +152,36 @@ const ratioFmt = (v) => `×${num(v, 1)}`;
         </p>
         <BarChart :items="ratioItems" :format-value="ratioFmt" accent="var(--gold)" />
         <SourceTag id="ubs" note="Ø/Median-Vermögen pro Erwachsenem, Ende 2024" />
+      </div>
+
+      <h3 class="block-h">Die globale Vermögenspyramide</h3>
+      <p class="muted small intro2">
+        Dieselbe Studie für die ganze Welt: Das reichste
+        <strong>{{ pct(pyrTop.adults_share, 1) }}</strong> der Erwachsenen besitzt
+        <strong>{{ pct(pyrTop.wealth_share, 1) }}</strong> des gesamten Nettovermögens –
+        die unteren <strong>{{ pct(pyrBottom.adults_share, 1) }}</strong> zusammen nur
+        <strong>{{ pct(pyrBottom.wealth_share, 1) }}</strong>.
+      </p>
+      <div class="card chartbox">
+        <h3>Vermögensanteil je Vermögensband (Welt 2024)</h3>
+        <p class="muted intro">
+          Anteil am weltweiten Nettovermögen je Band; in Klammern der Anteil an allen
+          Erwachsenen. Eine schmale Spitze hält fast die Hälfte, die breite Basis kaum etwas.
+        </p>
+        <BarChart :items="pyramidItems" :max="1" :format-value="(v) => pct(v, 1)" accent="var(--gold)" />
+        <SourceTag id="ubs" note="Globale Vermögenspyramide, Ende 2024" />
+      </div>
+
+      <h3 class="block-h">Wo die USD-Millionäre leben</h3>
+      <p class="muted small intro2">
+        Die Schweiz zählt rund <strong>{{ mio(chMill.anzahl) }}</strong> USD-Millionäre und
+        hat zugleich eine der höchsten Dichten der Welt: Laut Report ist mehr als
+        <strong>jede siebte</strong> erwachsene Person in der Schweiz USD-Millionär.
+      </p>
+      <div class="card chartbox">
+        <h3>Anzahl USD-Millionäre (grösste Märkte)</h3>
+        <BarChart :items="millItems" :format-value="mio" accent="var(--gold)" />
+        <SourceTag id="ubs" note="UBS Millionaire Index, 2024" />
       </div>
     </div>
   </section>

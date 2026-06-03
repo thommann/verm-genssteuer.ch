@@ -159,6 +159,14 @@ schreibt die Märkte, die in beiden vorkommen, nach `ubs_wealth_levels.json`
 **182 248 USD** (Rang 7) — Faktor ≈ 3,8. Genutzt von der UBS-Studie-Sektion (Mittelwert-
 vs-Median-Lücke).
 
+**Weitere Tabellen** (gleiches Skript, je mit Selbstprüfung):
+- **«The global wealth pyramid 2024»** → `ubs_wealth_pyramid.json`: vier Vermögensbänder
+  mit Anteil der Erwachsenen und Anteil am Gesamtvermögen. Beleg: oberstes Band
+  (> 1 Mio. USD) = 1,6 % der Erwachsenen / 48,1 % des Vermögens; unterstes (< 10k) = 40,7 % /
+  0,6 %. (Geprüft: Anteile summieren auf 100 %.)
+- **«UBS Millionaire Index»** → `ubs_millionaires.json`: Anzahl USD-Millionäre je Markt
+  (in Tausend → Personen). Beleg: USA 23 831 000, Schweiz 1 119 000.
+
 **Keine Zeitreihe:** Der Report ist eine Momentaufnahme (Ende 2024) und enthält keine
 jährliche Länder-Zeitreihe; die historische UBS-Reihe steckt im separaten, **nicht frei
 abrufbaren** Databook. Für Ungleichheit *im Zeitverlauf* dient WID (Quelle 2, volle
