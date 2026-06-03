@@ -240,17 +240,26 @@ Kanton». `fetch_sources.sh` stellt die deterministische Abfrage (Schweiz-Total,
   `Demografische Komponente=14` (Bestand am 31. Dezember).
 - Wert Ende 2024: **9 051 029** (Quelle: BFS – ESPOP/STATPOP).
 
-**`bezug: "kuratiert"` — EFV-/BAG-Aggregate (belegte Konstanten in `04`).**
-Für diese Einzelwerte gibt es keine stabile, eindeutige maschinenlesbare Einzelquelle
-(EFV-Finanzstatistik nach FS-Klassifikationscodes bzw. BAG-T-Tabellen). Sie werden daher als
-nachgewiesene Konstanten im Skript gepflegt; beim Jahreswechsel dort aktualisieren:
+**`bezug: "kuratiert"` — EFV-/ESTV-/BAG-Aggregate (belegte Konstanten in `04`).**
+Diese gerundeten Einordnungsgrössen stammen aus mehreren Publikationen (kein einzelner Cube)
+und werden als belegte Konstanten im Skript gepflegt; beim Jahreswechsel dort aktualisieren.
+Jeder Wert ist auf eine konkrete Tabelle/Zelle zurückgeführt und gegen die Quelle geprüft:
 
-| Grösse | Wert | Jahr | Quelle | Beleg |
+| Grösse | Wert (kuratiert) | Jahr | Geprüft an der Quelle (genaue Fundstelle) | Beleg (direkt) |
 |---|---|---|---|---|
-| Einkommenssteuern nat. Personen (alle Ebenen) | ~ 62,7 Mrd. | 2023 | EFV/ESTV | <https://www.efv.admin.ch/de/finanzberichterstattung/finanzstatistik> |
-| Direkte Bundessteuer nat. Personen | ~ 13,5 Mrd. | 2023 | EFV | s. o. |
-| OKP-Leistungen total | ~ 52,1 Mrd. | 2023 | BAG | <https://www.bag.admin.ch/bag/de/home/zahlen-und-statistiken/statistiken-zur-krankenversicherung.html> |
-| OKP-Prämien (von Versicherten finanziert) | ~ 36 Mrd. | 2023 | BAG | s. o. |
+| Einkommenssteuern nat. Personen (Bund + Kt. + Gde.) | ~ 62,7 Mrd. | 2023 | EFV-Finanzstatistik, Standardauswertung «Einnahmen nach Arten – Bund/Kantone/Gemeinden» (FS-Modell), Datei `bund_ktn_gdn-d.xlsx`, Blatt `einnahmen`, Artencode **4000** «Einkommenssteuern natürliche Personen» = **62 717 546** Tsd. CHF | <https://www.efv.admin.ch/de/fs-daten> |
+| Direkte Bundessteuer nat. Personen | ~ 13,5 Mrd. | 2023 | ESTV «Fiskaleinnahmen des Bundes 2023» (`fiskaleinnahmen-bund-2023.xlsx`), Blatt «DBST neu ab 2023 (Soll)», Summe Zeile **«Fiskalertrag NP»** über alle Monate = **13 407** Mio. CHF | <https://www.estv.admin.ch/de/fiskaleinnahmen-des-bundes> |
+| OKP-Leistungen total | ~ 52,1 Mrd. | 2023 | BAG: von den Gesundheitskosten total 95 Mrd. entfallen **«rund 52 Milliarden»** auf Leistungen, die unter die OKP fallen (Kostenoptik) | <https://www.bag.admin.ch/de/newnsb/pwGPlqnWtp7n-FU2nvwJ0> |
+| OKP-Prämien (von Versicherten finanziert) | ~ 36 Mrd. | 2023 | BAG: davon **«rund 36 Milliarden … durch Prämien der Versicherten finanziert»** (gleiche Quelle) | s. o. |
+
+> **Abgrenzung OKP (warum nicht die STATKV-Tabellen?):** Die BAG-Aussage «rund 52 Mrd.
+> OKP-Leistungen» nutzt die **Kostenoptik** (Anteil der Gesundheitskosten 2023, der unter die
+> OKP fällt). Die insurer-Buchhaltung der **Statistik der obligatorischen Krankenversicherung**
+> (STATKV, Rechnungsjahr) weist abweichende, tiefere Werte aus — Bruttoleistungen Tab. T 2.17 =
+> **39,9 Mrd.**, Prämien Tab. T 3.06 = **35,3 Mrd.**
+> (<https://www.bag.admin.ch/de/statistik-der-obligatorischen-krankenversicherung>). Beide
+> Abgrenzungen sind korrekt; als Einordnungsgrösse verwendet die Seite die Kostenoptik (52/36),
+> exakt wie sie das BAG kommuniziert.
 
 ---
 

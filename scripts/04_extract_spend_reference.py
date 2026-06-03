@@ -46,21 +46,28 @@ def bfs_population():
 # aktualisieren – Jahr/Quelle mitführen.
 CURATED = {
     "einkommenssteuer_np_alle_ebenen": {
+        # Beleg: EFV-Finanzstatistik, "Einnahmen nach Arten – Bund/Kantone/Gemeinden"
+        # (bund_ktn_gdn-d.xlsx, Blatt "einnahmen"), Artencode 4000 = 62 717 546 Tsd. (2023).
         "value": 62700000000,
         "label": "Einkommenssteuern natürlicher Personen (Bund + Kantone + Gemeinden)",
         "jahr": 2023, "einheit": "CHF/Jahr", "source": "efv",
     },
     "direkte_bundessteuer_np": {
+        # Beleg: ESTV "Fiskaleinnahmen des Bundes 2023", Blatt "DBST neu ab 2023 (Soll)",
+        # Summe Zeile "Fiskalertrag NP" = 13 407 Mio. (2023).
         "value": 13500000000,
         "label": "Direkte Bundessteuer natürlicher Personen",
         "jahr": 2023, "einheit": "CHF/Jahr", "source": "efv",
     },
     "okp_praemien": {
+        # Beleg: BAG, Kostenoptik 2023 — "rund 36 Mrd. … durch Prämien finanziert".
         "value": 36000000000,
         "label": "Krankenkassenprämien (OKP, von Versicherten finanziert)",
         "jahr": 2023, "einheit": "CHF/Jahr", "source": "bag",
     },
     "okp_leistungen": {
+        # Beleg: BAG, Kostenoptik 2023 — von 95 Mrd. Gesundheitskosten "rund 52 Mrd." OKP.
+        # (Andere Abgrenzung als STATKV-Bruttoleistungen ~39,9 Mrd.; siehe QUELLEN.md §5.)
         "value": 52100000000,
         "label": "OKP-Leistungen total",
         "jahr": 2023, "einheit": "CHF/Jahr", "source": "bag",
