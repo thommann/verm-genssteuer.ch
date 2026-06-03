@@ -7,7 +7,7 @@ const k = kennzahlen.unbeschraenkt['2022'];
 </script>
 
 <template>
-  <header class="hero">
+  <header id="start" class="hero">
     <div class="wrap">
       <div class="eyebrow">Vermögen · Schweiz · 2022</div>
       <h1>

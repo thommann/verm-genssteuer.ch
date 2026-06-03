@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Waage im Gleichgewicht">
+  <rect width="32" height="32" rx="8" fill="#E30613"/>
+  <rect x="11" y="26.4" width="10" height="2" rx="1" fill="#fff"/>
+  <rect x="15" y="9" width="2" height="17.4" fill="#fff"/>
+  <circle cx="16" cy="8.4" r="1.7" fill="#fff"/>
+  <rect x="5" y="9.1" width="22" height="1.8" rx="0.9" fill="#fff"/>
+  <line x1="6" y1="10.9" x2="2.5" y2="16.5" stroke="#fff" stroke-width="0.9"/>
+  <line x1="6" y1="10.9" x2="9.5" y2="16.5" stroke="#fff" stroke-width="0.9"/>
+  <path d="M2.5 16.5 Q 6 19.8 9.5 16.5 Z" fill="#fff"/>
+  <line x1="26" y1="10.9" x2="22.5" y2="16.5" stroke="#fff" stroke-width="0.9"/>
+  <line x1="26" y1="10.9" x2="29.5" y2="16.5" stroke="#fff" stroke-width="0.9"/>
+  <path d="M22.5 16.5 Q 26 19.8 29.5 16.5 Z" fill="#fff"/>
+</svg>
