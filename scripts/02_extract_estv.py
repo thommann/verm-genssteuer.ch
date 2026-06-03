@@ -225,8 +225,7 @@ def population(params_year, edges):
 def make_tax(d):
     k = d["exponent"]
     kp = k + 1
-    basis = d["ankerSatz"] * d["ankerVermoegen"] * kp / (
-        d["schwelle"] * ((d["ankerVermoegen"] / d["schwelle"]) ** kp - 1))
+    basis = d["basis"]
     wcap = d["schwelle"] * (d["cap"] / basis) ** (1.0 / k)
 
     def tax(W):
@@ -241,9 +240,13 @@ def make_tax(d):
 
 
 def build_calculator(dist, m_pauschal):
+    # Tarif-Komponente «basis» = Grenzsatz an der Schwelle (direkte Modell-Komponente).
+    # Default so gewaehlt, dass der Oe-Satz beim Anker-Vermoegen A=100 Mio. 2 % betraegt:
+    #   basis = tau * A * (k+1) / (S * ((A/S)^(k+1) - 1))
+    EXP, S, CAP = 0.9, 5_000_000, 1.0
+    basis = 0.02 * 1e8 * (EXP + 1) / (S * ((1e8 / S) ** (EXP + 1) - 1))
     defaults = {
-        "schwelle": 5000000, "exponent": 0.9, "cap": 1,
-        "ankerVermoegen": 100000000, "ankerSatz": 0.02,
+        "schwelle": S, "exponent": EXP, "cap": CAP, "basis": basis,
         "mPauschal": m_pauschal, "rendite": 0.05,
     }
     years = year_params(dist, m_pauschal)

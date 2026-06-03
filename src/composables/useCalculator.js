@@ -4,7 +4,6 @@ import paramsData from '@/data/calculator_params.json';
 import cohorts from '@/data/projektion_cohorts.json';
 import {
   makeModel,
-  computeBasis,
   revenueForYear,
   revenueByBand,
   tariffCurve,
@@ -65,14 +64,11 @@ export const PRESETS = {
   },
 };
 
-// Default-Grenzsatz aus den Pipeline-Parametern abgeleitet (erhält die Referenz-Reproduktion).
-const defaultBasis = computeBasis(d.schwelle, d.exponent, d.ankerVermoegen, d.ankerSatz);
-
 const state = reactive({
   schwelle: d.schwelle,
   exponent: d.exponent,
   cap: d.cap,
-  basis: defaultBasis,
+  basis: d.basis,
   rendite: d.rendite,
   year: 2022,
   activePreset: 'moderat',

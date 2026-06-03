@@ -190,14 +190,16 @@ Steuer(W) = Basis·Schwelle/(k+1) · ((W/Schwelle)^(k+1) − 1)                 
           = Steuer(W_cap) + Cap·(W − W_cap)                                  für W > W_cap
 ```
 
-**Kalibrierung von `Basis`** — so, dass der Ø-Satz beim Anker-Vermögen `A` den Zielwert
-`τ̄` trifft (gilt, solange der Cap unterhalb von A nicht greift):
+**`Basis` (Grenzsatz an der Schwelle)** ist eine direkte Modell-Komponente und wird
+so in `calculator_params.json` hinterlegt. Der Default-Wert ist so gewählt, dass der
+Ø-Satz beim Anker-Vermögen `A` den Zielwert `τ̄` trifft (gilt, solange der Cap
+unterhalb von A nicht greift):
 ```
 Basis = τ̄ · A · (k+1) / ( Schwelle · ((A/Schwelle)^(k+1) − 1) )
 ```
 Default (Schwelle 5 Mio., k = 0,9, A = 100 Mio., τ̄ = 2 %): **Basis = 0,00257231…**,
-Cap-Grenze = **3 770 402 679 CHF**. `taxModel.js` (Frontend) und das Prüfskript rechnen
-denselben Wert.
+Cap = 1,0, Cap-Grenze = **3 770 402 679 CHF**. `taxModel.js` (Frontend), die
+JSON-Defaults und das Prüfskript verwenden denselben `Basis`-Wert direkt.
 
 **Statisches Jahresaufkommen** = Summe über die Bins:
 ```

@@ -81,9 +81,7 @@ def population_bins(year):
 def make_tax(d):
     k = d["exponent"]
     kp = k + 1
-    basis = d["ankerSatz"] * d["ankerVermoegen"] * kp / (
-        d["schwelle"] * ((d["ankerVermoegen"] / d["schwelle"]) ** kp - 1)
-    )
+    basis = d["basis"]
     wcap = d["schwelle"] * (d["cap"] / basis) ** (1 / k)
 
     def tax(W):
