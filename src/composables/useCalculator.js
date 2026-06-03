@@ -64,14 +64,18 @@ export const PRESETS = {
   },
 };
 
+// Startzustand = erstes Preset, damit der angezeigte Tarif zur hervorgehobenen Pille passt.
+const FIRST_PRESET = Object.keys(PRESETS)[0];
+const p0 = PRESETS[FIRST_PRESET];
+
 const state = reactive({
-  schwelle: d.schwelle,
-  exponent: d.exponent,
-  cap: d.cap,
-  basis: d.basis,
+  schwelle: p0.schwelle,
+  exponent: p0.exponent,
+  cap: p0.cap,
+  basis: p0.basis,
   rendite: d.rendite,
   year: 2022,
-  activePreset: 'moderat',
+  activePreset: FIRST_PRESET,
 });
 
 const model = computed(() =>
