@@ -45,7 +45,7 @@ const items = computed(() =>
         <div class="scard card">
           <span class="sv gold">Platz&nbsp;{{ chRank }}</span>
           <span class="sl">von {{ sorted.length }} verglichenen Ländern – die Schweiz
-            gehört zu den ungleichsten</span>
+            liegt im oberen Mittelfeld</span>
         </div>
         <div class="scard card">
           <span class="sv">{{ gini(highest.gini) }}–{{ gini(lowest.gini) }}</span>
@@ -60,7 +60,7 @@ const items = computed(() =>
           Der Gini-Koeffizient misst, wie ungleich das gesamte Nettovermögen verteilt ist.
           Je höher der Wert, desto stärker konzentriert sich der Reichtum bei wenigen.
           Die <span class="ch-text">Schweiz</span> liegt – trotz Wohlstand und Stabilität –
-          weit oben.
+          im oberen Mittelfeld der Stichprobe.
         </p>
         <BarChart :items="items" :max="1" :format-value="gini" accent="var(--gold)" />
         <SourceTag id="ubs" note="Vermögens-Gini, Daten Ende 2024" />

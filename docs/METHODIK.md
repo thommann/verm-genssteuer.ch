@@ -16,8 +16,10 @@ und exakte Herkunft jeder Rohzahl) steht in [`docs/QUELLEN.md`](./QUELLEN.md).
 
 ## 1. Datengrundlage
 
-Primärquelle ist die **ESTV-Vermögenssteuerstatistik**: für jedes Steuerjahr die
-**Anzahl Steuerpflichtige** und das **steuerbare Reinvermögen** je Vermögensklasse.
+Primärquelle ist die **ESTV-Vermögenssteuerstatistik**: für jedes Steuerjahr (2012–2022)
+ein eigenes Workbook, daraus das Blatt `CH` mit der **Anzahl Steuerpflichtige** und dem
+**steuerbaren Reinvermögen** je Vermögensklasse. `scripts/02_extract_estv.py` liest diese
+11 Dateien direkt aus (Bezug und exakte Zellen: [`docs/QUELLEN.md`](./QUELLEN.md)).
 Die Klassen sind fix:
 
 | # | Klasse (CHF) | Untergrenze | Obergrenze | Breite |
@@ -155,8 +157,9 @@ Bandgrenzen   eᵢ = LO · rⁱ            Bandmitte    midᵢ = √(eᵢ · e�
   mit `N` = ESTV-Anzahl > 10 Mio. **plus** `M` Pauschalbesteuerte (Annahme: sie folgen
   demselben Tail; siehe Abschnitt 7). Beispiel 2022: `N = 20 479 + 4 557 = 25 036`.
 
-Diese Konstruktion reproduziert die im Workbook vorgerechneten Bins **bis auf
-0,000000 Personen** und damit das Aufkommen exakt (siehe Validierungstabelle).
+Genau diese Konstruktion erzeugt `scripts/02_extract_estv.py` als `calculator_bins.json`;
+`scripts/00_reproduce_statistics.py` baut sie unabhängig nach und stimmt **bis auf
+0,000000 Personen** überein — und damit das Aufkommen exakt (siehe Validierungstabelle).
 
 Jahresparameter (`src/data/calculator_params.json`):
 
@@ -193,7 +196,8 @@ Steuer(W) = Basis·Schwelle/(k+1) · ((W/Schwelle)^(k+1) − 1)                 
 Basis = τ̄ · A · (k+1) / ( Schwelle · ((A/Schwelle)^(k+1) − 1) )
 ```
 Default (Schwelle 5 Mio., k = 0,9, A = 100 Mio., τ̄ = 2 %): **Basis = 0,00257231…**,
-Cap-Grenze = **3 770 402 679 CHF** — beide identisch mit dem Workbook.
+Cap-Grenze = **3 770 402 679 CHF**. `taxModel.js` (Frontend) und das Prüfskript rechnen
+denselben Wert.
 
 **Statisches Jahresaufkommen** = Summe über die Bins:
 ```
@@ -240,18 +244,24 @@ Aufkommen / OKP-Prämien; Pro-Kopf-Dividende = Aufkommen / Bevölkerung.
 
 ## 9. Validierungstabelle (reproduziert vs. publiziert)
 
-| Grösse | Reproduziert | Referenz | Quelle der Referenz |
+Geprüft wird gegen **zwei** Arten von Referenz: (a) der einzige *externe* Test ist der
+offizielle ESTV-Vermögens-Gini 2015 (0,860); (b) die übrigen Zeilen prüfen die *interne*
+Konsistenz — `00_reproduce_statistics.py` rechnet die Verfahren unabhängig von
+`02_extract_estv.py` nach und muss dieselben Werte liefern (kein Zirkelschluss zu einer
+externen Zahl, sondern Schutz gegen Implementierungsfehler).
+
+| Grösse | Reproduziert | Referenz | Art der Referenz |
 |---|---|---|---|
-| Basis-Satz (Default) | 0,00257231435969 | 0,00257231435969 | Workbook |
-| Cap-Grenze | 3 770 402 678,61 | 3 770 402 678,61 | Workbook |
-| Aufkommen statisch 2020 | 76,0512 Mrd. | 76,0512 Mrd. | Workbook |
-| Aufkommen statisch 2021 | 91,1598 Mrd. | 91,1598 Mrd. | Workbook |
-| Aufkommen statisch 2022 | 91,5437 Mrd. | 91,5437 Mrd. | Workbook |
-| Projektion 2022 → 2032 | 92,30 → 23,87 Mrd. | 92,30 → 23,87 Mrd. | Workbook |
-| Bin-Besetzung (alle Jahre) | Abw. < 1e-6 Personen | vorgerechnet | Workbook |
-| α Klassenmittel 2022 | 1,32352 | 1,32352 | Workbook |
+| Basis-Satz (Default) | 0,00257231435969 | 0,00257231435969 | Modell-Definition |
+| Cap-Grenze | 3 770 402 678,61 | 3 770 402 678,61 | Modell-Definition |
+| Aufkommen statisch 2020 | 76,0512 Mrd. | 76,0512 Mrd. | Modell-Referenz (Skript) |
+| Aufkommen statisch 2021 | 91,1598 Mrd. | 91,1598 Mrd. | Modell-Referenz (Skript) |
+| Aufkommen statisch 2022 | 91,5437 Mrd. | 91,5437 Mrd. | Modell-Referenz (Skript) |
+| Projektion 2022 → 2032 | 92,30 → 23,87 Mrd. | 92,30 → 23,87 Mrd. | Modell-Referenz (Skript) |
+| Bin-Besetzung (alle Jahre) | Abw. < 1e-6 Personen | `calculator_bins.json` | interne Konsistenz |
+| α Klassenmittel 2022 | 1,32352 | 1,32352 | `calculator_params.json` |
 | Median unbeschränkt 2022 | CHF 45 078 | — | eigene Rechnung |
-| **Gini «alle» 2015** | **0,8606** | **0,860** | **ESTV (offiziell)** |
+| **Gini «alle» 2015** | **0,8606** | **0,860** | **ESTV (offiziell, extern)** |
 
 ---
 
@@ -271,14 +281,17 @@ Aufkommen / OKP-Prämien; Pro-Kopf-Dividende = Aufkommen / Bevölkerung.
 ## 11. Reproduktion
 
 ```bash
-# Statistische Verfahren nachrechnen und gegen die publizierten Werte prüfen:
-python3 scripts/00_reproduce_statistics.py
+# 1. Rohdaten direkt von ESTV/WID/FDK/UBS laden (benötigt curl):
+bash scripts/fetch_sources.sh
 
-# Rohdaten aus den Original-Workbooks neu extrahieren (benötigt openpyxl + die Workbooks):
-python3 scripts/01_extract_calculator.py
-python3 scripts/02_extract_distribution_wid.py
-python3 scripts/03_extract_projektion.py
+# 2. Aus den Rohdaten alle JSON erzeugen (benötigt openpyxl + pdftotext/poppler-utils):
+python3 scripts/01_extract_fdk.py        # -> pauschal.json
+python3 scripts/02_extract_estv.py       # -> Verteilung, Kennzahlen, Rechner-Parameter/Bins/Kohorten
+python3 scripts/03_extract_wid_ubs.py    # -> WID-Zeitreihen, Länderranking + UBS-Gini
+
+# 3. Alle Verfahren unabhängig nachrechnen und prüfen:
+python3 scripts/00_reproduce_statistics.py   # erwartet: alle Prüfungen OK
 ```
 
-Der Live-Bezug der Rohdaten direkt von den Behördenservern (ESTV/WID/UBS/FDK) ist in
-[`docs/QUELLEN.md`](./QUELLEN.md) als Schritt-für-Schritt-Runbook dokumentiert.
+Der vollständige Live-Bezug inkl. exakter Download-URLs, Blatt-/Spaltenpositionen und
+SHA256-Prüfsummen ist in [`docs/QUELLEN.md`](./QUELLEN.md) dokumentiert.
