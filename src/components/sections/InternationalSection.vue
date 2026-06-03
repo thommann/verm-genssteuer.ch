@@ -15,6 +15,7 @@ const metric = ref('top1');
 const isGini = computed(() => metric.value === 'gini');
 // Anteile als Prozent, Gini als Index (0–1).
 const formatY = computed(() => (isGini.value ? (v) => v.toFixed(2) : (v) => pct(v, 0)));
+const formatVal = computed(() => (isGini.value ? (v) => v.toFixed(2) : (v) => pct(v, 1)));
 const widNote = computed(() => (isGini.value
   ? 'Variable ghwealj992 (Vermögens-Gini)'
   : 'Variable shwealj992, net personal wealth'));
@@ -53,21 +54,23 @@ const yTicks = computed(() => {
 });
 const xTicks = [1995, 2000, 2005, 2010, 2015, 2020, 2024];
 
-// Ranking direkt aus der Zeitreihe: je Land der jüngste Top-1%-Wert (Welt endet 2023).
-const ranking = computed(() =>
-  Object.keys(wid.top1)
+// Ranking direkt aus der Zeitreihe: je Land der jüngste Wert der gewählten Metrik
+// (Welt endet je nach Reihe früher).
+const ranking = computed(() => {
+  const data = wid[metric.value];
+  return Object.keys(data)
     .map((land) => {
-      const ys = Object.keys(wid.top1[land])
+      const ys = Object.keys(data[land])
         .map(Number)
-        .filter((y) => wid.top1[land][y] != null);
+        .filter((y) => data[land][y] != null);
       if (!ys.length) return null;
       const jahr = Math.max(...ys);
-      return { land, jahr, top1: wid.top1[land][jahr] };
+      return { land, jahr, val: data[land][jahr] };
     })
     .filter((c) => c != null)
-    .sort((a, b) => b.top1 - a.top1)
-);
-const maxTop1 = computed(() => Math.max(...ranking.value.map((c) => c.top1)));
+    .sort((a, b) => b.val - a.val);
+});
+const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
 </script>
 
 <template>
@@ -110,7 +113,7 @@ const maxTop1 = computed(() => Math.max(...ranking.value.map((c) => c.top1)));
       </div>
 
       <div class="compare">
-        <h3>Top-1%-Vermögensanteil heute ({{ ranking[0]?.jahr }})</h3>
+        <h3>{{ METRICS[metric].label }} heute ({{ ranking[0]?.jahr }})</h3>
         <div class="rank">
           <div
             v-for="c in ranking"
@@ -120,9 +123,9 @@ const maxTop1 = computed(() => Math.max(...ranking.value.map((c) => c.top1)));
           >
             <div class="rland">{{ c.land }}</div>
             <div class="rtrack">
-              <div class="rfill" :style="{ width: `${(c.top1 / maxTop1) * 100}%` }" />
+              <div class="rfill" :style="{ width: `${Math.max(0, (c.val / maxVal) * 100)}%` }" />
             </div>
-            <div class="rval tnum">{{ pct(c.top1, 1) }}</div>
+            <div class="rval tnum">{{ formatVal(c.val) }}</div>
           </div>
         </div>
         <div class="legend2">
