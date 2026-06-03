@@ -50,6 +50,8 @@ a:hover { text-decoration: underline; }
 .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
 section { padding: clamp(56px, 9vw, 120px) 0; position: relative; }
+/* Versatz, damit per Anker verlinkte Abschnitte nicht hinter der Sticky-Navigation liegen. */
+:where(section, header, [id])[id] { scroll-margin-top: 78px; }
 .section-alt { background: linear-gradient(180deg, transparent, rgba(18, 25, 51, 0.6) 12%, rgba(18, 25, 51, 0.6) 88%, transparent); }
 
 .eyebrow {
