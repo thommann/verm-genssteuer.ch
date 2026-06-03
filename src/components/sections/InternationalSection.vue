@@ -39,8 +39,9 @@ const series = computed(() => {
 
 const yDomain = computed(() => {
   const all = series.value.flatMap((s) => s.points.map((p) => p.y)).filter((v) => v != null);
-  // Anteile ab 0; der Gini liegt hoch (~0,7–1) und startet daher nah am Minimum.
-  const lo = isGini.value ? Math.min(...all) : Math.min(0, ...all);
+  // Beginnt am Datenminimum (nicht bei 0) – bessere Lesbarkeit, da die Werte in einem
+  // schmalen Band liegen. Negative Werte (untere 50 %) werden weiterhin korrekt erfasst.
+  const lo = Math.min(...all);
   const hi = Math.max(...all);
   return [Math.floor(lo * 20) / 20, Math.ceil(hi * 20) / 20];
 });
