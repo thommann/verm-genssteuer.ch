@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { useCalculator, PRESETS } from '@/composables/useCalculator.js';
+import { useCalculator, PRESETS, PRESET_GROUPS } from '@/composables/useCalculator.js';
 import kennzahlen from '@/data/estv_kennzahlen.json';
 import { chfCompact, chf, pct, num } from '@/lib/format.js';
 
@@ -45,6 +45,14 @@ const bandItems = computed(() =>
 
 const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 
+// Presets in drei Anzeige-Zeilen gruppieren (Meine / WIR 2022 / WIR 2026).
+const presetRows = PRESET_GROUPS.map((g) => ({
+  ...g,
+  items: Object.entries(PRESETS)
+    .filter(([, p]) => p.group === g.id)
+    .map(([key, p]) => ({ key, label: p.label })),
+}));
+
 const isWir2022 = computed(() =>
   ['wir2022_1', 'wir2022_2', 'wir2022_3'].includes(state.activePreset)
 );
@@ -65,16 +73,18 @@ const isWir2026 = computed(() =>
       </p>
 
       <div class="presets">
-        <span class="presets-label">Schnellstart:</span>
-        <button
-          v-for="(p, key) in PRESETS"
-          :key="key"
-          class="preset"
-          :class="{ active: state.activePreset === key }"
-          @click="calc.applyPreset(key)"
-        >
-          {{ p.label }}
-        </button>
+        <div v-for="g in presetRows" :key="g.id" class="preset-row">
+          <span class="presets-label">{{ g.label }}</span>
+          <button
+            v-for="p in g.items"
+            :key="p.key"
+            class="preset"
+            :class="{ active: state.activePreset === p.key }"
+            @click="calc.applyPreset(p.key)"
+          >
+            {{ p.label }}
+          </button>
+        </div>
       </div>
 
       <p v-if="isWir2022" class="preset-note">
@@ -233,8 +243,9 @@ const isWir2026 = computed(() =>
 </template>
 
 <style scoped>
-.presets { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 26px 0 22px; }
-.presets-label { color: var(--text-mute); font-size: 0.85rem; font-weight: 600; }
+.presets { display: flex; flex-direction: column; gap: 10px; margin: 26px 0 22px; }
+.preset-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.presets-label { color: var(--text-mute); font-size: 0.85rem; font-weight: 600; min-width: 76px; }
 .preset {
   padding: 8px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-soft);

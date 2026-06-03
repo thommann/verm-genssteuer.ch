@@ -18,51 +18,58 @@ const d = paramsData.defaults;
 // Voreingestellte Steuermodelle zum Durchprobieren.
 export const PRESETS = {
   flach: {
-    label: 'Flach',
+    label: 'Flach', group: 'meine',
     desc: 'Fast flacher Satz: 1,1 % an der Schwelle, kaum Progression.',
     schwelle: 5e6, exponent: 0.3, cap: 0.5, basis: 0.0108,
   },
   moderat: {
-    label: 'Moderat',
+    label: 'Moderat', group: 'meine',
     desc: 'Sanft progressiv: 0,68 % an der Schwelle.',
     schwelle: 5e6, exponent: 0.5, cap: 0.5, basis: 0.006784,
   },
   steil: {
-    label: 'Stark progressiv',
+    label: 'Stark progressiv', group: 'meine',
     desc: 'Steile Kurve: 0,26 % an der Schwelle, schnell steigend.',
     schwelle: 5e6, exponent: 0.9, cap: 0.5, basis: 0.002572,
   },
   wir2022_1: {
-    label: 'WIR 2022 · moderat',
+    label: 'moderat', group: 'wir22',
     desc: 'Progressives Szenario 1 (moderat): Effektivsätze 0,6 % ab 1 Mio. bis 3,2 % über 100 Mrd.',
     schwelle: 5e6, exponent: 0.15, cap: 0.05, basis: 0.009853,
   },
   wir2022_2: {
-    label: 'WIR 2022 · hoch',
+    label: 'hoch', group: 'wir22',
     desc: 'Progressives Szenario 2 (hoch): Grenzsätze bis 10 %, Effektivsätze bis ~8 % über 100 Mrd.',
     schwelle: 5e6, exponent: 0.2, cap: 0.1, basis: 0.01356,
   },
   wir2022_3: {
-    label: 'WIR 2022 · sehr hoch',
+    label: 'sehr hoch', group: 'wir22',
     desc: 'Progressives Szenario 3 (sehr hoch): Grenzsätze bis 90 %, Effektivsätze bis ~67 % über 100 Mrd.',
     schwelle: 5e6, exponent: 0.45, cap: 0.9, basis: 0.01183,
   },
   wir2026_2: {
-    label: 'WIR 2026 · 2 %',
-    desc: 'Mindeststeuer 2 % – beendet die Regressivität an der Spitze.',
+    label: '2 %', group: 'wir26',
+    desc: 'Mindeststeuer 2 %: beendet die Regressivität an der Spitze.',
     schwelle: 5e6, exponent: 0, cap: 1, basis: 0.02,
   },
   wir2026_3: {
-    label: 'WIR 2026 · 3 %',
-    desc: 'Mindeststeuer 3 % – stellt moderate Progression wieder her.',
+    label: '3 %', group: 'wir26',
+    desc: 'Mindeststeuer 3 %: stellt moderate Progression wieder her.',
     schwelle: 5e6, exponent: 0, cap: 1, basis: 0.03,
   },
   wir2026_5: {
-    label: 'WIR 2026 · 5 %',
+    label: '5 %', group: 'wir26',
     desc: 'Ambitionierte Mindeststeuer 5 %.',
     schwelle: 5e6, exponent: 0, cap: 1, basis: 0.05,
   },
 };
+
+// Anzeige-Gruppen der Preset-Leiste (in Reihenfolge der Zeilen).
+export const PRESET_GROUPS = [
+  { id: 'meine', label: 'Meine' },
+  { id: 'wir22', label: 'WIR 2022' },
+  { id: 'wir26', label: 'WIR 2026' },
+];
 
 // Startzustand = erstes Preset, damit der angezeigte Tarif zur hervorgehobenen Pille passt.
 const FIRST_PRESET = Object.keys(PRESETS)[0];
