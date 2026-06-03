@@ -248,9 +248,9 @@ nachgewiesene Konstanten im Skript gepflegt; beim Jahreswechsel dort aktualisier
 
 | Grösse | Wert | Jahr | Quelle | Beleg |
 |---|---|---|---|---|
-| Einkommenssteuern nat. Personen (alle Ebenen) | ~ 62,7 Mrd. | 2023 | EFV/ESTV | <https://www.efv.admin.ch/de/finanzberichterstattung/finanzstatistik> |
+| Einkommenssteuern nat. Personen (alle Ebenen) | ~ 62,7 Mrd. | 2023 | EFV/ESTV | <https://www.efv.admin.ch/de/overview-finanzstatistik> |
 | Direkte Bundessteuer nat. Personen | ~ 13,5 Mrd. | 2023 | EFV | s. o. |
-| OKP-Leistungen total | ~ 52,1 Mrd. | 2023 | BAG | <https://www.bag.admin.ch/bag/de/home/zahlen-und-statistiken/statistiken-zur-krankenversicherung.html> |
+| OKP-Leistungen total | ~ 52,1 Mrd. | 2023 | BAG | <https://www.bag.admin.ch/de/statistiken-zur-krankenversicherung> |
 | OKP-Prämien (von Versicherten finanziert) | ~ 36 Mrd. | 2023 | BAG | s. o. |
 
 ---

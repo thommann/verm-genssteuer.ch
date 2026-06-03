@@ -49,7 +49,7 @@
     "kurz": "EFV / ESTV Fiskaleinnahmen",
     "titel": "Einnahmen des Bundes & Fiskaleinnahmen von Bund, Kantonen und Gemeinden",
     "herausgeber": "Eidgenössische Finanzverwaltung (EFV) / ESTV",
-    "url": "https://www.efv.admin.ch/de/finanzberichterstattung/finanzstatistik",
+    "url": "https://www.efv.admin.ch/de/overview-finanzstatistik",
     "stand": "Daten 2023",
     "hinweis": "Einkommenssteuern natürlicher Personen über alle Staatsebenen rund CHF 63 Mrd. (2023); direkte Bundessteuer natürliche Personen rund CHF 13,5 Mrd. Nominal, gerundet – nur Einordnungsgrösse."
   },
@@ -58,7 +58,7 @@
     "kurz": "BAG Krankenversicherung",
     "titel": "Statistik der obligatorischen Krankenpflegeversicherung (OKP)",
     "herausgeber": "Bundesamt für Gesundheit (BAG)",
-    "url": "https://www.bag.admin.ch/bag/de/home/zahlen-und-statistiken/statistiken-zur-krankenversicherung.html",
+    "url": "https://www.bag.admin.ch/de/statistiken-zur-krankenversicherung",
     "stand": "Daten 2023",
     "hinweis": "OKP-Leistungen rund CHF 52 Mrd. (2023); davon über Prämien der Versicherten finanziert rund CHF 36 Mrd. Nominal, gerundet – nur Einordnungsgrösse."
   },
