@@ -64,6 +64,9 @@ const isWir2026 = computed(() =>
 );
 // Bei aktivem WIR-Modell steuern die Regler (Potenzkurve) nicht das angezeigte Modell.
 const isWirActive = computed(() => isWir2022.value || isWir2026.value);
+
+// Erstes Preset der Gruppe «Unsere» – Ziel beim Zurückwechseln zum eigenen Modell.
+const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group === 'meine');
 </script>
 
 <template>
@@ -79,7 +82,7 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
 
       <div class="presets">
         <div v-for="g in presetRows" :key="g.id" class="preset-row">
-          <span class="presets-label">{{ g.label }}</span>
+          <span v-if="g.label" class="presets-label">{{ g.label }}</span>
           <button
             v-for="p in g.items"
             :key="p.key"
@@ -96,7 +99,7 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
         Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je
         Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), <strong>ab 1&nbsp;Mio.</strong>
         wie im Original – inklusive der rund 324'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der
-        5-Mio-Freibetrag der «Unsere»-Modelle).
+        5-Mio-Freibetrag der eigenen Modelle).
         <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 7.2" />
       </p>
       <p v-else-if="isWir2026" class="preset-note">
@@ -106,7 +109,7 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
         <SourceTag id="wir2026" note="Globale Mindeststeuer auf Multimillionäre, Kap. 7" />
       </p>
 
-      <p class="threshold-info">
+      <p v-if="!isWirActive" class="threshold-info">
         <strong>Warum der Freibetrag bei 5 Mio. beginnt:</strong>
         Bei rund 5 Mio. Franken verläuft die Grenze zum reichsten 1 %. Nur
         <strong>{{ num(k.cnt_ge5M) }}</strong> Steuerpflichtige liegen darüber –
@@ -121,10 +124,11 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
         <!-- Controls -->
         <div class="card controls">
           <p v-if="isWirActive" class="controls-lock">
-            <strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell
-            (Gruppe «Unsere») – bewege einen, um dorthin zu wechseln.
+            <strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell.
+            <button type="button" class="controls-lock-link" @click="calc.applyPreset(firstOwnPreset)">Klicke hier</button>,
+            um zum eigenen Modell zurückzukehren.
           </p>
-          <div :class="{ dimmed: isWirActive }">
+          <div v-if="!isWirActive">
             <RangeControl
               v-model="state.schwelle"
               :min="5e6"
@@ -297,7 +301,10 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
   border: 1px solid var(--border); border-left: 3px solid var(--teal);
 }
 .controls-lock strong { color: var(--text); }
-.dimmed { opacity: 0.4; transition: opacity 0.15s ease; }
+.controls-lock-link {
+  background: none; border: none; padding: 0; font: inherit;
+  color: var(--teal); text-decoration: underline; cursor: pointer;
+}
 .result {
   padding: 28px 24px;
   background: linear-gradient(160deg, #1d2952, #161f3d);
