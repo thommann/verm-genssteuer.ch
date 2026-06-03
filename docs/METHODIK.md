@@ -292,7 +292,7 @@ Bundesquellen, und dienen nur als Einordnung (`src/data/spend_reference.json`):
 | Einkommenssteuern nat. Personen (Bund + Kantone + Gemeinden) | ~ 62,7 Mrd. | 2023 | EFV/ESTV |
 | Direkte Bundessteuer nat. Personen | ~ 13,5 Mrd. | 2023 | EFV |
 | Krankenkassenprämien OKP (von Versicherten finanziert) | ~ 36 Mrd. | 2023 | BAG |
-| Ständige Wohnbevölkerung | 9 048 900 | 2024 | BFS |
+| Ständige Wohnbevölkerung | 9 051 029 | 2024 | BFS |
 
 Rechnung: Einkommenssteuer-Senkung = Aufkommen / Einkommenssteuer-Total; Prämienanteil =
 Aufkommen / OKP-Prämien; Pro-Kopf-Dividende = Aufkommen / Bevölkerung.
