@@ -34,13 +34,13 @@ export const PRESETS = {
     desc: 'Steile Kurve: 0,26 % an der Schwelle, schnell steigend.',
     schwelle: 5e6, exponent: 0.9, cap: 0.5, basis: 0.002572,
   },
-  // WIR 2022: exakte Grenzsatz-Staffel je Vermögensband (Tabelle 7.2). Freibetrag 5 Mio.
-  // wie auf der ganzen Seite (Original ab 1 Mio.); das 5–10-Mio-Band trägt den 1-%-Satz.
+  // WIR 2022: exakte Grenzsatz-Staffel je Vermögensband (Tabelle 7.2), ab 1 Mio. wie im
+  // Original. Die ESTV-Klassen 1–5 Mio. sind im Populationsmodell enthalten (siehe Bins).
   wir2022_1: {
     label: 'moderat', group: 'wir22', kind: 'brackets',
     desc: 'WIR 2022, Szenario 1 (moderat): exakte Grenzsätze 1 → 3,5 % über 100 Mrd.',
     brackets: [
-      { from: 5e6, rate: 0.01 }, { from: 1e7, rate: 0.015 }, { from: 1e8, rate: 0.02 },
+      { from: 1e6, rate: 0.01 }, { from: 1e7, rate: 0.015 }, { from: 1e8, rate: 0.02 },
       { from: 1e9, rate: 0.025 }, { from: 1e10, rate: 0.03 }, { from: 1e11, rate: 0.035 },
     ],
   },
@@ -48,7 +48,7 @@ export const PRESETS = {
     label: 'hoch', group: 'wir22', kind: 'brackets',
     desc: 'WIR 2022, Szenario 2 (hoch): exakte Grenzsätze 1 → 10 % über 100 Mrd.',
     brackets: [
-      { from: 5e6, rate: 0.01 }, { from: 1e7, rate: 0.015 }, { from: 1e8, rate: 0.03 },
+      { from: 1e6, rate: 0.01 }, { from: 1e7, rate: 0.015 }, { from: 1e8, rate: 0.03 },
       { from: 1e9, rate: 0.05 }, { from: 1e10, rate: 0.07 }, { from: 1e11, rate: 0.10 },
     ],
   },
@@ -56,7 +56,7 @@ export const PRESETS = {
     label: 'sehr hoch', group: 'wir22', kind: 'brackets',
     desc: 'WIR 2022, Szenario 3 (sehr hoch): exakte Grenzsätze 1 → 90 % über 100 Mrd.',
     brackets: [
-      { from: 5e6, rate: 0.01 }, { from: 1e7, rate: 0.015 }, { from: 1e8, rate: 0.07 },
+      { from: 1e6, rate: 0.01 }, { from: 1e7, rate: 0.015 }, { from: 1e8, rate: 0.07 },
       { from: 1e9, rate: 0.15 }, { from: 1e10, rate: 0.50 }, { from: 1e11, rate: 0.90 },
     ],
   },

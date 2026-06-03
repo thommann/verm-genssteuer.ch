@@ -238,16 +238,18 @@ die zwei dedizierten Modelltypen.
 
 | Vermögensband        | moderat | hoch  | sehr hoch |
 |----------------------|---------|-------|-----------|
-| 5–10 Mio. *          | 1 %     | 1 %   | 1 %       |
+| 1–10 Mio.            | 1 %     | 1 %   | 1 %       |
 | 10–100 Mio.          | 1,5 %   | 1,5 % | 1,5 %     |
 | 100 Mio.–1 Mrd.      | 2 %     | 3 %   | 7 %       |
 | 1–10 Mrd.            | 2,5 %   | 5 %   | 15 %      |
 | 10–100 Mrd.          | 3 %     | 7 %   | 50 %      |
 | > 100 Mrd.           | 3,5 %   | 10 %  | 90 %      |
 
-\* Im Original beginnt das erste Band bei **1 Mio.**; durch den Seiten-Freibetrag von
-5 Mio. setzt die Steuer erst ab 5 Mio. ein (das 5–10-Mio-Band trägt den 1-%-Satz des
-WIR-Bands «1–10 Mio.»).
+Die Steuer beginnt **ab 1 Mio.** wie im Original. Dafür ist das Populationsmodell des
+Rechners um die ESTV-Klassen 1–5 Mio. erweitert (drei zusätzliche Bins; `mid` = mittleres
+Klassenvermögen 2022). Diese Klassen liegen vollständig im 1-%-Band, daher ist der
+Klassenmittel-Punkt für die lineare Steuer exakt. WIR 2022 erfasst damit rund **324 000**
+Pflichtige mehr als die «Unsere»-Modelle (die beim 5-Mio-Freibetrag bleiben).
 
 **WIR 2026 — Mindeststeuer** (`makeMinTaxModel`, nach Zucman 2024 / G20): Wer **≥ 100 Mio. $**
 (Centi-Millionär) besitzt, zahlt **2 / 3 / 5 % des gesamten Vermögens**; darunter nichts.
@@ -259,10 +261,10 @@ Effektiv- und Grenzsatz sind oberhalb der Schwelle konstant = Mindeststeuersatz.
    die Satz-Struktur. Die Vermögens-Schwellen (USD im WIR) werden ohne Wechselkurs-Umrechnung
    in CHF behandelt (≈ Parität). Folge: Die angezeigten CHF-Beträge sind **nicht** mit den
    globalen USD-/BIP-Erträgen des WIR vergleichbar.
-2. **5-Mio-Freibetrag bei WIR 2022** (Original ab 1 Mio.): das Band 1–5 Mio. bleibt
-   steuerfrei. Da die ESTV-Daten ohnehin erst ab 5 Mio. vorliegen, ist das auch eine
-   Datengrenze, nicht nur eine Designentscheidung.
-3. **Aufkommen** wird stets auf den Schweizer ESTV-Bins (5 Mio.–50 Mrd.) gerechnet.
+2. **Statisches Aufkommen** wird auf den ESTV-Bins gerechnet — für WIR 2022 ab **1 Mio.**
+   (Bins 1 Mio.–50 Mrd.), für WIR 2026 ab 100 Mio. Die **dynamische Projektion** bleibt
+   bewusst auf ≥ 5 Mio.-Kohorten: sonst würden 1–5-Mio-Kohorten über die Jahre ins
+   Steuernetz hineinwachsen und die Referenz-Projektion (Verfahren E) verfälschen.
 
 Quellen: WIR 2022, Tabelle 7.2; WIR 2026, Kapitel 7 (nach Zucman 2024 / G20). Vgl.
 Quellen-IDs `wir2022` / `wir2026` in `src/data/sources.json`. Dieselben Hinweise erscheinen

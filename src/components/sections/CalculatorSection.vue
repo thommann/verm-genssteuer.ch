@@ -94,8 +94,9 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
 
       <p v-if="isWir2022" class="preset-note">
         Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je
-        Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), angewandt auf die
-        Schweizer ESTV-Daten. Freibetrag 5&nbsp;Mio. wie auf der ganzen Seite (Original ab 1&nbsp;Mio.&nbsp;$).
+        Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), <strong>ab 1&nbsp;Mio.</strong>
+        wie im Original – inklusive der rund 324'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der
+        5-Mio-Freibetrag der «Unsere»-Modelle).
         <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 7.2" />
       </p>
       <p v-else-if="isWir2026" class="preset-note">

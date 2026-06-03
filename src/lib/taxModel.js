@@ -107,6 +107,7 @@ export function revenueForYear(bins, model, year) {
 }
 
 const BANDS = [
+  { label: '1–5 Mio.', lo: 1e6, hi: 5e6 },
   { label: '5–10 Mio.', lo: 5e6, hi: 10e6 },
   { label: '10–100 Mio.', lo: 10e6, hi: 100e6 },
   { label: '100 Mio.–1 Mrd.', lo: 100e6, hi: 1e9 },

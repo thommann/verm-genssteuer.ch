@@ -55,10 +55,23 @@ RATIO = (HI / LO) ** (1 / NB)
 EDGES = [LO * RATIO ** i for i in range(NB + 1)]
 
 
+def _cls(rows, lo, hi):
+    for r in rows:
+        if r["lo"] == lo and r["hi"] == hi:
+            return r["values"]
+    raise KeyError((lo, hi))
+
+
 def population_bins(year):
-    """Anzahl Personen je Bin – rein aus ESTV-Parametern (5–10 Mio. + Pareto-Tail)."""
+    """Anzahl Personen je Bin – ESTV-Klassen 1–5 Mio. + (5–10 Mio. + Pareto-Tail)."""
     p = PARAMS["years"][str(year)]
     f, N, alpha, xmax = p["f5_10"], p["Ntail"], p["alpha"], p["xmax"]
+    # ESTV-Klassen 1–5 Mio. (mid = mittleres Vermögen 2022), wie im Rechner-Bin-Modell.
+    low = []
+    for lo, hi in ((1e6, 2e6), (2e6, 3e6), (3e6, 5e6)):
+        cnt_c = _cls(DIST["unb_counts"], lo, hi)
+        wl_c = _cls(DIST["unb_wealth"], lo, hi)
+        low.append({"lo": lo, "hi": hi, "mid": wl_c["2022"] / cnt_c["2022"], "cnt": cnt_c[str(year)]})
     out = []
     for i in range(NB):
         a, b = EDGES[i], EDGES[i + 1]
@@ -72,7 +85,7 @@ def population_bins(year):
         if hiT > loT:
             cnt += N * ((XMIN_TAIL / loT) ** alpha - (XMIN_TAIL / hiT) ** alpha)
         out.append({"lo": a, "hi": b, "mid": math.sqrt(a * b), "cnt": cnt})
-    return out
+    return low + out
 
 
 # ---------------------------------------------------------------------------
@@ -163,7 +176,7 @@ check("Cap-Grenze", abs(wcap - 3770402678.60894) < 1e-3, f"{wcap:.2f} CHF")
 for year in (2020, 2021, 2022):
     gen = population_bins(year)
     key = f"cnt{year}"
-    bin_err = max(abs(gen[i]["cnt"] - BINS_REF[i][key]) for i in range(NB))
+    bin_err = max(abs(gen[i]["cnt"] - BINS_REF[i][key]) for i in range(len(BINS_REF)))
     rev = sum(b["cnt"] * tax(b["mid"]) for b in gen) / 1e9
     pub = PARAMS["published_revenue"][str(year)]
     check(f"Bins {year} == vorgerechnet", bin_err < 1e-3, f"max Abw. {bin_err:.6f} Personen")
