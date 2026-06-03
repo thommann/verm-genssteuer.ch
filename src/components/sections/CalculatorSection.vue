@@ -117,13 +117,13 @@ const isWir2026 = computed(() =>
             @update:modelValue="onSlider"
           />
           <RangeControl
-            v-model="state.ankerSatz"
-            :min="0.002"
+            v-model="state.basis"
+            :min="0.0005"
             :max="0.05"
-            :step="0.001"
-            label="Ø-Steuersatz bei 100 Mio."
-            :display="pct(state.ankerSatz, 1)"
-            hint="Kalibrierpunkt: so viel zahlt ein 100-Mio-Vermögen im Schnitt."
+            :step="0.0005"
+            label="Grenzsatz an der Schwelle"
+            :display="pct(state.basis, 2)"
+            hint="Satz auf den ersten Franken über dem Freibetrag. Steigt mit der Progression bis zum Cap."
             @update:modelValue="onSlider"
           />
           <RangeControl

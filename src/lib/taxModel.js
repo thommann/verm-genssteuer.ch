@@ -5,7 +5,9 @@
  * Die Steuer wird nur auf den Vermögensteil über der Schwelle erhoben:
  *   Steuer(W) = ∫_Schwelle^W min(Cap, Basis·(x/Schwelle)^k) dx
  *
- * «Basis» wird so kalibriert, dass der Ø-Satz beim Anker-Vermögen den Zielwert trifft.
+ * «basis» ist der Grenzsatz direkt an der Schwelle und eine direkte Modell-Komponente.
+ * (computeBasis bleibt als Hilfsfunktion erhalten, um basis aus einem gewünschten
+ * Ø-Satz an einem Anker-Vermögen abzuleiten – etwa für die Pipeline-Reproduktion.)
  * Herleitung und Formeln: docs/METHODIK.md, Abschnitt 6 (Verfahren E).
  *
  * Validierung (scripts/00_reproduce_statistics.py): mit den Default-Parametern und der
@@ -27,12 +29,11 @@ export function capCrossing(schwelle, k, cap, basis) {
 
 /**
  * Erzeugt das Steuer-Funktionsbündel für einen Parametersatz.
- * params = { schwelle, exponent (k), cap, ankerVermoegen, ankerSatz }
+ * params = { schwelle, exponent (k), cap, basis } – basis = Grenzsatz an der Schwelle.
  */
-export function makeModel({ schwelle, exponent, cap, ankerVermoegen, ankerSatz }) {
+export function makeModel({ schwelle, exponent, cap, basis }) {
   const k = exponent;
   const kp = k + 1;
-  const basis = computeBasis(schwelle, k, ankerVermoegen, ankerSatz);
   const wcap = capCrossing(schwelle, k, cap, basis);
 
   const tax = (W) => {
