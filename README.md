@@ -17,8 +17,10 @@ erlebbar/experimentierbar macht.
    *Pro-Kopf-Dividende* — live aus dem Rechner.
 4. **Dynamik** — ehrliche Hochrechnung: Einmaleffekt vs. dauerhaft tragbares Niveau.
 5. **International** — Vermögenskonzentration im Zeitverlauf (WID) und im Ländervergleich (WID/UBS-Gini).
-6. **Pauschalbesteuerung** — der statistische blinde Fleck an der Spitze (FDK).
-7. **Quellen & Methodik** — alle Quellen, transparent verlinkt.
+6. **UBS-Studie** — der UBS Global Wealth Report (vormals Credit Suisse) und der
+   Vermögens-Gini der Schweiz im Ländervergleich.
+7. **Pauschalbesteuerung** — der statistische blinde Fleck an der Spitze (FDK).
+8. **Quellen & Methodik** — alle Quellen, transparent verlinkt.
 
 ## Stack
 
