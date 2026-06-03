@@ -80,7 +80,7 @@ export const PRESETS = {
 
 // Anzeige-Gruppen der Preset-Leiste (in Reihenfolge der Zeilen).
 export const PRESET_GROUPS = [
-  { id: 'meine', label: 'Unsere' },
+  { id: 'meine', label: '' },
   { id: 'wir22', label: 'WIR 2022' },
   { id: 'wir26', label: 'WIR 2026' },
 ];
