@@ -64,6 +64,9 @@ const isWir2026 = computed(() =>
 );
 // Bei aktivem WIR-Modell steuern die Regler (Potenzkurve) nicht das angezeigte Modell.
 const isWirActive = computed(() => isWir2022.value || isWir2026.value);
+
+// Erstes Preset der Gruppe «Unsere» – Ziel beim Zurückwechseln zum eigenen Modell.
+const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group === 'meine');
 </script>
 
 <template>
@@ -122,7 +125,9 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
         <div class="card controls">
           <p v-if="isWirActive" class="controls-lock">
             <strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell
-            (Gruppe «Unsere») – bewege einen, um dorthin zu wechseln.
+            (Gruppe «Unsere»).
+            <button type="button" class="controls-lock-link" @click="calc.applyPreset(firstOwnPreset)">Klicke hier</button>,
+            um zum eigenen Modell zurückzukehren.
           </p>
           <div v-if="!isWirActive">
             <RangeControl
@@ -297,6 +302,10 @@ const isWirActive = computed(() => isWir2022.value || isWir2026.value);
   border: 1px solid var(--border); border-left: 3px solid var(--teal);
 }
 .controls-lock strong { color: var(--text); }
+.controls-lock-link {
+  background: none; border: none; padding: 0; font: inherit;
+  color: var(--teal); text-decoration: underline; cursor: pointer;
+}
 .result {
   padding: 28px 24px;
   background: linear-gradient(160deg, #1d2952, #161f3d);
