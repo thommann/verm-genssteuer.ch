@@ -7,73 +7,52 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 <template>
   <section id="wir-reports">
     <div class="wrap">
-      <div class="eyebrow">World Inequality Report</div>
-      <h2>Woher die Steuermodelle stammen: WIR&nbsp;2022 &amp; 2026</h2>
-      <p class="lead">
-        Das <strong>World Inequality Lab</strong> (u.&nbsp;a. Thomas Piketty, Lucas Chancel,
-        Gabriel Zucman) führt die umfassendste Datenbank zur globalen Vermögens- und
-        Einkommensverteilung. Zwei Ausgaben seines Flaggschiff-Reports liefern die Vorlagen
-        für die WIR-Presets im Rechner und schlagen dabei <strong>zwei unterschiedliche
-        Steuer-Designs</strong> vor.
-      </p>
+      <div class="eyebrow">{{ $t('wir.eyebrow') }}</div>
+      <h2 v-html="$t('wir.title')" />
+      <p class="lead" v-html="$t('wir.lead')" />
 
       <div class="grid cmp">
         <div class="card wir">
           <div class="wir-head">
-            <span class="badge gold">2022</span>
-            <h3>Progressive Staffel</h3>
+            <span class="badge gold">{{ $t('wir.card2022Badge') }}</span>
+            <h3>{{ $t('wir.card2022Title') }}</h3>
           </div>
-          <p class="wir-sub">Drei Szenarien (moderat&nbsp;/ hoch&nbsp;/ sehr&nbsp;hoch)</p>
+          <p class="wir-sub" v-html="$t('wir.card2022Sub')" />
           <ul>
-            <li>Grenzsätze von <strong>1&nbsp;%</strong> ab 1&nbsp;Mio. steigend bis
-              <strong>3,5&nbsp;/ 10&nbsp;/ 90&nbsp;%</strong> über 100&nbsp;Mrd.&nbsp;$.</li>
-            <li>Ertrag je nach Szenario <strong>1,6&nbsp;bis 5,3&nbsp;%</strong> des globalen
-              Einkommens.</li>
-            <li>Sechs Vermögensbänder mit je eigenem Grenzsatz (Tabelle&nbsp;7.2).</li>
+            <li v-html="$t('wir.card2022Li1')" />
+            <li v-html="$t('wir.card2022Li2')" />
+            <li v-html="$t('wir.card2022Li3')" />
           </ul>
           <a class="btn btn-ghost" :href="'https://wir2022.wid.world'" target="_blank" rel="noopener">
-            wir2022.wid.world ↗
+            {{ $t('wir.card2022Link') }}
           </a>
         </div>
 
         <div class="card wir">
           <div class="wir-head">
-            <span class="badge teal">2026</span>
-            <h3>Flache Mindeststeuer</h3>
+            <span class="badge teal">{{ $t('wir.card2026Badge') }}</span>
+            <h3>{{ $t('wir.card2026Title') }}</h3>
           </div>
-          <p class="wir-sub">3.&nbsp;Ausgabe (nach 2018 &amp; 2022), nach Zucman&nbsp;/ G20</p>
+          <p class="wir-sub" v-html="$t('wir.card2026Sub')" />
           <ul>
-            <li>Neuer Befund: Milliardäre zahlen effektiv nur <strong>~20&nbsp;% ihres
-              Einkommens</strong> an Steuern, <strong>weniger</strong> als Haushalte mit
-              tieferem Einkommen (regressiv).</li>
-            <li>Antwort: Mindeststeuer <strong>2&nbsp;/ 3&nbsp;/ 5&nbsp;%</strong> auf
-              Centi-Millionäre&nbsp;und&nbsp;Milliardäre.</li>
-            <li>2&nbsp;% auf Milliardäre ≈ <strong>200&nbsp;bis&nbsp;250&nbsp;Mrd.&nbsp;$</strong> pro Jahr.</li>
+            <li v-html="$t('wir.card2026Li1')" />
+            <li v-html="$t('wir.card2026Li2')" />
+            <li v-html="$t('wir.card2026Li3')" />
           </ul>
           <a class="btn btn-ghost" :href="'https://wir2026.wid.world'" target="_blank" rel="noopener">
-            wir2026.wid.world ↗
+            {{ $t('wir.card2026Link') }}
           </a>
         </div>
       </div>
 
-      <p class="shift">
-        <strong>Was sich geändert hat:</strong> 2022 schlägt einen progressiven Mehrband-Tarif
-        vor, 2026 eine <strong>flache Mindeststeuer</strong> auf Centi-Millionäre und Milliardäre,
-        aufbauend auf Zucman&nbsp;(2024), den die brasilianische G20-Präsidentschaft 2024 auf die
-        Agenda setzte. Laut WIR&nbsp;2026 «neutralisiert» bereits ein Satz von 2&nbsp;% die
-        Regressivität an der Spitze. Beide Modelle kannst du
-        <a href="#rechner">im Rechner</a> als Presets durchprobieren. Das interaktive
-        Original-Tool dazu ist der
-        <a href="https://wid.world/world-wealth-tax-simulator/" target="_blank" rel="noopener">Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator</a>
-        des World&nbsp;Inequality&nbsp;Lab.
-      </p>
+      <p class="shift" v-html="$t('wir.shift')" />
 
       <a class="videocard card" :href="VIDEO_URL" target="_blank" rel="noopener">
         <span class="play" aria-hidden="true">▶</span>
         <span class="vtext">
-          <span class="vlabel">Video · Gary's Economics mit Gabriel Zucman</span>
-          <span class="vtitle">«The economist billionaires fear: this is how we get a wealth tax»</span>
-          <span class="vhint">youtube.com ↗</span>
+          <span class="vlabel">{{ $t('wir.videoLabel') }}</span>
+          <span class="vtitle">{{ $t('wir.videoTitle') }}</span>
+          <span class="vhint">{{ $t('wir.videoHint') }}</span>
         </span>
       </a>
     </div>

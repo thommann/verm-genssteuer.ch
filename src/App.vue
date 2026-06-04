@@ -11,22 +11,23 @@ import UbsStudySection from '@/components/sections/UbsStudySection.vue';
 import PauschalSection from '@/components/sections/PauschalSection.vue';
 import SourcesSection from '@/components/sections/SourcesSection.vue';
 
-// Vollständige Liste aller Abschnitte. Jede id entspricht einem Anker im DOM,
-// der von überall (auch extern) per #id verlinkt werden kann.
+// Vollständige Liste aller Abschnitts-Anker. Jede id entspricht einem Anker im DOM,
+// der von überall (auch extern) per #id verlinkt werden kann. Die Beschriftungen
+// liegen zentral in der i18n-Locale (nav.items.<id>).
 const NAV = [
-  { id: 'start', label: 'Start' },
-  { id: 'verteilung', label: 'Verteilung' },
-  { id: 'rechner', label: 'Rechner' },
-  { id: 'verwendung', label: 'Was tun?' },
-  { id: 'dynamik', label: 'Dynamik' },
-  { id: 'international', label: 'International' },
-  { id: 'wir-reports', label: 'WIR-Reports' },
-  { id: 'ubs-studie', label: 'UBS-Studie' },
-  { id: 'pauschal', label: 'Pauschalbesteuerung' },
-  { id: 'quellen', label: 'Quellen' },
+  'start',
+  'verteilung',
+  'rechner',
+  'verwendung',
+  'dynamik',
+  'international',
+  'wir-reports',
+  'ubs-studie',
+  'pauschal',
+  'quellen',
 ];
 
-const SECTION_IDS = NAV.map((n) => n.id);
+const SECTION_IDS = NAV;
 const scrolled = ref(false);
 const activeId = ref(SECTION_IDS[0]);
 
@@ -119,21 +120,21 @@ onUnmounted(() => {
     <div class="wrap nav-inner">
       <a href="#start" class="brand" @click="closeMenu">
         <img class="brand-flag" src="/logo.svg" alt="" aria-hidden="true" />
-        vermögenssteuer.ch
+        {{ $t('nav.brand') }}
       </a>
 
       <div class="nav-actions">
-        <a href="#rechner" class="btn btn-primary nav-cta" @click="closeMenu">Ausprobieren</a>
+        <a href="#rechner" class="btn btn-primary nav-cta" @click="closeMenu">{{ $t('nav.cta') }}</a>
         <button
           type="button"
           class="menu-toggle"
           :aria-expanded="menuOpen"
           aria-controls="section-menu"
-          aria-label="Abschnitts-Menü"
+          :aria-label="$t('nav.menuAria')"
           @click="toggleMenu"
         >
           <span class="menu-icon" :class="{ open: menuOpen }"><span></span><span></span><span></span></span>
-          Menü
+          {{ $t('nav.menu') }}
         </button>
       </div>
     </div>
@@ -142,17 +143,17 @@ onUnmounted(() => {
     <transition name="menu">
       <div v-if="menuOpen" id="section-menu" class="section-menu" @click.self="closeMenu">
         <div class="wrap">
-          <p class="menu-title">Abschnitte</p>
+          <p class="menu-title">{{ $t('nav.menuTitle') }}</p>
           <ul class="menu-list">
-            <li v-for="(n, i) in NAV" :key="n.id">
+            <li v-for="(n, i) in NAV" :key="n">
               <a
-                :href="`#${n.id}`"
-                :class="{ active: activeId === n.id }"
-                :aria-current="activeId === n.id ? 'true' : undefined"
+                :href="`#${n}`"
+                :class="{ active: activeId === n }"
+                :aria-current="activeId === n ? 'true' : undefined"
                 @click="closeMenu"
               >
                 <span class="menu-num">{{ String(i + 1).padStart(2, '0') }}</span>
-                {{ n.label }}
+                {{ $t(`nav.items.${n}`) }}
               </a>
             </li>
           </ul>

@@ -14,35 +14,29 @@ const avg = computed(() => totalRev.value / count);
 <template>
   <section id="pauschal">
     <div class="wrap">
-      <div class="eyebrow">Der blinde Fleck</div>
-      <h2>Die {{ num(count) }} ohne Vermögensstatistik</h2>
-      <p class="lead">
-        Aufwandbesteuerte («Pauschalbesteuerte») werden nach ihren Lebenshaltungskosten
-        veranlagt, ihr tatsächliches Vermögen wird gar nie erhoben. Sie fehlen deshalb
-        in der ESTV-Vermögensstatistik, obwohl viele zu den Vermögendsten des Landes zählen.
-        Im Rechner sind sie modellhaft im Tail über 10&nbsp;Mio. mitgedacht.
-      </p>
+      <div class="eyebrow">{{ $t('pauschal.eyebrow') }}</div>
+      <h2>{{ $t('pauschal.title', { count: num(count) }) }}</h2>
+      <p class="lead" v-html="$t('pauschal.lead')" />
 
       <div class="grid pgrid">
         <div class="pcard card">
           <span class="pv accent">{{ num(count) }}</span>
-          <span class="pl">Personen mit Aufwandbesteuerung (2018)</span>
+          <span class="pl">{{ $t('pauschal.cardCountLabel') }}</span>
         </div>
         <div class="pcard card">
           <span class="pv gold">{{ chfCompact(totalRev, 0) }}</span>
-          <span class="pl">Gesamter Steuerertrag (Bund + Kanton + Gemeinde)</span>
+          <span class="pl">{{ $t('pauschal.cardRevenueLabel') }}</span>
         </div>
         <div class="pcard card">
           <span class="pv">{{ chfCompact(avg, 0) }}</span>
-          <span class="pl">Ø Steuer pro Person und Jahr</span>
+          <span class="pl">{{ $t('pauschal.cardAvgLabel') }}</span>
         </div>
       </div>
 
       <p class="muted small">
-        Spannweite der einzelnen Pauschalsteuer 2018: von {{ chf(pauschal.lowest) }} bis
-        {{ chf(pauschal.highest) }}. «Personen» (FDK) sind nicht dasselbe wie «Steuerfälle» (ESTV).
+        {{ $t('pauschal.note', { lowest: chf(pauschal.lowest), highest: chf(pauschal.highest) }) }}
       </p>
-      <SourceTag id="fdk" note="Stand 31.12.2018" />
+      <SourceTag id="fdk" :note="$t('pauschal.sourceNote')" />
     </div>
   </section>
 </template>

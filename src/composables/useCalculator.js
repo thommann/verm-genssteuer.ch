@@ -17,44 +17,39 @@ const d = paramsData.defaults;
 
 // Direkte Modell-Komponenten: schwelle, basis (Grenzsatz an der Schwelle), exponent, cap.
 // «basis» je Preset = Grenzsatz, mit dem die Steuer direkt über dem Freibetrag einsetzt.
-// Voreingestellte Steuermodelle zum Durchprobieren.
+// Voreingestellte Steuermodelle zum Durchprobieren. Die Beschriftungen liegen zentral
+// in der i18n-Locale (presets.<key>) und werden in der Komponente aufgelöst.
 export const PRESETS = {
   flach: {
-    label: 'Flach', group: 'meine',
-    desc: 'Fast flacher Satz: 1,1 % an der Schwelle, kaum Progression.',
+    group: 'meine',
     schwelle: 5e6, exponent: 0.3, cap: 0.5, basis: 0.0108,
   },
   moderat: {
-    label: 'Moderat', group: 'meine',
-    desc: 'Sanft progressiv: 0,68 % an der Schwelle.',
+    group: 'meine',
     schwelle: 5e6, exponent: 0.5, cap: 0.5, basis: 0.006784,
   },
   steil: {
-    label: 'Stark progressiv', group: 'meine',
-    desc: 'Steile Kurve: 0,26 % an der Schwelle, schnell steigend.',
+    group: 'meine',
     schwelle: 5e6, exponent: 0.9, cap: 0.5, basis: 0.002572,
   },
   // WIR 2022: exakte Grenzsatz-Staffel je Vermögensband (Tabelle 7.2), ab 1 Mio. wie im
   // Original. Die ESTV-Klassen 1–5 Mio. sind im Populationsmodell enthalten (siehe Bins).
   wir2022_1: {
-    label: 'moderat', group: 'wir22', kind: 'brackets',
-    desc: 'WIR 2022, Szenario 1 (moderat): exakte Grenzsätze 1 → 3,5 % über 100 Mrd.',
+    group: 'wir22', kind: 'brackets',
     brackets: [
       { from: 1e6, rate: 0.01 }, { from: 1e7, rate: 0.015 }, { from: 1e8, rate: 0.02 },
       { from: 1e9, rate: 0.025 }, { from: 1e10, rate: 0.03 }, { from: 1e11, rate: 0.035 },
     ],
   },
   wir2022_2: {
-    label: 'hoch', group: 'wir22', kind: 'brackets',
-    desc: 'WIR 2022, Szenario 2 (hoch): exakte Grenzsätze 1 → 10 % über 100 Mrd.',
+    group: 'wir22', kind: 'brackets',
     brackets: [
       { from: 1e6, rate: 0.01 }, { from: 1e7, rate: 0.015 }, { from: 1e8, rate: 0.03 },
       { from: 1e9, rate: 0.05 }, { from: 1e10, rate: 0.07 }, { from: 1e11, rate: 0.10 },
     ],
   },
   wir2022_3: {
-    label: 'sehr hoch', group: 'wir22', kind: 'brackets',
-    desc: 'WIR 2022, Szenario 3 (sehr hoch): exakte Grenzsätze 1 → 90 % über 100 Mrd.',
+    group: 'wir22', kind: 'brackets',
     brackets: [
       { from: 1e6, rate: 0.01 }, { from: 1e7, rate: 0.015 }, { from: 1e8, rate: 0.07 },
       { from: 1e9, rate: 0.15 }, { from: 1e10, rate: 0.50 }, { from: 1e11, rate: 0.90 },
@@ -62,27 +57,25 @@ export const PRESETS = {
   },
   // WIR 2026: Mindeststeuer auf das Gesamtvermögen ab 100 Mio. $ (Centi-Millionäre).
   wir2026_2: {
-    label: '2 %', group: 'wir26', kind: 'mintax',
-    desc: 'WIR 2026: Mindeststeuer 2 % des Vermögens ab 100 Mio. $.',
+    group: 'wir26', kind: 'mintax',
     threshold: 1e8, rate: 0.02,
   },
   wir2026_3: {
-    label: '3 %', group: 'wir26', kind: 'mintax',
-    desc: 'WIR 2026: Mindeststeuer 3 % des Vermögens ab 100 Mio. $.',
+    group: 'wir26', kind: 'mintax',
     threshold: 1e8, rate: 0.03,
   },
   wir2026_5: {
-    label: '5 %', group: 'wir26', kind: 'mintax',
-    desc: 'WIR 2026: Mindeststeuer 5 % des Vermögens ab 100 Mio. $.',
+    group: 'wir26', kind: 'mintax',
     threshold: 1e8, rate: 0.05,
   },
 };
 
-// Anzeige-Gruppen der Preset-Leiste (in Reihenfolge der Zeilen).
+// Anzeige-Gruppen der Preset-Leiste (in Reihenfolge der Zeilen). labelKey verweist auf
+// die i18n-Locale; die Gruppe «meine» wird ohne Beschriftung angezeigt.
 export const PRESET_GROUPS = [
-  { id: 'meine', label: '' },
-  { id: 'wir22', label: 'WIR 2022' },
-  { id: 'wir26', label: 'WIR 2026' },
+  { id: 'meine', labelKey: '' },
+  { id: 'wir22', labelKey: 'presets.groupWir22' },
+  { id: 'wir26', labelKey: 'presets.groupWir26' },
 ];
 
 // Startzustand = erstes Preset, damit der angezeigte Tarif zur hervorgehobenen Pille passt.

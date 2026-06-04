@@ -24,24 +24,19 @@ const over = (v) => v > 1;
 <template>
   <section id="verwendung" class="section-alt">
     <div class="wrap">
-      <div class="eyebrow">Was tun mit dem Geld?</div>
-      <h2>{{ chfCompact(revenue, 1) }} pro Jahr: wofür?</h2>
-      <p class="lead">
-        Dieselben Einnahmen, drei mögliche Verwendungen. Stell oben am Rechner ein
-        Steuermodell ein und sieh hier in Echtzeit, was damit für alle möglich wäre.
-      </p>
+      <div class="eyebrow">{{ $t('spend.eyebrow') }}</div>
+      <h2>{{ $t('spend.title', { revenue: chfCompact(revenue, 1) }) }}</h2>
+      <p class="lead">{{ $t('spend.lead') }}</p>
 
       <div class="basis-toggle">
         <button :class="{ active: basis === 'dauerhaft' }" @click="basis = 'dauerhaft'">
-          Dauerhaft tragbar
+          {{ $t('spend.toggleDauerhaft') }}
         </button>
         <button :class="{ active: basis === 'jahr1' }" @click="basis = 'jahr1'">
-          Erstes Jahr ({{ state.year }})
+          {{ $t('spend.toggleJahr1', { year: state.year }) }}
         </button>
         <span class="basis-hint muted">
-          {{ basis === 'dauerhaft'
-            ? 'Stabiles Niveau nach Jahren (siehe Dynamik), die ehrliche Dauergrösse.'
-            : 'Vollständiges Aufkommen im ersten Jahr (enthält Einmaleffekt an der Spitze).' }}
+          {{ basis === 'dauerhaft' ? $t('spend.hintDauerhaft') : $t('spend.hintJahr1') }}
         </span>
       </div>
 
@@ -49,25 +44,15 @@ const over = (v) => v > 1;
         <!-- Income tax -->
         <article class="card spend">
           <div class="spend-icon">🧾</div>
-          <h3>Einkommenssteuer senken</h3>
+          <h3>{{ $t('spend.incomeTitle') }}</h3>
           <div class="spend-big" :class="{ teal: true }">
-            <span v-if="over(incomeCut)">über 100 %</span>
+            <span v-if="over(incomeCut)">{{ $t('spend.incomeOver') }}</span>
             <span v-else>−{{ pct(incomeCut, 0) }}</span>
           </div>
-          <p class="spend-text">
-            <template v-if="over(incomeCut)">
-              Genug, um die <strong>gesamte Einkommenssteuer natürlicher Personen
-              abzuschaffen</strong>, und es bliebe noch Geld übrig.
-            </template>
-            <template v-else>
-              So viel tiefer könnte die Einkommenssteuer für <strong>alle</strong>
-              ausfallen (Bund, Kantone, Gemeinden zusammen).
-            </template>
-          </p>
+          <p class="spend-text" v-html="over(incomeCut) ? $t('spend.incomeTextOver') : $t('spend.incomeTextUnder')" />
           <div class="spend-meter"><div class="fill teal" :style="{ width: `${capPct(incomeCut) * 100}%` }" /></div>
           <p class="spend-foot muted">
-            Entspricht dem {{ over(bundCut) ? 'Mehrfachen der' : pct(bundCut, 0) + ' der' }}
-            direkten Bundessteuer natürlicher Personen.
+            {{ over(bundCut) ? $t('spend.incomeFootOver') : $t('spend.incomeFootUnder', { pct: pct(bundCut, 0) }) }}
           </p>
           <SourceTag id="efv" />
         </article>
@@ -75,24 +60,15 @@ const over = (v) => v > 1;
         <!-- Health premiums -->
         <article class="card spend">
           <div class="spend-icon">🏥</div>
-          <h3>Krankenkassenprämien übernehmen</h3>
+          <h3>{{ $t('spend.premiumTitle') }}</h3>
           <div class="spend-big gold">
-            <span v-if="over(premiumShare)">100 %</span>
+            <span v-if="over(premiumShare)">{{ $t('spend.premiumOver') }}</span>
             <span v-else>{{ pct(premiumShare, 0) }}</span>
           </div>
-          <p class="spend-text">
-            <template v-if="over(premiumShare)">
-              Genug, um <strong>sämtliche Grundversicherungs-Prämien</strong> der ganzen
-              Schweiz zu bezahlen.
-            </template>
-            <template v-else>
-              So viel aller Grundversicherungs-Prämien (OKP) könnten für alle
-              <strong>übernommen</strong> werden.
-            </template>
-          </p>
+          <p class="spend-text" v-html="over(premiumShare) ? $t('spend.premiumTextOver') : $t('spend.premiumTextUnder')" />
           <div class="spend-meter"><div class="fill gold" :style="{ width: `${capPct(premiumShare) * 100}%` }" /></div>
           <p class="spend-foot muted">
-            Im Schnitt ~{{ chf(premiumPerPersonMonth) }} weniger Prämie pro Person und Monat.
+            {{ $t('spend.premiumFoot', { amount: chf(premiumPerPersonMonth) }) }}
           </p>
           <SourceTag id="bag" />
         </article>
@@ -100,30 +76,22 @@ const over = (v) => v > 1;
         <!-- Dividend -->
         <article class="card spend">
           <div class="spend-icon">💸</div>
-          <h3>Pro-Kopf-Dividende</h3>
+          <h3>{{ $t('spend.dividendTitle') }}</h3>
           <div class="spend-big accent">{{ chf(dividendYear) }}</div>
-          <p class="spend-text">
-            Pro Person und Jahr, an <strong>jede und jeden</strong> der
-            {{ num(K.population.value) }} Einwohner:innen.
-          </p>
+          <p class="spend-text" v-html="$t('spend.dividendText', { population: num(K.population.value) })" />
           <div class="spend-meter"><div class="fill accent" style="width: 100%" /></div>
           <p class="spend-foot muted">
-            Das sind ~{{ chf(dividendYear / 12) }} pro Monat, für eine vierköpfige Familie
-            {{ chf((dividendYear * 4)) }} im Jahr.
+            {{ $t('spend.dividendFoot', { month: chf(dividendYear / 12), family: chf(dividendYear * 4) }) }}
           </p>
           <SourceTag id="bfs" />
         </article>
       </div>
 
-      <p class="disclaimer muted">
-        Bezugsgrössen aus offiziellen Bundesquellen (EFV/ESTV, BAG, BFS), gerundet, nominal.
-        Es ist <em>entweder/oder</em>: jeder Franken kann nur einmal ausgegeben werden.
-        Die Beispiele zeigen die Grössenordnung, keine fertige Politik.
-      </p>
+      <p class="disclaimer muted" v-html="$t('spend.disclaimer')" />
       <div class="srcs">
-        <span class="srcs-lab">Aufkommen (Zähler):</span>
-        <SourceTag id="estv_vermoegen" note="Aufkommen aus dem Rechner, Pareto-Tail >10 Mio." />
-        <SourceTag id="fdk" note="Pauschalbesteuerte im Tail (M)" />
+        <span class="srcs-lab">{{ $t('spend.srcsLabel') }}</span>
+        <SourceTag id="estv_vermoegen" :note="$t('spend.sourceNoteEstv')" />
+        <SourceTag id="fdk" :note="$t('spend.sourceNoteFdk')" />
       </div>
     </div>
   </section>

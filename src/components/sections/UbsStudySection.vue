@@ -1,11 +1,14 @@
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import ubs from '@/data/ubs_gini.json';
 import wealthLevels from '@/data/ubs_wealth_levels.json';
 import pyramid from '@/data/ubs_wealth_pyramid.json';
 import { num, pct } from '@/lib/format.js';
 import BarChart from '@/components/charts/BarChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
+
+const { t } = useI18n();
 
 // Gini absteigend, ungleichste Länder zuerst.
 const sorted = computed(() => [...ubs].sort((a, b) => b.gini - a.gini));
@@ -22,7 +25,7 @@ const items = computed(() =>
     label: c.land,
     value: c.gini,
     color: c.land === 'Schweiz' ? 'var(--accent)' : 'var(--gold)',
-    sub: c.land === 'Schweiz' ? 'UBS-Heimmarkt' : undefined,
+    sub: c.land === 'Schweiz' ? t('ubs.homeMarket') : undefined,
   }))
 );
 
@@ -44,7 +47,7 @@ const ratioItems = computed(() =>
       label: c.land,
       value: c.ratio,
       color: c.land === 'Schweiz' ? 'var(--accent)' : 'var(--gold)',
-      sub: c.land === 'Schweiz' ? 'UBS-Heimmarkt' : undefined,
+      sub: c.land === 'Schweiz' ? t('ubs.homeMarket') : undefined,
     }))
 );
 const usd = (v) => `${num(v)} USD`;
@@ -58,7 +61,7 @@ const pyramidItems = computed(() =>
     label: b.band,
     value: b.wealth_share,
     color: b.band.startsWith('> 1') ? 'var(--accent)' : 'var(--gold)',
-    sub: `${pct(b.adults_share, 1)} der Erwachsenen`,
+    sub: t('ubs.pyramidBandSub', { share: pct(b.adults_share, 1) }),
   }))
 );
 </script>
@@ -66,97 +69,79 @@ const pyramidItems = computed(() =>
 <template>
   <section id="ubs-studie">
     <div class="wrap">
-      <div class="eyebrow">Die UBS/CS-Studie</div>
-      <h2>Was der UBS&nbsp;Global&nbsp;Wealth&nbsp;Report über die Schweiz sagt</h2>
-      <p class="lead">
-        Der <strong>Global Wealth Report</strong> ist die wohl bekannteste weltweite
-        Vermögensstudie. Jahrzehntelang erschien sie unter dem Namen
-        <strong>Credit Suisse</strong>. Seit der Übernahme 2023 trägt sie das Logo der
-        <strong>UBS</strong>. Ausgerechnet die Bank, die den grössten Bankenkollaps der
-        jüngeren Schweizer Geschichte aufgefangen hat, vermisst nun die Vermögen der Welt.
-      </p>
+      <div class="eyebrow">{{ $t('ubs.eyebrow') }}</div>
+      <h2 v-html="$t('ubs.title')" />
+      <p class="lead" v-html="$t('ubs.lead')" />
 
       <div class="grid sgrid">
         <div class="scard card">
           <span class="sv accent">{{ gini(ch.gini) }}</span>
-          <span class="sl">Vermögens-Gini der Schweiz<br />(0 = gleich, 1 = einer hat alles)</span>
+          <span class="sl" v-html="$t('ubs.giniCardLabel')" />
         </div>
         <div class="scard card">
-          <span class="sv gold">Platz&nbsp;{{ chRank }}</span>
-          <span class="sl">von {{ sorted.length }} verglichenen Ländern, die Schweiz
-            liegt im oberen Mittelfeld</span>
+          <span class="sv gold" v-html="$t('ubs.rankCardValue', { rank: chRank })" />
+          <span class="sl">{{ $t('ubs.rankCardLabel', { total: sorted.length }) }}</span>
         </div>
         <div class="scard card">
           <span class="sv">{{ gini(highest.gini) }}–{{ gini(lowest.gini) }}</span>
-          <span class="sl">Spannweite in der Stichprobe: von {{ highest.land }}
-            bis {{ lowest.land }}</span>
+          <span class="sl">{{ $t('ubs.spreadCardLabel', { highest: highest.land, lowest: lowest.land }) }}</span>
         </div>
       </div>
 
       <div class="card chartbox">
-        <h3>Vermögens-Gini im Ländervergleich</h3>
-        <p class="muted intro">
-          Der Gini-Koeffizient misst, wie ungleich das gesamte Nettovermögen verteilt ist.
-          Je höher der Wert, desto stärker konzentriert sich der Reichtum bei wenigen.
-          Die <span class="ch-text">Schweiz</span> liegt, trotz Wohlstand und Stabilität,
-          im oberen Mittelfeld der Stichprobe.
-        </p>
+        <h3>{{ $t('ubs.giniChartTitle') }}</h3>
+        <p class="muted intro" v-html="$t('ubs.giniChartIntro')" />
         <BarChart :items="items" :max="1" :format-value="gini" accent="var(--gold)" />
-        <SourceTag id="ubs" note="Vermögens-Gini, Daten Ende 2024" />
+        <SourceTag id="ubs" :note="$t('ubs.giniChartSource')" />
       </div>
 
-      <h3 class="block-h">Durchschnitt vs. Median: dieselbe Lücke, anders gemessen</h3>
-      <p class="muted small intro2">
-        Bei einem Wert führt die Schweiz die Studie an: beim
-        <strong>durchschnittlichen Vermögen pro erwachsene Person</strong>, weltweit Platz
-        {{ chAvgRank }}. Beim <strong>Median</strong>, der «mittleren» Person, reicht es
-        nur für Platz {{ chMedRank }}. Der Durchschnitt wird von einer schmalen Spitze nach
-        oben gezogen; die mittlere Person besitzt nur {{ pct(chMedianShare, 0) }} davon.
-      </p>
+      <h3 class="block-h">{{ $t('ubs.avgMedianHeading') }}</h3>
+      <p
+        class="muted small intro2"
+        v-html="$t('ubs.avgMedianIntro', {
+          avgRank: chAvgRank,
+          medRank: chMedRank,
+          medianShare: pct(chMedianShare, 0),
+        })"
+      />
 
       <div class="grid sgrid">
         <div class="scard card">
           <span class="sv accent">{{ usd(chW.avg) }}</span>
-          <span class="sl">Ø-Vermögen pro Erwachsenem, Weltrang {{ chAvgRank }}</span>
+          <span class="sl">{{ $t('ubs.avgCardLabel', { rank: chAvgRank }) }}</span>
         </div>
         <div class="scard card">
           <span class="sv gold">{{ usd(chW.median) }}</span>
-          <span class="sl">Median-Vermögen pro Erwachsenem, nur Rang {{ chMedRank }}</span>
+          <span class="sl">{{ $t('ubs.medianCardLabel', { rank: chMedRank }) }}</span>
         </div>
         <div class="scard card">
           <span class="sv">×{{ num(chRatio, 1) }}</span>
-          <span class="sl">So viel höher ist der Durchschnitt als der Median in der Schweiz</span>
+          <span class="sl">{{ $t('ubs.ratioCardLabel') }}</span>
         </div>
       </div>
 
       <div class="card chartbox">
-        <h3>Wie weit der Durchschnitt über dem Median liegt</h3>
-        <p class="muted intro">
-          Verhältnis von Durchschnitts- zu Median-Vermögen pro Erwachsenem (reichste Märkte
-          der Studie). Je höher der Faktor, desto stärker zieht eine schmale Spitze den
-          Schnitt über die Mitte. Die <span class="ch-text">Schweiz</span> liegt auch hier
-          ganz vorne. Genau diese Lücke macht diese Seite sichtbar.
-        </p>
+        <h3>{{ $t('ubs.ratioChartTitle') }}</h3>
+        <p class="muted intro" v-html="$t('ubs.ratioChartIntro')" />
         <BarChart :items="ratioItems" :format-value="ratioFmt" accent="var(--gold)" />
-        <SourceTag id="ubs" note="Ø/Median-Vermögen pro Erwachsenem, Ende 2024" />
+        <SourceTag id="ubs" :note="$t('ubs.ratioChartSource')" />
       </div>
 
-      <h3 class="block-h">Die globale Vermögenspyramide</h3>
-      <p class="muted small intro2">
-        Dieselbe Studie für die ganze Welt: Das reichste
-        <strong>{{ pct(pyrTop.adults_share, 1) }}</strong> der Erwachsenen besitzt
-        <strong>{{ pct(pyrTop.wealth_share, 1) }}</strong> des gesamten Nettovermögens,
-        die unteren <strong>{{ pct(pyrBottom.adults_share, 1) }}</strong> zusammen nur
-        <strong>{{ pct(pyrBottom.wealth_share, 1) }}</strong>.
-      </p>
+      <h3 class="block-h">{{ $t('ubs.pyramidHeading') }}</h3>
+      <p
+        class="muted small intro2"
+        v-html="$t('ubs.pyramidIntro', {
+          topAdults: pct(pyrTop.adults_share, 1),
+          topWealth: pct(pyrTop.wealth_share, 1),
+          bottomAdults: pct(pyrBottom.adults_share, 1),
+          bottomWealth: pct(pyrBottom.wealth_share, 1),
+        })"
+      />
       <div class="card chartbox">
-        <h3>Vermögensanteil je Vermögensband (Welt 2024)</h3>
-        <p class="muted intro">
-          Anteil am weltweiten Nettovermögen je Band; in Klammern der Anteil an allen
-          Erwachsenen. Eine schmale Spitze hält fast die Hälfte, die breite Basis kaum etwas.
-        </p>
+        <h3>{{ $t('ubs.pyramidChartTitle') }}</h3>
+        <p class="muted intro">{{ $t('ubs.pyramidChartIntro') }}</p>
         <BarChart :items="pyramidItems" :max="1" :format-value="(v) => pct(v, 1)" accent="var(--gold)" />
-        <SourceTag id="ubs" note="Globale Vermögenspyramide, Ende 2024" />
+        <SourceTag id="ubs" :note="$t('ubs.pyramidChartSource')" />
       </div>
     </div>
   </section>

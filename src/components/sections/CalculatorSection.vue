@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useCalculator, PRESETS, PRESET_GROUPS } from '@/composables/useCalculator.js';
 import kennzahlen from '@/data/estv_kennzahlen.json';
 import { chfCompact, chf, pct, num } from '@/lib/format.js';
@@ -10,6 +11,7 @@ import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
+const { t } = useI18n();
 const calc = useCalculator();
 const { state, model, staticRevenue, sustainableRevenue, bands, curve, equilibrium } = calc;
 
@@ -19,13 +21,13 @@ const onSlider = () => calc.markCustom();
 const TICKS_W = [5e6, 1e7, 1e8, 1e9, 1e10];
 const curveSeries = computed(() => [
   {
-    name: 'Grenzsatz',
+    name: t('calculator.curveSeriesMarginal'),
     color: 'var(--accent)',
     width: 2.5,
     points: curve.value.map((p) => ({ x: Math.log10(p.W), y: p.marginal })),
   },
   {
-    name: 'Ø-Satz',
+    name: t('calculator.curveSeriesAvg'),
     color: 'var(--gold)',
     width: 2.5,
     points: curve.value.map((p) => ({ x: Math.log10(p.W), y: p.avg })),
@@ -40,7 +42,7 @@ const yTicks = computed(() => {
 });
 
 const bandItems = computed(() =>
-  bands.value.map((b) => ({ label: b.label, value: b.value, color: 'var(--teal)' }))
+  bands.value.map((b, i) => ({ label: t(`calculator.bands.${i}`), value: b.value, color: 'var(--teal)' }))
 );
 
 const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
@@ -49,12 +51,16 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 const capBinds = computed(() => Number.isFinite(model.value.wcap));
 
 // Presets in drei Anzeige-Zeilen gruppieren (Unsere / WIR 2022 / WIR 2026).
-const presetRows = PRESET_GROUPS.map((g) => ({
-  ...g,
-  items: Object.entries(PRESETS)
-    .filter(([, p]) => p.group === g.id)
-    .map(([key, p]) => ({ key, label: p.label })),
-}));
+// Beschriftungen kommen aus der i18n-Locale, daher als Computed (reaktiv zur Sprache).
+const presetRows = computed(() =>
+  PRESET_GROUPS.map((g) => ({
+    id: g.id,
+    label: g.labelKey ? t(g.labelKey) : '',
+    items: Object.keys(PRESETS)
+      .filter((key) => PRESETS[key].group === g.id)
+      .map((key) => ({ key, label: t(`presets.${key}`) })),
+  }))
+);
 
 const isWir2022 = computed(() =>
   ['wir2022_1', 'wir2022_2', 'wir2022_3'].includes(state.activePreset)
@@ -72,13 +78,9 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 <template>
   <section id="rechner">
     <div class="wrap">
-      <div class="eyebrow">Der Rechner</div>
-      <h2>Bau deine Vermögenssteuer</h2>
-      <p class="lead">
-        Verschiebe die Regler und sieh sofort, wie viel eine progressive Vermögenssteuer
-        auf das oberste Prozent einbringen würde. Das Modell rechnet auf den echten
-        ESTV-Vermögensdaten.
-      </p>
+      <div class="eyebrow">{{ $t('calculator.eyebrow') }}</div>
+      <h2>{{ $t('calculator.title') }}</h2>
+      <p class="lead">{{ $t('calculator.lead') }}</p>
 
       <div class="presets">
         <div v-for="g in presetRows" :key="g.id" class="preset-row">
@@ -96,37 +98,30 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       </div>
 
       <p v-if="isWir2022" class="preset-note">
-        Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je
-        Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), <strong>ab 1&nbsp;Mio.</strong>
-        wie im Original, inklusive der rund 324'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der
-        5-Mio-Freibetrag der eigenen Modelle).
-        <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 7.2" />
+        <span v-html="$t('calculator.presetNoteWir2022')" />
+        <SourceTag id="wir2022" :note="$t('calculator.presetNoteWir2022Source')" />
       </p>
       <p v-else-if="isWir2026" class="preset-note">
-        Mindeststeuer-Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2026</strong> (nach Zucman&nbsp;2024 / G20):
-        ein <strong>fester Prozentsatz auf das gesamte Vermögen ab 100&nbsp;Mio.&nbsp;$</strong>
-        (Centi-Millionäre), der die heute regressive Spitzenbelastung beendet.
-        <SourceTag id="wir2026" note="Globale Mindeststeuer auf Multimillionäre, Kap. 7" />
+        <span v-html="$t('calculator.presetNoteWir2026')" />
+        <SourceTag id="wir2026" :note="$t('calculator.presetNoteWir2026Source')" />
       </p>
 
-      <p v-if="!isWirActive" class="threshold-info">
-        <strong>Warum der Freibetrag bei 5 Mio. beginnt:</strong>
-        Bei rund 5 Mio. Franken verläuft die Grenze zum reichsten 1 %. Nur
-        <strong>{{ num(k.cnt_ge5M) }}</strong> Steuerpflichtige liegen darüber,
-        die übrigen <strong>{{ pct(1 - k.pct_ge5M, 0) }}</strong> bleiben komplett
-        steuerfrei. Trotzdem erfasst dieses eine Prozent
-        <strong>{{ pct(k.share_ge5M, 0) }}</strong> des gesamten steuerbaren Vermögens.
-        Du kannst die Schwelle unten höher ziehen, aber nicht tiefer als 5 Mio.,
-        damit die breite Mehrheit garantiert unbelastet bleibt.
-      </p>
+      <p
+        v-if="!isWirActive"
+        class="threshold-info"
+        v-html="$t('calculator.thresholdInfo', {
+          cnt: num(k.cnt_ge5M),
+          rest: pct(1 - k.pct_ge5M, 0),
+          share: pct(k.share_ge5M, 0),
+        })"
+      />
 
       <div class="calc-grid">
         <!-- Controls -->
         <div class="card controls">
           <p v-if="isWirActive" class="controls-lock">
-            <strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell.
-            <button type="button" class="controls-lock-link" @click="calc.applyPreset(firstOwnPreset)">Klicke hier</button>,
-            um zum eigenen Modell zurückzukehren.
+            <span v-html="$t('calculator.controlsLock')" />
+            <button type="button" class="controls-lock-link" @click="calc.applyPreset(firstOwnPreset)">{{ $t('calculator.controlsLockLink') }}</button>{{ $t('calculator.controlsLockAfter') }}
           </p>
           <div v-if="!isWirActive">
             <RangeControl
@@ -134,9 +129,9 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
               :min="5e6"
               :max="5e7"
               :step="5e5"
-              label="Freibetrag (steuerfrei bis)"
+              :label="$t('calculator.schwelleLabel')"
               :display="schwelleDisplay"
-              hint="Vermögen darunter bleibt komplett steuerfrei. 5 Mio. ≈ das reichste 1 %."
+              :hint="$t('calculator.schwelleHint')"
               @update:modelValue="onSlider"
             />
             <RangeControl
@@ -144,9 +139,9 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
               :min="0.0005"
               :max="0.05"
               :step="0.0005"
-              label="Grenzsatz an der Schwelle"
+              :label="$t('calculator.basisLabel')"
               :display="pct(state.basis, 2)"
-              hint="Satz auf den ersten Franken über dem Freibetrag. Steigt mit der Progression bis zum Cap."
+              :hint="$t('calculator.basisHint')"
               @update:modelValue="onSlider"
             />
             <RangeControl
@@ -154,9 +149,9 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
               :min="0"
               :max="1.6"
               :step="0.05"
-              label="Progression (Steilheit)"
+              :label="$t('calculator.exponentLabel')"
               :display="num(state.exponent, 2)"
-              hint="0 = flacher Satz für alle. Höher = die ganz Grossen zahlen überproportional."
+              :hint="$t('calculator.exponentHint')"
               @update:modelValue="onSlider"
             />
             <RangeControl
@@ -164,15 +159,15 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
               :min="0.05"
               :max="1"
               :step="0.05"
-              label="Höchst-Grenzsatz (Cap)"
+              :label="$t('calculator.capLabel')"
               :display="pct(state.cap, 0)"
-              hint="Deckel für den Grenzsatz der allergrössten Vermögen."
+              :hint="$t('calculator.capHint')"
               @update:modelValue="onSlider"
             />
           </div>
 
           <div class="year-pick">
-            <span>Datenjahr:</span>
+            <span>{{ $t('calculator.yearLabel') }}</span>
             <button
               v-for="y in calc.years"
               :key="y"
@@ -186,32 +181,31 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
         <!-- Headline result -->
         <div class="card result">
           <div class="result-main">
-            <div class="result-label">Jährliches Aufkommen ({{ state.year }}, statisch)</div>
+            <div class="result-label">{{ $t('calculator.resultLabel', { year: state.year }) }}</div>
             <div class="result-value">{{ chfCompact(staticRevenue, 1) }}</div>
-            <div class="result-unit">CHF pro Jahr</div>
+            <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
           </div>
           <div class="result-sub">
             <div>
               <span class="rs-val gold">{{ chfCompact(sustainableRevenue, 1) }}</span>
-              <span class="rs-lab">dauerhaft tragbares Niveau<br />(dynamisch, siehe unten)</span>
+              <span class="rs-lab" v-html="$t('calculator.sustainableLabel')" />
             </div>
             <div>
               <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
-              <span class="rs-lab">Ø-Satz bei {{ chfCompact(model.schwelle * 2, 0) }}</span>
+              <span class="rs-lab">{{ $t('calculator.avgRateLabel', { wealth: chfCompact(model.schwelle * 2, 0) }) }}</span>
             </div>
           </div>
           <p class="readout muted">
-            <template v-if="capBinds">Grenzsatz erreicht den Cap bei ~{{ chfCompact(model.wcap, 0) }}.</template>
+            <template v-if="capBinds">{{ $t('calculator.readoutCap', { wcap: chfCompact(model.wcap, 0) }) }}</template>
             <template v-if="equilibrium">
-              Vermögen über ~{{ chfCompact(equilibrium, 0) }} zahlen mehr als ihre Rendite,
-              sie schrumpfen, statt zu wachsen.
+              {{ $t('calculator.readoutEquilibrium', { eq: chfCompact(equilibrium, 0) }) }}
             </template>
           </p>
         </div>
 
         <!-- Tariff curve -->
         <div class="card chartbox">
-          <h3>Steuersatz nach Vermögen</h3>
+          <h3>{{ $t('calculator.curveTitle') }}</h3>
           <LineChart
             :series="curveSeries"
             :x-domain="[Math.log10(model.schwelle), Math.log10(2e10)]"
@@ -223,33 +217,28 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
             :height="300"
           />
           <div class="legend">
-            <span><i class="sw" style="background: var(--accent)" /> Grenzsatz (auf den nächsten Franken)</span>
-            <span><i class="sw" style="background: var(--gold)" /> Durchschnittssatz</span>
+            <span><i class="sw" style="background: var(--accent)" /> {{ $t('calculator.curveLegendMarginal') }}</span>
+            <span><i class="sw" style="background: var(--gold)" /> {{ $t('calculator.curveLegendAvg') }}</span>
           </div>
         </div>
 
         <!-- Revenue by band -->
         <div class="card chartbox">
-          <h3>Woher das Geld kommt</h3>
+          <h3>{{ $t('calculator.bandTitle') }}</h3>
           <BarChart
             :items="bandItems"
             :format-value="(v) => chfCompact(v, 1)"
             accent="var(--teal)"
           />
-          <p class="note muted">
-            Der grösste Teil stammt von ganz oben, von wenigen Milliarden­vermögen.
-            Genau dort, wo heute am wenigsten Vermögenssteuer anfällt.
-          </p>
+          <p class="note muted" v-html="$t('calculator.bandNote')" />
         </div>
       </div>
 
       <p class="disclaimer">
-        Statisches Modell: keine Abwanderung, kein Verhalten, kein Vermögenszuwachs.
-        Die grössten Realfaktoren bleiben aussen vor. Die Zahlen zeigen das
-        <em>Potenzial</em> der Bemessungsgrundlage, nicht eine politische Prognose.
+        <span v-html="$t('calculator.disclaimer')" />
         <span class="srcs">
-          <SourceTag id="estv_vermoegen" note="Vermögensverteilung + Pareto-Tail >10 Mio." />
-          <SourceTag id="fdk" note="Pauschalbesteuerte im Tail (M)" />
+          <SourceTag id="estv_vermoegen" :note="$t('calculator.sourceNoteEstv')" />
+          <SourceTag id="fdk" :note="$t('calculator.sourceNoteFdk')" />
         </span>
       </p>
     </div>

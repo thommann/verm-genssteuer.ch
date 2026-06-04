@@ -1,19 +1,17 @@
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import dist from '@/data/estv_distribution.json';
 import kennzahlen from '@/data/estv_kennzahlen.json';
 import { chf, pct, num, chfCompact } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
+const { t } = useI18n();
 const YEAR = 2022;
 const k = kennzahlen.unbeschraenkt['2022'];
 
-const NICE = {
-  0: 'Kein Vermögen',
-  10: 'über 10 Mio.',
-};
-
 const rows = computed(() => {
+  const nice = { 0: t('distribution.labelZero'), 10: t('distribution.labelOver10') };
   const counts = dist.unb_counts;
   const wealth = dist.unb_wealth;
   const totalC = counts.reduce((s, c) => s + c.values[YEAR], 0);
@@ -21,7 +19,7 @@ const rows = computed(() => {
   return counts.map((c, i) => {
     const cnt = c.values[YEAR];
     const w = wealth[i].values[YEAR];
-    const label = NICE[i] || c.label.replace(/'/g, ' ').replace('> ', '');
+    const label = nice[i] || c.label.replace(/'/g, ' ').replace('> ', '');
     return {
       label,
       shareCount: cnt / totalC,
@@ -37,12 +35,12 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
 <template>
   <section id="verteilung" class="section-alt">
     <div class="wrap">
-      <div class="eyebrow">Die Verteilung</div>
-      <h2>Wenige besitzen fast alles</h2>
+      <div class="eyebrow">{{ $t('distribution.eyebrow') }}</div>
+      <h2>{{ $t('distribution.title') }}</h2>
       <div class="card chart-card">
         <div class="legend">
-          <span><i class="sw" style="background: var(--blue)" /> Anteil an den Menschen</span>
-          <span><i class="sw" style="background: var(--gold)" /> Anteil am Vermögen</span>
+          <span><i class="sw" style="background: var(--blue)" /> {{ $t('distribution.legendPeople') }}</span>
+          <span><i class="sw" style="background: var(--gold)" /> {{ $t('distribution.legendMoney') }}</span>
         </div>
         <div class="dist">
           <div v-for="r in rows" :key="r.label" class="drow">
@@ -59,25 +57,22 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
             </div>
           </div>
         </div>
-        <p class="note muted">
-          Steuerbares Reinvermögen pro Steuerfall (Ehepaare = eine Einheit), unbeschränkt
-          Steuerpflichtige {{ YEAR }}.
-        </p>
-        <SourceTag id="estv_vermoegen" :note="`${YEAR}, unbeschränkt`" />
+        <p class="note muted" v-html="$t('distribution.note', { year: YEAR })" />
+        <SourceTag id="estv_vermoegen" :note="$t('distribution.sourceNote', { year: YEAR })" />
       </div>
 
       <div class="grid stat-grid">
         <div class="ministat">
           <span class="mv gold">{{ pct(k.share_ge1M, 0) }}</span>
-          <span class="ml">des Vermögens hält die reichste Schicht ab 1&nbsp;Mio. Das sind nur {{ pct(k.pct_ge1M, 0) }} der Pflichtigen.</span>
+          <span class="ml" v-html="$t('distribution.ministat1', { pct: pct(k.pct_ge1M, 0) })" />
         </div>
         <div class="ministat">
           <span class="mv accent">{{ num(k.cnt_ge10M) }}</span>
-          <span class="ml">Steuerpflichtige ({{ pct(k.pct_ge10M, 1) }}) ab 10&nbsp;Mio. besitzen {{ pct(k.share_ge10M, 0) }} des Vermögens.</span>
+          <span class="ml" v-html="$t('distribution.ministat2', { pct: pct(k.pct_ge10M, 1), share: pct(k.share_ge10M, 0) })" />
         </div>
         <div class="ministat">
           <span class="mv">{{ chf(k.median) }}</span>
-          <span class="ml">Median: die Hälfte aller Pflichtigen hat weniger. Mittelwert (Durchschnitt): {{ chf(k.mean) }}.</span>
+          <span class="ml" v-html="$t('distribution.ministat3', { mean: chf(k.mean) })" />
         </div>
       </div>
     </div>
