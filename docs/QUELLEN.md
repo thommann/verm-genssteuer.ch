@@ -16,7 +16,7 @@ den Eintrag in `src/data/sources.json` zeigt.
 | Verteilung | Anteile/Anzahl je Klasse, Median, Mittel | ESTV (`estv_vermoegen`) | `estv_distribution.json`, `estv_kennzahlen.json` | `02_extract_estv.py` |
 | Rechner | Aufkommen, Tarifkurve, Bänder, Gleichgewicht | ESTV (`estv_vermoegen`) + FDK (`fdk`, M im Tail) | `calculator_bins.json`, `calculator_params.json` | `02_extract_estv.py` (M aus `01`) |
 | Was tun? | Aufkommen (Zähler); Vergleichsgrössen (Nenner) | ESTV+FDK; BFS (`bfs`), EFV (`efv`), BAG (`bag`) | (Rechner) + `spend_reference.json` | `02`/`01`; `04` (BFS live, EFV/BAG kuratiert, §5) |
-| Dynamik | dynamisches Aufkommen je Jahr | ESTV (`estv_vermoegen`) + FDK (`fdk`) | `projektion_cohorts.json` | `02_extract_estv.py` |
+| Dynamik | dynamisches Aufkommen je Jahr, voreingestellte Rendite 6 % | ESTV (`estv_vermoegen`) + FDK (`fdk`) + WIR 2022 (`wir2022_wachstum`, Default-Rendite) | `projektion_cohorts.json`, `calculator_params.json` | `02_extract_estv.py` |
 | International | Anteils-Zeitreihen + WID-Gini | WID (`wid`) | `wid_timeseries.json` | `03_extract_wid_ubs.py` |
 | WIR 2022 | Vergleich der Steuermodelle (Rechner-Preset «WIR 2022») | World Inequality Lab (`wir2022`) | — (Texte + `sources.json`) | — |
 | WIR 2026 | Mindeststeuer-Modell (Texte, Abschnitt «Zucman-Steuer»; kein Rechner-Preset) | World Inequality Lab (`wir2026`) | — (Texte + `sources.json`) | — |

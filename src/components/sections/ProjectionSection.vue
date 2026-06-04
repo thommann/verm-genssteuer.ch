@@ -85,8 +85,8 @@ const lastLabel = computed(() => ({
 
           <RangeControl
             v-model="state.rendite"
-            :min="0.01"
-            :max="0.08"
+            :min="0.02"
+            :max="0.10"
             :step="0.005"
             :label="$t('projection.renditeLabel')"
             :display="pct(state.rendite, 1)"
@@ -98,6 +98,7 @@ const lastLabel = computed(() => ({
       <div class="srcs">
         <SourceTag id="estv_vermoegen" :note="$t('projection.sourceNoteEstv')" />
         <SourceTag id="fdk" :note="$t('projection.sourceNoteFdk')" />
+        <SourceTag id="wir2022_wachstum" :note="$t('projection.sourceNoteRendite')" />
       </div>
     </div>
   </section>

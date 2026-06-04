@@ -36,6 +36,15 @@
     "hinweis": "Drei progressive Szenarien (Grenzsätze 1 % ab 1 Mio. bis 3,5/10/90 % über 100 Mrd.). Szenario «moderat» bringt rund 1,6 % des Welteinkommens. Vorlage für das Rechner-Preset «WIR 2022»."
   },
   {
+    "id": "wir2022_wachstum",
+    "kurz": "WIR 2022, Wachstum an der Spitze",
+    "titel": "World Inequality Report 2022, Executive Summary: Wachstumsraten an der Vermögensspitze",
+    "herausgeber": "World Inequality Lab",
+    "url": "https://wir2022.wid.world/executive-summary/",
+    "stand": "Daten 1995–2021, Abschnitt «Wealth inequalities have increased at the very top of the distribution»",
+    "hinweis": "Wörtlich: «The wealth of richest individuals on earth has grown at 6 to 9% per year since 1995, whereas average wealth has grown at 3.2% per year.» Die voreingestellte Rendite im Dynamik-Rechner (6 %) entspricht dem unteren Rand dieser Spanne; das obere Ende (9 %) sowie Zucmans Milliardaers-Wert von 7,1 % (zucman_g20) liegen innerhalb des Slider-Bereichs (2–10 %)."
+  },
+  {
     "id": "wir2026",
     "kurz": "World Inequality Report 2026",
     "titel": "World Inequality Report 2026: Globale Mindeststeuer auf Multimillionäre (Kapitel 7)",
