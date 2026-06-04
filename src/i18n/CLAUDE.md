@@ -26,8 +26,6 @@ Konkrete Quellen angeben statt «Berichte legen nahe» oder «Beobachter merken 
 
 Überschriften nicht durchgehend grossschreiben, sondern nur das erste Wort sowie alle Substantive und Eigennamen, wie es die Rechtschreibung verlangt.
 
-Fettdruck extrem sparsam einsetzen, nur für das Thema bei Ersterwähnung, nie zur Betonung.
-
 In Absätzen schreiben, nicht in Listen, ausser eine Liste ist wirklich am klarsten.
 
 Keine Emojis in professionellen Texten.
