@@ -220,17 +220,17 @@ export default {
     baseSource: 'Die 300 Reichsten 2025',
 
     todayHeading: 'Was die Superreichen heute zahlen',
-    todayText: 'Gemessen am Marktvermögen ist die heutige Last tief. Gezählt werden nur die <strong>privaten Steuern</strong>, nicht die Gewinnsteuer ihrer Unternehmen:',
+    todayText: 'Gemessen am Marktvermögen ist die heutige Last tief:',
     todayItem1: '<strong>Vermögenssteuer:</strong> rund 0,3&nbsp;% des Marktvermögens.',
     todayItem2: '<strong>Einkommenssteuer</strong> auf die Vermögenserträge: rund 0,5&nbsp;%.',
-    todaySum: '<strong>Zusammen rund 1&nbsp;%</strong> des Vermögens, also nur die Hälfte der von Zucman geforderten 2&nbsp;%. Sie zahlen heute zu wenig.',
+    todaySum: '<strong>Zusammen rund 0,8&nbsp;%</strong> des Vermögens, nicht einmal die Hälfte der von Zucman geforderten 2&nbsp;%. Sie zahlen heute zu wenig.',
     todaySource: 'Vermögenssteuer Ø 0,28 %',
     todaySource2: 'effektive Sätze der Superreichen',
 
     extraHeading: 'Was sie zusätzlich zahlen und was die Schweiz erhält',
-    extraText: 'Die Mindeststeuer hebt die Last von rund 1&nbsp;% auf 2&nbsp;%. Die Differenz, rund 1&nbsp;% des Vermögens, ist die Mehrbelastung. Pro 100&nbsp;Mio. heisst das rund 1&nbsp;Mio. mehr im Jahr.',
-    calcLine: '(2&nbsp;% &minus; rund 1&nbsp;%) × 851,5&nbsp;Mrd.',
-    calcResult: 'rund 8,5&nbsp;Mrd. pro Jahr für die Schweiz',
+    extraText: 'Die Mindeststeuer hebt die Last von rund 0,8&nbsp;% auf 2&nbsp;%. Die Differenz, rund 1,2&nbsp;% des Vermögens, ist die Mehrbelastung. Pro 100&nbsp;Mio. heisst das rund 1,2&nbsp;Mio. mehr im Jahr.',
+    calcLine: '(2&nbsp;% &minus; 0,8&nbsp;%) × 851,5&nbsp;Mrd.',
+    calcResult: 'rund 10&nbsp;Mrd. pro Jahr für die Schweiz',
   },
 
   // UbsStudySection
