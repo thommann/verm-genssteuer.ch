@@ -77,7 +77,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       <p class="lead">
         Verschiebe die Regler und sieh sofort, wie viel eine progressive Vermögenssteuer
         auf das oberste Prozent einbringen würde. Das Modell rechnet auf den echten
-        ESTV-Vermögensdaten – statisch, ohne Verhaltensannahmen.
+        ESTV-Vermögensdaten.
       </p>
 
       <div class="presets">
