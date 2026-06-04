@@ -232,6 +232,11 @@ export default {
     calcLine: '(2&nbsp;% &minus; 0,8&nbsp;%) × 851,5&nbsp;Mrd.',
     calcResult: '~10&nbsp;Mrd. pro Jahr für die Schweiz',
 
+    daysLine: 'Grosse Vermögen wachsen passiv um <strong>~7,1&nbsp;% pro Jahr</strong> (real, nach Inflation): Dividenden, Zinsen und Vermögensgewinne zusammen. Die Mehrbelastung von ~1,2&nbsp;% ist damit wieder verdient in:',
+    daysUnit: 'Tagen',
+    daysSub: 'Rund <strong>zwei Monate</strong>, ohne einen Finger zu rühren. Den Rest des Jahres wächst das Vermögen weiter.',
+    daysSource: 'Vermögenszuwachs ~7,1 % p. a. (1987–2024)',
+
     meaningHeading: 'Was ~10 Mrd. bedeuten',
     meaningPerCapita: 'pro Kopf und Jahr',
     meaningIncome: 'der gesamten Einkommenssteuer natürlicher Personen',

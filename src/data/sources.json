@@ -81,6 +81,15 @@
     "hinweis": "Zucmans Konstruktion: 2 % gelten für Vermögen über 100 Mio.; wer weniger als 2 % an Steuern zahlt, stockt bis zur Schwelle auf, wer mehr zahlt, ist befreit. Globale Milliardäre zahlen effektiv rund 0,5 % ihres Vermögens, in Frankreich 2016 nur 0,005 %."
   },
   {
+    "id": "zucman_g20",
+    "kurz": "Zucman G20-Report 2024",
+    "titel": "A blueprint for a coordinated minimum effective taxation standard for ultra-high-net-worth individuals",
+    "herausgeber": "Gabriel Zucman; im Auftrag der brasilianischen G20-Präsidentschaft",
+    "url": "https://gabriel-zucman.eu/files/report-g20.pdf",
+    "stand": "Juni 2024",
+    "hinweis": "Begründung der 2-%-Mindeststeuer. Das Vermögen der Milliardäre (Top 0,0001 %) wuchs 1987–2024 real um rund 7,1 % pro Jahr, das Durchschnittsvermögen pro Erwachsenem nur um 1,8 %. Der reale Zuwachs bündelt Dividenden, Zinsen und Vermögensgewinne. Der World Inequality Report 2022 nennt für die Reichsten 6 bis 9 % real seit 1995. Bei ~7,1 % Rendite ist die Mehrbelastung von ~1,2 % des Vermögens in rund 62 Tagen wieder verdient: (0,012 ÷ 0,071) × 365."
+  },
+  {
     "id": "workzeitung_reiche",
     "kurz": "Work-Zeitung",
     "titel": "Reiche richtig besteuern: eine 2-%-Steuer auf grosse Vermögen in der Schweiz",
