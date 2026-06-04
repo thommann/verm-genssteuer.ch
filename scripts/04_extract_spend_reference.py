@@ -72,14 +72,15 @@ CURATED = {
         "label": "OKP-Leistungen total",
         "jahr": 2023, "einheit": "CHF/Jahr", "source": "bag",
     },
-    "steuern_total": {
-        # Beleg: EFV «Öffentliche Finanzen der Schweiz 2023-2024» (FS-/GFS-Modell),
-        # Staatssektor: "Die Steuern ... machten 2023 einen Anteil von 85,9 % an den
-        # Gesamteinnahmen, also 219,7 Milliarden von 255,9 Milliarden aus." Umfasst die
-        # Fiskaleinnahmen von Bund, Kantonen, Gemeinden und Sozialversicherungen.
-        "value": 219700000000,
-        "label": "Steuern und Abgaben des Staates total (Bund, Kantone, Gemeinden, Sozialversicherungen)",
-        "jahr": 2023, "einheit": "CHF/Jahr", "source": "efv",
+    "staatsschuld_maastricht": {
+        # Beleg: EFV «Öffentliche Finanzen der Schweiz 2023-2024», Schuldenkennzahlen
+        # des Staatssektors: Maastricht-Schuld 2023 = 214,2 Mrd. CHF (Maastricht-
+        # Schuldenquote 26,9 %). Konsolidierte Bruttoschuld des Gesamtstaats (Bund,
+        # Kantone, Gemeinden, Sozialversicherungen) nach EU-Maastricht-Definition.
+        # Bestandsgrösse (Schuldenstand per Jahresende), nicht Jahresfluss.
+        "value": 214200000000,
+        "label": "Staatsschuld (Maastricht-Definition; Bund, Kantone, Gemeinden, Sozialversicherungen)",
+        "jahr": 2023, "einheit": "CHF", "source": "efv",
     },
 }
 

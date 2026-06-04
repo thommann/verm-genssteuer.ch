@@ -124,10 +124,10 @@ export default {
     dividendTitle: 'Pro-Kopf-Dividende',
     dividendText: 'Pro Person und Jahr, an <strong>jede und jeden</strong> der {population} Einwohner:innen.',
     dividendFoot: 'Das sind ~{month} pro Monat, für eine vierköpfige Familie {family} im Jahr.',
-    taxfreeTitle: 'Ganze Schweiz steuerfrei',
-    taxfreeUnit: 'Jahre',
-    taxfreeText: 'So viele Jahre Aufkommen ergäben zusammen <strong>alle Steuern und Abgaben der Schweiz</strong> (Bund, Kantone, Gemeinden, Sozialwerke) für ein einziges steuerfreies Jahr. Aufsummiert über die dynamische Hochrechnung, nicht das flache Vielfache eines Jahres.',
-    taxfreeFoot: 'Kumuliert über die dynamische Hochrechnung, inkl. {rendite} Rendite p.a.',
+    debtfreeTitle: 'Staatsschulden tilgen',
+    debtfreeUnit: 'Jahre',
+    debtfreeText: 'So viele Jahre, bis das gesamte Aufkommen die <strong>Staatsschuld der Schweiz</strong> (Bund, Kantone, Gemeinden, Sozialwerke; rund 214 Mrd. nach Maastricht) vollständig getilgt hätte. Aufsummiert über die dynamische Hochrechnung, nicht das flache Vielfache eines Jahres.',
+    debtfreeFoot: 'Kumuliert über die dynamische Hochrechnung, inkl. {rendite} Rendite p.a.',
     disclaimer: 'Bezugsgrössen aus offiziellen Bundesquellen (EFV/ESTV, BAG, BFS), gerundet, nominal. Es ist <em>entweder/oder</em>: jeder Franken kann nur einmal ausgegeben werden. Die Beispiele zeigen die Grössenordnung, keine fertige Politik.',
     srcsLabel: 'Aufkommen (Zähler):',
     sourceNoteEstv: 'Aufkommen aus dem Rechner, Pareto-Tail >10 Mio.',
@@ -197,6 +197,8 @@ export default {
     videoLabel: 'Video · Gary\'s Economics mit Gabriel Zucman',
     videoTitle: '«The economist billionaires fear: this is how we get a wealth tax»',
     videoHint: 'youtube.com ↗',
+    sourceNote2022: 'Progressive Szenarien, Tabelle 7.2',
+    sourceNote2026: 'Globale Mindeststeuer, Kapitel 7',
   },
 
   // UbsStudySection

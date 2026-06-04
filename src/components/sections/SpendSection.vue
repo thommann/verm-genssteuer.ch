@@ -19,14 +19,15 @@ const premiumShare = computed(() => revenue.value / K.okp_praemien.value);
 const premiumPerPersonMonth = computed(() => revenue.value / K.population.value / 12);
 const dividendYear = computed(() => revenue.value / K.population.value);
 
-// Wie viele Jahre, bis das kumulierte Aufkommen alle Steuern eines Jahres ergibt? Nicht das
-// flache Vielfache eines Jahresaufkommens, sondern die dynamische Hochrechnung (inkl. Rendite):
-// das Aufkommen jedes Jahres folgt dem Pfad W(t+1) = W(t)·(1+r) − Steuer(W(t)), die Jahre werden
-// aufsummiert (mit linear interpoliertem Teiljahr), bis sie die gesamten Steuern decken.
-const TAXFREE_HORIZON = 250;
-const taxFreeYears = computed(() => {
-  const target = K.steuern_total.value;
-  const series = dynamicProjection(cohorts, model.value, state.rendite, state.year, TAXFREE_HORIZON);
+// Nach wie vielen Jahren wäre die Staatsschuld getilgt, wenn das gesamte Aufkommen in den
+// Schuldenabbau flösse? Nicht ein flaches Jahresaufkommen vervielfacht, sondern die dynamische
+// Hochrechnung (inkl. Rendite): das Aufkommen jedes Jahres folgt dem Pfad
+// W(t+1) = W(t)·(1+r) − Steuer(W(t)), die Jahre werden aufsummiert (mit linear interpoliertem
+// Teiljahr), bis das kumulierte Aufkommen den Schuldenstand deckt.
+const DEBTFREE_HORIZON = 250;
+const debtFreeYears = computed(() => {
+  const target = K.staatsschuld_maastricht.value;
+  const series = dynamicProjection(cohorts, model.value, state.rendite, state.year, DEBTFREE_HORIZON);
   let cum = 0;
   for (let i = 0; i < series.length; i += 1) {
     const rev = series[i].revenue;
@@ -36,11 +37,11 @@ const taxFreeYears = computed(() => {
   }
   return null; // Aufkommen versiegt vor dem Ziel
 });
-// Mittlere Jahresdeckung (für den Balken), aus den kumulierten Jahren abgeleitet.
-const taxShare = computed(() => (taxFreeYears.value ? 1 / taxFreeYears.value : 0));
-const taxFreeYearsLabel = computed(() => {
-  const y = taxFreeYears.value;
-  if (y == null) return `> ${TAXFREE_HORIZON}`;
+// Mittlerer Schuldenabbau pro Jahr (für den Balken), aus den kumulierten Jahren abgeleitet.
+const debtShare = computed(() => (debtFreeYears.value ? 1 / debtFreeYears.value : 0));
+const debtFreeYearsLabel = computed(() => {
+  const y = debtFreeYears.value;
+  if (y == null) return `> ${DEBTFREE_HORIZON}`;
   return num(y, y < 10 ? 1 : 0);
 });
 
@@ -113,17 +114,17 @@ const over = (v) => v > 1;
           <SourceTag id="bfs" />
         </article>
 
-        <!-- Tax-free Switzerland: normal grid card, independent of the dauerhaft/jahr1 toggle -->
+        <!-- Debt-free state: normal grid card, independent of the dauerhaft/jahr1 toggle -->
         <article class="card spend spend-accent">
           <div class="spend-icon">🗓️</div>
-          <h3>{{ $t('spend.taxfreeTitle') }}</h3>
+          <h3>{{ $t('spend.debtfreeTitle') }}</h3>
           <div class="spend-big violet">
-            {{ taxFreeYearsLabel }}<span class="spend-unit"> {{ $t('spend.taxfreeUnit') }}</span>
+            {{ debtFreeYearsLabel }}<span class="spend-unit"> {{ $t('spend.debtfreeUnit') }}</span>
           </div>
-          <p class="spend-text" v-html="$t('spend.taxfreeText')" />
-          <div class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(taxShare) * 100}%` }" /></div>
+          <p class="spend-text" v-html="$t('spend.debtfreeText')" />
+          <div class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(debtShare) * 100}%` }" /></div>
           <p class="spend-foot muted">
-            {{ $t('spend.taxfreeFoot', { rendite: pct(state.rendite, 0) }) }}
+            {{ $t('spend.debtfreeFoot', { rendite: pct(state.rendite, 0) }) }}
           </p>
           <SourceTag id="efv" />
         </article>

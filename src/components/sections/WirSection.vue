@@ -1,6 +1,8 @@
 <script setup>
 // Statischer Vorstellungs-/Vergleichsabschnitt zu den beiden World Inequality Reports,
 // die die Steuermodell-Presets des Rechners speisen. Reine Inhalts-/Link-Sektion.
+import SourceTag from '@/components/ui/SourceTag.vue';
+
 const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 </script>
 
@@ -55,6 +57,11 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
           <span class="vhint">{{ $t('wir.videoHint') }}</span>
         </span>
       </a>
+
+      <div class="srcs">
+        <SourceTag id="wir2022" :note="$t('wir.sourceNote2022')" />
+        <SourceTag id="wir2026" :note="$t('wir.sourceNote2026')" />
+      </div>
     </div>
   </section>
 </template>
@@ -103,4 +110,6 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 .vlabel { color: var(--accent-soft); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; }
 .vtitle { color: var(--text); font-weight: 700; font-size: 1rem; }
 .vhint { color: var(--text-mute); font-size: 0.78rem; }
+
+.srcs { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 18px; }
 </style>
