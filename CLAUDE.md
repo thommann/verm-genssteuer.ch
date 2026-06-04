@@ -6,6 +6,7 @@
 - **Keine** Session-URLs oder Links (z. B. `https://claude.ai/code/...`) in Commit-Messages, PR-Beschreibungen, PR-Titeln, Issue-Kommentaren oder Code-Kommentaren.
 - **Keine** "Generated with"-, "🤖"- oder ähnlichen Tool-/Attributions-Hinweise irgendwo in committeten Artefakten.
 - Commit-Messages und PR-Beschreibungen sollen nur den fachlichen Inhalt der Änderung beschreiben.
+- **Alle** Commits müssen als `Thomas <34217413+thommann@users.noreply.github.com>` ausgeführt werden. Vor jedem Commit sicherstellen, dass `git config user.name "Thomas"` und `git config user.email "34217413+thommann@users.noreply.github.com"` gesetzt sind (notfalls per `-c user.name=... -c user.email=...` am Commit übergeben). Es darf kein anderer Autor oder Committer auftauchen.
 
 ## Text- und Schreibkonventionen
 
