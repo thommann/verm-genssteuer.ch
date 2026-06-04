@@ -60,7 +60,16 @@
     "herausgeber": "Oxfam, Tax Justice Network, Momentum Institut",
     "url": "https://www.momentum-institut.at/news/laender-studie-selbst-steuersumpf-schweiz-besteuert-milliardaere-staerker-als-deutschland-und-oesterreich/",
     "stand": "April 2024",
-    "hinweis": "Schweizer Milliardäre zahlen effektiv rund 32 % ihres Einkommens (inkl. Unternehmenssteuern), Multimillionäre rund 19 %. Die Vermögenssteuer (rund 11 Mrd./Jahr, etwa 0,25 % des Vermögens) bringt die Spitze näher an die kantonalen Maximalsätze als in Ländern ohne Vermögenssteuer. Beispiel Mustermillionär: Baar/Zug 0,26 %, Basel 0,49 %."
+    "hinweis": "Schweizer Milliardäre zahlen effektiv rund 32 % ihres Einkommens (inkl. Unternehmenssteuern), Multimillionäre rund 19 %. Diese Sätze enthalten die Gewinnsteuern ihrer Unternehmen; die reine Steuer der natürlichen Person (Einkommens- plus Vermögenssteuer) liegt tiefer, Aufschlüsselung in der Detail-Länderstudie (reichensteuer_studie_ch). Die Vermögenssteuer (rund 11 Mrd./Jahr, etwa 0,25 % des Vermögens) bringt die Spitze näher an die kantonalen Maximalsätze als in Ländern ohne Vermögenssteuer. Beispiel Mustermillionär: Baar/Zug 0,26 %, Basel 0,49 %."
+  },
+  {
+    "id": "reichensteuer_studie_ch",
+    "kurz": "Martínez (Länderstudie Schweiz)",
+    "titel": "Steuerbelastung der Reichen in der Schweiz: Eine vergleichende Analyse aufgrund verschiedener Modellrechnungen",
+    "herausgeber": "Dr. Isabel Z. Martínez (KOF/ETH); im Auftrag von Oxfam Deutschland e. V. und Netzwerk Steuergerechtigkeit",
+    "url": "https://www.netzwerk-steuergerechtigkeit.de/wp-content/uploads/2024/04/Besteuerung_Reichtum_Schweiz-.pdf",
+    "stand": "18. April 2024",
+    "hinweis": "Detaillierte Modellrechnung hinter den 32 %/19 %, mit Aufschlüsselung nach Steuerart. Mustermillionär (Zug/Baar, Standardszenario, Tab. 3): reine Personensteuer aus Einkommens- plus Vermögenssteuer rund 1,01 Mio. CHF = etwa 16 % des Bruttoeinkommens (Vermögenssteuer 0,26 % des Vermögens). Beispiel-Milliardär (Roche-Erbe J. Duschmalé, 2022, Standardszenario, Tab. 12; Basis wirtschaftliches Einkommen 95,2 Mio.): persönliche Einkommenssteuer 16,8 Mio. = rund 18 %, Vermögenssteuer 9,5 Mio. = rund 10 % (0,69 % des Vermögens), anteilige Gewinnsteuer der Beteiligung 13,9 Mio. = rund 15 %. Die Schlagzeile 32 % ist Einkommens- plus Gewinnsteuer; inkl. Vermögenssteuer ergibt sich eine Gesamtlast von 42,25 % des wirtschaftlichen Einkommens."
   },
   {
     "id": "woz_zucman",
