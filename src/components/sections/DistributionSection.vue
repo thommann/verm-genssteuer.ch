@@ -39,27 +39,6 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
     <div class="wrap">
       <div class="eyebrow">Die Verteilung</div>
       <h2>Wenige besitzen fast alles</h2>
-      <p class="lead">
-        Jeder Balken ist eine Vermögensklasse. Links der Anteil an den Menschen,
-        rechts der Anteil am gesamten steuerbaren Vermögen. Die Schere ist die Geschichte:
-        die grosse Mehrheit besitzt kaum etwas, die Spitze fast alles.
-      </p>
-
-      <div class="grid stat-grid">
-        <div class="ministat">
-          <span class="mv gold">{{ pct(k.share_ge1M, 0) }}</span>
-          <span class="ml">des Vermögens hält die reichste Schicht ab 1&nbsp;Mio. – das sind nur {{ pct(k.pct_ge1M, 0) }} der Pflichtigen.</span>
-        </div>
-        <div class="ministat">
-          <span class="mv accent">{{ num(k.cnt_ge10M) }}</span>
-          <span class="ml">Steuerpflichtige ({{ pct(k.pct_ge10M, 1) }}) ab 10&nbsp;Mio. besitzen {{ pct(k.share_ge10M, 0) }} des Vermögens.</span>
-        </div>
-        <div class="ministat">
-          <span class="mv">{{ chf(k.median) }}</span>
-          <span class="ml">Median – die Hälfte aller Pflichtigen hat weniger. Mittelwert: {{ chf(k.mean) }}.</span>
-        </div>
-      </div>
-
       <div class="card chart-card">
         <div class="legend">
           <span><i class="sw" style="background: var(--blue)" /> Anteil an den Menschen</span>
@@ -82,10 +61,24 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
         </div>
         <p class="note muted">
           Steuerbares Reinvermögen pro Steuerfall (Ehepaare = eine Einheit), unbeschränkt
-          Steuerpflichtige {{ YEAR }}. Ohne 2./3. Säule und Hausrat – das reale Marktvermögen
-          der Spitze ist eher noch konzentrierter.
+          Steuerpflichtige {{ YEAR }}.
         </p>
         <SourceTag id="estv_vermoegen" :note="`${YEAR}, unbeschränkt`" />
+      </div>
+
+      <div class="grid stat-grid">
+        <div class="ministat">
+          <span class="mv gold">{{ pct(k.share_ge1M, 0) }}</span>
+          <span class="ml">des Vermögens hält die reichste Schicht ab 1&nbsp;Mio. Das sind nur {{ pct(k.pct_ge1M, 0) }} der Pflichtigen.</span>
+        </div>
+        <div class="ministat">
+          <span class="mv accent">{{ num(k.cnt_ge10M) }}</span>
+          <span class="ml">Steuerpflichtige ({{ pct(k.pct_ge10M, 1) }}) ab 10&nbsp;Mio. besitzen {{ pct(k.share_ge10M, 0) }} des Vermögens.</span>
+        </div>
+        <div class="ministat">
+          <span class="mv">{{ chf(k.median) }}</span>
+          <span class="ml">Median: die Hälfte aller Pflichtigen hat weniger. Mittelwert (Durchschnitt): {{ chf(k.mean) }}.</span>
+        </div>
       </div>
     </div>
   </section>

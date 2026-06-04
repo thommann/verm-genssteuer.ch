@@ -71,7 +71,7 @@ const onKeydown = (e) => {
 
 // Externe Deeplinks (#abschnitt) zuverlässig anspringen: Diagramme werden
 // asynchron gerendert und schieben das Layout nach. Wir korrigieren das
-// Anspringen daher so lange nach, bis das Layout steht – brechen aber ab,
+// Anspringen daher so lange nach, bis das Layout steht, brechen aber ab,
 // sobald der Nutzer selbst scrollt. Das Ziel wird einmal aus der initialen
 // URL gelesen, bevor der Scroll-Spy den Hash verändern kann.
 const settleDeeplink = async () => {

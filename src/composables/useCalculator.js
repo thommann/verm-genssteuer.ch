@@ -125,7 +125,7 @@ function applyPreset(key) {
   const p = PRESETS[key];
   if (!p) return;
   // Power-Presets («Unsere») setzen die Regler; WIR-Presets nutzen ein eigenes,
-  // exaktes Modell (Bänder bzw. Mindeststeuer) – die Regler bleiben dabei unverändert.
+  // exaktes Modell (Bänder bzw. Mindeststeuer), die Regler bleiben dabei unverändert.
   if (!p.kind) {
     state.schwelle = p.schwelle;
     state.exponent = p.exponent;

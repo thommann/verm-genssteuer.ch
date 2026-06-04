@@ -1,5 +1,5 @@
 /**
- * Vermögenssteuer-Modell — progressive Vermögenssteuer auf das reichste 1 %.
+ * Vermögenssteuer-Modell: progressive Vermögenssteuer auf das reichste 1 %.
  *
  * Marginaler Tarif:  τ(W) = Basis · (W / Schwelle)^k,  gedeckelt bei «Cap».
  * Die Steuer wird nur auf den Vermögensteil über der Schwelle erhoben:
@@ -7,13 +7,13 @@
  *
  * «basis» ist der Grenzsatz direkt an der Schwelle und eine direkte Modell-Komponente.
  * (computeBasis bleibt als Hilfsfunktion erhalten, um basis aus einem gewünschten
- * Ø-Satz an einem Anker-Vermögen abzuleiten – etwa für die Pipeline-Reproduktion.)
+ * Ø-Satz an einem Anker-Vermögen abzuleiten, etwa für die Pipeline-Reproduktion.)
  * Herleitung und Formeln: docs/METHODIK.md, Abschnitt 6 (Verfahren E).
  *
  * Validierung (scripts/00_reproduce_statistics.py): mit den Default-Parametern und der
  * ESTV-/FDK-Population (calculator_bins.json) ergibt dieses Modell das Referenz-Aufkommen
  * 76,0512 / 91,1598 / 91,5437 Mrd. CHF (2020/21/22) sowie die dynamische Projektion
- * (92,30 → 23,87 Mrd.) – beides exakt reproduzierbar.
+ * (92,30 → 23,87 Mrd.), beides exakt reproduzierbar.
  */
 
 /** Kalibrierter Basis-Satz (Grenzsatz bei der Schwelle). */
@@ -29,7 +29,7 @@ export function capCrossing(schwelle, k, cap, basis) {
 
 /**
  * Erzeugt das Steuer-Funktionsbündel für einen Parametersatz.
- * params = { schwelle, exponent (k), cap, basis } – basis = Grenzsatz an der Schwelle.
+ * params = { schwelle, exponent (k), cap, basis }, basis = Grenzsatz an der Schwelle.
  */
 export function makeModel({ schwelle, exponent, cap, basis }) {
   const k = exponent;
@@ -54,7 +54,7 @@ export function makeModel({ schwelle, exponent, cap, basis }) {
 }
 
 /**
- * Exakte progressive Grenzsatz-Staffel (Bänder) – für die WIR-2022-Szenarien.
+ * Exakte progressive Grenzsatz-Staffel (Bänder), für die WIR-2022-Szenarien.
  * brackets = [{ from, rate }] aufsteigend; `rate` ist der Grenzsatz vom jeweiligen
  * `from` bis zur nächsten Bandgrenze. Steuer = Σ rate_i · (in das Band fallender Anteil).
  */
@@ -87,7 +87,7 @@ export function makeBracketModel(brackets) {
 }
 
 /**
- * Mindeststeuer auf das Gesamtvermögen oberhalb einer Schwelle – für WIR 2026
+ * Mindeststeuer auf das Gesamtvermögen oberhalb einer Schwelle, für WIR 2026
  * (nach Zucman/G20): Wer ≥ threshold besitzt, zahlt `rate` des gesamten Vermögens.
  * Effektiv- wie Grenzsatz sind oberhalb der Schwelle konstant = `rate`.
  */

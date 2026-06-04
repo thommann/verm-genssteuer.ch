@@ -11,7 +11,7 @@
   {
     "id": "wid",
     "kurz": "WID.world",
-    "titel": "World Inequality Database – Variable shwealj992 (net personal wealth, Erwachsene, equal-split), Zeitreihen 1995–2024",
+    "titel": "World Inequality Database: Variable shwealj992 (net personal wealth, Erwachsene, equal-split), Zeitreihen 1995–2024",
     "herausgeber": "World Inequality Lab",
     "url": "https://wid.world",
     "stand": "Bulk-Download je Land (WID_data_<ISO>.csv), Abruf Juni 2026",
@@ -20,7 +20,7 @@
   {
     "id": "ubs",
     "kurz": "UBS Global Wealth Report 2025",
-    "titel": "UBS Global Wealth Report 2025 – Vermögens-Gini je Markt (Stand Ende 2024)",
+    "titel": "UBS Global Wealth Report 2025: Vermögens-Gini je Markt (Stand Ende 2024)",
     "herausgeber": "UBS (vormals Credit Suisse Global Wealth Report)",
     "url": "https://www.ubs.com/global/en/wealthmanagement/insights/global-wealth-report.html",
     "stand": "Report 2025, Daten Ende 2024",
@@ -29,7 +29,7 @@
   {
     "id": "wir2022",
     "kurz": "World Inequality Report 2022",
-    "titel": "World Inequality Report 2022 – Progressive Vermögenssteuer-Szenarien (Tabelle 7.2)",
+    "titel": "World Inequality Report 2022: Progressive Vermögenssteuer-Szenarien (Tabelle 7.2)",
     "herausgeber": "World Inequality Lab",
     "url": "https://wir2022.wid.world",
     "stand": "Daten 2021",
@@ -38,7 +38,7 @@
   {
     "id": "wir2026",
     "kurz": "World Inequality Report 2026",
-    "titel": "World Inequality Report 2026 – Globale Mindeststeuer auf Multimillionäre (Kapitel 7)",
+    "titel": "World Inequality Report 2026: Globale Mindeststeuer auf Multimillionäre (Kapitel 7)",
     "herausgeber": "World Inequality Lab",
     "url": "https://wir2026.wid.world",
     "stand": "Dezember 2025, Daten 2025",
@@ -51,7 +51,7 @@
     "herausgeber": "Konferenz der kantonalen Finanzdirektorinnen und Finanzdirektoren (FDK)",
     "url": "https://www.fdk-cdf.ch/themen/steuerpolitik",
     "stand": "Medienmitteilung 7. Juni 2019",
-    "hinweis": "Anzahl Personen und bezahlte Steuern – NICHT das Vermögen. Aufwandbesteuerte sind in der ESTV-Vermögensstatistik nicht enthalten."
+    "hinweis": "Anzahl Personen und bezahlte Steuern, NICHT das Vermögen. Aufwandbesteuerte sind in der ESTV-Vermögensstatistik nicht enthalten."
   },
   {
     "id": "efv",
@@ -60,7 +60,7 @@
     "herausgeber": "Eidgenössische Finanzverwaltung (EFV) / ESTV",
     "url": "https://www.efv.admin.ch/de/fs-daten",
     "stand": "Daten 2023",
-    "hinweis": "Einkommenssteuern natürlicher Personen über alle Staatsebenen rund CHF 62,7 Mrd. (2023; EFV-Finanzstatistik, Einnahmen nach Arten Bund/Kantone/Gemeinden, Artencode 4000 = 62 717 546 Tsd.). Direkte Bundessteuer natürlicher Personen rund CHF 13,5 Mrd. (ESTV «Fiskaleinnahmen des Bundes», Blatt «DBST neu ab 2023», Fiskalertrag NP). Nominal, gerundet – nur Einordnungsgrösse."
+    "hinweis": "Einkommenssteuern natürlicher Personen über alle Staatsebenen rund CHF 62,7 Mrd. (2023; EFV-Finanzstatistik, Einnahmen nach Arten Bund/Kantone/Gemeinden, Artencode 4000 = 62 717 546 Tsd.). Direkte Bundessteuer natürlicher Personen rund CHF 13,5 Mrd. (ESTV «Fiskaleinnahmen des Bundes», Blatt «DBST neu ab 2023», Fiskalertrag NP). Nominal, gerundet, nur Einordnungsgrösse."
   },
   {
     "id": "bag",
@@ -69,7 +69,7 @@
     "herausgeber": "Bundesamt für Gesundheit (BAG)",
     "url": "https://www.bag.admin.ch/de/newnsb/pwGPlqnWtp7n-FU2nvwJ0",
     "stand": "Daten 2023",
-    "hinweis": "Von den Gesundheitskosten total rund CHF 95 Mrd. (2023) entfallen rund CHF 52 Mrd. auf Leistungen, die unter die OKP fallen; davon rund CHF 36 Mrd. über Prämien der Versicherten finanziert (BAG, Kostenoptik). Die insurer-Buchhaltung der STATKV (Rechnungsjahr) weist tiefere Werte aus: Bruttoleistungen ~39,9 Mrd., Prämien ~35,3 Mrd. Nominal, gerundet – nur Einordnungsgrösse."
+    "hinweis": "Von den Gesundheitskosten total rund CHF 95 Mrd. (2023) entfallen rund CHF 52 Mrd. auf Leistungen, die unter die OKP fallen; davon rund CHF 36 Mrd. über Prämien der Versicherten finanziert (BAG, Kostenoptik). Die insurer-Buchhaltung der STATKV (Rechnungsjahr) weist tiefere Werte aus: Bruttoleistungen ~39,9 Mrd., Prämien ~35,3 Mrd. Nominal, gerundet, nur Einordnungsgrösse."
   },
   {
     "id": "bfs",
