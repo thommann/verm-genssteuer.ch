@@ -66,10 +66,11 @@ CURATED = {
         "jahr": 2023, "einheit": "CHF/Jahr", "source": "bag",
     },
     "praemienverbilligung": {
-        # Beleg: BAG, Wirkungsmonitoring zur individuellen Prämienverbilligung 2023:
-        # Gesamtausgaben Bund + Kantone = 5,9 Mrd. (Bund 3,0 Mrd. / 51,2 %, Kantone 2,9 Mrd.),
-        # 2,5 Mio. Versicherte (28 %). Wird vom Prämientotal abgezogen, damit der Anteil
-        # auf der noch ungedeckten Prämienlast rechnet (siehe QUELLEN.md §5).
+        # Beleg: BAG-Faktenblatt "Prämienverbilligung" (26.9.2024): "Im Jahr 2023 wurden
+        # insgesamt rund 5,9 Milliarden Franken Prämienverbilligung ausbezahlt. Der Bundes-
+        # anteil belief sich dabei auf mehr als die Hälfte (3,0 Mrd. / 51,2 %)." Wird vom
+        # Prämientotal abgezogen, damit der Anteil auf der noch ungedeckten Prämienlast
+        # rechnet (siehe QUELLEN.md §5).
         "value": 5900000000,
         "label": "Individuelle Prämienverbilligung (Bund + Kantone)",
         "jahr": 2023, "einheit": "CHF/Jahr", "source": "bag",
