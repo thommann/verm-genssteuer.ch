@@ -87,7 +87,7 @@ const lastLabel = computed(() => ({
             v-model="state.rendite"
             :min="0.02"
             :max="0.10"
-            :step="0.001"
+            :step="0.005"
             :label="$t('projection.renditeLabel')"
             :display="pct(state.rendite, 1)"
             :hint="$t('projection.renditeHint')"
