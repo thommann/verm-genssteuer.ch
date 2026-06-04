@@ -12,6 +12,14 @@ import SourceTag from '@/components/ui/SourceTag.vue';
 const REVENUE = 10e9; // Zusatzaufkommen der Mindeststeuer, gerundet
 const K = spendRef.kennzahlen;
 
+// Wie schnell holen die Superreichen die Mehrbelastung ueber den passiven
+// Vermoegenszuwachs wieder herein. EXTRA_RATE = Mehrbelastung gegenueber heute
+// (~2 % minus ~0,8 %). PASSIVE_RETURN = realer Zuwachs grosser Vermoegen p. a.
+// (Zucman, G20-Report 2024: Top 0,0001 % rund 7,1 % real 1987-2024).
+const EXTRA_RATE = 0.012;
+const PASSIVE_RETURN = 0.071;
+const recoveryDays = Math.round((EXTRA_RATE / PASSIVE_RETURN) * 365);
+
 const perCapita = computed(() => chf(REVENUE / K.population.value));
 const incomeShare = computed(() => pct(REVENUE / K.einkommenssteuer_np_alle_ebenen.value, 0));
 const premiumShare = computed(() =>
@@ -51,6 +59,15 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
       <div class="card calcbox">
         <span class="calc-line" v-html="$t('zucman.calcLine')" />
         <span class="calc-result" v-html="$t('zucman.calcResult')" />
+      </div>
+
+      <div class="card daysbox">
+        <span class="calc-line" v-html="$t('zucman.daysLine')" />
+        <span class="days-result">~{{ recoveryDays }}&nbsp;<span class="days-unit">{{ $t('zucman.daysUnit') }}</span></span>
+        <span class="days-sub" v-html="$t('zucman.daysSub')" />
+      </div>
+      <div class="srcrow">
+        <SourceTag id="zucman_g20" :note="$t('zucman.daysSource')" />
       </div>
 
       <h3 class="block-h">{{ $t('zucman.meaningHeading') }}</h3>
@@ -103,6 +120,19 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
 .calc-line :deep(strong) { color: var(--text); }
 .calc-result { font-size: 1.5rem; font-weight: 800; color: var(--accent); letter-spacing: -0.01em; }
 .calc-result :deep(strong) { color: var(--accent); }
+
+.daysbox {
+  margin: 16px 0 4px; padding: 22px 24px;
+  display: flex; flex-direction: column; gap: 8px;
+  border-left: 3px solid var(--gold);
+}
+.days-result {
+  font-size: 2.1rem; font-weight: 800; color: var(--gold);
+  letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.days-unit { font-size: 1.05rem; font-weight: 700; }
+.days-sub { color: var(--text-soft); font-size: 0.94rem; line-height: 1.55; }
+.days-sub :deep(strong) { color: var(--text); }
 
 .egrid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 18px; }
 .ecard { padding: 22px; display: flex; flex-direction: column; gap: 8px; }
