@@ -41,11 +41,11 @@
       "source": "bag",
       "bezug": "kuratiert"
     },
-    "steuern_total": {
-      "value": 219700000000,
-      "label": "Steuern und Abgaben des Staates total (Bund, Kantone, Gemeinden, Sozialversicherungen)",
+    "staatsschuld_maastricht": {
+      "value": 214200000000,
+      "label": "Staatsschuld (Maastricht-Definition; Bund, Kantone, Gemeinden, Sozialversicherungen)",
       "jahr": 2023,
-      "einheit": "CHF/Jahr",
+      "einheit": "CHF",
       "source": "efv",
       "bezug": "kuratiert"
     }
