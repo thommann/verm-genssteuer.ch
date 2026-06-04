@@ -231,6 +231,12 @@ export default {
     extraText: 'Die Mindeststeuer hebt die Last von ~0,8&nbsp;% auf 2&nbsp;%. Die Differenz, ~1,2&nbsp;% des Vermögens, ist die Mehrbelastung. Pro 100&nbsp;Mio. heisst das ~1,2&nbsp;Mio. mehr im Jahr.',
     calcLine: '(2&nbsp;% &minus; 0,8&nbsp;%) × 851,5&nbsp;Mrd.',
     calcResult: '~10&nbsp;Mrd. pro Jahr für die Schweiz',
+
+    meaningHeading: 'Was ~10 Mrd. bedeuten',
+    meaningPerCapita: 'pro Kopf und Jahr',
+    meaningIncome: 'der gesamten Einkommenssteuer natürlicher Personen',
+    meaningPremium: 'der selbst getragenen Krankenkassenprämien',
+    meaningDebt: 'der Schweizer Staatsschuld',
   },
 
   // UbsStudySection
