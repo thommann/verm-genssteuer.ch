@@ -16,10 +16,10 @@ const k = kennzahlen.unbeschraenkt['2022'];
         des steuerbaren Vermögens.
       </h1>
       <p class="lead">
-        Knapp <strong>{{ num(k.cnt_ge5M) }}</strong> Steuerpflichtige – rund ein Prozent –
+        Knapp <strong>{{ num(k.cnt_ge5M) }}</strong> Steuerpflichtige, rund ein Prozent,
         halten zusammen fast so viel Vermögen wie die anderen 99&nbsp;% zusammen.
         Das mittlere (Median-)Vermögen liegt bei nur <strong>{{ chf(k.median) }}</strong>.
-        Diese Seite macht die Zahlen sichtbar – und lässt dich ausprobieren, was eine
+        Diese Seite macht die Zahlen sichtbar und lässt dich ausprobieren, was eine
         faire Vermögenssteuer auf dieses eine Prozent bewirken könnte.
       </p>
 
@@ -31,7 +31,7 @@ const k = kennzahlen.unbeschraenkt['2022'];
         <div class="divider" />
         <div class="hstat">
           <div class="hstat-val">{{ chf(k.median) }}</div>
-          <div class="hstat-lab">Median-Vermögen –<br />die «mittlere» Schweiz</div>
+          <div class="hstat-lab">Median-Vermögen,<br />die «mittlere» Schweiz</div>
         </div>
         <div class="divider" />
         <div class="hstat">

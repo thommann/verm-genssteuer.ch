@@ -10,7 +10,7 @@ import sources from '@/data/sources.json';
       <p class="lead">
         Alle Kernzahlen stammen aus offiziellen, öffentlich zugänglichen Statistiken.
         Die Berechnungen sind nachvollziehbar und reproduzieren die zugrunde liegenden
-        Workbooks exakt. Nichts ist erfunden – die Schlussfolgerung ist politisch, die Daten nicht.
+        Workbooks exakt. Nichts ist erfunden, die Schlussfolgerung ist politisch, die Daten nicht.
       </p>
 
       <div class="src-list">
@@ -31,12 +31,12 @@ import sources from '@/data/sources.json';
         <ul>
           <li>
             <strong>Steuerbares Vermögen ≠ Marktvermögen.</strong> Die ESTV-Daten enthalten keine
-            2./3. Säule und bewerten Liegenschaften zum Steuerwert – das reale Vermögen der
+            2./3. Säule und bewerten Liegenschaften zum Steuerwert, das reale Vermögen der
             Spitze ist eher noch höher.
           </li>
           <li>
             <strong>Statisches Aufkommen.</strong> Der Rechner ignoriert Abwanderung, Verhalten
-            und Vermögensentstehung – die grössten realen Unsicherheiten. Er zeigt das Potenzial
+            und Vermögensentstehung, die grössten realen Unsicherheiten. Er zeigt das Potenzial
             der Bemessungsgrundlage, keine Einnahmeprognose.
           </li>
           <li>
@@ -52,7 +52,7 @@ import sources from '@/data/sources.json';
             <strong>WIR-Referenzmodelle (2022 &amp; 2026).</strong> Die Presets «WIR 2022» (progressive
             Grenzsatz-Staffel, Tabelle 7.2) und «WIR 2026» (flache Mindeststeuer von 2–5 % auf das
             Gesamtvermögen ab 100&nbsp;Mio. $, nach Zucman 2024 / G20) bilden die Steuermodelle des
-            World Inequality Report exakt ab – über dedizierte Funktionen, nicht über die Potenzkurve.
+            World Inequality Report exakt ab, über dedizierte Funktionen, nicht über die Potenzkurve.
             Übertragen wird die Satz-Struktur; die USD-Schwellen werden ohne Wechselkurs (≈&nbsp;Parität)
             in CHF behandelt, daher sind die CHF-Beträge nicht mit den globalen USD-Erträgen des Reports
             vergleichbar.

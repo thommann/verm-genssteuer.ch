@@ -7,7 +7,7 @@ import { num, pct } from '@/lib/format.js';
 import BarChart from '@/components/charts/BarChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
-// Gini absteigend – ungleichste Länder zuerst.
+// Gini absteigend, ungleichste Länder zuerst.
 const sorted = computed(() => [...ubs].sort((a, b) => b.gini - a.gini));
 
 const ch = computed(() => ubs.find((c) => c.land === 'Schweiz'));
@@ -71,7 +71,7 @@ const pyramidItems = computed(() =>
       <p class="lead">
         Der <strong>Global Wealth Report</strong> ist die wohl bekannteste weltweite
         Vermögensstudie. Jahrzehntelang erschien sie unter dem Namen
-        <strong>Credit Suisse</strong> – seit der Übernahme 2023 trägt sie das Logo der
+        <strong>Credit Suisse</strong>. Seit der Übernahme 2023 trägt sie das Logo der
         <strong>UBS</strong>. Ausgerechnet die Bank, die den grössten Bankenkollaps der
         jüngeren Schweizer Geschichte aufgefangen hat, vermisst nun die Vermögen der Welt.
       </p>
@@ -83,7 +83,7 @@ const pyramidItems = computed(() =>
         </div>
         <div class="scard card">
           <span class="sv gold">Platz&nbsp;{{ chRank }}</span>
-          <span class="sl">von {{ sorted.length }} verglichenen Ländern – die Schweiz
+          <span class="sl">von {{ sorted.length }} verglichenen Ländern, die Schweiz
             liegt im oberen Mittelfeld</span>
         </div>
         <div class="scard card">
@@ -98,7 +98,7 @@ const pyramidItems = computed(() =>
         <p class="muted intro">
           Der Gini-Koeffizient misst, wie ungleich das gesamte Nettovermögen verteilt ist.
           Je höher der Wert, desto stärker konzentriert sich der Reichtum bei wenigen.
-          Die <span class="ch-text">Schweiz</span> liegt – trotz Wohlstand und Stabilität –
+          Die <span class="ch-text">Schweiz</span> liegt, trotz Wohlstand und Stabilität,
           im oberen Mittelfeld der Stichprobe.
         </p>
         <BarChart :items="items" :max="1" :format-value="gini" accent="var(--gold)" />
@@ -108,8 +108,8 @@ const pyramidItems = computed(() =>
       <h3 class="block-h">Durchschnitt vs. Median: dieselbe Lücke, anders gemessen</h3>
       <p class="muted small intro2">
         Bei einem Wert führt die Schweiz die Studie an: beim
-        <strong>durchschnittlichen Vermögen pro erwachsene Person</strong> – weltweit Platz
-        {{ chAvgRank }}. Beim <strong>Median</strong> – der «mittleren» Person – reicht es
+        <strong>durchschnittlichen Vermögen pro erwachsene Person</strong>, weltweit Platz
+        {{ chAvgRank }}. Beim <strong>Median</strong>, der «mittleren» Person, reicht es
         nur für Platz {{ chMedRank }}. Der Durchschnitt wird von einer schmalen Spitze nach
         oben gezogen; die mittlere Person besitzt nur {{ pct(chMedianShare, 0) }} davon.
       </p>
@@ -117,11 +117,11 @@ const pyramidItems = computed(() =>
       <div class="grid sgrid">
         <div class="scard card">
           <span class="sv accent">{{ usd(chW.avg) }}</span>
-          <span class="sl">Ø-Vermögen pro Erwachsenem – Weltrang {{ chAvgRank }}</span>
+          <span class="sl">Ø-Vermögen pro Erwachsenem, Weltrang {{ chAvgRank }}</span>
         </div>
         <div class="scard card">
           <span class="sv gold">{{ usd(chW.median) }}</span>
-          <span class="sl">Median-Vermögen pro Erwachsenem – nur Rang {{ chMedRank }}</span>
+          <span class="sl">Median-Vermögen pro Erwachsenem, nur Rang {{ chMedRank }}</span>
         </div>
         <div class="scard card">
           <span class="sv">×{{ num(chRatio, 1) }}</span>
@@ -145,7 +145,7 @@ const pyramidItems = computed(() =>
       <p class="muted small intro2">
         Dieselbe Studie für die ganze Welt: Das reichste
         <strong>{{ pct(pyrTop.adults_share, 1) }}</strong> der Erwachsenen besitzt
-        <strong>{{ pct(pyrTop.wealth_share, 1) }}</strong> des gesamten Nettovermögens –
+        <strong>{{ pct(pyrTop.wealth_share, 1) }}</strong> des gesamten Nettovermögens,
         die unteren <strong>{{ pct(pyrBottom.adults_share, 1) }}</strong> zusammen nur
         <strong>{{ pct(pyrBottom.wealth_share, 1) }}</strong>.
       </p>

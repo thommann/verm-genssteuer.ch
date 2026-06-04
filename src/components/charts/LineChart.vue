@@ -31,7 +31,7 @@ const yd = computed(() => props.yDomain || [
 const sx = (x) => pad.l + ((x - xd.value[0]) / (xd.value[1] - xd.value[0] || 1)) * (props.width - pad.l - pad.r);
 const sy = (y) => props.height - pad.b - ((y - yd.value[0]) / (yd.value[1] - yd.value[0] || 1)) * (props.height - pad.t - pad.b);
 
-// Nur reale Messpunkte zeichnen – fehlende Werte (z. B. Welt 2024) brechen die Linie,
+// Nur reale Messpunkte zeichnen, fehlende Werte (z. B. Welt 2024) brechen die Linie,
 // statt auf 0 zu stürzen.
 const finitePts = (pts) => pts.filter((p) => p.y != null && Number.isFinite(p.y) && Number.isFinite(p.x));
 const linePath = (pts) =>
