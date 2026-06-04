@@ -39,7 +39,9 @@ const trend = computed(() => {
   if (Math.abs(delta) < first.value * 0.02) return 'flat';
   return delta < 0 ? 'down' : 'up';
 });
-const trendArrow = computed(() => ({ down: '↓', up: '↑', flat: '→' })[trend.value]);
+// Der Pfeil zeigt die Leserichtung von oben (erstes Jahr) nach unten (2032)
+// und steht daher unabhängig vom Trend immer nach unten.
+const trendArrow = '↓';
 const lastLabel = computed(() => ({
   down: 'dauerhaft tragbares Niveau (2032)',
   up: 'Aufkommen 2032, Vermögen wächst weiter',
