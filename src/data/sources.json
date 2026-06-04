@@ -63,6 +63,33 @@
     "hinweis": "Schweizer Milliardäre zahlen effektiv rund 32 % ihres Einkommens (inkl. Unternehmenssteuern), Multimillionäre rund 19 %. Die Vermögenssteuer (rund 11 Mrd./Jahr, etwa 0,25 % des Vermögens) bringt die Spitze näher an die kantonalen Maximalsätze als in Ländern ohne Vermögenssteuer. Beispiel Mustermillionär: Baar/Zug 0,26 %, Basel 0,49 %."
   },
   {
+    "id": "woz_zucman",
+    "kurz": "WOZ",
+    "titel": "Interview mit Gabriel Zucman: «Wir stehen am Wendepunkt»",
+    "herausgeber": "Die Wochenzeitung (WOZ)",
+    "url": "https://www.woz.ch/2603/steuergerechtigkeit/wir-stehen-am-wendepunkt/!F9TZST6DXRXK",
+    "stand": "Januar 2026",
+    "hinweis": "Zucmans Konstruktion: 2 % gelten für Vermögen über 100 Mio.; wer weniger als 2 % an Steuern zahlt, stockt bis zur Schwelle auf, wer mehr zahlt, ist befreit. Globale Milliardäre zahlen effektiv rund 0,5 % ihres Vermögens, in Frankreich 2016 nur 0,005 %."
+  },
+  {
+    "id": "workzeitung_reiche",
+    "kurz": "Work-Zeitung",
+    "titel": "Reiche richtig besteuern: eine 2-%-Steuer auf grosse Vermögen in der Schweiz",
+    "herausgeber": "Work (Zeitung der Gewerkschaft Unia)",
+    "url": "https://www.workzeitung.ch/2026/01/reiche-richtig-besteuern/",
+    "stand": "Januar 2026",
+    "hinweis": "Quelle der Schlagzeile «bis zu 20 Mrd. zusätzlich». Diese Zahl entspricht dem Brutto-Szenario (flache 2 % ohne Anrechnung bereits gezahlter Steuern), nicht der eigentlichen Mindeststeuer."
+  },
+  {
+    "id": "nzz_vermoegenssteuer",
+    "kurz": "NZZ",
+    "titel": "Vermögenssteuer: durchschnittlicher Satz rund 0,28 % (2025) gegenüber 0,35 % (1990)",
+    "herausgeber": "Neue Zürcher Zeitung (NZZ)",
+    "url": "https://www.nzz.ch/schweiz/ausgerechnet-der-milliardaer-alfred-gantner-schlug-eine-vermoegenssteuer-vor-nun-ziehen-einige-politiker-nach-ld.1926794",
+    "stand": "Februar 2026",
+    "hinweis": "Der durchschnittliche Vermögenssteuersatz ist von 0,35 % (1990) auf rund 0,28 % (2025) gesunken. Artikel hinter einer Bezahlschranke."
+  },
+  {
     "id": "fdk",
     "kurz": "FDK Aufwandbesteuerung",
     "titel": "Erhebung zur Aufwandbesteuerung («Pauschalbesteuerung»), Stand 31.12.2018",

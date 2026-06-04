@@ -212,6 +212,12 @@ export default {
     statThreshold: 'Zucmans Schwelle, zugleich der Einstieg in die Bilanz-Liste',
     statSource: 'Die 300 Reichsten 2025',
 
+    basisSource: 'steuerbares gegenüber Marktvermögen',
+    designSource: 'Zucmans Mindeststeuer-Design',
+    rateSource: 'Ø-Satz 0,28 %',
+    headlineSource: '«bis zu 20 Mrd.»',
+    coreSource: 'Frankreich 2016: 0,005 %',
+
     basisHeading: 'Datengrundlage und ihre Grenzen',
     basisText: 'Beste belegte Quelle für das Marktvermögen ist die Bilanz-Reichstenliste. 2025 weist sie <strong>851,5&nbsp;Mrd.</strong> für die 300&nbsp;Reichsten aus, ein neuer Höchststand und 18&nbsp;Mrd. mehr als 2024 (833,5&nbsp;Mrd.). Die <strong>Top&nbsp;10</strong> halten zusammen <span class="hl gold">227&nbsp;Mrd.</span>, mehr als ein Viertel des Ganzen; reichster ist Gérard&nbsp;Wertheimer mit rund 33&nbsp;Mrd. Die Liste ist eine Annäherung und tendenziell ein Unterzähler: diskret gehaltene Vermögen fehlen, und sie läuft bei Rang&nbsp;300 auf rund 100&nbsp;Mio. aus. Die belegten 851,5&nbsp;Mrd. sind deshalb eine <strong>Untergrenze</strong>; realistisch liegt das Gesamtvermögen ab 100&nbsp;Mio. eher bei 850 bis 1000&nbsp;Mrd. Für alle Rechnungen wird die belegte Zahl als konservative Basis verwendet. Das steuerbare Vermögen der ESTV liegt deutlich tiefer, weil Beteiligungen zu Substanz- statt Verkehrswerten und Liegenschaften zu Steuerwerten erfasst werden.',
 

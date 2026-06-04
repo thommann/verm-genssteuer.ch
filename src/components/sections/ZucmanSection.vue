@@ -38,13 +38,22 @@ const VIDEO_GARY = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 
       <h3 class="block-h">{{ $t('zucman.basisHeading') }}</h3>
       <p class="body" v-html="$t('zucman.basisText')" />
+      <div class="srcrow">
+        <SourceTag id="estv_vermoegen" :note="$t('zucman.basisSource')" />
+      </div>
 
       <h3 class="block-h">{{ $t('zucman.burdenHeading') }}</h3>
       <p class="body" v-html="$t('zucman.burdenText')" />
-      <SourceTag id="reichensteuer_studie" :note="$t('zucman.burdenSource')" />
+      <div class="srcrow">
+        <SourceTag id="reichensteuer_studie" :note="$t('zucman.burdenSource')" />
+        <SourceTag id="nzz_vermoegenssteuer" :note="$t('zucman.rateSource')" />
+      </div>
 
       <h3 class="block-h">{{ $t('zucman.scenarioHeading') }}</h3>
       <p class="body" v-html="$t('zucman.scenarioIntro')" />
+      <div class="srcrow">
+        <SourceTag id="woz_zucman" :note="$t('zucman.designSource')" />
+      </div>
 
       <div class="card tablebox">
         <table class="scenario">
@@ -79,6 +88,9 @@ const VIDEO_GARY = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
       </div>
 
       <p class="callout" v-html="$t('zucman.scenarioNote')" />
+      <div class="srcrow">
+        <SourceTag id="workzeitung_reiche" :note="$t('zucman.headlineSource')" />
+      </div>
 
       <h3 class="block-h">{{ $t('zucman.extraHeading') }}</h3>
       <p class="body" v-html="$t('zucman.extraText')" />
@@ -86,6 +98,7 @@ const VIDEO_GARY = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
       <div class="core card">
         <h3>{{ $t('zucman.coreHeading') }}</h3>
         <p v-html="$t('zucman.coreText')" />
+        <SourceTag id="woz_zucman" :note="$t('zucman.coreSource')" />
       </div>
 
       <div class="caveats card">
@@ -129,6 +142,9 @@ const VIDEO_GARY = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 .sv.gold { color: var(--gold); }
 .sl { color: var(--text-soft); font-size: 0.86rem; }
 .sl :deep(strong) { color: var(--text); }
+
+.srcrow { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 12px; }
+.core :deep(.source-tag) { margin-top: 14px; }
 
 .block-h { margin-top: 40px; }
 .body { font-size: 0.96rem; line-height: 1.65; color: var(--text-soft); max-width: 74ch; }
