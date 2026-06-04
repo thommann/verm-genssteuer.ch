@@ -1,6 +1,7 @@
 <script setup>
-// Statischer Vorstellungs-/Vergleichsabschnitt zu den beiden World Inequality Reports,
-// die die Steuermodell-Presets des Rechners speisen. Reine Inhalts-/Link-Sektion.
+// Statischer Vorstellungs-/Vergleichsabschnitt zu den beiden World Inequality Reports.
+// WIR 2022 (progressive Staffel) speist das gleichnamige Rechner-Preset; WIR 2026
+// (Mindeststeuer) wird im Abschnitt «Zucman-Steuer» behandelt. Reine Inhalts-/Link-Sektion.
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';

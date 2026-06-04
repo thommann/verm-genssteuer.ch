@@ -60,8 +60,6 @@ export default {
     lead: 'Verschiebe die Regler und sieh sofort, wie viel eine progressive Vermögenssteuer auf das oberste Prozent einbringen würde. Das Modell rechnet auf den echten ESTV-Vermögensdaten.',
     presetNoteWir2022: 'Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), <strong>ab 1&nbsp;Mio.</strong> wie im Original, inklusive der rund 324\'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der 5-Mio-Freibetrag der eigenen Modelle).',
     presetNoteWir2022Source: 'Progressive Vermögenssteuer, Tabelle 7.2',
-    presetNoteWir2026: 'Mindeststeuer-Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2026</strong> (nach Zucman&nbsp;2024 / G20): ein <strong>fester Prozentsatz auf das gesamte Vermögen ab 100&nbsp;Mio.&nbsp;$</strong> (Centi-Millionäre), der die heute regressive Spitzenbelastung beendet.',
-    presetNoteWir2026Source: 'Globale Mindeststeuer auf Multimillionäre, Kap. 7',
     thresholdInfo: '<strong>Warum der Freibetrag bei 5 Mio. beginnt:</strong> Bei rund 5 Mio. Franken verläuft die Grenze zum reichsten 1 %. Nur <strong>{cnt}</strong> Steuerpflichtige liegen darüber, die übrigen <strong>{rest}</strong> bleiben komplett steuerfrei. Trotzdem erfasst dieses eine Prozent <strong>{share}</strong> des gesamten steuerbaren Vermögens. Du kannst die Schwelle unten höher ziehen, aber nicht tiefer als 5 Mio., damit die breite Mehrheit garantiert unbelastet bleibt.',
     controlsLock: '<strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell.',
     controlsLockLink: 'Klicke hier',
@@ -179,7 +177,7 @@ export default {
   wir: {
     eyebrow: 'World Inequality Report',
     title: 'Woher die Steuermodelle stammen: WIR&nbsp;2022 &amp; 2026',
-    lead: 'Das <strong>World Inequality Lab</strong> (u.&nbsp;a. Thomas Piketty, Lucas Chancel, Gabriel Zucman) führt die umfassendste Datenbank zur globalen Vermögens- und Einkommensverteilung. Zwei Ausgaben seines Flaggschiff-Reports liefern die Vorlagen für die WIR-Presets im Rechner und schlagen dabei <strong>zwei unterschiedliche Steuer-Designs</strong> vor.',
+    lead: 'Das <strong>World Inequality Lab</strong> (u.&nbsp;a. Thomas Piketty, Lucas Chancel, Gabriel Zucman) führt die umfassendste Datenbank zur globalen Vermögens- und Einkommensverteilung. Zwei Ausgaben seines Flaggschiff-Reports schlagen <strong>zwei unterschiedliche Steuer-Designs</strong> vor: 2022 eine progressive Vermögenssteuer, 2026 eine flache Mindeststeuer. Die progressive Staffel von 2022 liegt als Preset im Rechner; das Mindeststeuer-Design von 2026 steht im Abschnitt «Zucman-Steuer».',
     card2022Badge: '2022',
     card2022Title: 'Progressive Staffel',
     card2022Sub: 'Drei Szenarien (moderat&nbsp;/ hoch&nbsp;/ sehr&nbsp;hoch)',
@@ -194,7 +192,7 @@ export default {
     card2026Li2: 'Antwort: Mindeststeuer <strong>2&nbsp;/ 3&nbsp;/ 5&nbsp;%</strong> auf Centi-Millionäre&nbsp;und&nbsp;Milliardäre.',
     card2026Li3: '2&nbsp;% auf Milliardäre ≈ <strong>200&nbsp;bis&nbsp;250&nbsp;Mrd.&nbsp;$</strong> pro Jahr.',
     card2026Link: 'wir2026.wid.world ↗',
-    shift: '<strong>Was sich geändert hat:</strong> 2022 schlägt einen progressiven Mehrband-Tarif vor, 2026 eine <strong>flache Mindeststeuer</strong> auf Centi-Millionäre und Milliardäre, aufbauend auf Zucman&nbsp;(2024), den die brasilianische G20-Präsidentschaft 2024 auf die Agenda setzte. Laut WIR&nbsp;2026 «neutralisiert» bereits ein Satz von 2&nbsp;% die Regressivität an der Spitze. Beide Modelle kannst du <a href="#rechner">im Rechner</a> als Presets durchprobieren. Das interaktive Original-Tool dazu ist der <a href="https://wid.world/world-wealth-tax-simulator/" target="_blank" rel="noopener">Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator</a> des World&nbsp;Inequality&nbsp;Lab.',
+    shift: '<strong>Was sich geändert hat:</strong> 2022 schlägt einen progressiven Mehrband-Tarif vor, 2026 eine <strong>flache Mindeststeuer</strong> auf Centi-Millionäre und Milliardäre, aufbauend auf Zucman&nbsp;(2024), den die brasilianische G20-Präsidentschaft 2024 auf die Agenda setzte. Laut WIR&nbsp;2026 «neutralisiert» bereits ein Satz von 2&nbsp;% die Regressivität an der Spitze. Die progressive Staffel von 2022 kannst du <a href="#rechner">im Rechner</a> als Preset durchprobieren; die Mindeststeuer von 2026 schlägt keine Vermögenssteuer vor und steht deshalb nicht im Rechner, sondern im Abschnitt <a href="#zucman">Zucman-Steuer</a>. Das interaktive Original-Tool zur progressiven Staffel ist der <a href="https://wid.world/world-wealth-tax-simulator/" target="_blank" rel="noopener">Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator</a> des World&nbsp;Inequality&nbsp;Lab.',
     videoLabel: 'Video · Gary\'s Economics mit Gabriel Zucman',
     videoTitle: '«The economist billionaires fear: this is how we get a wealth tax»',
     videoHint: 'youtube.com ↗',
@@ -324,23 +322,19 @@ export default {
     methodLi3: '<strong>Pareto-Tail.</strong> Vermögen über 10&nbsp;Mio. werden mit einem Pareto-Index aus den ESTV-Klassenmitteln extrapoliert; Pauschalbesteuerte sind modellhaft im selben Tail angenommen.',
     methodLi4: '<strong>Verschiedene Bezugsgrössen.</strong> WID/UBS messen das gesamte Netto-Privatvermögen, die ESTV nur das steuerbare. Vergleiche sind indikativ, nicht zellengenau.',
     methodLi6: '<strong>Zucman-Abschnitt ist eine Schätzung.</strong> Die heutige Effektivlast und das Zusatzaufkommen der 2&nbsp;%-Mindeststeuer sind eine eigene, statische Herleitung auf belegten Eingangsgrössen (Bilanz, Momentum, NZZ, WOZ), keine amtliche Zahl und nicht aus der ESTV-Pipeline reproduzierbar. Die Rechnung steht offen im Abschnitt «Zucman-Steuer» und in der Methodik-Dokumentation.',
-    methodLi5: '<strong>WIR-Referenzmodelle (2022 &amp; 2026).</strong> Die Presets «WIR 2022» (progressive Grenzsatz-Staffel, Tabelle 7.2) und «WIR 2026» (flache Mindeststeuer von 2–5 % auf das Gesamtvermögen ab 100&nbsp;Mio. $, nach Zucman 2024 / G20) bilden die Steuermodelle des World Inequality Report exakt ab, über dedizierte Funktionen, nicht über die Potenzkurve. Übertragen wird die Satz-Struktur; die USD-Schwellen werden ohne Wechselkurs (≈&nbsp;Parität) in CHF behandelt, daher sind die CHF-Beträge nicht mit den globalen USD-Erträgen des Reports vergleichbar.',
+    methodLi5: '<strong>WIR-Referenzmodell (2022).</strong> Das Preset «WIR 2022» (progressive Grenzsatz-Staffel, Tabelle 7.2) bildet das Steuermodell des World Inequality Report exakt ab, über eine dedizierte Funktion, nicht über die Potenzkurve. Übertragen wird die Satz-Struktur; die USD-Schwellen werden ohne Wechselkurs (≈&nbsp;Parität) in CHF behandelt, daher sind die CHF-Beträge nicht mit den globalen USD-Erträgen des Reports vergleichbar. Der WIR 2026 schlägt eine flache Mindeststeuer statt einer Vermögenssteuer vor und ist deshalb kein Preset im Rechner.',
     footer: 'Erstellt direkt aus den Primärquellen (ESTV-Vermögenssteuerstatistik 2012–2022, WID/UBS-Vermögensverteilung, World Inequality Report 2022 &amp; 2026, FDK, EFV, BAG, BFS) über eine reproduzierbare Fetch- und Extraktions-Pipeline. Diese Seite ist ein unabhängiges, politisches Argument für eine Vermögenssteuer auf das reichste 1 %.',
   },
 
   // Voreingestellte Steuermodelle (useCalculator.js)
   presets: {
     groupWir22: 'WIR 2022',
-    groupWir26: 'WIR 2026',
     flach: 'Flach',
     moderat: 'Moderat',
     steil: 'Stark progressiv',
     wir2022_1: 'moderat',
     wir2022_2: 'hoch',
     wir2022_3: 'sehr hoch',
-    wir2026_2: '2 %',
-    wir2026_3: '3 %',
-    wir2026_5: '5 %',
   },
 
   // Gemeinsame UI-Bausteine

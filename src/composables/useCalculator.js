@@ -5,7 +5,6 @@ import cohorts from '@/data/projektion_cohorts.json';
 import {
   makeModel,
   makeBracketModel,
-  makeMinTaxModel,
   revenueForYear,
   revenueByBand,
   tariffCurve,
@@ -55,19 +54,6 @@ export const PRESETS = {
       { from: 1e9, rate: 0.15 }, { from: 1e10, rate: 0.50 }, { from: 1e11, rate: 0.90 },
     ],
   },
-  // WIR 2026: Mindeststeuer auf das Gesamtvermögen ab 100 Mio. $ (Centi-Millionäre).
-  wir2026_2: {
-    group: 'wir26', kind: 'mintax',
-    threshold: 1e8, rate: 0.02,
-  },
-  wir2026_3: {
-    group: 'wir26', kind: 'mintax',
-    threshold: 1e8, rate: 0.03,
-  },
-  wir2026_5: {
-    group: 'wir26', kind: 'mintax',
-    threshold: 1e8, rate: 0.05,
-  },
 };
 
 // Anzeige-Gruppen der Preset-Leiste (in Reihenfolge der Zeilen). labelKey verweist auf
@@ -75,7 +61,6 @@ export const PRESETS = {
 export const PRESET_GROUPS = [
   { id: 'meine', labelKey: '' },
   { id: 'wir22', labelKey: 'presets.groupWir22' },
-  { id: 'wir26', labelKey: 'presets.groupWir26' },
 ];
 
 // Startzustand = erstes Preset, damit der angezeigte Tarif zur hervorgehobenen Pille passt.
@@ -95,7 +80,6 @@ const state = reactive({
 const model = computed(() => {
   const p = state.activePreset ? PRESETS[state.activePreset] : null;
   if (p && p.kind === 'brackets') return makeBracketModel(p.brackets);
-  if (p && p.kind === 'mintax') return makeMinTaxModel(p.threshold, p.rate);
   return makeModel({
     schwelle: state.schwelle,
     exponent: state.exponent,
@@ -118,7 +102,7 @@ function applyPreset(key) {
   const p = PRESETS[key];
   if (!p) return;
   // Power-Presets («Unsere») setzen die Regler; WIR-Presets nutzen ein eigenes,
-  // exaktes Modell (Bänder bzw. Mindeststeuer), die Regler bleiben dabei unverändert.
+  // exaktes Modell (Grenzsatz-Bänder), die Regler bleiben dabei unverändert.
   if (!p.kind) {
     state.schwelle = p.schwelle;
     state.exponent = p.exponent;
