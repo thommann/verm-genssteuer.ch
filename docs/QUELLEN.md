@@ -252,6 +252,7 @@ Jeder Wert ist auf eine konkrete Tabelle/Zelle zurückgeführt und gegen die Que
 | Staatsschuld nach Maastricht (Bund + Kt. + Gde. + Sozialvers.) | ~ 214,2 Mrd. | 2023 | EFV «Öffentliche Finanzen der Schweiz 2023–2024», Schuldenkennzahlen des Staatssektors: **Maastricht-Schuld 2023 = 214,2 Mrd. CHF** (Maastricht-Schuldenquote **26,9 %**). Konsolidierte Bruttoschuld des Gesamtstaats nach EU-Definition; Bestandsgrösse per Jahresende. | <https://www.efv.admin.ch/de/fs-daten> |
 | OKP-Leistungen total | ~ 52,1 Mrd. | 2023 | BAG: von den Gesundheitskosten total 95 Mrd. entfallen **«rund 52 Milliarden»** auf Leistungen, die unter die OKP fallen (Kostenoptik) | <https://www.bag.admin.ch/de/newnsb/pwGPlqnWtp7n-FU2nvwJ0> |
 | OKP-Prämien (von Versicherten finanziert) | ~ 36 Mrd. | 2023 | BAG: davon **«rund 36 Milliarden … durch Prämien der Versicherten finanziert»** (gleiche Quelle) | s. o. |
+| Individuelle Prämienverbilligung (Bund + Kantone) | ~ 5,9 Mrd. | 2023 | BAG, Wirkungsmonitoring zur individuellen Prämienverbilligung 2023: Gesamtausgaben Bund + Kantone **5,9 Mrd.** (Bundesanteil **3,0 Mrd.**, 51,2 %), **2,5 Mio.** Versicherte (28 %). Datenbasis: Statistik der obligatorischen Krankenversicherung 2023. | <https://www.bag.admin.ch/de/statistik-der-obligatorischen-krankenversicherung> |
 
 > **Abgrenzung OKP (warum nicht die STATKV-Tabellen?):** Die BAG-Aussage «rund 52 Mrd.
 > OKP-Leistungen» nutzt die **Kostenoptik** (Anteil der Gesundheitskosten 2023, der unter die
@@ -261,6 +262,13 @@ Jeder Wert ist auf eine konkrete Tabelle/Zelle zurückgeführt und gegen die Que
 > (<https://www.bag.admin.ch/de/statistik-der-obligatorischen-krankenversicherung>). Beide
 > Abgrenzungen sind korrekt; als Einordnungsgrösse verwendet die Seite die Kostenoptik (52/36),
 > exakt wie sie das BAG kommuniziert.
+
+> **Prämienanteil rechnet auf der ungedeckten Last:** Der Anteil «Krankenkassenprämien
+> übernehmen» bezieht sich nicht auf das volle Prämientotal, sondern auf die noch selbst
+> getragene Prämienlast. Vom Prämientotal (~36 Mrd.) wird die bereits bestehende individuelle
+> Prämienverbilligung (~5,9 Mrd.) abgezogen, also `Prämienanteil = Aufkommen / (Prämien −
+> Prämienverbilligung)`. So wird der vom Staat schon getragene Teil nicht ein zweites Mal als
+> «übernommen» gezählt.
 
 ---
 

@@ -33,6 +33,14 @@
       "source": "bag",
       "bezug": "kuratiert"
     },
+    "praemienverbilligung": {
+      "value": 5900000000,
+      "label": "Individuelle Prämienverbilligung (Bund + Kantone)",
+      "jahr": 2023,
+      "einheit": "CHF/Jahr",
+      "source": "bag",
+      "bezug": "kuratiert"
+    },
     "okp_leistungen": {
       "value": 52100000000,
       "label": "OKP-Leistungen total",
