@@ -82,8 +82,7 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
         </div>
         <p class="note muted">
           Steuerbares Reinvermögen pro Steuerfall (Ehepaare = eine Einheit), unbeschränkt
-          Steuerpflichtige {{ YEAR }}. Ohne 2./3. Säule und Hausrat – das reale Marktvermögen
-          der Spitze ist eher noch konzentrierter.
+          Steuerpflichtige {{ YEAR }}.
         </p>
         <SourceTag id="estv_vermoegen" :note="`${YEAR}, unbeschränkt`" />
       </div>
