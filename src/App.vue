@@ -19,8 +19,8 @@ const NAV = [
   'start',
   'verteilung',
   'rechner',
-  'verwendung',
   'dynamik',
+  'verwendung',
   'international',
   'wir-reports',
   'zucman',
@@ -167,9 +167,36 @@ onUnmounted(() => {
   <main id="top">
     <HeroSection />
     <DistributionSection />
-    <CalculatorSection />
-    <SpendSection />
-    <ProjectionSection />
+
+    <!-- Zusammenhängende Rechner-Einheit: Modell wählen, Rendite einstellen, Wirkung sehen.
+         Alle drei Abschnitte teilen denselben reaktiven Datensatz (useCalculator) und werden
+         durch den Rahmen, die Akzentlinie und die Schritt-Navigation als ein Block markiert. -->
+    <div class="calc-suite">
+      <div class="wrap calc-suite-head">
+        <span class="cs-kicker">{{ $t('calcSuite.kicker') }}</span>
+        <ol class="cs-steps">
+          <li>
+            <a href="#rechner" :class="{ active: activeId === 'rechner' }">
+              <span class="cs-num">1</span>{{ $t('calcSuite.step1') }}
+            </a>
+          </li>
+          <li>
+            <a href="#dynamik" :class="{ active: activeId === 'dynamik' }">
+              <span class="cs-num">2</span>{{ $t('calcSuite.step2') }}
+            </a>
+          </li>
+          <li>
+            <a href="#verwendung" :class="{ active: activeId === 'verwendung' }">
+              <span class="cs-num">3</span>{{ $t('calcSuite.step3') }}
+            </a>
+          </li>
+        </ol>
+      </div>
+      <CalculatorSection />
+      <ProjectionSection />
+      <SpendSection />
+    </div>
+
     <InternationalSection />
     <WirSection />
     <ZucmanSection />
@@ -180,6 +207,59 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* Rechner-Einheit: full-bleed Band, das die drei zusammengehörenden Abschnitte
+   (Rechner, Rendite, Verwendung) optisch zu einem Block zusammenfasst. */
+.calc-suite {
+  position: relative;
+  background:
+    radial-gradient(1100px 500px at 50% -8%, rgba(255, 84, 112, 0.07), transparent 60%),
+    linear-gradient(180deg, rgba(124, 92, 255, 0.05), rgba(56, 214, 196, 0.035));
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+/* Akzentlinie am oberen Rand markiert den Anfang der Einheit. */
+.calc-suite::before {
+  content: '';
+  position: absolute; top: -1px; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--violet), var(--teal));
+}
+/* Innenabstände der gebündelten Abschnitte verringern, damit sie als Einheit lesen. */
+.calc-suite > section { padding-top: clamp(40px, 5vw, 72px); padding-bottom: clamp(40px, 5vw, 72px); }
+.calc-suite > section:first-of-type { padding-top: clamp(20px, 3vw, 36px); }
+
+.calc-suite-head { padding-top: clamp(40px, 6vw, 80px); }
+.cs-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.72rem; font-weight: 700;
+  color: var(--accent-soft);
+}
+.cs-kicker::before { content: ''; width: 26px; height: 2px; background: var(--accent); border-radius: 2px; }
+.cs-steps {
+  list-style: none; margin: 14px 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.cs-steps a {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 8px 15px 8px 8px; border-radius: 999px;
+  font-size: 0.88rem; font-weight: 700; color: var(--text-soft);
+  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
+  text-decoration: none; transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+.cs-steps a:hover { color: var(--text); border-color: var(--accent); }
+.cs-steps a.active { color: var(--text); border-color: var(--accent); background: rgba(255, 84, 112, 0.1); }
+.cs-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 999px;
+  font-size: 0.8rem; font-variant-numeric: tabular-nums;
+  background: var(--accent); color: #1a0008;
+}
+/* Verbindende Pfeile zwischen den Schritten. */
+.cs-steps li:not(:last-child)::after {
+  content: '→'; color: var(--text-mute); font-weight: 700; margin-left: 10px;
+  align-self: center;
+}
+.cs-steps li { display: inline-flex; align-items: center; }
+
 .nav {
   position: sticky; top: 0; z-index: 50;
   transition: background 0.2s ease, border-color 0.2s ease, backdrop-filter 0.2s ease;
