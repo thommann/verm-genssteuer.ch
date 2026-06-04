@@ -43,8 +43,8 @@ const k = kennzahlen.unbeschraenkt['2022'];
 
 <style scoped>
 .hero { padding: clamp(70px, 13vw, 150px) 0 clamp(50px, 8vw, 90px); }
-.hl { color: var(--accent); }
-.hl.gold { color: var(--gold); }
+:deep(.hl) { color: var(--accent); }
+:deep(.hl.gold) { color: var(--gold); }
 h1 { max-width: 18ch; }
 .hero-stats {
   display: flex; align-items: center; gap: clamp(16px, 4vw, 44px);

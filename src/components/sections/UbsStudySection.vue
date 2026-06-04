@@ -158,7 +158,7 @@ const pyramidItems = computed(() =>
 .chartbox { padding: 24px 26px; }
 .chartbox h3 { margin-bottom: 8px; }
 .intro { font-size: 0.92rem; max-width: 70ch; margin-bottom: 20px; }
-.ch-text { color: var(--accent-soft); font-weight: 700; }
+:deep(.ch-text) { color: var(--accent-soft); font-weight: 700; }
 
 .small { font-size: 0.85rem; max-width: 75ch; margin-top: 22px; }
 .block-h { margin-top: 40px; }
