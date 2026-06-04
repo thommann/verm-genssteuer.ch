@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-01 — FDK Aufwandbesteuerung ("Pauschalbesteuerung") -> src/data/pauschal.json
+01: FDK Aufwandbesteuerung ("Pauschalbesteuerung") -> src/data/pauschal.json
 
 Quelle: Konferenz der kantonalen Finanzdirektorinnen und Finanzdirektoren (FDK),
 Medienmitteilung vom 7. Juni 2019, "Stand der Besteuerung nach dem Aufwand am
@@ -37,14 +37,14 @@ def fail(msg):
 
 def pdftext(path):
     if not os.path.exists(path):
-        fail(f"PDF fehlt: {path} — zuerst `bash scripts/fetch_sources.sh` ausfuehren.")
+        fail(f"PDF fehlt: {path}; zuerst `bash scripts/fetch_sources.sh` ausfuehren.")
     try:
         return subprocess.run(
             ["pdftotext", "-layout", path, "-"],
             check=True, capture_output=True, text=True,
         ).stdout
     except FileNotFoundError:
-        fail("`pdftotext` nicht gefunden — bitte poppler-utils installieren.")
+        fail("`pdftotext` nicht gefunden; bitte poppler-utils installieren.")
 
 
 def ints(line):
@@ -105,7 +105,7 @@ def main():
 
     with open(OUT, "w") as fh:
         json.dump(pausch, fh, indent=1)
-    print(f"  [OK ] pauschal.json — 2018: {counts[-1]} Personen, "
+    print(f"  [OK ] pauschal.json, 2018: {counts[-1]} Personen, "
           f"Ertrag {total_2018} Mio. CHF (Bund {bund[-1]}+Kanton {kanton[-1]}+Gemeinde {gemeinde[-1]})")
 
 

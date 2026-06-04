@@ -5,7 +5,7 @@ Reproduktion & Validierung aller statistischen Verfahren der Seite.
 Dieses Skript ist der ausführbare Beweis, dass die auf der Seite gezeigten Zahlen
 exakt und reproduzierbar aus den ESTV-Klassendaten abgeleitet werden. Es liest
 ausschliesslich die quellenbasierten Eingabedaten unter ``src/data/`` und rechnet
-alles selbst nach – ohne Magie, ohne fest verdrahtete Ergebnisse.
+alles selbst nach, ohne Magie, ohne fest verdrahtete Ergebnisse.
 
 Ausführen:
     python3 scripts/00_reproduce_statistics.py
@@ -41,7 +41,7 @@ failures = []
 
 def check(name, ok, detail=""):
     status = "OK " if ok else "FAIL"
-    print(f"  [{status}] {name}{(' — ' + detail) if detail else ''}")
+    print(f"  [{status}] {name}{(': ' + detail) if detail else ''}")
     if not ok:
         failures.append(name)
 
@@ -63,7 +63,7 @@ def _cls(rows, lo, hi):
 
 
 def population_bins(year):
-    """Anzahl Personen je Bin – ESTV-Klassen 1–5 Mio. + (5–10 Mio. + Pareto-Tail)."""
+    """Anzahl Personen je Bin: ESTV-Klassen 1–5 Mio. + (5–10 Mio. + Pareto-Tail)."""
     p = PARAMS["years"][str(year)]
     f, N, alpha, xmax = p["f5_10"], p["Ntail"], p["alpha"], p["xmax"]
     # ESTV-Klassen 1–5 Mio. (mid = mittleres Vermögen 2022), wie im Rechner-Bin-Modell.
@@ -220,4 +220,4 @@ print()
 if failures:
     print(f"✗ {len(failures)} Prüfung(en) fehlgeschlagen: {failures}")
     sys.exit(1)
-print("✓ Alle Prüfungen bestanden – Verfahren exakt und reproduzierbar.")
+print("✓ Alle Prüfungen bestanden, Verfahren exakt und reproduzierbar.")

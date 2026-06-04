@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-02 — ESTV Vermoegenssteuerstatistik -> die Kern-Datensaetze der Seite.
+02: ESTV Vermoegenssteuerstatistik -> die Kern-Datensaetze der Seite.
 
 Liest die 11 ESTV-Jahres-Workbooks (data/raw/estv/, Steuerjahre 2012-2022,
 Blatt "CH" = gesamtschweizerische Klassentabelle) und erzeugt:
@@ -76,12 +76,12 @@ def num(v):
 def read_year(year):
     """Liest die 11 Klassenwerte (Anzahl + Reinvermoegen in CHF) eines Steuerjahres.
 
-    Rueckgabe: dict mit 'alle' = (counts[11], wealth[11]) und – ab 2020 –
+    Rueckgabe: dict mit 'alle' = (counts[11], wealth[11]) und, ab 2020,
     'unb' = (counts[11], wealth[11]). Reinvermoegen stets in CHF.
     """
     path = os.path.join(RAW, RAWFILE[year])
     if not os.path.exists(path):
-        fail(f"ESTV-Datei fehlt: {path} — zuerst `bash scripts/fetch_sources.sh`.")
+        fail(f"ESTV-Datei fehlt: {path}; zuerst `bash scripts/fetch_sources.sh`.")
     ws = openpyxl.load_workbook(path, data_only=True)["CH"]
     rows = [[ws.cell(r, c).value for c in range(1, 15)] for r in range(1, ws.max_row + 1)]
 
@@ -100,7 +100,7 @@ def read_year(year):
 
     # Neues Format (2020-2022): Klassen-Block beginnt bei Spalte B (2) == "0".
     # Anzahl alle = C(3), unbeschraenkt = E(5); Reinvermoegen alle = I(9),
-    # unbeschraenkt = K(11) – bereits in CHF.
+    # unbeschraenkt = K(11), bereits in CHF.
     start = next((i for i, row in enumerate(rows)
                   if str(row[1]).strip() == "0" and num(row[2])), None)
     if start is None:
@@ -187,7 +187,7 @@ XMIN = 1e7  # Untergrenze der offenen Top-Klasse
 
 
 def year_params(dist, m_pauschal):
-    """f, alpha, N_tail, x_max je Jahr – allein aus ESTV (unbeschraenkt) + FDK-M."""
+    """f, alpha, N_tail, x_max je Jahr, allein aus ESTV (unbeschraenkt) + FDK-M."""
     years = {}
     for yr in UNB_YEARS:
         f5_10 = dist["unb_counts"][9]["values"][str(yr)]
@@ -287,7 +287,7 @@ def build_calculator(dist, m_pauschal):
     bins = low_bins + bins
 
     # Referenz-Aufkommen des Modells bei Default-Parametern (vom Skript berechnet,
-    # keine externe Publikation – dient als Regressions-Anker fuer 00_reproduce).
+    # keine externe Publikation, dient als Regressions-Anker fuer 00_reproduce).
     tax = make_tax(defaults)
     published = {str(yr): sum(b[f"cnt{yr}"] * tax(b["mid"]) for b in bins) / 1e9
                  for yr in UNB_YEARS}
