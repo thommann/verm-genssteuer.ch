@@ -97,7 +97,7 @@ def main():
         kennzahlen[key] = {**v, "bezug": "kuratiert"}
 
     out = {
-        "hinweis": ("Einordnungsgrössen für das «Was tun mit dem Geld?»-Modul – reine "
+        "hinweis": ("Einordnungsgrössen für das «Was tun mit dem Geld?»-Modul, reine "
                     "Bezugsgrössen, nominal, gerundet. Bevölkerung live aus BFS-PXWeb "
                     "(bezug=skript); EFV-/BAG-Aggregate belegte Konstanten "
                     "(bezug=kuratiert, Runbook in docs/QUELLEN.md §5)."),

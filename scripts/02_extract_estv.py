@@ -301,7 +301,6 @@ def build_calculator(dist, m_pauschal):
         "von": cedges[i], "bis": cedges[i + 1],
         "W0": math.sqrt(cedges[i] * cedges[i + 1]), "anzahl": cpop[i],
     } for i in range(NC)]
-    cohorts = low_cohorts + cohorts
 
     params = {"defaults": defaults, "years": years, "published_revenue": published}
     return params, bins, cohorts
