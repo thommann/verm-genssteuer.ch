@@ -19,7 +19,9 @@ erlebbar/experimentierbar macht.
 5. **International** — Vermögenskonzentration im Zeitverlauf (WID) und im Ländervergleich (WID/UBS-Gini).
 6. **WIR 2022 & 2026** — die Steuermodelle des World Inequality Report (progressive Staffel
    vs. Mindeststeuer), kurz verglichen und verlinkt; dazu der interaktive *Global Wealth Tax
-   Simulator* und ein Video mit Gabriel Zucman. Beide Modelle sind im Rechner als Presets.
+   Simulator* und ein Video mit Gabriel Zucman. Die progressive Staffel von 2022 ist im
+   Rechner als Preset; die Mindeststeuer von 2026 (keine Vermögenssteuer) steht im
+   Abschnitt «Zucman-Steuer».
 7. **UBS-Studie** — der UBS Global Wealth Report (vormals Credit Suisse): Vermögens-Gini
    im Ländervergleich, die Lücke zwischen Durchschnitts- und Median-Vermögen und die globale
    Vermögenspyramide.
@@ -114,7 +116,7 @@ Default-Parametern ergibt das Modell das Referenz-Aufkommen reproduzierbar:
 - **ESTV** — Gesamtschweizerische Vermögenssteuerstatistik 2012–2022
 - **WID.world** — net personal wealth (`shwealj992`), 1995–2024
 - **UBS** Global Wealth Report 2025 — Vermögens-Gini
-- **World Inequality Report 2022 & 2026** — Steuermodelle (Rechner-Presets, WIR-Abschnitt)
+- **World Inequality Report 2022 & 2026** — Steuermodelle (WIR-Abschnitt; 2022 zusätzlich als Rechner-Preset)
 - **FDK** — Erhebung zur Aufwandbesteuerung (Stand 31.12.2018)
 - **EFV/ESTV, BAG, BFS** — Bezugsgrössen für das «Was tun»-Modul
 

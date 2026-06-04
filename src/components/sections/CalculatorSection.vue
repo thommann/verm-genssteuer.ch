@@ -50,7 +50,7 @@ const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 // Cap-Hinweis nur zeigen, wenn das Modell überhaupt einen (endlichen) Cap hat.
 const capBinds = computed(() => Number.isFinite(model.value.wcap));
 
-// Presets in drei Anzeige-Zeilen gruppieren (Unsere / WIR 2022 / WIR 2026).
+// Presets in Anzeige-Zeilen gruppieren (Unsere / WIR 2022).
 // Beschriftungen kommen aus der i18n-Locale, daher als Computed (reaktiv zur Sprache).
 const presetRows = computed(() =>
   PRESET_GROUPS.map((g) => ({
