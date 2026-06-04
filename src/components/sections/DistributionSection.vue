@@ -77,7 +77,7 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
         </div>
         <div class="ministat">
           <span class="mv">{{ chf(k.median) }}</span>
-          <span class="ml">Median: die Hälfte aller Pflichtigen hat weniger. Mittelwert: {{ chf(k.mean) }}.</span>
+          <span class="ml">Median: die Hälfte aller Pflichtigen hat weniger. Mittelwert (Durchschnitt): {{ chf(k.mean) }}.</span>
         </div>
       </div>
     </div>
