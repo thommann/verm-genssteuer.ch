@@ -215,22 +215,22 @@ export default {
     lead: 'Drei Fragen: Was schlägt Gabriel Zucman vor? Was zahlen die Superreichen heute? Was bringt die Mindeststeuer der Schweiz?',
 
     wantHeading: 'Was Zucman vorschlägt',
-    wantText: 'Eine <strong>Mindeststeuer von 2&nbsp;%</strong> auf das gesamte Vermögen, für alle ab 100&nbsp;Mio. Es ist eine <em>Mindeststeuer</em>, kein Zuschlag: Wer mit seinen heutigen Steuern bereits auf 2&nbsp;% des Vermögens kommt, ist befreit; wer darunter liegt, stockt auf 2&nbsp;% auf. In der Schweiz halten die rund 300&nbsp;Reichsten zusammen <strong>851,5&nbsp;Mrd.</strong> zu Marktwerten (Bilanz&nbsp;2025). Diese Zahl ist die Basis der Rechnung.',
+    wantText: 'Eine <strong>Mindeststeuer von 2&nbsp;%</strong> auf das gesamte Vermögen, für alle ab 100&nbsp;Mio. Es ist eine <em>Mindeststeuer</em>, kein Zuschlag: Wer mit seinen heutigen Steuern bereits auf 2&nbsp;% des Vermögens kommt, ist befreit; wer darunter liegt, stockt auf 2&nbsp;% auf. In der Schweiz halten die ~300&nbsp;Reichsten zusammen <strong>851,5&nbsp;Mrd.</strong> zu Marktwerten (Bilanz&nbsp;2025). Diese Zahl ist die Basis der Rechnung.',
     wantSource: 'Zucmans Mindeststeuer',
     baseSource: 'Die 300 Reichsten 2025',
 
     todayHeading: 'Was die Superreichen heute zahlen',
     todayText: 'Gemessen am Marktvermögen ist die heutige Last tief:',
-    todayItem1: '<strong>Vermögenssteuer:</strong> rund 0,3&nbsp;% des Marktvermögens.',
-    todayItem2: '<strong>Einkommenssteuer</strong> auf die Vermögenserträge: rund 0,5&nbsp;%.',
-    todaySum: '<strong>Zusammen rund 0,8&nbsp;%</strong> des Vermögens, nicht einmal die Hälfte der von Zucman geforderten 2&nbsp;%. Sie zahlen heute zu wenig.',
+    todayItem1: '<strong>Vermögenssteuer:</strong> ~0,3&nbsp;% des Marktvermögens.',
+    todayItem2: '<strong>Einkommenssteuer</strong> auf die Vermögenserträge: ~0,5&nbsp;%.',
+    todaySum: '<strong>Zusammen ~0,8&nbsp;%</strong> des Vermögens, nicht einmal die Hälfte der von Zucman geforderten 2&nbsp;%. Sie zahlen heute zu wenig.',
     todaySource: 'Vermögenssteuer Ø 0,28 %',
     todaySource2: 'effektive Sätze der Superreichen',
 
     extraHeading: 'Was sie zusätzlich zahlen und was die Schweiz erhält',
-    extraText: 'Die Mindeststeuer hebt die Last von rund 0,8&nbsp;% auf 2&nbsp;%. Die Differenz, rund 1,2&nbsp;% des Vermögens, ist die Mehrbelastung. Pro 100&nbsp;Mio. heisst das rund 1,2&nbsp;Mio. mehr im Jahr.',
+    extraText: 'Die Mindeststeuer hebt die Last von ~0,8&nbsp;% auf 2&nbsp;%. Die Differenz, ~1,2&nbsp;% des Vermögens, ist die Mehrbelastung. Pro 100&nbsp;Mio. heisst das ~1,2&nbsp;Mio. mehr im Jahr.',
     calcLine: '(2&nbsp;% &minus; 0,8&nbsp;%) × 851,5&nbsp;Mrd.',
-    calcResult: 'rund 10&nbsp;Mrd. pro Jahr für die Schweiz',
+    calcResult: '~10&nbsp;Mrd. pro Jahr für die Schweiz',
   },
 
   // UbsStudySection
