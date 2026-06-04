@@ -92,6 +92,32 @@ const VIDEO_GARY = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
         <SourceTag id="workzeitung_reiche" :note="$t('zucman.headlineSource')" />
       </div>
 
+      <div class="derive card">
+        <h3>{{ $t('zucman.deriveHeading') }}</h3>
+        <p class="derive-intro" v-html="$t('zucman.deriveIntro')" />
+        <div class="derive-cols">
+          <div>
+            <p class="derive-sub">{{ $t('zucman.deriveInputsTitle') }}</p>
+            <ul>
+              <li v-html="$t('zucman.deriveInput1')" />
+              <li v-html="$t('zucman.deriveInput2')" />
+              <li v-html="$t('zucman.deriveInput3')" />
+            </ul>
+          </div>
+          <div>
+            <p class="derive-sub">{{ $t('zucman.deriveStepsTitle') }}</p>
+            <ol>
+              <li v-html="$t('zucman.deriveStep1')" />
+              <li v-html="$t('zucman.deriveStep2')" />
+              <li v-html="$t('zucman.deriveStep3')" />
+              <li v-html="$t('zucman.deriveStep4')" />
+              <li v-html="$t('zucman.deriveStep5')" />
+            </ol>
+          </div>
+        </div>
+        <p class="derive-note" v-html="$t('zucman.deriveNote')" />
+      </div>
+
       <h3 class="block-h">{{ $t('zucman.extraHeading') }}</h3>
       <p class="body" v-html="$t('zucman.extraText')" />
 
@@ -184,6 +210,22 @@ tr.highlight { background: rgba(56, 214, 196, 0.07); }
   border: 1px solid var(--border); border-left: 3px solid var(--gold);
 }
 .callout :deep(strong) { color: var(--text); }
+
+.derive { padding: 24px 26px; margin: 20px 0 4px; border-left: 3px solid var(--violet); }
+.derive h3 { margin-bottom: 8px; }
+.derive-intro { font-size: 0.9rem; line-height: 1.6; color: var(--text-soft); max-width: 78ch; }
+.derive-intro :deep(strong) { color: var(--text); }
+.derive-intro :deep(a) { color: var(--accent-soft); }
+.derive-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 28px; margin-top: 6px; }
+.derive-sub { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-mute); font-weight: 700; margin: 8px 0 4px; }
+.derive ul, .derive ol { margin: 0; padding-left: 20px; color: var(--text-soft); }
+.derive li { margin-bottom: 8px; font-size: 0.88rem; line-height: 1.55; }
+.derive :deep(strong) { color: var(--text); }
+.derive-note {
+  font-size: 0.84rem; color: var(--text-mute); margin: 14px 0 0;
+  padding-top: 12px; border-top: 1px solid var(--border);
+}
+.derive-note :deep(strong) { color: var(--text-soft); }
 
 .core { padding: 26px; margin-top: 18px; border-left: 3px solid var(--accent); }
 .core h3 { margin-bottom: 10px; }

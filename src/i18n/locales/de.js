@@ -236,6 +236,20 @@ export default {
     rowBSub: 'heutige Last (rund 1&nbsp;%) angerechnet',
     scenarioNote: '<strong>Zur kursierenden 20-Milliarden-Zahl:</strong> Die Schlagzeile «bis zu 20&nbsp;Mrd. zusätzlich» entspricht dem Brutto-Szenario&nbsp;A (flache 2&nbsp;% auf eine etwas grössere Basis), nicht der Mindeststeuer. Rechnet man, wie Zucman es vorsieht, die bereits gezahlten Steuern an, bleibt deutlich weniger: das Zusatzaufkommen liegt eher bei 6&nbsp;bis&nbsp;11&nbsp;Mrd. Was angerechnet wird, verändert das Ergebnis stark; zählt man nur die Einkommenssteuer an, steigt das Zusatzaufkommen Richtung 13&nbsp;Mrd.',
 
+    deriveHeading: 'Herleitung und Deklaration',
+    deriveIntro: 'Die Effektivlast und das Zusatzaufkommen sind eine <strong>eigene, statische Schätzung</strong>, keine amtliche Zahl und nicht aus der reproduzierbaren ESTV-Pipeline dieser Seite. Belegt sind die Eingangsgrössen, die Verknüpfung ist die Rechnung dahinter. Die vollständige Fassung steht in der Methodik-Dokumentation (Abschnitt&nbsp;11).',
+    deriveInputsTitle: 'Belegte Eingangsgrössen',
+    deriveInput1: 'Basis 851,5&nbsp;Mrd. Marktvermögen (Bilanz&nbsp;2025).',
+    deriveInput2: 'Vermögenssteuer rund 0,25 bis 0,28&nbsp;% (Momentum, NZZ).',
+    deriveInput3: 'Einkommenssteuer der Spitze rund 32&nbsp;% (Milliardäre) bzw. 19&nbsp;% (Multimillionäre) des Einkommens (Oxfam/Tax&nbsp;Justice&nbsp;Network/Momentum).',
+    deriveStepsTitle: 'Eigene Rechnung',
+    deriveStep1: 'Vermögenssteuer am Marktvermögen ≈ 0,3&nbsp;% (0,28&nbsp;% auf steuerbarer Basis, gedämpft durch Steuerbremse und Markt-/Steuerwert-Lücke).',
+    deriveStep2: 'Einkommenssteuer am Marktvermögen ≈ 0,5&nbsp;% (rund 2&nbsp;% steuerbare Ausschüttungsrendite × 25 bis 30&nbsp;% effektiver Satz).',
+    deriveStep3: 'Heutige Effektivlast ≈ 0,3&nbsp;% + 0,5&nbsp;% = <strong>rund 0,8&nbsp;%</strong> (Bandbreite 0,7 bis 1,3&nbsp;%).',
+    deriveStep4: 'Szenario&nbsp;A (brutto): 2&nbsp;% × 851,5&nbsp;Mrd. = <strong>17,0&nbsp;Mrd.</strong>',
+    deriveStep5: 'Szenario&nbsp;B (Mindeststeuer): 2&nbsp;% minus heutige Effektivlast (0,7 bis 1,3&nbsp;%) × 851,5&nbsp;Mrd. = <strong>rund 6 bis 11&nbsp;Mrd.</strong> zusätzlich.',
+    deriveNote: 'Statisch gerechnet, ohne Verhaltensreaktion. Was angerechnet wird, verschiebt Szenario&nbsp;B: nur die Einkommenssteuer angerechnet ergäbe rund 12 bis 13&nbsp;Mrd. Die Basis ist eine belegte Untergrenze.',
+
     extraHeading: 'Mehrbelastung der Superreichen',
     extraText: 'Pro 100-Mio.-Vermögen heisst das: heute rund 0,8&nbsp;Mio. Steuern, die Mindeststeuer hebt auf 2,0&nbsp;Mio., also etwa <span class="hl">1,2&nbsp;Mio. mehr pro Jahr</span> (sofern heute unter 2&nbsp;%). Pro 1-Mrd.-Vermögen sind es entsprechend rund 7&nbsp;bis&nbsp;13&nbsp;Mio. mehr im Jahr. Relativ zur Rendite ist das viel: bei etwa 4&nbsp;% Vermögensrendite liefert allein die 2&nbsp;%-Steuer rund die Hälfte der Erträge ab; die Mehrbelastung der Mindeststeuer ist davon nur der Teil oberhalb der heutigen rund 1&nbsp;%.',
 
@@ -306,6 +320,7 @@ export default {
     methodLi2: '<strong>Statisches Aufkommen.</strong> Der Rechner ignoriert Abwanderung, Verhalten und Vermögensentstehung, die grössten realen Unsicherheiten. Er zeigt das Potenzial der Bemessungsgrundlage, keine Einnahmeprognose.',
     methodLi3: '<strong>Pareto-Tail.</strong> Vermögen über 10&nbsp;Mio. werden mit einem Pareto-Index aus den ESTV-Klassenmitteln extrapoliert; Pauschalbesteuerte sind modellhaft im selben Tail angenommen.',
     methodLi4: '<strong>Verschiedene Bezugsgrössen.</strong> WID/UBS messen das gesamte Netto-Privatvermögen, die ESTV nur das steuerbare. Vergleiche sind indikativ, nicht zellengenau.',
+    methodLi6: '<strong>Zucman-Abschnitt ist eine Schätzung.</strong> Die heutige Effektivlast und das Zusatzaufkommen der 2&nbsp;%-Mindeststeuer sind eine eigene, statische Herleitung auf belegten Eingangsgrössen (Bilanz, Momentum, NZZ, WOZ), keine amtliche Zahl und nicht aus der ESTV-Pipeline reproduzierbar. Die Rechnung steht offen im Abschnitt «Zucman-Steuer» und in der Methodik-Dokumentation.',
     methodLi5: '<strong>WIR-Referenzmodelle (2022 &amp; 2026).</strong> Die Presets «WIR 2022» (progressive Grenzsatz-Staffel, Tabelle 7.2) und «WIR 2026» (flache Mindeststeuer von 2–5 % auf das Gesamtvermögen ab 100&nbsp;Mio. $, nach Zucman 2024 / G20) bilden die Steuermodelle des World Inequality Report exakt ab, über dedizierte Funktionen, nicht über die Potenzkurve. Übertragen wird die Satz-Struktur; die USD-Schwellen werden ohne Wechselkurs (≈&nbsp;Parität) in CHF behandelt, daher sind die CHF-Beträge nicht mit den globalen USD-Erträgen des Reports vergleichbar.',
     footer: 'Erstellt direkt aus den Primärquellen (ESTV-Vermögenssteuerstatistik 2012–2022, WID/UBS-Vermögensverteilung, World Inequality Report 2022 &amp; 2026, FDK, EFV, BAG, BFS) über eine reproduzierbare Fetch- und Extraktions-Pipeline. Diese Seite ist ein unabhängiges, politisches Argument für eine Vermögenssteuer auf das reichste 1 %.',
   },

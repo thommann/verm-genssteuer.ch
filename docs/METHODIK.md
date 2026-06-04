@@ -335,7 +335,77 @@ externen Zahl, sondern Schutz gegen Implementierungsfehler).
 
 ---
 
-## 11. Reproduktion
+## 11. Zucman-Mindeststeuer — eigene Herleitung (Schätzung, ausserhalb der ESTV-Pipeline)
+
+> Anders als die Verfahren 1–8 ist dieser Abschnitt **keine** exakt reproduzierbare
+> Rechnung aus den ESTV-Klassendaten, sondern eine **eigene Schätzung** auf Basis
+> externer, belegter Eingangsgrössen. Sie ist statisch und ausdrücklich als Schätzung
+> deklariert. Sie speist den Seitenabschnitt «Zucman-Steuer», nicht den Rechner.
+
+**Bezugsgrösse:** Marktvermögen (Verkehrswerte), nicht das tiefere steuerbare Vermögen.
+Zucmans 2 % zielen auf das Gesamtvermögen, daher ist die Marktbasis korrekt.
+
+**Belegte Eingangsgrössen** (Quellen-IDs in `src/data/sources.json`):
+
+| Grösse | Wert | Quelle |
+|---|---|---|
+| Basis `B` (Marktvermögen der 300 Reichsten) | 851,5 Mrd. | `bilanz300` |
+| Vermögenssteuer-Aufkommen | ~11 Mrd./Jahr ≈ 0,25 % des Vermögens | `reichensteuer_studie` |
+| Ø Vermögenssteuersatz (steuerbare Basis) | 0,28 % (2025), von 0,35 % (1990) | `nzz_vermoegenssteuer` |
+| Effektive Einkommenssteuer | Milliardäre ~32 %, Multimillionäre ~19 % | `reichensteuer_studie` |
+| Steuer-Design | 2 % ab 100 Mio., Aufstockung bei < 2 %, Befreiung bei ≥ 2 % | `woz_zucman` |
+
+**Schritt 1 — Vermögenssteuer am Marktvermögen `v`.** Der Ø-Satz 0,28 % gilt auf der
+*steuerbaren* Basis. Weil Markt > steuerbar und die kantonale Steuerbremse die Spitze
+deckelt, am Marktvermögen geschätzt:
+```
+v ≈ 0,3 %        (Bandbreite 0,25–0,45 %)
+```
+
+**Schritt 2 — Einkommenssteuer auf Vermögenserträge am Marktvermögen `e`.** Kapitalgewinne
+sind steuerfrei, nur Ausschüttungen werden erfasst:
+```
+e ≈ (steuerbare Ausschüttungsrendite ~2 %) × (effektiver Satz ~25–30 %) ≈ 0,5 %   (0,4–0,8 %)
+```
+
+**Schritt 3 — heutige Effektivlast `t₀` am Marktvermögen:**
+```
+t₀ = v + e ≈ 0,3 % + 0,5 % = rund 0,8 %        (Bandbreite 0,7–1,3 %)
+```
+Quervergleich: ~32 % auf ein klein deklariertes Einkommen entspricht nur ~1 % des
+Vermögens — konsistent mit `t₀`.
+
+**Schritt 4 — Aufkommen, zwei Szenarien:**
+```
+Szenario A (brutto, ohne Anrechnung):   A     = 2 % · B = 0,02 · 851,5         = 17,0 Mrd.
+Szenario B (Mindeststeuer):             B_zus = (2 % − t₀) · B
+                                              = (0,02 − 0,007…0,013) · 851,5
+                                              ≈ 6–11 Mrd. zusätzlich
+```
+Die kursierende Schlagzeile «bis zu 20 Mrd.» (`workzeitung_reiche`) entspricht Szenario A,
+nicht der Mindeststeuer.
+
+**Schritt 5 — Mehrbelastung je Vermögen** (sofern heute < 2 %):
+```
+pro 100 Mio.:  2,0 Mio. − ~0,8 Mio. ≈ ~1,2 Mio./Jahr
+pro 1 Mrd.:    ~7–13 Mio./Jahr
+```
+
+**Deklaration und Grenzen:**
+
+- Eigene Schätzung, **keine amtliche Zahl** und **nicht** aus der ESTV-Pipeline reproduzierbar.
+- **Statisch:** keine Abwanderung, kein Verhalten. Die Steuer trifft die mobilste Gruppe;
+  reale Reaktionen würden das Aufkommen mindern.
+- Was angerechnet wird, verschiebt Szenario B erheblich: nur `e` angerechnet → ~12–13 Mrd.,
+  `e + v` angerechnet → ~6–11 Mrd.
+- Basis `B` ist eine belegte **Untergrenze** (diskrete Vermögen fehlen; plausibel bis ~1000 Mrd.).
+
+Diese Herleitung erscheint zusammengefasst und als Schätzung deklariert auch im Abschnitt
+«Zucman-Steuer» der Seite.
+
+---
+
+## 12. Reproduktion
 
 ```bash
 # 1. Rohdaten direkt von ESTV/WID/FDK/UBS laden (benötigt curl):
