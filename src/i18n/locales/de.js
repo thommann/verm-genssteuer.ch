@@ -25,6 +25,14 @@ export default {
     },
   },
 
+  // Rechner-Einheit: Kopf der zusammengehörenden Abschnitte (Rechner, Rendite, Verwendung).
+  calcSuite: {
+    kicker: 'Interaktiver Rechner',
+    step1: 'Modell',
+    step2: 'Rendite',
+    step3: 'Verwendung',
+  },
+
   // HeroSection
   hero: {
     eyebrow: 'Vermögen · Schweiz · 2022',
