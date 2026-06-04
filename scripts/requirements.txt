@@ -1,0 +1,8 @@
+# Python-Abhaengigkeiten der Daten-Pipeline (scripts/01-04 + 00).
+# Installation:  python3 -m pip install -r scripts/requirements.txt
+#
+# Zusaetzlich wird das System-Tool `pdftotext` (poppler-utils) benoetigt
+# (fuer 01_extract_fdk.py und 03_extract_wid_ubs.py), z. B.:
+#   Debian/Ubuntu:  apt-get install poppler-utils
+#   macOS (brew):   brew install poppler
+openpyxl>=3.1

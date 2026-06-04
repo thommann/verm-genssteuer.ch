@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-03 — WID (Vermoegensanteile) + UBS (Vermoegens-Gini) -> International-Sektion.
+03: WID (Vermoegensanteile) + UBS (Vermoegens-Gini) -> International-Sektion.
 
 WID.world Bulk-CSV je Land (data/raw/wid/WID_data_<ISO>.csv), Variable
 `shwealj992` (Anteil am net personal wealth, Erwachsene, equal-split):
@@ -63,7 +63,7 @@ UBS_RANKING = [
 ]
 
 # Tabelle «Wealth per adult: the top 25»: Durchschnitt vs. Median je Markt (Ende 2024).
-# Zeigt die Mittelwert-Median-Lücke – Kernaussage der Seite. EN→DE der Märkte, die in
+# Zeigt die Mittelwert-Median-Lücke, Kernaussage der Seite. EN→DE der Märkte, die in
 # beiden Ranglisten (Ø und Median) vorkommen.
 WEALTH_LEVEL_NAMES = {
     "Switzerland": "Schweiz", "United States": "USA", "Hong Kong SAR": "Hongkong",
@@ -91,7 +91,7 @@ def read_wid_country(iso):
     """
     path = os.path.join(WID, f"WID_data_{iso}.csv")
     if not os.path.exists(path):
-        fail(f"WID-Datei fehlt: {path} — zuerst `bash scripts/fetch_sources.sh`.")
+        fail(f"WID-Datei fehlt: {path}; zuerst `bash scripts/fetch_sources.sh`.")
     shares = {code: {} for code in PCTL.values()}
     gini = {}
     with open(path, encoding="utf-8") as fh:
@@ -113,12 +113,12 @@ def read_wid_country(iso):
 def ubs_text():
     """Layout-Text des UBS-Reports (einmal pro Lauf via pdftotext)."""
     if not os.path.exists(UBS_PDF):
-        fail(f"UBS-PDF fehlt: {UBS_PDF} — zuerst `bash scripts/fetch_sources.sh`.")
+        fail(f"UBS-PDF fehlt: {UBS_PDF}; zuerst `bash scripts/fetch_sources.sh`.")
     try:
         return subprocess.run(["pdftotext", "-layout", UBS_PDF, "-"],
                               check=True, capture_output=True, text=True).stdout
     except FileNotFoundError:
-        fail("`pdftotext` nicht gefunden — bitte poppler-utils installieren.")
+        fail("`pdftotext` nicht gefunden; bitte poppler-utils installieren.")
 
 
 def parse_ubs_gini():
@@ -247,7 +247,7 @@ def main():
           f"untere50={timeseries['bot50']['Schweiz'][cy]:.4f}  "
           f"WID-Gini={timeseries['gini']['Schweiz'][cy]}")
     print(f"        UBS Vermoegen/Erwachsenem: Ø {chw['avg']:,} USD vs. Median "
-          f"{chw['median']:,} USD (Faktor {chw['avg']/chw['median']:.2f}) — {len(wealth_levels)} Laender")
+          f"{chw['median']:,} USD (Faktor {chw['avg']/chw['median']:.2f}), {len(wealth_levels)} Laender")
     print(f"        UBS-Gini erkannt fuer {len(gini)} Maerkte "
           f"(z. B. CH={gini.get('Switzerland')}, DE={gini.get('Germany')}, US={gini.get('United States')})")
 

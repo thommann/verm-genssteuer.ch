@@ -2,7 +2,7 @@
   "defaults": {
     "schwelle": 5000000,
     "exponent": 0.9,
-    "cap": 1,
+    "cap": 1.0,
     "basis": 0.0025723143596906584,
     "mPauschal": 4557,
     "rendite": 0.05
