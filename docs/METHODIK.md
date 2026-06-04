@@ -411,6 +411,23 @@ pro 100 Mio.:  2,0 Mio. − ~0,8 Mio. ≈ ~1,2 Mio./Jahr
 pro 1 Mrd.:    ~7–13 Mio./Jahr
 ```
 
+**Spiegelbild — Medianhaushalt** (Quelle `bfs_habe`, BFS Haushaltsbudgeterhebung 2023).
+Während die Superreichen ihre Mehrbelastung von ~1,2 % passiv in rund 62 Tagen verdienen,
+lebt ein normaler Haushalt von der Arbeit. Sein Vermögen (Median rund 182 248 USD pro
+Erwachsenem, `ubs`) steckt grösstenteils in Pensionskasse und Wohneigentum und wirft kaum
+ausschüttbares Einkommen ab. Belegte Eingangsgrössen aus einer Quelle:
+```
+Steuern (Einkommen + Vermögen)   = 12,0 % des Bruttoeinkommens   (1245 CHF/Monat)
+Vermögenseinkommen (passiv)      =  4,5 % des Bruttoeinkommens   (Mittelwert, konzentriert:
+                                   nur jeder 7. Haushalt liegt über diesem Anteil)
+
+Zeit, um die Jahressteuer allein aus dem Vermögenseinkommen zu verdienen:
+   12,0 % ÷ 4,5 % ≈ 2,7 Jahre
+```
+Es sind Mittelwerte; beim typischen (Median-)Haushalt ist das Vermögenseinkommen tiefer und
+die Zeit länger. Die ~2,7 Jahre sind also die konservative (geschönte) Variante. Kontrast:
+blosse Mehrbelastung der Spitze ~62 Tage gegenüber gesamter Jahressteuer der Mitte ~2,7 Jahre.
+
 **Deklaration und Grenzen:**
 
 - Eigene Schätzung, **keine amtliche Zahl** und **nicht** aus der ESTV-Pipeline reproduzierbar.

@@ -6,7 +6,7 @@
 // Zusatzaufkommen (~10 Mrd.) im Verhaltnis zu bekannten Bezugsgroessen bedeutet.
 import { computed } from 'vue';
 import spendRef from '@/data/spend_reference.json';
-import { chf, pct } from '@/lib/format.js';
+import { chf, pct, num } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const REVENUE = 10e9; // Zusatzaufkommen der Mindeststeuer, gerundet
@@ -19,6 +19,15 @@ const K = spendRef.kennzahlen;
 const EXTRA_RATE = 0.012;
 const PASSIVE_RETURN = 0.071;
 const recoveryDays = Math.round((EXTRA_RATE / PASSIVE_RETURN) * 365);
+
+// Spiegelbild fuer den Medianhaushalt: wie lange dessen passives Einkommen
+// (Vermoegenseinkommen) braucht, um die eigene Jahressteuer zu decken. BFS
+// Haushaltsbudgeterhebung 2023: Steuern = 12,0 % des Bruttoeinkommens,
+// Vermoegenseinkommen im Schnitt nur 4,5 % (und nur bei jedem 7. Haushalt
+// darueber). Recovery = 0,12 / 0,045 ~ 2,7 Jahre.
+const MEDIAN_TAX_SHARE = 0.12;
+const MEDIAN_PROPERTY_SHARE = 0.045;
+const medianRecoveryYears = MEDIAN_TAX_SHARE / MEDIAN_PROPERTY_SHARE;
 
 const perCapita = computed(() => chf(REVENUE / K.population.value));
 const incomeShare = computed(() => pct(REVENUE / K.einkommenssteuer_np_alle_ebenen.value, 0));
@@ -68,6 +77,18 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
       </div>
       <div class="srcrow">
         <SourceTag id="zucman_g20" :note="$t('zucman.daysSource')" />
+      </div>
+
+      <h3 class="block-h">{{ $t('zucman.medHeading') }}</h3>
+      <p class="body" v-html="$t('zucman.medText')" />
+      <div class="card medbox">
+        <span class="calc-line" v-html="$t('zucman.medLine')" />
+        <span class="med-result">~{{ num(medianRecoveryYears, 1) }}&nbsp;<span class="med-unit">{{ $t('zucman.medUnit') }}</span></span>
+        <span class="days-sub" v-html="$t('zucman.medSub')" />
+      </div>
+      <div class="srcrow">
+        <SourceTag id="bfs_habe" :note="$t('zucman.medSource')" />
+        <SourceTag id="ubs" :note="$t('zucman.medSourceWealth')" />
       </div>
 
       <h3 class="block-h">{{ $t('zucman.meaningHeading') }}</h3>
@@ -133,6 +154,17 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
 .days-unit { font-size: 1.05rem; font-weight: 700; }
 .days-sub { color: var(--text-soft); font-size: 0.94rem; line-height: 1.55; }
 .days-sub :deep(strong) { color: var(--text); }
+
+.medbox {
+  margin: 16px 0 4px; padding: 22px 24px;
+  display: flex; flex-direction: column; gap: 8px;
+  border-left: 3px solid var(--accent);
+}
+.med-result {
+  font-size: 2.1rem; font-weight: 800; color: var(--accent);
+  letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.med-unit { font-size: 1.05rem; font-weight: 700; }
 
 .egrid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 18px; }
 .ecard { padding: 22px; display: flex; flex-direction: column; gap: 8px; }

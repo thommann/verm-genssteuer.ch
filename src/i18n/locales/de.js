@@ -295,6 +295,14 @@ export default {
     daysSub: 'Rund <strong>zwei Monate</strong>, ohne einen Finger zu rühren. Den Rest des Jahres wächst das Vermögen weiter.',
     daysSource: 'Vermögenszuwachs ~7,1 % p. a. (1987–2024)',
 
+    medHeading: 'Und der Medianhaushalt?',
+    medText: 'Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. Das Medianvermögen liegt bei rund <strong>182&nbsp;000&nbsp;USD pro erwachsene Person</strong> (UBS), steckt aber grösstenteils in Pensionskasse und Wohneigentum und wirft kaum ausschüttbares Einkommen ab. Laut Haushaltsbudgeterhebung des BFS macht das <strong>Vermögenseinkommen im Schnitt nur 4,5&nbsp;%</strong> des Bruttoeinkommens aus, und nur jeder siebte Haushalt liegt darüber. Die <strong>Steuern nehmen 12&nbsp;%</strong>.',
+    medLine: 'Um die eigene Jahressteuer (12&nbsp;% des Einkommens) allein aus dem passiven Vermögenseinkommen (4,5&nbsp;%) zu verdienen, braucht der Medianhaushalt:',
+    medUnit: 'Jahre',
+    medSub: 'Die blosse <strong>Mehrbelastung</strong> der Superreichen ist in rund 62&nbsp;Tagen verdient. Die <strong>gesamte Jahressteuer</strong> eines Medianhaushalts bräuchte aus passivem Einkommen fast drei Jahre. Und das ist die geschönte Rechnung: beim typischen Haushalt liegt das Vermögenseinkommen noch tiefer, er zahlt seine Steuern aus dem Lohn.',
+    medSource: 'Steuern 12 % und Vermögenseinkommen 4,5 % des Bruttoeinkommens (2023)',
+    medSourceWealth: 'Medianvermögen pro Erwachsenem (Ende 2024)',
+
     meaningHeading: 'Was ~10 Mrd. bedeuten',
     meaningPerCapita: 'pro Kopf und Jahr',
     meaningIncome: 'der gesamten Einkommenssteuer natürlicher Personen',

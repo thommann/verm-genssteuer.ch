@@ -24,7 +24,7 @@
     "herausgeber": "UBS (vormals Credit Suisse Global Wealth Report)",
     "url": "https://www.ubs.com/global/en/wealthmanagement/insights/global-wealth-report.html",
     "stand": "Report 2025, Daten Ende 2024",
-    "hinweis": "Wealth-Gini je Markt aus der Tabelle «Wealth inequality, measured by the Gini coefficient». Eigene UBS-Berechnung auf Basis von OECD-/IWF-/UN-/Weltbank- und nationalen Daten. Misst Gesamt-Marktvermögen, nicht steuerbares Vermögen."
+    "hinweis": "Wealth-Gini je Markt aus der Tabelle «Wealth inequality, measured by the Gini coefficient». Eigene UBS-Berechnung auf Basis von OECD-/IWF-/UN-/Weltbank- und nationalen Daten. Misst Gesamt-Marktvermögen, nicht steuerbares Vermögen. Vermögen pro Erwachsenem Schweiz (Tabelle «Wealth per adult», USD, Ende 2024): Median rund 182 248 USD, Durchschnitt rund 687 166 USD."
   },
   {
     "id": "wir2022",
@@ -151,5 +151,14 @@
     "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung/stand-entwicklung.html",
     "stand": "Ende 2024",
     "hinweis": "9 051 029 Personen Ende 2024."
+  },
+  {
+    "id": "bfs_habe",
+    "kurz": "BFS Haushaltsbudgeterhebung",
+    "titel": "Haushaltsbudgeterhebung (HABE) 2023: Einkommen, Steuern und Vermögenseinkommen der Haushalte",
+    "herausgeber": "Bundesamt für Statistik (BFS)",
+    "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/einkommen-verbrauch-vermoegen/haushaltsbudget.html",
+    "stand": "Ergebnisse 2023, publiziert 2025",
+    "hinweis": "Durchschnittshaushalt (2,07 Personen): verfügbares Einkommen 7186 CHF/Monat; Steuern auf Einkommen und Vermögen 1245 CHF/Monat = 12,0 % des Bruttoeinkommens; Vermögenseinkommen im Schnitt 4,5 % des Bruttoeinkommens, stark konzentriert (nur jeder siebte Haushalt liegt über diesem Anteil). Zeit, um die Jahressteuer allein aus dem Vermögenseinkommen zu verdienen: 12,0 % ÷ 4,5 % ≈ 2,7 Jahre. Die Werte sind Mittelwerte; für den typischen (Median-)Haushalt ist das Vermögenseinkommen tiefer und die Zeit entsprechend länger."
   }
 ]
