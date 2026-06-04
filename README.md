@@ -29,9 +29,31 @@ erlebbar/experimentierbar macht.
 ## Stack
 
 - **Vue 3** (`<script setup>`, Composition API) + **Vite**
+- **vue-i18n** für die zentrale Textverwaltung (alle Oberflächentexte über Schlüssel)
 - Eigene, abhängigkeitsfreie **SVG-Charts** (`LineChart`, `BarChart`)
 - Reine, getestete Rechen-Logik in `src/lib/taxModel.js`
-- Keine Laufzeit-Abhängigkeiten ausser Vue
+- Schlanke Laufzeit-Abhängigkeiten: nur Vue und vue-i18n
+
+## Texte & i18n
+
+Sämtliche sichtbaren Texte der Oberfläche liegen zentral in einer Locale-Datei und
+werden in den Komponenten nur noch über Schlüssel referenziert; kein deutscher Text
+steht mehr direkt im Template oder Skript.
+
+- Zentrale Texte: [`src/i18n/locales/de.js`](src/i18n/locales/de.js) (nach Abschnitten
+  gruppiert: `nav`, `hero`, `calculator`, `spend`, …).
+- Einrichtung: [`src/i18n/index.js`](src/i18n/index.js) richtet `vue-i18n` ein
+  (Composition API, `globalInjection`), eingebunden in `src/main.js`.
+- Nutzung in Templates: `{{ $t('hero.eyebrow') }}` bzw. mit Werten
+  `{{ $t('spend.title', { revenue }) }}`. In `<script setup>` über `const { t } = useI18n()`.
+- Texte mit Inline-Markup (`<strong>`, Links, `&nbsp;`) werden per `v-html="$t(...)"`
+  gerendert; Platzhalter (`{name}`) füllen die bereits formatierten Zahlenwerte.
+
+Eine weitere Sprache lässt sich ergänzen, indem man eine zusätzliche Locale-Datei
+(z. B. `src/i18n/locales/fr.js`) mit denselben Schlüsseln anlegt und in
+`src/i18n/index.js` registriert. Datenbezogene Texte (Quellenangaben in
+`src/data/sources.json`, Ländernamen als Datenschlüssel) bleiben bewusst bei den Daten.
+Reine Zahlenformatierung (CHF/%/Mio.) liegt weiterhin in `src/lib/format.js` (`de-CH`).
 
 ## Entwicklung
 

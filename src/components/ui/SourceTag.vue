@@ -19,7 +19,7 @@ const src = sources.find((s) => s.id === props.id);
     :title="src.titel"
   >
     <span class="dot" />
-    Quelle: {{ src.kurz }}<template v-if="note"> · {{ note }}</template>
+    {{ $t('ui.sourcePrefix') }} {{ src.kurz }}<template v-if="note"> · {{ note }}</template>
   </a>
 </template>
 

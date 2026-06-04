@@ -1,24 +1,28 @@
 <script setup>
 import { ref, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import wid from '@/data/wid_timeseries.json';
 import { pct } from '@/lib/format.js';
 import LineChart from '@/components/charts/LineChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
-const METRICS = {
-  top1: { key: 'top1', label: 'Top 1 %', desc: 'Vermögensanteil des reichsten Prozents' },
-  top10: { key: 'top10', label: 'Top 10 %', desc: 'Vermögensanteil der reichsten 10 %' },
-  bot50: { key: 'bot50', label: 'Untere 50 %', desc: 'Vermögensanteil der ärmeren Hälfte' },
-  gini: { key: 'gini', label: 'Vermögens-Gini', desc: 'Gini des Netto-Privatvermögens (0 = gleich, 1 = einer hat alles)' },
-};
+const { t } = useI18n();
+
+// Metriken-Umschalter. Beschriftungen und Beschreibungen kommen aus der i18n-Locale.
+const metrics = computed(() => ({
+  top1: { key: 'top1', label: t('international.metrics.top1Label'), desc: t('international.metrics.top1Desc') },
+  top10: { key: 'top10', label: t('international.metrics.top10Label'), desc: t('international.metrics.top10Desc') },
+  bot50: { key: 'bot50', label: t('international.metrics.bot50Label'), desc: t('international.metrics.bot50Desc') },
+  gini: { key: 'gini', label: t('international.metrics.giniLabel'), desc: t('international.metrics.giniDesc') },
+}));
 const metric = ref('top1');
 const isGini = computed(() => metric.value === 'gini');
 // Anteile als Prozent, Gini als Index (0–1).
 const formatY = computed(() => (isGini.value ? (v) => v.toFixed(2) : (v) => pct(v, 0)));
 const formatVal = computed(() => (isGini.value ? (v) => v.toFixed(2) : (v) => pct(v, 1)));
 const widNote = computed(() => (isGini.value
-  ? 'Variable ghwealj992 (Vermögens-Gini)'
-  : 'Variable shwealj992, net personal wealth'));
+  ? t('international.widNoteGini')
+  : t('international.widNoteShare')));
 
 const SHOWN = [
   { name: 'Schweiz', color: 'var(--accent)', width: 3.2, marker: true },
@@ -76,21 +80,18 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
 <template>
   <section id="international" class="section-alt">
     <div class="wrap">
-      <div class="eyebrow">Im internationalen Vergleich</div>
-      <h2>Die Konzentration steigt, auch in der Schweiz</h2>
-      <p class="lead">
-        Anteil am gesamten Netto-Privatvermögen, 1995–2024. In der Schweiz hält das
-        reichste Prozent heute spürbar mehr als noch in den 1990ern, ein weltweiter Trend.
-      </p>
+      <div class="eyebrow">{{ $t('international.eyebrow') }}</div>
+      <h2>{{ $t('international.title') }}</h2>
+      <p class="lead">{{ $t('international.lead') }}</p>
 
       <div class="metric-toggle">
         <button
-          v-for="m in METRICS"
+          v-for="m in metrics"
           :key="m.key"
           :class="{ active: metric === m.key }"
           @click="metric = m.key"
         >{{ m.label }}</button>
-        <span class="muted desc">{{ METRICS[metric].desc }}</span>
+        <span class="muted desc">{{ metrics[metric].desc }}</span>
       </div>
 
       <div class="card chartbox">
@@ -113,7 +114,7 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
       </div>
 
       <div class="compare">
-        <h3>{{ METRICS[metric].label }} heute ({{ ranking[0]?.jahr }})</h3>
+        <h3>{{ $t('international.compareTitle', { metric: metrics[metric].label, year: ranking[0]?.jahr }) }}</h3>
         <div class="rank">
           <div
             v-for="c in ranking"
@@ -129,13 +130,9 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
           </div>
         </div>
         <div class="legend2">
-          <SourceTag id="wid" note="Anteile" />
+          <SourceTag id="wid" :note="$t('international.sourceNoteShares')" />
         </div>
-        <p class="muted small">
-          Hinweis: WID-Anteile (Gesamtvermögen) und die ESTV-Steuerdaten messen
-          Verschiedenes: die Steuerdaten erfassen nur steuerbares Vermögen und wirken
-          dadurch konzentrierter. Beide Quellen zeigen denselben Trend.
-        </p>
+        <p class="muted small">{{ $t('international.note') }}</p>
       </div>
     </div>
   </section>

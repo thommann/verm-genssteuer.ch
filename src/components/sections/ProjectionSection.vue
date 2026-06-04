@@ -1,17 +1,19 @@
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useCalculator } from '@/composables/useCalculator.js';
 import RangeControl from '@/components/ui/RangeControl.vue';
 import LineChart from '@/components/charts/LineChart.vue';
 import { chfCompact, pct } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
+const { t } = useI18n();
 const calc = useCalculator();
 const { state, projection } = calc;
 
 const series = computed(() => [
   {
-    name: 'Aufkommen',
+    name: t('projection.seriesName'),
     color: 'var(--accent)',
     width: 3,
     marker: true,
@@ -43,24 +45,18 @@ const trend = computed(() => {
 // und steht daher unabhängig vom Trend immer nach unten.
 const trendArrow = '↓';
 const lastLabel = computed(() => ({
-  down: 'dauerhaft tragbares Niveau (2032)',
-  up: 'Aufkommen 2032, Vermögen wächst weiter',
-  flat: 'stabiles Niveau (2032)',
+  down: t('projection.lastLabelDown'),
+  up: t('projection.lastLabelUp'),
+  flat: t('projection.lastLabelFlat'),
 })[trend.value]);
 </script>
 
 <template>
   <section id="dynamik">
     <div class="wrap">
-      <div class="eyebrow">Ehrlich gerechnet</div>
-      <h2>Einmaliger Schock oder dauerhafte Quelle?</h2>
-      <p class="lead">
-        Vermögen wächst (Rendite), die Steuer bremst. Diese mechanische Hochrechnung
-        zeigt beide Fälle: <strong>steile</strong> Modelle besteuern die Spitze im ersten
-        Jahr stark und pendeln sich danach auf ein tieferes, dauerhaft tragbares Niveau
-        ein; <strong>milde</strong> Modelle bremsen kaum, dann wächst die
-        Bemessungsgrundlage weiter und das Aufkommen steigt mit.
-      </p>
+      <div class="eyebrow">{{ $t('projection.eyebrow') }}</div>
+      <h2>{{ $t('projection.title') }}</h2>
+      <p class="lead" v-html="$t('projection.lead')" />
 
       <div class="proj-grid">
         <div class="card chartbox">
@@ -72,14 +68,14 @@ const lastLabel = computed(() => ({
             :y-ticks="yTicks"
             :format-x="(v) => String(v)"
             :format-y="(v) => `${v}`"
-            y-label="Mrd. CHF / Jahr"
+            :y-label="$t('projection.yLabel')"
             :height="320"
           />
         </div>
         <div class="card side">
           <div class="sidestat">
             <span class="sv accent">{{ chfCompact(first, 1) }}</span>
-            <span class="sl">Aufkommen im ersten Jahr</span>
+            <span class="sl">{{ $t('projection.firstLabel') }}</span>
           </div>
           <div class="arrow">{{ trendArrow }}</div>
           <div class="sidestat">
@@ -92,19 +88,16 @@ const lastLabel = computed(() => ({
             :min="0.01"
             :max="0.08"
             :step="0.005"
-            label="Angenommene Rendite p.a."
+            :label="$t('projection.renditeLabel')"
             :display="pct(state.rendite, 1)"
-            hint="Je höher die Rendite, desto mehr trägt die Substanz dauerhaft."
+            :hint="$t('projection.renditeHint')"
           />
-          <p class="muted small">
-            Rein mechanisch: ohne Abwanderung, Konsum oder neue Vermögen.
-            <code>W(t+1) = W(t)·(1+r) − Steuer(W(t))</code>
-          </p>
+          <p class="muted small" v-html="$t('projection.formula')" />
         </div>
       </div>
       <div class="srcs">
-        <SourceTag id="estv_vermoegen" note="Kohorten ab 2022, dynamische Projektion" />
-        <SourceTag id="fdk" note="Pauschalbesteuerte im Pareto-Tail (M)" />
+        <SourceTag id="estv_vermoegen" :note="$t('projection.sourceNoteEstv')" />
+        <SourceTag id="fdk" :note="$t('projection.sourceNoteFdk')" />
       </div>
     </div>
   </section>
