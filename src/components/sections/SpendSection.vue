@@ -1,11 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useCalculator } from '@/composables/useCalculator.js';
+import { dynamicProjection } from '@/lib/taxModel.js';
+import cohorts from '@/data/projektion_cohorts.json';
 import spendRef from '@/data/spend_reference.json';
 import { chf, chfCompact, pct, num } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
-const { staticRevenue, sustainableRevenue, state } = useCalculator();
+const { staticRevenue, sustainableRevenue, state, model } = useCalculator();
 const K = spendRef.kennzahlen;
 
 const basis = ref('dauerhaft'); // 'dauerhaft' | 'jahr1'
@@ -16,6 +18,31 @@ const bundCut = computed(() => revenue.value / K.direkte_bundessteuer_np.value);
 const premiumShare = computed(() => revenue.value / K.okp_praemien.value);
 const premiumPerPersonMonth = computed(() => revenue.value / K.population.value / 12);
 const dividendYear = computed(() => revenue.value / K.population.value);
+
+// Wie viele Jahre, bis das kumulierte Aufkommen alle Steuern eines Jahres ergibt? Nicht das
+// flache Vielfache eines Jahresaufkommens, sondern die dynamische Hochrechnung (inkl. Rendite):
+// das Aufkommen jedes Jahres folgt dem Pfad W(t+1) = W(t)·(1+r) − Steuer(W(t)), die Jahre werden
+// aufsummiert (mit linear interpoliertem Teiljahr), bis sie die gesamten Steuern decken.
+const TAXFREE_HORIZON = 250;
+const taxFreeYears = computed(() => {
+  const target = K.steuern_total.value;
+  const series = dynamicProjection(cohorts, model.value, state.rendite, state.year, TAXFREE_HORIZON);
+  let cum = 0;
+  for (let i = 0; i < series.length; i += 1) {
+    const rev = series[i].revenue;
+    if (rev <= 0) break;
+    if (cum + rev >= target) return i + (target - cum) / rev;
+    cum += rev;
+  }
+  return null; // Aufkommen versiegt vor dem Ziel
+});
+// Mittlere Jahresdeckung (für den Balken), aus den kumulierten Jahren abgeleitet.
+const taxShare = computed(() => (taxFreeYears.value ? 1 / taxFreeYears.value : 0));
+const taxFreeYearsLabel = computed(() => {
+  const y = taxFreeYears.value;
+  if (y == null) return `> ${TAXFREE_HORIZON}`;
+  return num(y, y < 10 ? 1 : 0);
+});
 
 const capPct = (v) => Math.min(v, 1);
 const over = (v) => v > 1;
@@ -85,6 +112,21 @@ const over = (v) => v > 1;
           </p>
           <SourceTag id="bfs" />
         </article>
+
+        <!-- Tax-free Switzerland: normal grid card, independent of the dauerhaft/jahr1 toggle -->
+        <article class="card spend spend-accent">
+          <div class="spend-icon">🗓️</div>
+          <h3>{{ $t('spend.taxfreeTitle') }}</h3>
+          <div class="spend-big violet">
+            {{ taxFreeYearsLabel }}<span class="spend-unit"> {{ $t('spend.taxfreeUnit') }}</span>
+          </div>
+          <p class="spend-text" v-html="$t('spend.taxfreeText')" />
+          <div class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(taxShare) * 100}%` }" /></div>
+          <p class="spend-foot muted">
+            {{ $t('spend.taxfreeFoot', { rendite: pct(state.rendite, 0) }) }}
+          </p>
+          <SourceTag id="efv" />
+        </article>
       </div>
 
       <p class="disclaimer muted" v-html="$t('spend.disclaimer')" />
@@ -114,12 +156,24 @@ const over = (v) => v > 1;
 .spend-big.gold { color: var(--gold); }
 .spend-big.accent { color: var(--accent); }
 .spend-big.teal { color: var(--teal); }
+.spend-big.violet { color: var(--violet); }
+.spend-unit { font-size: 0.4em; font-weight: 700; letter-spacing: 0; }
+
+/* Vierte Karte: normale Rasterkarte (auf Mobile ohnehin volle Breite), leicht violett
+   abgesetzt; unabhängig vom Basis-Umschalter. */
+.spend-accent {
+  border-color: color-mix(in srgb, var(--violet) 40%, var(--border));
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--violet) 7%, transparent), transparent 60%),
+    linear-gradient(160deg, var(--bg-card), var(--bg-card-2));
+}
 .spend-text { font-size: 0.92rem; color: var(--text-soft); margin: 0; min-height: 3.4em; }
 .spend-meter { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); overflow: hidden; border: 1px solid var(--border); margin: 6px 0; }
 .fill { height: 100%; border-radius: 999px; transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 .fill.teal { background: var(--teal); }
 .fill.gold { background: var(--gold); }
 .fill.accent { background: var(--accent); }
+.fill.violet { background: var(--violet); }
 .spend-foot { font-size: 0.8rem; margin: 2px 0 8px; }
 .disclaimer { font-size: 0.82rem; margin-top: 24px; max-width: 75ch; }
 .srcs { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
