@@ -18,6 +18,7 @@ export default {
       dynamik: 'Dynamik',
       international: 'International',
       'wir-reports': 'WIR-Reports',
+      zucman: 'Zucman-Steuer',
       'ubs-studie': 'UBS-Studie',
       pauschal: 'Pauschalbesteuerung',
       quellen: 'Quellen',
@@ -201,6 +202,75 @@ export default {
     sourceNote2026: 'Globale Mindeststeuer, Kapitel 7',
   },
 
+  // ZucmanSection
+  zucman: {
+    eyebrow: 'Zucmans Mindeststeuer',
+    title: 'Was eine 2&nbsp;%-Mindeststeuer in der Schweiz bewirkt',
+    lead: 'Gabriel Zucman schlägt eine <strong>Mindeststeuer von 2&nbsp;%</strong> auf das Gesamtvermögen für alle ab 100&nbsp;Mio. vor. Wer schon mindestens 2&nbsp;% zahlt, ist befreit; wer darunter liegt, stockt auf 2&nbsp;% auf. Was hiesse das für die Schweiz, das einzige der grossen Länder, das bereits eine Vermögenssteuer kennt? Gemessen wird durchgehend am <strong>Marktvermögen</strong> zu Verkehrswerten, nicht am tieferen steuerbaren Vermögen, auf das Zucman ausdrücklich nicht zielt.',
+
+    statTotal: 'Gesamtvermögen der 300&nbsp;Reichsten zu Marktwerten (Bilanz&nbsp;2025)',
+    statCount: 'Personen und Familien mit Vermögen ab 100&nbsp;Mio., so weit die belegte Liste reicht',
+    statBill: 'Milliardäre darunter, fünf mehr als 2024 (152)',
+    statThreshold: 'Zucmans Schwelle, zugleich der Einstieg in die Bilanz-Liste',
+    statSource: 'Die 300 Reichsten 2025',
+
+    basisSource: 'steuerbares gegenüber Marktvermögen',
+    designSource: 'Zucmans Mindeststeuer-Design',
+    rateSource: 'Ø-Satz 0,28 %',
+    headlineSource: '«bis zu 20 Mrd.»',
+    coreSource: 'Frankreich 2016: 0,005 %',
+
+    basisHeading: 'Datengrundlage und ihre Grenzen',
+    basisText: 'Beste belegte Quelle für das Marktvermögen ist die Bilanz-Reichstenliste. 2025 weist sie <strong>851,5&nbsp;Mrd.</strong> für die 300&nbsp;Reichsten aus, ein neuer Höchststand und 18&nbsp;Mrd. mehr als 2024 (833,5&nbsp;Mrd.). Die <strong>Top&nbsp;10</strong> halten zusammen <span class="hl gold">227&nbsp;Mrd.</span>, mehr als ein Viertel des Ganzen; reichster ist Gérard&nbsp;Wertheimer mit rund 33&nbsp;Mrd. Die Liste ist eine Annäherung und tendenziell ein Unterzähler: diskret gehaltene Vermögen fehlen, und sie läuft bei Rang&nbsp;300 auf rund 100&nbsp;Mio. aus. Die belegten 851,5&nbsp;Mrd. sind deshalb eine <strong>Untergrenze</strong>; realistisch liegt das Gesamtvermögen ab 100&nbsp;Mio. eher bei 850 bis 1000&nbsp;Mrd. Für alle Rechnungen wird die belegte Zahl als konservative Basis verwendet. Das steuerbare Vermögen der ESTV liegt deutlich tiefer, weil Beteiligungen zu Substanz- statt Verkehrswerten und Liegenschaften zu Steuerwerten erfasst werden.',
+
+    burdenHeading: 'Heutige Steuerlast dieser Gruppe',
+    burdenText: 'Zucmans Massstab ist der Anteil <em>am Marktvermögen</em>, und dort fällt die effektive Last tief aus. Die <strong>Vermögenssteuer</strong> bringt schweizweit rund 11&nbsp;Mrd. im Jahr, etwa 0,25&nbsp;% des gesamten Vermögens; der durchschnittliche Satz liegt bei 0,28&nbsp;% des <em>steuerbaren</em> Vermögens, abgemildert durch die kantonale Steuerbremse und die Lücke zwischen Markt- und Steuerwert, geschätzt also rund 0,3&nbsp;% des Marktvermögens. Dazu kommt die <strong>Einkommenssteuer auf die Vermögenserträge</strong>; Kapitalgewinne sind steuerfrei, Dividenden privilegiert besteuert, was grob 0,5&nbsp;% des Marktvermögens ergibt. Aufs <em>Einkommen</em> bezogen zahlen Schweizer Milliardäre rund 32&nbsp;% (inklusive Unternehmenssteuern) und typische Multimillionäre rund 19&nbsp;%, hohe Sätze, aber auf ein klein deklariertes Einkommen, daher nur etwa 1&nbsp;% des Vermögens. In der Summe liegt die heutige Effektivlast geschätzt bei <span class="hl">rund 0,8&nbsp;bis&nbsp;1&nbsp;% des Marktvermögens</span>. Das ist eine eigene Schätzung mit offengelegter Rechnung, keine amtliche Zahl, und sie schwankt stark nach Kanton und Ertragslage.',
+    burdenSource: 'effektive Sätze Milliardäre/Multimillionäre',
+
+    scenarioHeading: 'Zwei sehr verschiedene Zahlen',
+    scenarioIntro: 'Entscheidend ist, dass Zucman eine <strong>Mindeststeuer</strong> vorschlägt, keine zusätzliche Abgabe obendrauf. Wer bereits 2&nbsp;% zahlt, ist befreit; wer darunter liegt, stockt auf. Ob man die heute schon gezahlten Steuern anrechnet oder nicht, trennt zwei Ergebnisse, die weit auseinanderliegen (Basis 851,5&nbsp;Mrd.):',
+    thScenario: 'Szenario',
+    thCalc: 'Rechnung',
+    thRevenue: 'Aufkommen',
+    rowAName: 'Brutto 2&nbsp;%',
+    rowASub: 'neue Steuer obendrauf, ohne Anrechnung',
+    rowBName: 'Zucman-Mindeststeuer',
+    rowBSub: 'heutige Last (rund 1&nbsp;%) angerechnet',
+    scenarioNote: '<strong>Zur kursierenden 20-Milliarden-Zahl:</strong> Die Schlagzeile «bis zu 20&nbsp;Mrd. zusätzlich» entspricht dem Brutto-Szenario&nbsp;A (flache 2&nbsp;% auf eine etwas grössere Basis), nicht der Mindeststeuer. Rechnet man, wie Zucman es vorsieht, die bereits gezahlten Steuern an, bleibt deutlich weniger: das Zusatzaufkommen liegt eher bei 6&nbsp;bis&nbsp;11&nbsp;Mrd. Was angerechnet wird, verändert das Ergebnis stark; zählt man nur die Einkommenssteuer an, steigt das Zusatzaufkommen Richtung 13&nbsp;Mrd.',
+
+    deriveHeading: 'Herleitung und Deklaration',
+    deriveIntro: 'Die Effektivlast und das Zusatzaufkommen sind eine <strong>eigene, statische Schätzung</strong>, keine amtliche Zahl und nicht aus der reproduzierbaren ESTV-Pipeline dieser Seite. Belegt sind die Eingangsgrössen, die Verknüpfung ist die Rechnung dahinter. Die vollständige Fassung steht in der Methodik-Dokumentation (Abschnitt&nbsp;11).',
+    deriveInputsTitle: 'Belegte Eingangsgrössen',
+    deriveInput1: 'Basis 851,5&nbsp;Mrd. Marktvermögen (Bilanz&nbsp;2025).',
+    deriveInput2: 'Vermögenssteuer rund 0,25 bis 0,28&nbsp;% (Momentum, NZZ).',
+    deriveInput3: 'Einkommenssteuer der Spitze rund 32&nbsp;% (Milliardäre) bzw. 19&nbsp;% (Multimillionäre) des Einkommens (Oxfam/Tax&nbsp;Justice&nbsp;Network/Momentum).',
+    deriveStepsTitle: 'Eigene Rechnung',
+    deriveStep1: 'Vermögenssteuer am Marktvermögen ≈ 0,3&nbsp;% (0,28&nbsp;% auf steuerbarer Basis, gedämpft durch Steuerbremse und Markt-/Steuerwert-Lücke).',
+    deriveStep2: 'Einkommenssteuer am Marktvermögen ≈ 0,5&nbsp;% (rund 2&nbsp;% steuerbare Ausschüttungsrendite × 25 bis 30&nbsp;% effektiver Satz).',
+    deriveStep3: 'Heutige Effektivlast ≈ 0,3&nbsp;% + 0,5&nbsp;% = <strong>rund 0,8&nbsp;%</strong> (Bandbreite 0,7 bis 1,3&nbsp;%).',
+    deriveStep4: 'Szenario&nbsp;A (brutto): 2&nbsp;% × 851,5&nbsp;Mrd. = <strong>17,0&nbsp;Mrd.</strong>',
+    deriveStep5: 'Szenario&nbsp;B (Mindeststeuer): 2&nbsp;% minus heutige Effektivlast (0,7 bis 1,3&nbsp;%) × 851,5&nbsp;Mrd. = <strong>rund 6 bis 11&nbsp;Mrd.</strong> zusätzlich.',
+    deriveNote: 'Statisch gerechnet, ohne Verhaltensreaktion. Was angerechnet wird, verschiebt Szenario&nbsp;B: nur die Einkommenssteuer angerechnet ergäbe rund 12 bis 13&nbsp;Mrd. Die Basis ist eine belegte Untergrenze.',
+
+    extraHeading: 'Mehrbelastung der Superreichen',
+    extraText: 'Pro 100-Mio.-Vermögen heisst das: heute rund 0,8&nbsp;Mio. Steuern, die Mindeststeuer hebt auf 2,0&nbsp;Mio., also etwa <span class="hl">1,2&nbsp;Mio. mehr pro Jahr</span> (sofern heute unter 2&nbsp;%). Pro 1-Mrd.-Vermögen sind es entsprechend rund 7&nbsp;bis&nbsp;13&nbsp;Mio. mehr im Jahr. Relativ zur Rendite ist das viel: bei etwa 4&nbsp;% Vermögensrendite liefert allein die 2&nbsp;%-Steuer rund die Hälfte der Erträge ab; die Mehrbelastung der Mindeststeuer ist davon nur der Teil oberhalb der heutigen rund 1&nbsp;%.',
+
+    coreHeading: 'Kernbefund: die Schweiz ist der Sonderfall',
+    coreText: 'Zucmans Instrument wurde für Länder ohne Vermögenssteuer entworfen, in denen Milliardäre effektiv nur rund 0,5&nbsp;% ihres Vermögens an Einkommenssteuer zahlen (Frankreich 2016: 0,005&nbsp;%). Die Schweiz erhebt bereits eine Vermögenssteuer, die etwa die Hälfte der 2&nbsp;%-Schwelle abdeckt. Deshalb ist hier der <strong>Brutto-Effekt</strong> (rund 17&nbsp;Mrd.) gross, der eigentliche <strong>Mindeststeuer-Effekt</strong> (rund 6&nbsp;bis&nbsp;11&nbsp;Mrd. zusätzlich) aber proportional am kleinsten. Die Schweiz ist damit der Ort, an dem Zucmans Mindeststeuer am wenigsten zusätzlich einbringt, gerade weil sie das Problem, das die Steuer lösen soll, teilweise schon angeht.',
+
+    caveatsTitle: 'Annahmen und Vorbehalte',
+    caveat1: '<strong>Markt- gegen steuerbare Basis</strong> verschiebt das Ergebnis um etwa Faktor&nbsp;2. Zucman zielt auf das Marktvermögen; eine saubere Marktbewertung existiert heute nicht (Pauschalbesteuerte ohne veranlagtes Vermögen, Beteiligungen untererfasst).',
+    caveat2: '<strong>Die Basis</strong> von 851,5&nbsp;Mrd. ist eine belegte Untergrenze; nicht öffentlich erfasste Vermögen erhöhen sie, plausibel bis rund 1000&nbsp;Mrd.',
+    caveat3: '<strong>Die heutige Effektivlast</strong> ist eine eigene Schätzung, keine amtliche Zahl. Sie variiert stark nach Kanton (Steuerbremse) und Ertragslage. Ob nur die Einkommenssteuer oder auch die Vermögenssteuer angerechnet wird, verändert das Zusatzaufkommen erheblich.',
+    caveat4: '<strong>Die Rechnung ist statisch</strong>, ohne Verhaltensreaktion. Die Steuer trifft die mobilste Gruppe; reale Abwanderung oder Umstrukturierung würde das Aufkommen mindern. Zucmans Gegenmittel, eine Weiterbesteuerung nach Wegzug, ist rechtlich und international schwierig.',
+
+    videosHeading: 'Zum Weiterschauen',
+    video1Label: 'Video · Bold Politics mit Zack Polanski',
+    video1Title: '«Why Billionaires Fear This Economist\'s Wealth Tax | Gabriel Zucman»',
+    video2Label: 'Video · Gary\'s Economics mit Gabriel Zucman',
+    video2Title: '«The economist billionaires fear: this is how we get a wealth tax»',
+  },
+
   // UbsStudySection
   ubs: {
     eyebrow: 'Die UBS/CS-Studie',
@@ -252,6 +322,7 @@ export default {
     methodLi2: '<strong>Statisches Aufkommen.</strong> Der Rechner ignoriert Abwanderung, Verhalten und Vermögensentstehung, die grössten realen Unsicherheiten. Er zeigt das Potenzial der Bemessungsgrundlage, keine Einnahmeprognose.',
     methodLi3: '<strong>Pareto-Tail.</strong> Vermögen über 10&nbsp;Mio. werden mit einem Pareto-Index aus den ESTV-Klassenmitteln extrapoliert; Pauschalbesteuerte sind modellhaft im selben Tail angenommen.',
     methodLi4: '<strong>Verschiedene Bezugsgrössen.</strong> WID/UBS messen das gesamte Netto-Privatvermögen, die ESTV nur das steuerbare. Vergleiche sind indikativ, nicht zellengenau.',
+    methodLi6: '<strong>Zucman-Abschnitt ist eine Schätzung.</strong> Die heutige Effektivlast und das Zusatzaufkommen der 2&nbsp;%-Mindeststeuer sind eine eigene, statische Herleitung auf belegten Eingangsgrössen (Bilanz, Momentum, NZZ, WOZ), keine amtliche Zahl und nicht aus der ESTV-Pipeline reproduzierbar. Die Rechnung steht offen im Abschnitt «Zucman-Steuer» und in der Methodik-Dokumentation.',
     methodLi5: '<strong>WIR-Referenzmodelle (2022 &amp; 2026).</strong> Die Presets «WIR 2022» (progressive Grenzsatz-Staffel, Tabelle 7.2) und «WIR 2026» (flache Mindeststeuer von 2–5 % auf das Gesamtvermögen ab 100&nbsp;Mio. $, nach Zucman 2024 / G20) bilden die Steuermodelle des World Inequality Report exakt ab, über dedizierte Funktionen, nicht über die Potenzkurve. Übertragen wird die Satz-Struktur; die USD-Schwellen werden ohne Wechselkurs (≈&nbsp;Parität) in CHF behandelt, daher sind die CHF-Beträge nicht mit den globalen USD-Erträgen des Reports vergleichbar.',
     footer: 'Erstellt direkt aus den Primärquellen (ESTV-Vermögenssteuerstatistik 2012–2022, WID/UBS-Vermögensverteilung, World Inequality Report 2022 &amp; 2026, FDK, EFV, BAG, BFS) über eine reproduzierbare Fetch- und Extraktions-Pipeline. Diese Seite ist ein unabhängiges, politisches Argument für eine Vermögenssteuer auf das reichste 1 %.',
   },

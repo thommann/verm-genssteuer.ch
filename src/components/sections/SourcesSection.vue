@@ -30,6 +30,7 @@ import sources from '@/data/sources.json';
           <li v-html="$t('sources.methodLi3')" />
           <li v-html="$t('sources.methodLi4')" />
           <li v-html="$t('sources.methodLi5')" />
+          <li v-html="$t('sources.methodLi6')" />
         </ul>
       </div>
 

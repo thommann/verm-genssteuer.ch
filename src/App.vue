@@ -7,6 +7,7 @@ import SpendSection from '@/components/sections/SpendSection.vue';
 import ProjectionSection from '@/components/sections/ProjectionSection.vue';
 import InternationalSection from '@/components/sections/InternationalSection.vue';
 import WirSection from '@/components/sections/WirSection.vue';
+import ZucmanSection from '@/components/sections/ZucmanSection.vue';
 import UbsStudySection from '@/components/sections/UbsStudySection.vue';
 import PauschalSection from '@/components/sections/PauschalSection.vue';
 import SourcesSection from '@/components/sections/SourcesSection.vue';
@@ -22,6 +23,7 @@ const NAV = [
   'dynamik',
   'international',
   'wir-reports',
+  'zucman',
   'ubs-studie',
   'pauschal',
   'quellen',
@@ -170,6 +172,7 @@ onUnmounted(() => {
     <ProjectionSection />
     <InternationalSection />
     <WirSection />
+    <ZucmanSection />
     <UbsStudySection />
     <PauschalSection />
     <SourcesSection />
