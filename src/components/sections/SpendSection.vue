@@ -17,6 +17,11 @@ const premiumShare = computed(() => revenue.value / K.okp_praemien.value);
 const premiumPerPersonMonth = computed(() => revenue.value / K.population.value / 12);
 const dividendYear = computed(() => revenue.value / K.population.value);
 
+// Wie viele Jahrgänge dieser Einnahmen ergeben zusammen ein Jahr ohne Steuern in der ganzen Schweiz?
+const taxFreeYears = computed(() => K.steuern_total.value / revenue.value);
+const taxShare = computed(() => revenue.value / K.steuern_total.value);
+const taxFreeYearsLabel = computed(() => num(taxFreeYears.value, taxFreeYears.value < 10 ? 1 : 0));
+
 const capPct = (v) => Math.min(v, 1);
 const over = (v) => v > 1;
 </script>
@@ -85,6 +90,21 @@ const over = (v) => v > 1;
           </p>
           <SourceTag id="bfs" />
         </article>
+
+        <!-- Tax-free Switzerland -->
+        <article class="card spend">
+          <div class="spend-icon">🗓️</div>
+          <h3>{{ $t('spend.taxfreeTitle') }}</h3>
+          <div class="spend-big violet">
+            {{ taxFreeYearsLabel }}<span class="spend-unit"> {{ $t('spend.taxfreeUnit') }}</span>
+          </div>
+          <p class="spend-text" v-html="$t('spend.taxfreeText')" />
+          <div class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(taxShare) * 100}%` }" /></div>
+          <p class="spend-foot muted">
+            {{ $t('spend.taxfreeFoot', { pct: pct(taxShare, 1) }) }}
+          </p>
+          <SourceTag id="efv" />
+        </article>
       </div>
 
       <p class="disclaimer muted" v-html="$t('spend.disclaimer')" />
@@ -114,12 +134,15 @@ const over = (v) => v > 1;
 .spend-big.gold { color: var(--gold); }
 .spend-big.accent { color: var(--accent); }
 .spend-big.teal { color: var(--teal); }
+.spend-big.violet { color: var(--violet); }
+.spend-unit { font-size: 0.4em; font-weight: 700; letter-spacing: 0; }
 .spend-text { font-size: 0.92rem; color: var(--text-soft); margin: 0; min-height: 3.4em; }
 .spend-meter { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); overflow: hidden; border: 1px solid var(--border); margin: 6px 0; }
 .fill { height: 100%; border-radius: 999px; transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 .fill.teal { background: var(--teal); }
 .fill.gold { background: var(--gold); }
 .fill.accent { background: var(--accent); }
+.fill.violet { background: var(--violet); }
 .spend-foot { font-size: 0.8rem; margin: 2px 0 8px; }
 .disclaimer { font-size: 0.82rem; margin-top: 24px; max-width: 75ch; }
 .srcs { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
