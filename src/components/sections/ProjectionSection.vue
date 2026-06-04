@@ -33,7 +33,7 @@ const first = computed(() => projection.value[0].revenue);
 const last = computed(() => projection.value[projection.value.length - 1].revenue);
 
 // Richtung der Hochrechnung: steile Modelle sinken auf ein tragbares Niveau,
-// milde Modelle bremsen kaum – dann wächst das Aufkommen weiter.
+// milde Modelle bremsen kaum, dann wächst das Aufkommen weiter.
 const trend = computed(() => {
   const delta = last.value - first.value;
   if (Math.abs(delta) < first.value * 0.02) return 'flat';
@@ -42,7 +42,7 @@ const trend = computed(() => {
 const trendArrow = computed(() => ({ down: '↓', up: '↑', flat: '→' })[trend.value]);
 const lastLabel = computed(() => ({
   down: 'dauerhaft tragbares Niveau (2032)',
-  up: 'Aufkommen 2032 – Vermögen wächst weiter',
+  up: 'Aufkommen 2032, Vermögen wächst weiter',
   flat: 'stabiles Niveau (2032)',
 })[trend.value]);
 </script>
@@ -56,7 +56,7 @@ const lastLabel = computed(() => ({
         Vermögen wächst (Rendite), die Steuer bremst. Diese mechanische Hochrechnung
         zeigt beide Fälle: <strong>steile</strong> Modelle besteuern die Spitze im ersten
         Jahr stark und pendeln sich danach auf ein tieferes, dauerhaft tragbares Niveau
-        ein; <strong>milde</strong> Modelle bremsen kaum – dann wächst die
+        ein; <strong>milde</strong> Modelle bremsen kaum, dann wächst die
         Bemessungsgrundlage weiter und das Aufkommen steigt mit.
       </p>
 

@@ -25,7 +25,7 @@ const over = (v) => v > 1;
   <section id="verwendung" class="section-alt">
     <div class="wrap">
       <div class="eyebrow">Was tun mit dem Geld?</div>
-      <h2>{{ chfCompact(revenue, 1) }} pro Jahr – wofür?</h2>
+      <h2>{{ chfCompact(revenue, 1) }} pro Jahr: wofür?</h2>
       <p class="lead">
         Dieselben Einnahmen, drei mögliche Verwendungen. Stell oben am Rechner ein
         Steuermodell ein und sieh hier in Echtzeit, was damit für alle möglich wäre.
@@ -40,7 +40,7 @@ const over = (v) => v > 1;
         </button>
         <span class="basis-hint muted">
           {{ basis === 'dauerhaft'
-            ? 'Stabiles Niveau nach Jahren (siehe Dynamik) – die ehrliche Dauergrösse.'
+            ? 'Stabiles Niveau nach Jahren (siehe Dynamik), die ehrliche Dauergrösse.'
             : 'Vollständiges Aufkommen im ersten Jahr (enthält Einmaleffekt an der Spitze).' }}
         </span>
       </div>
@@ -57,7 +57,7 @@ const over = (v) => v > 1;
           <p class="spend-text">
             <template v-if="over(incomeCut)">
               Genug, um die <strong>gesamte Einkommenssteuer natürlicher Personen
-              abzuschaffen</strong> – und es bliebe noch Geld übrig.
+              abzuschaffen</strong>, und es bliebe noch Geld übrig.
             </template>
             <template v-else>
               So viel tiefer könnte die Einkommenssteuer für <strong>alle</strong>
@@ -103,12 +103,12 @@ const over = (v) => v > 1;
           <h3>Pro-Kopf-Dividende</h3>
           <div class="spend-big accent">{{ chf(dividendYear) }}</div>
           <p class="spend-text">
-            Pro Person und Jahr – an <strong>jede und jeden</strong> der
+            Pro Person und Jahr, an <strong>jede und jeden</strong> der
             {{ num(K.population.value) }} Einwohner:innen.
           </p>
           <div class="spend-meter"><div class="fill accent" style="width: 100%" /></div>
           <p class="spend-foot muted">
-            Das sind ~{{ chf(dividendYear / 12) }} pro Monat – für eine vierköpfige Familie
+            Das sind ~{{ chf(dividendYear / 12) }} pro Monat, für eine vierköpfige Familie
             {{ chf((dividendYear * 4)) }} im Jahr.
           </p>
           <SourceTag id="bfs" />

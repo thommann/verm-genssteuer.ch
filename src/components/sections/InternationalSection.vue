@@ -40,7 +40,7 @@ const series = computed(() => {
 
 const yDomain = computed(() => {
   const all = series.value.flatMap((s) => s.points.map((p) => p.y)).filter((v) => v != null);
-  // Beginnt am Datenminimum (nicht bei 0) – bessere Lesbarkeit, da die Werte in einem
+  // Beginnt am Datenminimum (nicht bei 0), bessere Lesbarkeit, da die Werte in einem
   // schmalen Band liegen. Negative Werte (untere 50 %) werden weiterhin korrekt erfasst.
   const lo = Math.min(...all);
   const hi = Math.max(...all);
@@ -77,10 +77,10 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
   <section id="international" class="section-alt">
     <div class="wrap">
       <div class="eyebrow">Im internationalen Vergleich</div>
-      <h2>Die Konzentration steigt – auch in der Schweiz</h2>
+      <h2>Die Konzentration steigt, auch in der Schweiz</h2>
       <p class="lead">
         Anteil am gesamten Netto-Privatvermögen, 1995–2024. In der Schweiz hält das
-        reichste Prozent heute spürbar mehr als noch in den 1990ern – ein weltweiter Trend.
+        reichste Prozent heute spürbar mehr als noch in den 1990ern, ein weltweiter Trend.
       </p>
 
       <div class="metric-toggle">
@@ -133,7 +133,7 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
         </div>
         <p class="muted small">
           Hinweis: WID-Anteile (Gesamtvermögen) und die ESTV-Steuerdaten messen
-          Verschiedenes – die Steuerdaten erfassen nur steuerbares Vermögen und wirken
+          Verschiedenes: die Steuerdaten erfassen nur steuerbares Vermögen und wirken
           dadurch konzentrierter. Beide Quellen zeigen denselben Trend.
         </p>
       </div>

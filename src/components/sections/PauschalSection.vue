@@ -18,7 +18,7 @@ const avg = computed(() => totalRev.value / count);
       <h2>Die {{ num(count) }} ohne Vermögensstatistik</h2>
       <p class="lead">
         Aufwandbesteuerte («Pauschalbesteuerte») werden nach ihren Lebenshaltungskosten
-        veranlagt – ihr tatsächliches Vermögen wird gar nie erhoben. Sie fehlen deshalb
+        veranlagt, ihr tatsächliches Vermögen wird gar nie erhoben. Sie fehlen deshalb
         in der ESTV-Vermögensstatistik, obwohl viele zu den Vermögendsten des Landes zählen.
         Im Rechner sind sie modellhaft im Tail über 10&nbsp;Mio. mitgedacht.
       </p>

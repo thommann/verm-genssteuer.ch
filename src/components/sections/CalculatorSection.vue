@@ -65,7 +65,7 @@ const isWir2026 = computed(() =>
 // Bei aktivem WIR-Modell steuern die Regler (Potenzkurve) nicht das angezeigte Modell.
 const isWirActive = computed(() => isWir2022.value || isWir2026.value);
 
-// Erstes Preset der Gruppe «Unsere» – Ziel beim Zurückwechseln zum eigenen Modell.
+// Erstes Preset der Gruppe «Unsere»: Ziel beim Zurückwechseln zum eigenen Modell.
 const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group === 'meine');
 </script>
 
@@ -77,7 +77,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       <p class="lead">
         Verschiebe die Regler und sieh sofort, wie viel eine progressive Vermögenssteuer
         auf das oberste Prozent einbringen würde. Das Modell rechnet auf den echten
-        ESTV-Vermögensdaten – statisch, ohne Verhaltensannahmen.
+        ESTV-Vermögensdaten.
       </p>
 
       <div class="presets">
@@ -98,7 +98,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       <p v-if="isWir2022" class="preset-note">
         Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je
         Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), <strong>ab 1&nbsp;Mio.</strong>
-        wie im Original – inklusive der rund 324'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der
+        wie im Original, inklusive der rund 324'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der
         5-Mio-Freibetrag der eigenen Modelle).
         <SourceTag id="wir2022" note="Progressive Vermögenssteuer, Tabelle 7.2" />
       </p>
@@ -112,11 +112,11 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       <p v-if="!isWirActive" class="threshold-info">
         <strong>Warum der Freibetrag bei 5 Mio. beginnt:</strong>
         Bei rund 5 Mio. Franken verläuft die Grenze zum reichsten 1 %. Nur
-        <strong>{{ num(k.cnt_ge5M) }}</strong> Steuerpflichtige liegen darüber –
+        <strong>{{ num(k.cnt_ge5M) }}</strong> Steuerpflichtige liegen darüber,
         die übrigen <strong>{{ pct(1 - k.pct_ge5M, 0) }}</strong> bleiben komplett
         steuerfrei. Trotzdem erfasst dieses eine Prozent
         <strong>{{ pct(k.share_ge5M, 0) }}</strong> des gesamten steuerbaren Vermögens.
-        Du kannst die Schwelle unten höher ziehen, aber nicht tiefer als 5 Mio. –
+        Du kannst die Schwelle unten höher ziehen, aber nicht tiefer als 5 Mio.,
         damit die breite Mehrheit garantiert unbelastet bleibt.
       </p>
 
@@ -203,7 +203,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
           <p class="readout muted">
             <template v-if="capBinds">Grenzsatz erreicht den Cap bei ~{{ chfCompact(model.wcap, 0) }}.</template>
             <template v-if="equilibrium">
-              Vermögen über ~{{ chfCompact(equilibrium, 0) }} zahlen mehr als ihre Rendite –
+              Vermögen über ~{{ chfCompact(equilibrium, 0) }} zahlen mehr als ihre Rendite,
               sie schrumpfen, statt zu wachsen.
             </template>
           </p>
@@ -237,15 +237,15 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
             accent="var(--teal)"
           />
           <p class="note muted">
-            Der grösste Teil stammt von ganz oben – wenigen Milliarden­vermögen.
+            Der grösste Teil stammt von ganz oben, von wenigen Milliarden­vermögen.
             Genau dort, wo heute am wenigsten Vermögenssteuer anfällt.
           </p>
         </div>
       </div>
 
       <p class="disclaimer">
-        Statisches Modell: keine Abwanderung, kein Verhalten, kein Vermögenszuwachs –
-        die grössten Realfaktoren bleiben aussen vor. Die Zahlen zeigen das
+        Statisches Modell: keine Abwanderung, kein Verhalten, kein Vermögenszuwachs.
+        Die grössten Realfaktoren bleiben aussen vor. Die Zahlen zeigen das
         <em>Potenzial</em> der Bemessungsgrundlage, nicht eine politische Prognose.
         <span class="srcs">
           <SourceTag id="estv_vermoegen" note="Vermögensverteilung + Pareto-Tail >10 Mio." />
