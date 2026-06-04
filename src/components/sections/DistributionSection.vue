@@ -39,12 +39,6 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
     <div class="wrap">
       <div class="eyebrow">Die Verteilung</div>
       <h2>Wenige besitzen fast alles</h2>
-      <p class="lead">
-        Jeder Balken ist eine Vermögensklasse. Links der Anteil an den Menschen,
-        rechts der Anteil am gesamten steuerbaren Vermögen. Die Schere ist die Geschichte:
-        die grosse Mehrheit besitzt kaum etwas, die Spitze fast alles.
-      </p>
-
       <div class="grid stat-grid">
         <div class="ministat">
           <span class="mv gold">{{ pct(k.share_ge1M, 0) }}</span>
