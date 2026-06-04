@@ -98,7 +98,7 @@ const lastLabel = computed(() => ({
       <div class="srcs">
         <SourceTag id="estv_vermoegen" :note="$t('projection.sourceNoteEstv')" />
         <SourceTag id="fdk" :note="$t('projection.sourceNoteFdk')" />
-        <SourceTag id="zucman_g20" :note="$t('projection.sourceNoteRendite')" />
+        <SourceTag id="wir2022_wachstum" :note="$t('projection.sourceNoteRendite')" />
       </div>
     </div>
   </section>

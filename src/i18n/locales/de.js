@@ -153,11 +153,11 @@ export default {
     lastLabelUp: 'Aufkommen 2032, Vermögen wächst weiter',
     lastLabelFlat: 'stabiles Niveau (2032)',
     renditeLabel: 'Angenommene Rendite p.a.',
-    renditeHint: 'Voreingestellt 7,1 %, der reale Vermögenszuwachs der Milliardäre (Zucman, G20-Report 2024). Je höher die Rendite, desto mehr trägt die Substanz dauerhaft.',
+    renditeHint: 'Voreingestellt 6 %, der untere Rand des realen Vermögenszuwachses an der Spitze (World Inequality Report 2022: 6 bis 9 % seit 1995). Je höher die Rendite, desto mehr trägt die Substanz dauerhaft.',
     formula: 'Rein mechanisch: ohne Abwanderung, Konsum oder neue Vermögen. <code>W(t+1) = W(t)·(1+r) − Steuer(W(t))</code>',
     sourceNoteEstv: 'Kohorten ab 2022, dynamische Projektion',
     sourceNoteFdk: 'Pauschalbesteuerte im Pareto-Tail (M)',
-    sourceNoteRendite: 'Voreingestellte Rendite 7,1 % real (Top 0,0001 %, 1987–2024)',
+    sourceNoteRendite: 'Voreingestellte Rendite 6 % real (unterer Rand 6–9 %, Spitze seit 1995)',
   },
 
   // InternationalSection
