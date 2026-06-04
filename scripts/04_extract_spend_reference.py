@@ -65,6 +65,16 @@ CURATED = {
         "label": "Krankenkassenprämien (OKP, von Versicherten finanziert)",
         "jahr": 2023, "einheit": "CHF/Jahr", "source": "bag",
     },
+    "praemienverbilligung": {
+        # Beleg: BAG-Faktenblatt "Prämienverbilligung" (26.9.2024): "Im Jahr 2023 wurden
+        # insgesamt rund 5,9 Milliarden Franken Prämienverbilligung ausbezahlt. Der Bundes-
+        # anteil belief sich dabei auf mehr als die Hälfte (3,0 Mrd. / 51,2 %)." Wird vom
+        # Prämientotal abgezogen, damit der Anteil auf der noch ungedeckten Prämienlast
+        # rechnet (siehe QUELLEN.md §5).
+        "value": 5900000000,
+        "label": "Individuelle Prämienverbilligung (Bund + Kantone)",
+        "jahr": 2023, "einheit": "CHF/Jahr", "source": "bag",
+    },
     "okp_leistungen": {
         # Beleg: BAG, Kostenoptik 2023, von 95 Mrd. Gesundheitskosten "rund 52 Mrd." OKP.
         # (Andere Abgrenzung als STATKV-Bruttoleistungen ~39,9 Mrd.; siehe QUELLEN.md §5.)

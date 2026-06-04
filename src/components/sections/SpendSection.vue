@@ -15,7 +15,11 @@ const revenue = computed(() => (basis.value === 'jahr1' ? staticRevenue.value : 
 
 const incomeCut = computed(() => revenue.value / K.einkommenssteuer_np_alle_ebenen.value);
 const bundCut = computed(() => revenue.value / K.direkte_bundessteuer_np.value);
-const premiumShare = computed(() => revenue.value / K.okp_praemien.value);
+// Anteil an der noch ungedeckten Prämienlast: das Total der OKP-Prämien wird um die bereits
+// bestehende individuelle Prämienverbilligung (Bund + Kantone) reduziert, damit der schon
+// staatlich getragene Teil nicht erneut «übernommen» wird.
+const netPraemien = computed(() => K.okp_praemien.value - K.praemienverbilligung.value);
+const premiumShare = computed(() => revenue.value / netPraemien.value);
 const premiumPerPersonMonth = computed(() => revenue.value / K.population.value / 12);
 const dividendYear = computed(() => revenue.value / K.population.value);
 
