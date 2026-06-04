@@ -45,6 +45,24 @@
     "hinweis": "Dritte Ausgabe (nach 2018, 2022). Statt der progressiven Staffel nun eine flache Mindeststeuer von 2–5 % auf Centi-Millionäre/Milliardäre (nach Zucman 2024 / G20), um die Regressivität an der Spitze zu beenden. Vorlage für die Rechner-Presets «WIR 2026»."
   },
   {
+    "id": "bilanz300",
+    "kurz": "Bilanz «Die 300 Reichsten»",
+    "titel": "Die 300 Reichsten der Schweiz 2025: Gesamtvermögen 851,5 Mrd., 156 Milliardäre, Einstieg rund 100 Mio.",
+    "herausgeber": "Bilanz (Ringier); Aufbereitung u. a. 20 Minuten, SRF",
+    "url": "https://www.bilanz.ch/die-300-reichsten/vermogen-der-reichsten-erreicht-historischen-hochststand-884861",
+    "stand": "Liste 2025, November 2025",
+    "hinweis": "Marktnahe Schätzwerte (Verkehrswerte), keine amtliche Statistik und tendenziell ein Unterzähler, da diskret gehaltene Vermögen fehlen. Top 10 zusammen 227 Mrd. (über ein Viertel), reichster Gérard Wertheimer rund 33 Mrd. Vorjahr 2024: 833,5 Mrd. und 152 Milliardäre. Die Liste läuft bei Rang 300 auf rund 100 Mio. aus."
+  },
+  {
+    "id": "reichensteuer_studie",
+    "kurz": "Oxfam / Tax Justice Network / Momentum",
+    "titel": "Vergleichsstudie zur effektiven Steuerbelastung von Milliardären und Multimillionären (Schweiz, Deutschland, Österreich)",
+    "herausgeber": "Oxfam, Tax Justice Network, Momentum Institut",
+    "url": "https://www.momentum-institut.at/news/laender-studie-selbst-steuersumpf-schweiz-besteuert-milliardaere-staerker-als-deutschland-und-oesterreich/",
+    "stand": "April 2024",
+    "hinweis": "Schweizer Milliardäre zahlen effektiv rund 32 % ihres Einkommens (inkl. Unternehmenssteuern), Multimillionäre rund 19 %. Die Vermögenssteuer (rund 11 Mrd./Jahr, etwa 0,25 % des Vermögens) bringt die Spitze näher an die kantonalen Maximalsätze als in Ländern ohne Vermögenssteuer. Beispiel Mustermillionär: Baar/Zug 0,26 %, Basel 0,49 %."
+  },
+  {
     "id": "fdk",
     "kurz": "FDK Aufwandbesteuerung",
     "titel": "Erhebung zur Aufwandbesteuerung («Pauschalbesteuerung»), Stand 31.12.2018",
