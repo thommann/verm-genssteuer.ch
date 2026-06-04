@@ -352,9 +352,15 @@ Zucmans 2 % zielen auf das Gesamtvermögen, daher ist die Marktbasis korrekt.
 | Basis `B` (Marktvermögen der 300 Reichsten) | 851,5 Mrd. | `bilanz300` |
 | Vermögenssteuer-Aufkommen | ~11 Mrd./Jahr ≈ 0,25 % des Vermögens | `reichensteuer_studie` |
 | Ø Vermögenssteuersatz (steuerbare Basis) | 0,28 % (2025), von 0,35 % (1990) | `nzz_vermoegenssteuer` |
-| Effektive Quote (inkl. Unternehmenssteuern) | Milliardäre ~32 %, Multimillionäre ~19 % | `reichensteuer_studie` |
-| Aufschlüsselung nach Steuerart (Personenanteil) | Milliardär ~18 % Einkommens- + ~10 % Vermögenssteuer, Rest Gewinnsteuer | `reichensteuer_studie_ch` |
+| Persönliche Einkommenssteuer auf Ausschüttungen | ~25–30 % auf steuerbare Dividenden (privilegiert), **ohne** Unternehmenssteuern | `reichensteuer_studie_ch` |
 | Steuer-Design | 2 % ab 100 Mio., Aufstockung bei < 2 %, Befreiung bei ≥ 2 % | `woz_zucman` |
+
+> **Quervergleich, nicht Eingangsgrösse:** Die kursierende Schlagzeile ~32 % (Milliardäre)
+> bzw. ~19 % (Multimillionäre) aus `reichensteuer_studie` **enthält die Gewinnsteuern der
+> Unternehmen** und fliesst **nicht** in `t₀` ein. Die Zucman-Mindeststeuer trifft die
+> natürliche Person; Unternehmenssteuern sind dafür irrelevant. `t₀` ergibt sich allein aus
+> Vermögens- und persönlicher Einkommenssteuer (Schritte 1 und 2), gerechnet direkt am
+> Marktvermögen.
 
 **Schritt 1 — Vermögenssteuer am Marktvermögen `v`.** Der Ø-Satz 0,28 % gilt auf der
 *steuerbaren* Basis. Weil Markt > steuerbar und die kantonale Steuerbremse die Spitze
