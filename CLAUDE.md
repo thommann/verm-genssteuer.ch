@@ -11,3 +11,4 @@
 
 - **Keine** Gedankenstriche (`–`/`—`) als stilistische Pause oder Einschub in Texten (Website-Copy, Kommentare, Datentexte). Stattdessen Komma, Doppelpunkt, Semikolon oder zwei Sätze verwenden.
 - **Erlaubt** bleibt der Bis-Strich (`–`) in echten Zahlen- und Jahresbereichen (z. B. `2012–2022`, `1–5 Mio.`, `2–5 %`, `0–1`) sowie in offiziellen Eigennamen/Bezeichnungen, wo der Strich Teil des Namens ist.
+- **Nie** das deutsche Eszett (`ß`) verwenden. Immer das Schweizer Doppel-s (`ss`) schreiben, z. B. „grösste", „Schluss", „Strasse".
