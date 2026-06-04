@@ -113,23 +113,19 @@ const over = (v) => v > 1;
           <SourceTag id="bfs" />
         </article>
 
-        <!-- Tax-free Switzerland: full width, independent of the dauerhaft/jahr1 toggle -->
-        <article class="card spend spend-full">
-          <div class="spend-full-figure">
-            <div class="spend-icon">🗓️</div>
-            <div class="spend-big violet">
-              {{ taxFreeYearsLabel }}<span class="spend-unit"> {{ $t('spend.taxfreeUnit') }}</span>
-            </div>
+        <!-- Tax-free Switzerland: normal grid card, independent of the dauerhaft/jahr1 toggle -->
+        <article class="card spend spend-accent">
+          <div class="spend-icon">🗓️</div>
+          <h3>{{ $t('spend.taxfreeTitle') }}</h3>
+          <div class="spend-big violet">
+            {{ taxFreeYearsLabel }}<span class="spend-unit"> {{ $t('spend.taxfreeUnit') }}</span>
           </div>
-          <div class="spend-full-body">
-            <h3>{{ $t('spend.taxfreeTitle') }}</h3>
-            <p class="spend-text" v-html="$t('spend.taxfreeText')" />
-            <div class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(taxShare) * 100}%` }" /></div>
-            <p class="spend-foot muted">
-              {{ $t('spend.taxfreeFoot', { rendite: pct(state.rendite, 0) }) }}
-            </p>
-            <SourceTag id="efv" />
-          </div>
+          <p class="spend-text" v-html="$t('spend.taxfreeText')" />
+          <div class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(taxShare) * 100}%` }" /></div>
+          <p class="spend-foot muted">
+            {{ $t('spend.taxfreeFoot', { rendite: pct(state.rendite, 0) }) }}
+          </p>
+          <SourceTag id="efv" />
         </article>
       </div>
 
@@ -163,24 +159,13 @@ const over = (v) => v > 1;
 .spend-big.violet { color: var(--violet); }
 .spend-unit { font-size: 0.4em; font-weight: 700; letter-spacing: 0; }
 
-/* Vierte Karte: über die volle Breite, leicht abgesetzt; unabhängig vom Basis-Umschalter. */
-.spend-full {
-  grid-column: 1 / -1;
-  flex-direction: row;
-  align-items: center;
-  gap: 30px;
+/* Vierte Karte: normale Rasterkarte (auf Mobile ohnehin volle Breite), leicht violett
+   abgesetzt; unabhängig vom Basis-Umschalter. */
+.spend-accent {
   border-color: color-mix(in srgb, var(--violet) 40%, var(--border));
   background:
     linear-gradient(160deg, color-mix(in srgb, var(--violet) 7%, transparent), transparent 60%),
     linear-gradient(160deg, var(--bg-card), var(--bg-card-2));
-}
-.spend-full-figure { flex: 0 0 auto; display: flex; flex-direction: column; gap: 6px; min-width: 170px; }
-.spend-full-body { flex: 1 1 auto; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.spend-full-body h3 { margin: 0; }
-.spend-full .spend-text { min-height: 0; }
-@media (max-width: 620px) {
-  .spend-full { flex-direction: column; align-items: stretch; gap: 8px; }
-  .spend-full-figure { flex-direction: row; align-items: baseline; }
 }
 .spend-text { font-size: 0.92rem; color: var(--text-soft); margin: 0; min-height: 3.4em; }
 .spend-meter { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); overflow: hidden; border: 1px solid var(--border); margin: 6px 0; }
