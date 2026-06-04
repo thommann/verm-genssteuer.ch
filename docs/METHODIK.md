@@ -352,7 +352,8 @@ Zucmans 2 % zielen auf das Gesamtvermögen, daher ist die Marktbasis korrekt.
 | Basis `B` (Marktvermögen der 300 Reichsten) | 851,5 Mrd. | `bilanz300` |
 | Vermögenssteuer-Aufkommen | ~11 Mrd./Jahr ≈ 0,25 % des Vermögens | `reichensteuer_studie` |
 | Ø Vermögenssteuersatz (steuerbare Basis) | 0,28 % (2025), von 0,35 % (1990) | `nzz_vermoegenssteuer` |
-| Effektive Einkommenssteuer | Milliardäre ~32 %, Multimillionäre ~19 % | `reichensteuer_studie` |
+| Effektive Quote (inkl. Unternehmenssteuern) | Milliardäre ~32 %, Multimillionäre ~19 % | `reichensteuer_studie` |
+| Aufschlüsselung nach Steuerart (Personenanteil) | Milliardär ~18 % Einkommens- + ~10 % Vermögenssteuer, Rest Gewinnsteuer | `reichensteuer_studie_ch` |
 | Steuer-Design | 2 % ab 100 Mio., Aufstockung bei < 2 %, Befreiung bei ≥ 2 % | `woz_zucman` |
 
 **Schritt 1 — Vermögenssteuer am Marktvermögen `v`.** Der Ø-Satz 0,28 % gilt auf der
@@ -374,6 +375,18 @@ t₀ = v + e ≈ 0,3 % + 0,5 % = rund 0,8 %        (Bandbreite 0,7–1,3 %)
 ```
 Quervergleich: ~32 % auf ein klein deklariertes Einkommen entspricht nur ~1 % des
 Vermögens — konsistent mit `t₀`.
+
+**Einordnung der 32 %/19 % (Personenanteil).** Die Schlagzeile 32 % (Milliardär) bzw.
+19 % (Multimillionär) enthält die Gewinnsteuern der Unternehmen. Die Detail-Länderstudie
+`reichensteuer_studie_ch` (Martínez 2024) schlüsselt das auf: Beim Beispiel-Milliardär
+(Roche-Erbe, Standardszenario, bezogen auf das wirtschaftliche Einkommen von 95,2 Mio.)
+entfallen rund 18 % auf die persönliche Einkommenssteuer und rund 10 % (0,69 % des
+Vermögens) auf die Vermögenssteuer; die anteilige Gewinnsteuer der Beteiligung macht
+rund 15 % aus. Die 32 % sind Einkommens- plus Gewinnsteuer, die Gesamtlast inkl.
+Vermögenssteuer beträgt 42,25 %. Beim Mustermillionär (Zug/Baar) liegt die reine
+Personensteuer aus Einkommens- plus Vermögenssteuer bei rund 16 % des Bruttoeinkommens.
+Für `t₀` ist nur dieser Personenanteil relevant; die Schritte 1 und 2 rechnen ihn direkt
+am Marktvermögen und benutzen die Schlagzeilenquote nicht.
 
 **Schritt 4 — Aufkommen, zwei Szenarien:**
 ```

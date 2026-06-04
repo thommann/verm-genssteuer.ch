@@ -46,6 +46,7 @@ const VIDEO_GARY = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
       <p class="body" v-html="$t('zucman.burdenText')" />
       <div class="srcrow">
         <SourceTag id="reichensteuer_studie" :note="$t('zucman.burdenSource')" />
+        <SourceTag id="reichensteuer_studie_ch" :note="$t('zucman.breakdownSource')" />
         <SourceTag id="nzz_vermoegenssteuer" :note="$t('zucman.rateSource')" />
       </div>
 
