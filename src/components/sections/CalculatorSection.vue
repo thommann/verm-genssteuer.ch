@@ -65,11 +65,8 @@ const presetRows = computed(() =>
 const isWir2022 = computed(() =>
   ['wir2022_1', 'wir2022_2', 'wir2022_3'].includes(state.activePreset)
 );
-const isWir2026 = computed(() =>
-  ['wir2026_2', 'wir2026_3', 'wir2026_5'].includes(state.activePreset)
-);
 // Bei aktivem WIR-Modell steuern die Regler (Potenzkurve) nicht das angezeigte Modell.
-const isWirActive = computed(() => isWir2022.value || isWir2026.value);
+const isWirActive = computed(() => isWir2022.value);
 
 // Erstes Preset der Gruppe «Unsere»: Ziel beim Zurückwechseln zum eigenen Modell.
 const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group === 'meine');
@@ -100,10 +97,6 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       <p v-if="isWir2022" class="preset-note">
         <span v-html="$t('calculator.presetNoteWir2022')" />
         <SourceTag id="wir2022" :note="$t('calculator.presetNoteWir2022Source')" />
-      </p>
-      <p v-else-if="isWir2026" class="preset-note">
-        <span v-html="$t('calculator.presetNoteWir2026')" />
-        <SourceTag id="wir2026" :note="$t('calculator.presetNoteWir2026Source')" />
       </p>
 
       <p

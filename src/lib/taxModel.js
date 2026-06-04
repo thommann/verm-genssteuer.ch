@@ -86,18 +86,6 @@ export function makeBracketModel(brackets) {
   return { tax, marginalRate, avgRate, schwelle, cap: null, wcap: null, k: null, basis: null, brackets: b };
 }
 
-/**
- * Mindeststeuer auf das Gesamtvermögen oberhalb einer Schwelle, für WIR 2026
- * (nach Zucman/G20): Wer ≥ threshold besitzt, zahlt `rate` des gesamten Vermögens.
- * Effektiv- wie Grenzsatz sind oberhalb der Schwelle konstant = `rate`.
- */
-export function makeMinTaxModel(threshold, rate) {
-  const tax = (W) => (W >= threshold ? rate * W : 0);
-  const marginalRate = (W) => (W >= threshold ? rate : 0);
-  const avgRate = (W) => (W >= threshold ? rate : 0);
-  return { tax, marginalRate, avgRate, schwelle: threshold, cap: null, wcap: null, k: null, basis: null, minRate: rate };
-}
-
 /** Statisches Jahresaufkommen: Σ Anzahl(Band) · Steuer(Bandmitte). */
 export function revenueForYear(bins, model, year) {
   const key = `cnt${year}`;

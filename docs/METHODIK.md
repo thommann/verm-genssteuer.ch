@@ -218,21 +218,24 @@ seine Rendite abgibt — darüber schrumpft es, darunter wächst es.
 ### 6a. Voreingestellte Modelle (Presets)
 
 Die Presets in [`src/composables/useCalculator.js`](../src/composables/useCalculator.js)
-gliedern sich in drei Zeilen:
+gliedern sich in zwei Zeilen:
 
 - **«Unsere»** (Flach / Moderat / Stark progressiv): Startpunkte des Potenzkurven-Modells
   aus Verfahren E, gesteuert durch die vier Regler.
-- **«WIR 2022»** und **«WIR 2026»**: bilden die Steuermodelle des World Inequality Report
-  **exakt** ab — über zwei eigene Funktionen in `taxModel.js` (`makeBracketModel`,
-  `makeMinTaxModel`), **nicht** über die Potenzkurve. Solange ein WIR-Preset aktiv ist,
+- **«WIR 2022»**: bildet das Steuermodell des World Inequality Report
+  **exakt** ab, über eine eigene Funktion in `taxModel.js` (`makeBracketModel`),
+  **nicht** über die Potenzkurve. Solange ein WIR-Preset aktiv ist,
   steuern die Regler das angezeigte Modell nicht (im Rechner abgedunkelt).
 
+Der WIR 2026 schlägt keine progressive Vermögenssteuer mehr vor, sondern eine flache
+**Mindeststeuer** auf Centi-Millionäre und Milliardäre (nach Zucman 2024 / G20). Weil dieser
+Rechner die Bemessungsgrundlage einer Vermögenssteuer zeigt, ist der WIR 2026 bewusst **kein
+Preset**; das Mindeststeuer-Argument steht im eigenen Abschnitt «Zucman-Steuer».
+
 **Warum nicht die Potenzkurve?** Die Kurve `τ(W)=min(Cap, Basis·(W/Schwelle)^k)` ist stetig
-und besteuert nur den Anteil *über* der Schwelle. Die WIR-Modelle haben eine andere Form:
-WIR 2022 ist eine **Stufenfunktion** (sprunghafte Grenzsätze je Band), WIR 2026 eine
-**Mindeststeuer auf das Gesamtvermögen** (konstanter Ø-Satz mit Sprung an der Schwelle).
-Beides lässt sich mit einer glatten Potenzkurve nur annähern, nicht exakt treffen — daher
-die zwei dedizierten Modelltypen.
+und besteuert nur den Anteil *über* der Schwelle. Das WIR-2022-Modell hat eine andere Form:
+eine **Stufenfunktion** (sprunghafte Grenzsätze je Band). Diese lässt sich mit einer glatten
+Potenzkurve nur annähern, nicht exakt treffen, daher der dedizierte Modelltyp.
 
 **WIR 2022 — exakte Grenzsatz-Staffel** (`makeBracketModel`, Marginalsätze aus Tabelle 7.2):
 
@@ -251,24 +254,19 @@ Klassenvermögen 2022). Diese Klassen liegen vollständig im 1-%-Band, daher ist
 Klassenmittel-Punkt für die lineare Steuer exakt. WIR 2022 erfasst damit rund **324 000**
 Pflichtige mehr als die «Unsere»-Modelle (die beim 5-Mio-Freibetrag bleiben).
 
-**WIR 2026 — Mindeststeuer** (`makeMinTaxModel`, nach Zucman 2024 / G20): Wer **≥ 100 Mio. $**
-(Centi-Millionär) besitzt, zahlt **2 / 3 / 5 % des gesamten Vermögens**; darunter nichts.
-Effektiv- und Grenzsatz sind oberhalb der Schwelle konstant = Mindeststeuersatz.
-
 **Verbleibende Näherungen (explizit):**
 
 1. **Währung (CHF vs. USD):** Die WIR-Sätze (%) sind währungsunabhängig — übertragen wird
    die Satz-Struktur. Die Vermögens-Schwellen (USD im WIR) werden ohne Wechselkurs-Umrechnung
    in CHF behandelt (≈ Parität). Folge: Die angezeigten CHF-Beträge sind **nicht** mit den
    globalen USD-/BIP-Erträgen des WIR vergleichbar.
-2. **Statisches Aufkommen** wird auf den ESTV-Bins gerechnet — für WIR 2022 ab **1 Mio.**
-   (Bins 1 Mio.–50 Mrd.), für WIR 2026 ab 100 Mio. Die **dynamische Projektion** bleibt
+2. **Statisches Aufkommen** wird auf den ESTV-Bins gerechnet, für WIR 2022 ab **1 Mio.**
+   (Bins 1 Mio.–50 Mrd.). Die **dynamische Projektion** bleibt
    bewusst auf ≥ 5 Mio.-Kohorten: sonst würden 1–5-Mio-Kohorten über die Jahre ins
    Steuernetz hineinwachsen und die Referenz-Projektion (Verfahren E) verfälschen.
 
-Quellen: WIR 2022, Tabelle 7.2; WIR 2026, Kapitel 7 (nach Zucman 2024 / G20). Vgl.
-Quellen-IDs `wir2022` / `wir2026` in `src/data/sources.json`. Dieselben Hinweise erscheinen
-im Rechner als Box je aktivem WIR-Preset.
+Quellen: WIR 2022, Tabelle 7.2. Vgl. Quellen-ID `wir2022` in `src/data/sources.json`.
+Derselbe Hinweis erscheint im Rechner als Box bei aktivem WIR-2022-Preset.
 
 ---
 
