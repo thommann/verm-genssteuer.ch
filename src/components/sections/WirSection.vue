@@ -73,7 +73,7 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 .wir-sub { color: var(--text-soft); font-size: 0.9rem; margin: 0; font-weight: 600; }
 .wir ul { margin: 6px 0 4px; padding-left: 18px; color: var(--text-soft); font-size: 0.92rem; }
 .wir li { margin-bottom: 8px; }
-.wir strong { color: var(--text); }
+.wir :deep(strong) { color: var(--text); }
 .btn-ghost {
   align-self: flex-start; margin-top: auto; padding: 8px 14px; font-size: 0.85rem;
   border: 1px solid var(--border); background: rgba(255, 255, 255, 0.05); color: var(--text);
@@ -87,7 +87,7 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
   background: rgba(167, 139, 250, 0.08);
   border: 1px solid var(--border); border-left: 3px solid var(--violet);
 }
-.shift strong { color: var(--text); }
+.shift :deep(strong) { color: var(--text); }
 
 .videocard {
   display: flex; align-items: center; gap: 18px; padding: 18px 22px; margin-top: 22px;

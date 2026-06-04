@@ -265,7 +265,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   border: 1px solid var(--border); border-left: 3px solid var(--violet);
   display: flex; flex-direction: column; gap: 8px;
 }
-.preset-note strong { color: var(--text); }
+.preset-note :deep(strong) { color: var(--text); }
 
 .threshold-info {
   font-size: 0.86rem; line-height: 1.55; color: var(--text-soft);
@@ -274,7 +274,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border); border-left: 3px solid var(--gold);
 }
-.threshold-info strong { color: var(--text); }
+.threshold-info :deep(strong) { color: var(--text); }
 
 .calc-grid {
   display: grid;
@@ -289,7 +289,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   background: rgba(56, 214, 196, 0.08);
   border: 1px solid var(--border); border-left: 3px solid var(--teal);
 }
-.controls-lock strong { color: var(--text); }
+.controls-lock :deep(strong) { color: var(--text); }
 .controls-lock-link {
   background: none; border: none; padding: 0; font: inherit;
   color: var(--teal); text-decoration: underline; cursor: pointer;
