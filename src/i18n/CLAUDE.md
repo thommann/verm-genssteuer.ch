@@ -38,25 +38,15 @@ Schweizer Anführungszeichen verwenden, also «…», nicht gerade Zoll-Zeichen 
 
 Niemals ein ß verwenden, immer ss schreiben.
 
-Keine Brief-Formeln wie «Sehr geehrte …» oder «Danke für Ihr Verständnis» in Artikeln oder Fachtexten.
-
 ## Technisches Schreiben
-
-Keine Plauder-Einschübe wie «Ich hoffe, das hilft», «Gerne!» oder «Soll ich das ausführen?».
 
 Keine Wissens-Disclaimer wie «Stand heute», «soweit bekannt» oder «auch wenn die Details begrenzt sind».
 
 Keine Meta-Kommentare über den eigenen Text, etwa «In diesem Abschnitt behandeln wir …».
 
-Bei Spezialformaten das echte System lernen, zum Beispiel Wikitext, statt einfach auf Markdown auszuweichen.
-
 ## Quellen
 
 Jeden Link vor der Aufnahme prüfen.
-
-DOIs und ISBNs mit den entsprechenden Werkzeugen verifizieren.
-
-Bei Büchern Seitenzahlen angeben.
 
 Quellen einheitlich nach der geforderten Stilvorgabe formatieren.
 
