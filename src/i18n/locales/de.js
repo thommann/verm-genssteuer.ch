@@ -197,6 +197,8 @@ export default {
     videoLabel: 'Video · Gary\'s Economics mit Gabriel Zucman',
     videoTitle: '«The economist billionaires fear: this is how we get a wealth tax»',
     videoHint: 'youtube.com ↗',
+    sourceNote2022: 'Progressive Szenarien, Tabelle 7.2',
+    sourceNote2026: 'Globale Mindeststeuer, Kapitel 7',
   },
 
   // UbsStudySection
