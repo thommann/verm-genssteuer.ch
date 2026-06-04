@@ -85,8 +85,8 @@ const lastLabel = computed(() => ({
 
           <RangeControl
             v-model="state.rendite"
-            :min="0.01"
-            :max="0.08"
+            :min="0.02"
+            :max="0.10"
             :step="0.005"
             :label="$t('projection.renditeLabel')"
             :display="pct(state.rendite, 1)"
