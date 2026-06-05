@@ -431,7 +431,9 @@ Zeit, um die ganze Jahressteuer allein aus dem Vermögenseinkommen zu verdienen
    12,0 % ÷ 4,5 % ≈ 2,7 Jahre
 ```
 Es sind Mittelwerte; beim typischen (Median-)Haushalt ist das Vermögenseinkommen tiefer und
-die Zeit länger. Die ~2,7 Jahre sind also die konservative (geschönte) Variante. Kontrast:
+die Zeit länger. Schon der Durchschnittswert von 4,5 % markiert die Schwelle zum obersten
+Siebtel (rund 14 %), da nur jeder 7. Haushalt darüber liegt. Die ~2,7 Jahre sind also die
+konservative (geschönte) Variante. Kontrast:
 ganze 2 %-Steuer der Spitze ~103 Tage gegenüber ganzer Jahressteuer der Mitte ~2,7 Jahre,
 also rund zehnmal so lange.
 
