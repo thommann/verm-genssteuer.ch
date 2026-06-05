@@ -35,6 +35,17 @@ const hhRecoveryYears = HH_TAX_CHF / HH_PROPERTY_CHF;
 // 9,9 % eines Jahres ~ 36 Tagen verdient.
 const hhTaxIncomeDays = Math.round((HH_TAX_CHF / HH_GROSS_CHF) * 365);
 
+// Dieselbe Rechnung fuer den Durchschnitt aller Haushalte (Spalte «Saemtliche»
+// der gleichen HABE-Tabelle 2015-2017): Steuern 1083 CHF/Monat (11,6 %),
+// Vermoegenseinkommen 421 CHF/Monat (4,5 %), Bruttoeinkommen 9349 CHF/Monat.
+// Der Durchschnitt holt das Vermoegenseinkommen schneller herein, weil die
+// Spitze den Schnitt nach oben zieht.
+const AVG_TAX_CHF = 1083.0;
+const AVG_PROPERTY_CHF = 421.0;
+const AVG_GROSS_CHF = 9349.1;
+const avgRecoveryYears = AVG_TAX_CHF / AVG_PROPERTY_CHF;
+const avgTaxIncomeDays = Math.round((AVG_TAX_CHF / AVG_GROSS_CHF) * 365);
+
 const perCapita = computed(() => chf(REVENUE / K.population.value));
 const incomeShare = computed(() => pct(REVENUE / K.einkommenssteuer_np_alle_ebenen.value, 0));
 const premiumShare = computed(() =>
@@ -87,9 +98,29 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
 
       <h3 class="block-h">{{ $t('zucman.medHeading') }}</h3>
       <div class="card medbox">
-        <span class="calc-line" v-html="$t('zucman.medLine')" />
-        <span class="med-result">~{{ num(hhRecoveryYears, 1) }}&nbsp;<span class="med-unit">{{ $t('zucman.medUnit') }}</span></span>
-        <span class="days-sub" v-html="$t('zucman.medSub', { days: hhTaxIncomeDays })" />
+        <span class="calc-line">{{ $t('zucman.medLine') }}</span>
+        <table class="medtable">
+          <thead>
+            <tr>
+              <th></th>
+              <th>{{ $t('zucman.medColPassive') }}</th>
+              <th>{{ $t('zucman.medColTotal') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{{ $t('zucman.medRowMedian') }}</th>
+              <td class="mt-accent">~{{ num(hhRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
+              <td>~{{ hhTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
+            </tr>
+            <tr>
+              <th>{{ $t('zucman.medRowAvg') }}</th>
+              <td>~{{ num(avgRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
+              <td>~{{ avgTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <span class="days-sub" v-html="$t('zucman.medCaption')" />
       </div>
       <div class="srcrow">
         <SourceTag id="bfs_habe" :note="$t('zucman.medSource')" />
@@ -164,11 +195,24 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
   display: flex; flex-direction: column; gap: 8px;
   border-left: 3px solid var(--accent);
 }
-.med-result {
-  font-size: 2.1rem; font-weight: 800; color: var(--accent);
-  letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums;
+.medtable {
+  width: 100%; border-collapse: collapse; margin: 14px 0 4px;
+  font-variant-numeric: tabular-nums;
 }
-.med-unit { font-size: 1.05rem; font-weight: 700; }
+.medtable th, .medtable td { padding: 8px 6px; text-align: right; }
+.medtable thead th {
+  color: var(--text-soft); font-weight: 600; font-size: 0.8rem;
+  line-height: 1.25; vertical-align: bottom;
+}
+.medtable thead th:first-child { width: 1%; }
+.medtable tbody th {
+  text-align: left; color: var(--text-soft); font-weight: 600; font-size: 0.9rem;
+}
+.medtable tbody td { color: var(--text); font-weight: 800; font-size: 1.2rem; white-space: nowrap; }
+.medtable tbody td.mt-accent { color: var(--accent); }
+.medtable tbody tr + tr th, .medtable tbody tr + tr td {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
 
 .egrid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 18px; }
 .ecard { padding: 22px; display: flex; flex-direction: column; gap: 8px; }

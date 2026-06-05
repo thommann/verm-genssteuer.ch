@@ -430,7 +430,14 @@ Zeit, die ganze Jahressteuer allein aus dem Vermögenseinkommen zu verdienen:
    9,9 % ÷ 2,9 % ≈ 3,4 Jahre
 Zeit, dieselbe Steuersumme aus dem gesamten Einkommen (v. a. Arbeit) zu verdienen:
    9,9 % × 365 ≈ 36 Tage
+
+Durchschnitt aller Haushalte (Spalte «Sämtliche»): Steuern 1083 CHF/Monat = 11,6 %,
+Vermögenseinkommen 421 CHF/Monat = 4,5 % des Bruttoeinkommens
+   aus dem Vermögenseinkommen:  11,6 % ÷ 4,5 % ≈ 2,6 Jahre
+   aus dem gesamten Einkommen:  11,6 % × 365   ≈ 42 Tage
 ```
+Der Durchschnitt holt das Vermögenseinkommen scheinbar schneller herein (2,6 statt 3,4 Jahre),
+weil die Vermögensspitze den Schnitt nach oben zieht; der Median ist der typische Haushalt.
 Zum Vergleich: oberstes Quintil 6,5 % des Bruttoeinkommens (1250 CHF/Monat, rund fünfmal so
 viel in Franken wie das mittlere Quintil). Die HABE rechnet keinen Eigenmietwert als
 Einkommen ein, es ist also echtes Vermögens- und Vermietungseinkommen. Die Querschnittstabellen

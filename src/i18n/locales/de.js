@@ -296,10 +296,15 @@ export default {
     daysSource: 'Vermögenszuwachs ~7,1 % p. a. (1987–2024)',
 
     medHeading: 'Und ein normaler Haushalt?',
-    medLine: 'Um die Jahressteuer (9,9&nbsp;% des Einkommens) allein aus dem Vermögenseinkommen (2,9&nbsp;%) zu verdienen, braucht der Medianhaushalt (mittleres Fünftel):',
+    medLine: 'Wie lange dauert es, die ganze Jahressteuer wieder zu verdienen?',
+    medColPassive: 'aus dem Vermögenseinkommen',
+    medColTotal: 'aus dem gesamten Einkommen',
+    medRowMedian: 'Median (mittleres Fünftel)',
+    medRowAvg: 'Durchschnitt (alle Haushalte)',
     medUnit: 'Jahre',
-    medSub: 'Aus seinem <strong>gesamten Einkommen</strong>, vor allem Arbeit, verdient der Medianhaushalt dieselbe Steuersumme in rund <strong>{days}&nbsp;Tagen</strong>.',
-    medSource: 'Mittleres Quintil: Vermögenseinkommen 2,9 %, Steuern 9,9 % des Bruttoeinkommens (HABE 2015–2017)',
+    medDaysUnit: 'Tage',
+    medCaption: '«Aus dem Vermögenseinkommen» heisst passiv, «aus dem gesamten Einkommen» vor allem Arbeit. Der <strong>Median</strong> ist der typische Haushalt; den <strong>Durchschnitt</strong> zieht die Vermögensspitze nach oben, deshalb wirkt sein passives Einkommen grösser.',
+    medSource: 'Median / Durchschnitt: Steuern 9,9 % / 11,6 %, Vermögenseinkommen 2,9 % / 4,5 % des Bruttoeinkommens (HABE 2015–2017)',
 
     meaningHeading: 'Was ~10 Mrd. bedeuten',
     meaningPerCapita: 'pro Kopf und Jahr',
