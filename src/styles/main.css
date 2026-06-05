@@ -7,7 +7,9 @@
   --border: #2a3563;
   --text: #eef1fb;
   --text-soft: #aab4d4;
-  --text-mute: #7e88ad;
+  /* Gedämpfter Ton; aufgehellt, damit er auch auf dem dunkelsten Kartenverlauf
+     (bg-card-2) die WCAG-AA-Schwelle von 4.5:1 erreicht. */
+  --text-mute: #8a93b6;
 
   --accent: #ff5470;        /* «1 %» / Aktion */
   --accent-soft: #ff849a;
