@@ -417,14 +417,21 @@ pro 1 Mrd.:    ~7–13 Mio./Jahr
 *Superreiche, passiv:* Bei ~7,1 % realem Vermögenszuwachs ist die ganze Mindeststeuer von
 2 % des Vermögens wieder verdient in `(0,02 ÷ 0,071) × 365 ≈ 103 Tagen` (`zucman_g20`).
 
-*Normaler Haushalt* (Quelle `bfs_habe`, BFS Haushaltsbudgeterhebung 2023). Ein normaler
-Haushalt lebt von der Arbeit, nicht vom Vermögen. Das passive Vermögenseinkommen beträgt im
-Schnitt nur 4,5 % des Bruttoeinkommens, und dieser Schnitt ist bereits stark nach oben
-gezogen: nur jeder 7. Haushalt liegt darüber, der Durchschnitt markiert also schon die
-Schwelle zum obersten Siebtel (rund 14 %). Der typische (Median-)Haushalt hat damit praktisch
-kein passives Einkommen. Aus diesem Nichts lässt sich die Steuer auch in einem ganzen Leben
-nicht passiv verdienen; sie wird aus dem Lohn bezahlt. Ein Renditesatz, eine Währungs-
-umrechnung oder das gebundene Vorsorge-/Wohnvermögen sind dafür bewusst nicht nötig.
+*Normaler Haushalt.* Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen, und hat
+praktisch kein passives Einkommen. Zwei Belege:
+
+- *Vermögen (Quelle `estv_vermoegen`).* Das steuerbare Medianvermögen liegt bei nur rund
+  45 000 CHF (über die Hälfte der Steuerpflichtigen hat höchstens 50 000 CHF). Pensionskasse,
+  Säule 3a und der Marktwert des Eigenheims sind darin nicht enthalten; dieses gebundene
+  Vermögen wirft keinen verzehrbaren Ertrag ab.
+- *Vermögenseinkommen (Quelle `bfs_habe`, BFS Haushaltsbudgeterhebung 2023).* Das
+  Vermögenseinkommen der Haushalte ist stark konzentriert: im Schnitt nur 4,5 % des
+  Bruttoeinkommens, und nur jeder 7. Haushalt liegt über diesem Anteil. Der typische
+  (Median-)Haushalt liegt also deutlich darunter.
+
+Aus diesem fast nicht vorhandenen passiven Einkommen lässt sich die Steuer auch in einem
+ganzen Leben nicht verdienen; sie wird aus dem Lohn bezahlt. Ein Renditesatz oder eine
+Währungsumrechnung sind dafür bewusst nicht nötig.
 
 Kontrast: ganze 2 %-Steuer der Spitze passiv in ~103 Tagen, gegenüber dem normalen Haushalt,
 der seine Steuer überhaupt nicht passiv aufbringen kann.

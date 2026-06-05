@@ -85,6 +85,7 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
         <span class="days-sub" v-html="$t('zucman.medSub')" />
       </div>
       <div class="srcrow">
+        <SourceTag id="estv_vermoegen" :note="$t('zucman.medSourceEstv')" />
         <SourceTag id="bfs_habe" :note="$t('zucman.medSource')" />
       </div>
 
