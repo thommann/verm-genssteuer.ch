@@ -29,7 +29,11 @@ const recoveryDays = Math.round((ZUCMAN_RATE / PASSIVE_RETURN) * 365);
 // Recovery = 829 / 234 ~ 3,5 Jahre, also gut zwoelfmal die ~103 Tage der Spitze.
 const HH_TAX_CHF = 829.3;
 const HH_PROPERTY_CHF = 234.4;
+const HH_GROSS_CHF = 8627.8; // Bruttoeinkommen mittleres Quintil (HABE)
 const hhRecoveryYears = HH_TAX_CHF / HH_PROPERTY_CHF;
+// Aus dem gesamten Einkommen (v. a. Arbeit) ist die Steuersumme in
+// 9,6 % eines Jahres ~ 35 Tagen verdient.
+const hhTaxIncomeDays = Math.round((HH_TAX_CHF / HH_GROSS_CHF) * 365);
 
 const perCapita = computed(() => chf(REVENUE / K.population.value));
 const incomeShare = computed(() => pct(REVENUE / K.einkommenssteuer_np_alle_ebenen.value, 0));
@@ -86,7 +90,7 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
       <div class="card medbox">
         <span class="calc-line" v-html="$t('zucman.medLine')" />
         <span class="med-result">~{{ num(hhRecoveryYears, 1) }}&nbsp;<span class="med-unit">{{ $t('zucman.medUnit') }}</span></span>
-        <span class="days-sub" v-html="$t('zucman.medSub')" />
+        <span class="days-sub" v-html="$t('zucman.medSub', { days: hhTaxIncomeDays })" />
       </div>
       <div class="srcrow">
         <SourceTag id="estv_vermoegen" :note="$t('zucman.medSourceEstv')" />

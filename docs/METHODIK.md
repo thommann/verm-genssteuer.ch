@@ -427,6 +427,8 @@ Steuern (Einkommen und Vermögen)        = 829 CHF/Monat =  9,6 % des Bruttoeink
 
 Zeit, die ganze Jahressteuer allein aus dem Vermögenseinkommen zu verdienen:
    9,6 % ÷ 2,7 % ≈ 3,5 Jahre
+Zeit, dieselbe Steuersumme aus dem gesamten Einkommen (v. a. Arbeit) zu verdienen:
+   9,6 % × 365 ≈ 35 Tage
 ```
 Zum Vergleich: oberstes Quintil 6,3 % des Bruttoeinkommens (1272 CHF/Monat, rund neunmal so
 viel in Franken). Die HABE rechnet keinen Eigenmietwert als Einkommen ein, es ist also echtes
