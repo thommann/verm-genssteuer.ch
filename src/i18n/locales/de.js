@@ -296,11 +296,9 @@ export default {
     daysSource: 'Vermögenszuwachs ~7,1 % p. a. (1987–2024)',
 
     medHeading: 'Und ein normaler Haushalt?',
-    medText: 'Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. Im mittleren Fünftel der Haushalte, dort liegt der Median, stammen nur <strong>2,9&nbsp;%</strong> des Einkommens aus Vermögen; beim obersten Fünftel sind es <strong>6,5&nbsp;%</strong> und absolut rund fünfmal so viel.',
-    medLine: 'Um die Jahressteuer (9,9&nbsp;% des Einkommens) allein aus diesem Vermögenseinkommen (2,9&nbsp;%) zu verdienen, braucht der Medianhaushalt:',
+    medLine: 'Um die Jahressteuer (9,9&nbsp;% des Einkommens) allein aus dem Vermögenseinkommen (2,9&nbsp;%) zu verdienen, braucht der Medianhaushalt (mittleres Fünftel):',
     medUnit: 'Jahre',
-    medSub: 'Aus seinem <strong>gesamten Einkommen</strong>, vor allem Arbeit, verdient der Medianhaushalt dieselbe Steuersumme in rund <strong>{days}&nbsp;Tagen</strong>. Die Superreichen holen ihre ganze 2%-Steuer <strong>ohne zu arbeiten</strong> in gut drei Monaten aus dem Vermögenszuwachs herein. Steuerbares Medianvermögen: nur 45&nbsp;000&nbsp;Franken (ESTV).',
-    medSourceEstv: 'Median steuerbares Reinvermögen rund 45 000 CHF (2022)',
+    medSub: 'Aus seinem <strong>gesamten Einkommen</strong>, vor allem Arbeit, verdient der Medianhaushalt dieselbe Steuersumme in rund <strong>{days}&nbsp;Tagen</strong>.',
     medSource: 'Mittleres Quintil: Vermögenseinkommen 2,9 %, Steuern 9,9 % des Bruttoeinkommens (HABE 2015–2017)',
 
     meaningHeading: 'Was ~10 Mrd. bedeuten',

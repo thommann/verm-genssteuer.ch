@@ -439,12 +439,6 @@ erscheinen nur als Mehrjahres-Pool; 2015–2017 ist die aktuellste, die Mittelwe
 2 %-Steuer der Spitze passiv in ~103 Tagen, Medianhaushalt ~3,4 Jahre, also rund zwölfmal so
 lange.
 
-Ergänzend (Quelle `estv_vermoegen`): das steuerbare Medianvermögen liegt bei nur rund
-45 000 CHF (über die Hälfte der Steuerpflichtigen hat höchstens 50 000 CHF).
-
-Kontrast: ganze 2 %-Steuer der Spitze passiv in ~103 Tagen, gegenüber dem normalen Haushalt,
-der seine Steuer überhaupt nicht passiv aufbringen kann.
-
 **Deklaration und Grenzen:**
 
 - Eigene Schätzung, **keine amtliche Zahl** und **nicht** aus der ESTV-Pipeline reproduzierbar.

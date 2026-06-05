@@ -86,14 +86,12 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
       </div>
 
       <h3 class="block-h">{{ $t('zucman.medHeading') }}</h3>
-      <p class="body" v-html="$t('zucman.medText')" />
       <div class="card medbox">
         <span class="calc-line" v-html="$t('zucman.medLine')" />
         <span class="med-result">~{{ num(hhRecoveryYears, 1) }}&nbsp;<span class="med-unit">{{ $t('zucman.medUnit') }}</span></span>
         <span class="days-sub" v-html="$t('zucman.medSub', { days: hhTaxIncomeDays })" />
       </div>
       <div class="srcrow">
-        <SourceTag id="estv_vermoegen" :note="$t('zucman.medSourceEstv')" />
         <SourceTag id="bfs_habe" :note="$t('zucman.medSource')" />
       </div>
 
