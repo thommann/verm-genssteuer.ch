@@ -296,7 +296,7 @@ export default {
     daysSource: 'Vermögenszuwachs ~7,1 % p. a. (1987–2024)',
 
     medHeading: 'Und ein normaler Haushalt?',
-    medText: 'Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. In der Vermögenssteuerstatistik liegt das Medianvermögen bei nur rund <strong>45&nbsp;000&nbsp;Franken</strong>; Pensionskasse, Säule&nbsp;3a und der Marktwert des Eigenheims sind darin gar nicht enthalten, sie sind gebunden und werfen keinen verzehrbaren Ertrag ab.',
+    medText: 'Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. In der Vermögenssteuerstatistik liegt das Medianvermögen bei nur rund <strong>45&nbsp;000&nbsp;Franken</strong>.',
     medLine: 'Sein passives Vermögenseinkommen ist praktisch null. Um daraus die ganze Jahressteuer zu verdienen, braucht er:',
     medResult: 'ein Leben lang',
     medSub: 'Die <strong>ganze Mindeststeuer von 2&nbsp;%</strong> der Superreichen ist passiv in gut drei Monaten verdient. Der normale Haushalt hat <strong>praktisch kein passives Einkommen</strong>: aus fast nichts lässt sich keine Steuer verdienen, er zahlt sie aus dem Lohn.',
