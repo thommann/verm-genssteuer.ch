@@ -103,6 +103,7 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
           <thead>
             <tr>
               <th></th>
+              <th>{{ $t('zucman.medColIncome') }}</th>
               <th>{{ $t('zucman.medColPassive') }}</th>
               <th>{{ $t('zucman.medColTotal') }}</th>
             </tr>
@@ -110,11 +111,13 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
           <tbody>
             <tr>
               <th>{{ $t('zucman.medRowMedian') }}</th>
+              <td class="mt-income">{{ num(HH_GROSS_CHF, 0) }}</td>
               <td class="mt-accent">~{{ num(hhRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
               <td>~{{ hhTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
             </tr>
             <tr>
               <th>{{ $t('zucman.medRowAvg') }}</th>
+              <td class="mt-income">{{ num(AVG_GROSS_CHF, 0) }}</td>
               <td>~{{ num(avgRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
               <td>~{{ avgTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
             </tr>
@@ -209,6 +212,7 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
   text-align: left; color: var(--text-soft); font-weight: 600; font-size: 0.9rem;
 }
 .medtable tbody td { color: var(--text); font-weight: 800; font-size: 1.2rem; white-space: nowrap; }
+.medtable tbody td.mt-income { color: var(--text-soft); font-weight: 600; font-size: 1rem; }
 .medtable tbody td.mt-accent { color: var(--accent); }
 .medtable tbody tr + tr th, .medtable tbody tr + tr td {
   border-top: 1px solid rgba(255, 255, 255, 0.08);

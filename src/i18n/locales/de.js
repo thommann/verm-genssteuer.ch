@@ -297,6 +297,7 @@ export default {
 
     medHeading: 'Und ein normaler Haushalt?',
     medLine: 'Wie lange dauert es, die ganze Jahressteuer wieder zu verdienen?',
+    medColIncome: 'Bruttoeinkommen (CHF/Monat)',
     medColPassive: 'aus dem Vermögenseinkommen',
     medColTotal: 'aus dem gesamten Einkommen',
     medRowMedian: 'Median (mittleres Fünftel)',
