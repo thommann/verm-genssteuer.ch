@@ -32,7 +32,7 @@ const k = kennzahlen.unbeschraenkt['2022'];
 
       <div class="hero-cta">
         <router-link to="/rechner" class="btn btn-primary">{{ $t('hero.ctaTry') }}</router-link>
-        <router-link to="/verteilung" class="btn">{{ $t('hero.ctaDistribution') }}</router-link>
+        <a href="#themen" class="hero-scroll">{{ $t('hero.ctaTopics') }} <span aria-hidden="true">↓</span></a>
       </div>
       <div style="margin-top: 18px">
         <SourceTag id="estv_vermoegen" :note="$t('hero.sourceNote')" />
@@ -55,6 +55,13 @@ h1 { max-width: 18ch; }
 .hstat-val.accent { color: var(--accent); }
 .hstat-lab { color: var(--text-soft); font-size: 0.9rem; margin-top: 2px; }
 .divider { width: 1px; height: 52px; background: var(--border); }
-.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.hero-scroll {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.92rem; font-weight: 600; color: var(--text-soft); text-decoration: none;
+}
+.hero-scroll span { color: var(--accent-soft); transition: transform 0.15s ease; }
+.hero-scroll:hover { color: var(--text); text-decoration: none; }
+.hero-scroll:hover span { transform: translateY(2px); }
 @media (max-width: 560px) { .divider { display: none; } }
 </style>

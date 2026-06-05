@@ -19,6 +19,7 @@ export default {
     menu: 'Menü',
     menuAria: 'Abschnitts-Menü',
     menuTitle: 'Themen & Abschnitte',
+    toTop: 'Nach oben',
     // Überschriften der Themengruppen im Menü.
     groups: {
       verteilung: 'Wie ungleich ist die Schweiz?',
@@ -93,12 +94,12 @@ export default {
   hero: {
     eyebrow: 'Vermögen · Schweiz · 2022',
     title: 'Das reichste <span class="hl">1&nbsp;%</span> besitzt <span class="hl gold">{share}</span> des steuerbaren Vermögens.',
-    lead: 'Knapp <strong>{cnt}</strong> Steuerpflichtige, rund ein Prozent, halten zusammen fast so viel Vermögen wie die anderen 99&nbsp;% zusammen. Das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>. Diese Seite macht die Zahlen sichtbar und lässt dich ausprobieren, was eine faire Vermögenssteuer auf dieses eine Prozent bewirken könnte.',
+    lead: 'Knapp <strong>{cnt}</strong> Steuerpflichtige, rund ein Prozent, halten zusammen fast so viel Vermögen wie die anderen 99&nbsp;% zusammen. Das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>.',
     stat1Label: 'des Vermögens beim reichsten&nbsp;1&nbsp;%<br />(Vermögen ab 5&nbsp;Mio.)',
     stat2Label: 'Median-Vermögen,<br />die «mittlere» Schweiz',
     stat3Label: 'so hoch ist der Durchschnitt<br />wegen der Spitze',
-    ctaTry: 'Steuermodell ausprobieren ↓',
-    ctaDistribution: 'Erst die Verteilung ansehen',
+    ctaTry: 'Rechner ausprobieren',
+    ctaTopics: 'Erst die drei Themen ansehen',
     sourceNote: 'unbeschränkt Steuerpflichtige, 2022',
   },
 
