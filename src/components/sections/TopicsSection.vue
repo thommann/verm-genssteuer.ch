@@ -1,7 +1,7 @@
 <script setup>
 // Themen-Hub auf der Startseite: drei Karten, die je ein Thema kurz erklären und
-// zum zugehörigen Kapitel-Anker springen. Die «Enthält»-Tags verlinken direkt auf
-// die einzelnen Abschnitte des Themas (Anker = nav.items-Schlüssel).
+// auf die zugehörige Themenseite führen. Die «Enthält»-Tags verlinken direkt auf
+// die einzelnen Abschnitte (Anker = nav.items-Schlüssel) der jeweiligen Seite.
 const TOPICS = [
   {
     tone: 'gold',
@@ -10,7 +10,7 @@ const TOPICS = [
     title: 'topics.card1Title',
     text: 'topics.card1Text',
     link: 'topics.card1Link',
-    target: 'thema-verteilung',
+    route: '/verteilung',
     subs: ['verteilung', 'international', 'ubs-studie', 'pauschal'],
   },
   {
@@ -20,7 +20,7 @@ const TOPICS = [
     title: 'topics.card2Title',
     text: 'topics.card2Text',
     link: 'topics.card2Link',
-    target: 'thema-rechner',
+    route: '/rechner',
     subs: ['rechner', 'dynamik', 'verwendung'],
   },
   {
@@ -30,7 +30,7 @@ const TOPICS = [
     title: 'topics.card3Title',
     text: 'topics.card3Text',
     link: 'topics.card3Link',
-    target: 'thema-modelle',
+    route: '/modelle',
     subs: ['wir-reports', 'zucman'],
   },
 ];
@@ -44,7 +44,7 @@ const TOPICS = [
       <p class="lead">{{ $t('topics.lead') }}</p>
 
       <div class="topic-grid">
-        <article v-for="topic in TOPICS" :key="topic.target" class="topic card" :class="`tone-${topic.tone}`">
+        <article v-for="topic in TOPICS" :key="topic.route" class="topic card" :class="`tone-${topic.tone}`">
           <div class="topic-kicker">
             <span class="topic-num">{{ $t(topic.num) }}</span>
             <span>{{ $t(topic.kicker) }}</span>
@@ -55,13 +55,20 @@ const TOPICS = [
           <div class="topic-contains">
             <span class="topic-contains-lab">{{ $t('topics.contains') }}</span>
             <span class="topic-tags">
-              <a v-for="sub in topic.subs" :key="sub" :href="`#${sub}`" class="topic-tag">
+              <router-link
+                v-for="sub in topic.subs"
+                :key="sub"
+                :to="{ path: topic.route, hash: `#${sub}` }"
+                class="topic-tag"
+              >
                 {{ $t(`nav.items.${sub}`) }}
-              </a>
+              </router-link>
             </span>
           </div>
 
-          <a :href="`#${topic.target}`" class="topic-go">{{ $t(topic.link) }} <span aria-hidden="true">→</span></a>
+          <router-link :to="topic.route" class="topic-go">
+            {{ $t(topic.link) }} <span aria-hidden="true">→</span>
+          </router-link>
         </article>
       </div>
     </div>

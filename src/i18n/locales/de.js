@@ -3,6 +3,15 @@
 // per v-html gerendert; {platzhalter} werden zur Laufzeit mit formatierten Werten
 // gefüllt. Es wird kein deutsches Eszett verwendet (immer «ss»).
 export default {
+  // Seitentitel je Route (Browser-Tab); werden mit nav.brand zusammengesetzt.
+  routes: {
+    home: 'Das reichste 1 %',
+    verteilung: 'Wie ungleich ist die Schweiz?',
+    rechner: 'Vermögenssteuer-Rechner',
+    modelle: 'Steuermodelle der Forschung',
+    quellen: 'Quellen & Methodik',
+  },
+
   // Navigation und Abschnitts-Menü (App.vue)
   nav: {
     brand: 'vermögenssteuer.ch',
@@ -248,7 +257,7 @@ export default {
     card2026Li2: 'Antwort: Mindeststeuer <strong>2&nbsp;/ 3&nbsp;/ 5&nbsp;%</strong> auf Centi-Millionäre&nbsp;und&nbsp;Milliardäre.',
     card2026Li3: '2&nbsp;% auf Milliardäre ≈ <strong>200&nbsp;bis&nbsp;250&nbsp;Mrd.&nbsp;$</strong> pro Jahr.',
     card2026Link: 'wir2026.wid.world ↗',
-    shift: '<strong>Was sich geändert hat:</strong> 2022 schlägt einen progressiven Mehrband-Tarif vor, 2026 eine <strong>flache Mindeststeuer</strong> auf Centi-Millionäre und Milliardäre, aufbauend auf Zucman&nbsp;(2024), den die brasilianische G20-Präsidentschaft 2024 auf die Agenda setzte. Laut WIR&nbsp;2026 «neutralisiert» bereits ein Satz von 2&nbsp;% die Regressivität an der Spitze. Die progressive Staffel von 2022 kannst du <a href="#rechner">im Rechner</a> als Preset durchprobieren; die Mindeststeuer von 2026 schlägt keine Vermögenssteuer vor und steht deshalb nicht im Rechner, sondern im Abschnitt <a href="#zucman">Zucman-Steuer</a>. Das interaktive Original-Tool zur progressiven Staffel ist der <a href="https://wid.world/world-wealth-tax-simulator/" target="_blank" rel="noopener">Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator</a> des World&nbsp;Inequality&nbsp;Lab.',
+    shift: '<strong>Was sich geändert hat:</strong> 2022 schlägt einen progressiven Mehrband-Tarif vor, 2026 eine <strong>flache Mindeststeuer</strong> auf Centi-Millionäre und Milliardäre, aufbauend auf Zucman&nbsp;(2024), den die brasilianische G20-Präsidentschaft 2024 auf die Agenda setzte. Laut WIR&nbsp;2026 «neutralisiert» bereits ein Satz von 2&nbsp;% die Regressivität an der Spitze. Die progressive Staffel von 2022 kannst du <a href="/rechner">im Rechner</a> als Preset durchprobieren; die Mindeststeuer von 2026 schlägt keine Vermögenssteuer vor und steht deshalb nicht im Rechner, sondern im Abschnitt <a href="#zucman">Zucman-Steuer</a>. Das interaktive Original-Tool zur progressiven Staffel ist der <a href="https://wid.world/world-wealth-tax-simulator/" target="_blank" rel="noopener">Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator</a> des World&nbsp;Inequality&nbsp;Lab.',
     videoLabel: 'Video · Gary\'s Economics mit Gabriel Zucman',
     videoTitle: '«The economist billionaires fear: this is how we get a wealth tax»',
     videoHint: 'youtube.com ↗',

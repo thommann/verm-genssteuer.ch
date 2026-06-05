@@ -31,8 +31,8 @@ const k = kennzahlen.unbeschraenkt['2022'];
       </div>
 
       <div class="hero-cta">
-        <a href="#rechner" class="btn btn-primary">{{ $t('hero.ctaTry') }}</a>
-        <a href="#verteilung" class="btn">{{ $t('hero.ctaDistribution') }}</a>
+        <router-link to="/rechner" class="btn btn-primary">{{ $t('hero.ctaTry') }}</router-link>
+        <router-link to="/verteilung" class="btn">{{ $t('hero.ctaDistribution') }}</router-link>
       </div>
       <div style="margin-top: 18px">
         <SourceTag id="estv_vermoegen" :note="$t('hero.sourceNote')" />
