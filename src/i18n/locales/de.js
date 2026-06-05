@@ -296,12 +296,12 @@ export default {
     daysSource: 'Vermögenszuwachs ~7,1 % p. a. (1987–2024)',
 
     medHeading: 'Und ein normaler Haushalt?',
-    medText: 'Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. In der Vermögenssteuerstatistik liegt das Medianvermögen bei nur rund <strong>45&nbsp;000&nbsp;Franken</strong>.',
-    medLine: 'Sein passives Vermögenseinkommen ist praktisch null. Um daraus die ganze Jahressteuer zu verdienen, braucht er:',
-    medResult: 'ein Leben lang',
-    medSub: 'Die <strong>ganze Mindeststeuer von 2&nbsp;%</strong> der Superreichen ist passiv in gut drei Monaten verdient. Der normale Haushalt hat <strong>praktisch kein passives Einkommen</strong>: aus fast nichts lässt sich keine Steuer verdienen, er zahlt sie aus dem Lohn.',
+    medText: 'Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. Im mittleren Fünftel der Haushalte, dort liegt der Median, stammen nur <strong>2,7&nbsp;%</strong> des Einkommens aus Vermögen; beim obersten Fünftel sind es <strong>6,3&nbsp;%</strong> und absolut rund neunmal so viel.',
+    medLine: 'Um die Jahressteuer (9,6&nbsp;% des Einkommens) allein aus diesem Vermögenseinkommen (2,7&nbsp;%) zu verdienen, braucht der Medianhaushalt:',
+    medUnit: 'Jahre',
+    medSub: 'Die <strong>ganze Mindeststeuer von 2&nbsp;%</strong> der Superreichen ist passiv in gut drei Monaten verdient. Der Medianhaushalt bräuchte aus seinem Vermögenseinkommen <strong>gut zwölfmal so lange</strong>. Sein steuerbares Medianvermögen liegt bei nur 45&nbsp;000&nbsp;Franken (ESTV).',
     medSourceEstv: 'Median steuerbares Reinvermögen rund 45 000 CHF (2022)',
-    medSource: 'Vermögenseinkommen der Haushalte (2023)',
+    medSource: 'Mittleres Quintil: Vermögenseinkommen 2,7 %, Steuern 9,6 % des Bruttoeinkommens (HABE)',
 
     meaningHeading: 'Was ~10 Mrd. bedeuten',
     meaningPerCapita: 'pro Kopf und Jahr',

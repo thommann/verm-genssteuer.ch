@@ -155,10 +155,10 @@
   {
     "id": "bfs_habe",
     "kurz": "BFS Haushaltsbudgeterhebung",
-    "titel": "Haushaltsbudgeterhebung (HABE) 2023: Einkommen, Steuern und Vermögenseinkommen der Haushalte",
+    "titel": "Haushaltsbudgeterhebung (HABE): Einkommen, Steuern und Vermögenseinkommen der Haushalte nach Einkommensklasse",
     "herausgeber": "Bundesamt für Statistik (BFS)",
     "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/einkommen-verbrauch-vermoegen/haushaltsbudget.html",
-    "stand": "Ergebnisse 2023, publiziert 2025",
-    "hinweis": "Durchschnittshaushalt (2,07 Personen): verfügbares Einkommen 7186 CHF/Monat; Steuern auf Einkommen und Vermögen 1245 CHF/Monat = 12,0 % des Bruttoeinkommens; Vermögenseinkommen im Schnitt 4,5 % des Bruttoeinkommens, stark konzentriert (nur jeder siebte Haushalt liegt über diesem Anteil). Weil schon dieser 4,5%-Schnitt zum obersten Siebtel zählt, hat der typische (Median-)Haushalt praktisch kein passives Vermögenseinkommen; aus diesem Nichts lässt sich die Steuer auch in einem ganzen Leben nicht passiv verdienen, sie wird aus dem Erwerbseinkommen bezahlt."
+    "stand": "Übersichtstabellen 2012–2014 (nach Einkommensklasse); Mittelwerte 2023",
+    "hinweis": "Übersichtstabellen, Blatt «nach Einkommensklasse»: fünf gleich grosse Quintile (je 20 % der Haushalte, Zeile «Prozentuale Verteilung der Haushalte» = 0,2). Mittleres Quintil (enthält den Median, Bruttoeinkommen 7337–9978 CHF/Monat): Einkommen aus Vermögen und Vermietung 234 CHF/Monat = 2,7 % des Bruttoeinkommens, Steuern (Einkommen und Vermögen) 829 CHF/Monat = 9,6 %. Oberstes Quintil: Vermögenseinkommen 1272 CHF/Monat = 6,3 % (rund neunmal so viel in Franken). Zeit, die Jahressteuer allein aus dem Vermögenseinkommen zu verdienen: 9,6 % ÷ 2,7 % ≈ 3,5 Jahre, gegenüber den ~103 Tagen der Superreichen also gut zwölfmal so lange. Die HABE rechnet keinen Eigenmietwert als Einkommen ein. Über alle Haushalte 2023 (Mittelwerte): Vermögenseinkommen 4,5 %, Steuern 12,0 % des Bruttoeinkommens; das Vermögenseinkommen ist konzentriert (nur jeder siebte Haushalt über dem 4,5%-Schnitt)."
   }
 ]

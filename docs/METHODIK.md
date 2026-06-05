@@ -417,21 +417,24 @@ pro 1 Mrd.:    ~7–13 Mio./Jahr
 *Superreiche, passiv:* Bei ~7,1 % realem Vermögenszuwachs ist die ganze Mindeststeuer von
 2 % des Vermögens wieder verdient in `(0,02 ÷ 0,071) × 365 ≈ 103 Tagen` (`zucman_g20`).
 
-*Normaler Haushalt.* Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen, und hat
-praktisch kein passives Einkommen. Zwei Belege:
+*Normaler Haushalt* (einkommensbasiert, Quelle `bfs_habe`, HABE-Übersichtstabellen, Blatt
+«nach Einkommensklasse»). Die fünf Einkommensklassen sind gleich grosse Quintile (je 20 % der
+Haushalte); das **mittlere Quintil enthält den Median** (Bruttoeinkommen 7337–9978 CHF/Monat).
+Belegte Werte aus einer Quelle, das Bruttoeinkommen kürzt sich heraus:
+```
+Einkommen aus Vermögen und Vermietung   = 234 CHF/Monat =  2,7 % des Bruttoeinkommens
+Steuern (Einkommen und Vermögen)        = 829 CHF/Monat =  9,6 % des Bruttoeinkommens
 
-- *Vermögen (Quelle `estv_vermoegen`).* Das steuerbare Medianvermögen liegt bei nur rund
-  45 000 CHF (über die Hälfte der Steuerpflichtigen hat höchstens 50 000 CHF). Pensionskasse,
-  Säule 3a und der Marktwert des Eigenheims sind darin nicht enthalten; dieses gebundene
-  Vermögen wirft keinen verzehrbaren Ertrag ab.
-- *Vermögenseinkommen (Quelle `bfs_habe`, BFS Haushaltsbudgeterhebung 2023).* Das
-  Vermögenseinkommen der Haushalte ist stark konzentriert: im Schnitt nur 4,5 % des
-  Bruttoeinkommens, und nur jeder 7. Haushalt liegt über diesem Anteil. Der typische
-  (Median-)Haushalt liegt also deutlich darunter.
+Zeit, die ganze Jahressteuer allein aus dem Vermögenseinkommen zu verdienen:
+   9,6 % ÷ 2,7 % ≈ 3,5 Jahre
+```
+Zum Vergleich: oberstes Quintil 6,3 % des Bruttoeinkommens (1272 CHF/Monat, rund neunmal so
+viel in Franken). Die HABE rechnet keinen Eigenmietwert als Einkommen ein, es ist also echtes
+Vermögens- und Vermietungseinkommen. Kontrast: ganze 2 %-Steuer der Spitze passiv in ~103
+Tagen, Medianhaushalt ~3,5 Jahre, also gut zwölfmal so lange.
 
-Aus diesem fast nicht vorhandenen passiven Einkommen lässt sich die Steuer auch in einem
-ganzen Leben nicht verdienen; sie wird aus dem Lohn bezahlt. Ein Renditesatz oder eine
-Währungsumrechnung sind dafür bewusst nicht nötig.
+Ergänzend (Quelle `estv_vermoegen`): das steuerbare Medianvermögen liegt bei nur rund
+45 000 CHF (über die Hälfte der Steuerpflichtigen hat höchstens 50 000 CHF).
 
 Kontrast: ganze 2 %-Steuer der Spitze passiv in ~103 Tagen, gegenüber dem normalen Haushalt,
 der seine Steuer überhaupt nicht passiv aufbringen kann.

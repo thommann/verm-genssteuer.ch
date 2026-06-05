@@ -6,7 +6,7 @@
 // Zusatzaufkommen (~10 Mrd.) im Verhaltnis zu bekannten Bezugsgroessen bedeutet.
 import { computed } from 'vue';
 import spendRef from '@/data/spend_reference.json';
-import { chf, pct } from '@/lib/format.js';
+import { chf, pct, num } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const REVENUE = 10e9; // Zusatzaufkommen der Mindeststeuer, gerundet
@@ -21,11 +21,15 @@ const ZUCMAN_RATE = 0.02;
 const PASSIVE_RETURN = 0.071;
 const recoveryDays = Math.round((ZUCMAN_RATE / PASSIVE_RETURN) * 365);
 
-// Gegenstueck: ein normaler Haushalt hat praktisch kein passives Einkommen.
-// BFS Haushaltsbudgeterhebung 2023: Vermoegenseinkommen im Schnitt nur 4,5 %
-// des Bruttoeinkommens, und schon dieser Schnitt zaehlt zum obersten Siebtel
-// (nur jeder 7. Haushalt liegt darueber). Der typische Haushalt kann seine
-// Steuer also gar nicht passiv aufbringen, daher als Aussage "ein Leben lang".
+// Gegenstueck fuer den Medianhaushalt, einkommensbasiert und aus einer Quelle
+// (BFS HABE, Uebersichtstabellen, nach Einkommensklasse). Jede Klasse umfasst
+// 20 % der Haushalte; das mittlere Quintil enthaelt den Median. Steuern
+// 829 CHF/Monat (9,6 % des Bruttoeinkommens), Einkommen aus Vermoegen und
+// Vermietung 234 CHF/Monat (2,7 %). Das Einkommen kuerzt sich heraus:
+// Recovery = 829 / 234 ~ 3,5 Jahre, also gut zwoelfmal die ~103 Tage der Spitze.
+const HH_TAX_CHF = 829.3;
+const HH_PROPERTY_CHF = 234.4;
+const hhRecoveryYears = HH_TAX_CHF / HH_PROPERTY_CHF;
 
 const perCapita = computed(() => chf(REVENUE / K.population.value));
 const incomeShare = computed(() => pct(REVENUE / K.einkommenssteuer_np_alle_ebenen.value, 0));
@@ -81,7 +85,7 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
       <p class="body" v-html="$t('zucman.medText')" />
       <div class="card medbox">
         <span class="calc-line" v-html="$t('zucman.medLine')" />
-        <span class="med-result">{{ $t('zucman.medResult') }}</span>
+        <span class="med-result">~{{ num(hhRecoveryYears, 1) }}&nbsp;<span class="med-unit">{{ $t('zucman.medUnit') }}</span></span>
         <span class="days-sub" v-html="$t('zucman.medSub')" />
       </div>
       <div class="srcrow">
@@ -160,8 +164,9 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
 }
 .med-result {
   font-size: 2.1rem; font-weight: 800; color: var(--accent);
-  letter-spacing: -0.02em; line-height: 1;
+  letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums;
 }
+.med-unit { font-size: 1.05rem; font-weight: 700; }
 
 .egrid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 18px; }
 .ecard { padding: 22px; display: flex; flex-direction: column; gap: 8px; }
