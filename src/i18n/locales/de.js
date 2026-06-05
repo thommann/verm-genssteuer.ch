@@ -299,8 +299,8 @@ export default {
     medText: 'Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. Was er besitzt, steckt grösstenteils in Vorsorge und Eigenheim: gebunden, bis zur Pensionierung nicht verfügbar und ohne nennenswerten Barertrag.',
     medLine: 'Sein passives Vermögenseinkommen ist praktisch null. Um daraus die ganze Jahressteuer zu verdienen, braucht er:',
     medResult: 'ein Leben lang',
-    medSub: 'Die <strong>ganze Mindeststeuer von 2&nbsp;%</strong> der Superreichen ist passiv in gut drei Monaten verdient. Beim normalen Haushalt ist das passive Einkommen so klein, dass schon der Durchschnitt von 4,5&nbsp;% des Einkommens zum <strong>obersten Siebtel</strong> zählt: nur jeder siebte Haushalt liegt darüber. Aus fast nichts lässt sich keine Steuer verdienen, er zahlt sie aus dem Lohn.',
-    medSource: 'Vermögenseinkommen im Schnitt 4,5 % des Bruttoeinkommens, nur jeder 7. Haushalt darüber (2023)',
+    medSub: 'Die <strong>ganze Mindeststeuer von 2&nbsp;%</strong> der Superreichen ist passiv in gut drei Monaten verdient. Der normale Haushalt hat <strong>praktisch kein passives Einkommen</strong>: aus fast nichts lässt sich keine Steuer verdienen, er zahlt sie aus dem Lohn.',
+    medSource: 'Vermögenseinkommen der Haushalte (2023)',
 
     meaningHeading: 'Was ~10 Mrd. bedeuten',
     meaningPerCapita: 'pro Kopf und Jahr',
