@@ -9,12 +9,20 @@ export default {
     cta: 'Ausprobieren',
     menu: 'Menü',
     menuAria: 'Abschnitts-Menü',
-    menuTitle: 'Abschnitte',
+    menuTitle: 'Themen & Abschnitte',
+    // Überschriften der Themengruppen im Menü.
+    groups: {
+      verteilung: 'Wie ungleich ist die Schweiz?',
+      rechner: 'Was bringt eine Steuer?',
+      modelle: 'Welche Modelle gibt es?',
+      transparenz: 'Transparenz',
+    },
     items: {
       start: 'Start',
+      themen: 'Themen-Übersicht',
       verteilung: 'Verteilung',
       rechner: 'Rechner',
-      verwendung: 'Was tun?',
+      verwendung: 'Verwendung',
       dynamik: 'Dynamik',
       international: 'International',
       'wir-reports': 'WIR-Reports',
@@ -23,6 +31,45 @@ export default {
       pauschal: 'Pauschalbesteuerung',
       quellen: 'Quellen',
     },
+  },
+
+  // Themen-Hub auf der Startseite (TopicsSection): erklärt die drei Themen kurz und verlinkt sie.
+  topics: {
+    eyebrow: 'Worum es geht',
+    title: 'Drei Themen, eine Seite',
+    lead: 'Alles ist in drei Themen gegliedert. Spring direkt zu dem, was dich interessiert, oder scroll der Reihe nach durch.',
+    contains: 'Enthält',
+    card1Num: '1',
+    card1Kicker: 'Thema 1',
+    card1Title: 'Wie ungleich ist die Schweiz?',
+    card1Text: 'Steuerdaten, internationaler Vergleich und die UBS-Studie zeigen, wie stark sich das Vermögen beim reichsten Prozent ballt, samt dem blinden Fleck der Pauschalbesteuerten.',
+    card1Link: 'Zur Verteilung',
+    card2Num: '2',
+    card2Kicker: 'Thema 2',
+    card2Title: 'Was würde eine Vermögenssteuer bringen?',
+    card2Text: 'Bau im interaktiven Rechner deine eigene Steuer auf das oberste Prozent, sieh die dauerhaft tragbare Wirkung und wofür die Einnahmen reichen würden.',
+    card2Link: 'Zum Rechner',
+    card3Num: '3',
+    card3Kicker: 'Thema 3',
+    card3Title: 'Welche Modelle schlägt die Forschung vor?',
+    card3Text: 'Die Steuermodelle stammen aus dem World Inequality Report und der Mindeststeuer von Gabriel Zucman. Hier stehen ihre Designs und erwarteten Erträge.',
+    card3Link: 'Zu den Modellen',
+  },
+
+  // Kapitel-Überschriften zwischen den Themen (ChapterHeader / calc-suite).
+  chapters: {
+    verteilungNum: '01',
+    verteilungKicker: 'Thema 1 · Die Verteilung',
+    verteilungTitle: 'Wie ungleich ist die Schweiz?',
+    verteilungLead: 'Vier Blickwinkel auf dieselbe Konzentration: die ESTV-Steuerdaten, der internationale Trend, die UBS-Studie und die Pauschalbesteuerten, die in keiner Vermögensstatistik auftauchen.',
+    rechnerNum: '02',
+    rechnerKicker: 'Thema 2 · Der Rechner',
+    rechnerTitle: 'Was würde eine Vermögenssteuer bringen?',
+    rechnerLead: 'Stell ein Steuermodell auf das oberste Prozent ein und sieh in Echtzeit, was es einbringt, was davon dauerhaft tragbar ist und wofür das Geld reichen würde.',
+    modelleNum: '03',
+    modelleKicker: 'Thema 3 · Die Vorbilder',
+    modelleTitle: 'Welche Modelle schlägt die Forschung vor?',
+    modelleLead: 'Woher die Modelle stammen: die progressive Staffel des World Inequality Report und die 2-Prozent-Mindeststeuer von Gabriel Zucman.',
   },
 
   // Rechner-Einheit: Kopf der zusammengehörenden Abschnitte (Rechner, Rendite, Verwendung).

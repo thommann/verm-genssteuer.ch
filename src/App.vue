@@ -1,6 +1,8 @@
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import HeroSection from '@/components/sections/HeroSection.vue';
+import TopicsSection from '@/components/sections/TopicsSection.vue';
+import ChapterHeader from '@/components/sections/ChapterHeader.vue';
 import DistributionSection from '@/components/sections/DistributionSection.vue';
 import CalculatorSection from '@/components/sections/CalculatorSection.vue';
 import SpendSection from '@/components/sections/SpendSection.vue';
@@ -12,26 +14,26 @@ import UbsStudySection from '@/components/sections/UbsStudySection.vue';
 import PauschalSection from '@/components/sections/PauschalSection.vue';
 import SourcesSection from '@/components/sections/SourcesSection.vue';
 
-// Vollständige Liste aller Abschnitts-Anker. Jede id entspricht einem Anker im DOM,
-// der von überall (auch extern) per #id verlinkt werden kann. Die Beschriftungen
-// liegen zentral in der i18n-Locale (nav.items.<id>).
-const NAV = [
-  'start',
-  'verteilung',
-  'rechner',
-  'dynamik',
-  'verwendung',
-  'international',
-  'wir-reports',
-  'zucman',
-  'ubs-studie',
-  'pauschal',
-  'quellen',
+// Die Abschnitte sind in drei Themen gebündelt (plus Transparenz). Jede Gruppe trägt
+// einen Schlüssel für die Menü-Überschrift (nav.groups.<key>) und ihre Abschnitts-Anker
+// in DOM-Reihenfolge. Die einzelnen Beschriftungen liegen in nav.items.<id>.
+const GROUPS = [
+  { key: 'verteilung', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
+  { key: 'rechner', items: ['rechner', 'dynamik', 'verwendung'] },
+  { key: 'modelle', items: ['wir-reports', 'zucman'] },
+  { key: 'transparenz', items: ['quellen'] },
 ];
 
-const SECTION_IDS = NAV;
+// Flache Anker-Liste in DOM-Reihenfolge (für den Scroll-Spy), beginnend mit dem Hero.
+const SECTION_IDS = ['start', 'themen', ...GROUPS.flatMap((g) => g.items)];
 const scrolled = ref(false);
 const activeId = ref(SECTION_IDS[0]);
+
+// Themengruppe, in der der aktive Abschnitt liegt: hebt die ganze Gruppe im Menü hervor.
+const activeGroupKey = computed(() => {
+  const g = GROUPS.find((grp) => grp.items.includes(activeId.value));
+  return g ? g.key : null;
+});
 
 // Scroll-Spy: ermittelt den aktuell sichtbaren Abschnitt und spiegelt dessen
 // Anker in die URL (ohne neue History-Einträge), damit Links jederzeit teilbar
@@ -141,24 +143,37 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <!-- Vollständiges Abschnitts-Menü: listet alle Sektionen und springt zum Anker. -->
+    <!-- Themen-Menü: nach den drei Themen (plus Transparenz) gruppiert. Jede Gruppe
+         listet ihre Abschnitte und springt zum Anker; die aktive Gruppe ist markiert. -->
     <transition name="menu">
       <div v-if="menuOpen" id="section-menu" class="section-menu" @click.self="closeMenu">
         <div class="wrap">
-          <p class="menu-title">{{ $t('nav.menuTitle') }}</p>
-          <ul class="menu-list">
-            <li v-for="(n, i) in NAV" :key="n">
-              <a
-                :href="`#${n}`"
-                :class="{ active: activeId === n }"
-                :aria-current="activeId === n ? 'true' : undefined"
-                @click="closeMenu"
-              >
-                <span class="menu-num">{{ String(i + 1).padStart(2, '0') }}</span>
-                {{ $t(`nav.items.${n}`) }}
-              </a>
-            </li>
-          </ul>
+          <div class="menu-top">
+            <a href="#start" @click="closeMenu">{{ $t('nav.items.start') }}</a>
+            <a href="#themen" @click="closeMenu">{{ $t('nav.items.themen') }}</a>
+          </div>
+          <div class="menu-groups">
+            <div
+              v-for="g in GROUPS"
+              :key="g.key"
+              class="menu-group"
+              :class="{ active: activeGroupKey === g.key }"
+            >
+              <p class="menu-group-title">{{ $t(`nav.groups.${g.key}`) }}</p>
+              <ul class="menu-list">
+                <li v-for="n in g.items" :key="n">
+                  <a
+                    :href="`#${n}`"
+                    :class="{ active: activeId === n }"
+                    :aria-current="activeId === n ? 'true' : undefined"
+                    @click="closeMenu"
+                  >
+                    {{ $t(`nav.items.${n}`) }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -166,14 +181,32 @@ onUnmounted(() => {
 
   <main id="top">
     <HeroSection />
-    <DistributionSection />
+    <TopicsSection />
 
-    <!-- Zusammenhängende Rechner-Einheit: Modell wählen, Rendite einstellen, Wirkung sehen.
-         Alle drei Abschnitte teilen denselben reaktiven Datensatz (useCalculator) und werden
-         durch den Rahmen, die Akzentlinie und die Schritt-Navigation als ein Block markiert. -->
-    <div class="calc-suite">
+    <!-- Thema 1: Wie ungleich ist die Schweiz? -->
+    <ChapterHeader
+      id="thema-verteilung"
+      :num="$t('chapters.verteilungNum')"
+      :kicker="$t('chapters.verteilungKicker')"
+      :title="$t('chapters.verteilungTitle')"
+      :lead="$t('chapters.verteilungLead')"
+    />
+    <DistributionSection />
+    <InternationalSection />
+    <UbsStudySection />
+    <PauschalSection />
+
+    <!-- Thema 2: Der Rechner. Zusammenhängende Einheit: Modell wählen, Rendite einstellen,
+         Wirkung sehen. Alle drei Abschnitte teilen denselben reaktiven Datensatz (useCalculator)
+         und werden durch Rahmen, Akzentlinie und Schritt-Navigation als ein Block markiert. -->
+    <div id="thema-rechner" class="calc-suite">
       <div class="wrap calc-suite-head">
-        <span class="cs-kicker">{{ $t('calcSuite.kicker') }}</span>
+        <div class="chapter-head-top">
+          <span class="chapter-num">{{ $t('chapters.rechnerNum') }}</span>
+          <span class="chapter-kicker">{{ $t('chapters.rechnerKicker') }}</span>
+        </div>
+        <h2 class="chapter-title" v-html="$t('chapters.rechnerTitle')" />
+        <p class="chapter-lead lead" v-html="$t('chapters.rechnerLead')" />
         <ol class="cs-steps">
           <li>
             <a href="#rechner" :class="{ active: activeId === 'rechner' }">
@@ -197,11 +230,17 @@ onUnmounted(() => {
       <SpendSection />
     </div>
 
-    <InternationalSection />
+    <!-- Thema 3: Welche Modelle gibt es? -->
+    <ChapterHeader
+      id="thema-modelle"
+      :num="$t('chapters.modelleNum')"
+      :kicker="$t('chapters.modelleKicker')"
+      :title="$t('chapters.modelleTitle')"
+      :lead="$t('chapters.modelleLead')"
+    />
     <WirSection />
     <ZucmanSection />
-    <UbsStudySection />
-    <PauschalSection />
+
     <SourcesSection />
   </main>
 </template>
@@ -228,14 +267,8 @@ onUnmounted(() => {
 .calc-suite > section:first-of-type { padding-top: clamp(20px, 3vw, 36px); }
 
 .calc-suite-head { padding-top: clamp(40px, 6vw, 80px); }
-.cs-kicker {
-  display: inline-flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.72rem; font-weight: 700;
-  color: var(--accent-soft);
-}
-.cs-kicker::before { content: ''; width: 26px; height: 2px; background: var(--accent); border-radius: 2px; }
 .cs-steps {
-  list-style: none; margin: 14px 0 0; padding: 0;
+  list-style: none; margin: 22px 0 0; padding: 0;
   display: flex; flex-wrap: wrap; gap: 10px;
 }
 .cs-steps a {
@@ -301,16 +334,28 @@ onUnmounted(() => {
   overflow-y: auto;
   padding: 18px 0 26px;
 }
-.menu-title { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute); margin: 0 0 12px; }
-.menu-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px 22px; }
-.menu-list a {
-  display: flex; align-items: baseline; gap: 12px;
-  padding: 11px 12px; border-radius: var(--radius-sm, 10px);
-  color: var(--text); font-weight: 600; text-decoration: none;
+.menu-top {
+  display: flex; flex-wrap: wrap; gap: 20px;
+  margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
 }
-.menu-list a:hover { background: rgba(255, 255, 255, 0.06); }
+.menu-top a { font-size: 0.86rem; font-weight: 700; color: var(--text-soft); text-decoration: none; }
+.menu-top a:hover { color: var(--text); text-decoration: none; }
+
+.menu-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px 26px; }
+.menu-group { padding: 6px 0 10px; }
+.menu-group.active .menu-group-title { color: var(--accent-soft); }
+.menu-group-title {
+  font-size: 0.74rem; font-weight: 800; letter-spacing: 0.02em;
+  color: var(--text-mute); margin: 0 0 8px; padding: 0 12px;
+}
+
+.menu-list { list-style: none; margin: 0; padding: 0; }
+.menu-list a {
+  display: block; padding: 9px 12px; border-radius: var(--radius-sm, 10px);
+  color: var(--text); font-weight: 600; font-size: 0.95rem; text-decoration: none;
+}
+.menu-list a:hover { background: rgba(255, 255, 255, 0.06); text-decoration: none; }
 .menu-list a.active { background: rgba(255, 84, 112, 0.12); color: var(--accent-soft); }
-.menu-num { color: var(--accent-soft); font-variant-numeric: tabular-nums; font-size: 0.82rem; font-weight: 700; }
 
 .menu-enter-active, .menu-leave-active { transition: opacity 0.18s ease, transform 0.18s ease; }
 .menu-enter-from, .menu-leave-to { opacity: 0; transform: translateY(-6px); }
