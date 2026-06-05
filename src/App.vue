@@ -15,15 +15,6 @@ const GROUPS = [
   { key: 'transparenz', route: '/quellen', items: ['quellen'] },
 ];
 
-// Alte Single-Page-Deeplinks (#abschnitt) auf die passende Route umleiten, damit
-// geteilte Links weiter funktionieren.
-const LEGACY = {
-  verteilung: '/verteilung', international: '/verteilung', 'ubs-studie': '/verteilung', pauschal: '/verteilung',
-  rechner: '/rechner', dynamik: '/rechner', verwendung: '/rechner',
-  'wir-reports': '/modelle', zucman: '/modelle',
-  quellen: '/quellen',
-};
-
 const isGroupActive = (key) => route.meta.group === key;
 const isItemActive = (g, n) =>
   route.path === g.route && (route.hash === `#${n}` || (!route.hash && n === g.items[0]));
@@ -91,13 +82,7 @@ onMounted(() => {
   window.addEventListener('keydown', onKeydown);
   document.addEventListener('click', onDocClick);
 
-  // Alten Deeplink (z. B. «/#rechner») einmalig auf die neue Route umleiten.
-  const id = decodeURIComponent(location.hash.slice(1));
-  if (route.path === '/' && id && LEGACY[id]) {
-    router.replace({ path: LEGACY[id], hash: `#${id}` });
-  } else if (route.hash) {
-    settleScroll(route.hash);
-  }
+  if (route.hash) settleScroll(route.hash);
 });
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll);

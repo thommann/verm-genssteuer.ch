@@ -50,8 +50,7 @@ die Themen kurz und verlinkt sie; jedes Thema ist eine eigene Seite (Route).
 
 Das Routing läuft im History-Mode (saubere URLs wie `/rechner`). Da GitHub Pages keinen
 SPA-Fallback kennt, kopiert der Build `dist/index.html` zusätzlich nach `dist/404.html`,
-damit Direktaufrufe der Routen funktionieren. Alte Single-Page-Deeplinks (`/#rechner`)
-werden beim Start auf die passende Route umgeleitet.
+damit Direktaufrufe der Routen funktionieren.
 
 ## Texte & i18n
 
