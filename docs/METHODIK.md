@@ -411,22 +411,29 @@ pro 100 Mio.:  2,0 Mio. − ~0,8 Mio. ≈ ~1,2 Mio./Jahr
 pro 1 Mrd.:    ~7–13 Mio./Jahr
 ```
 
-**Spiegelbild — Medianhaushalt** (Quelle `bfs_habe`, BFS Haushaltsbudgeterhebung 2023).
-Während die Superreichen ihre Mehrbelastung von ~1,2 % passiv in rund 62 Tagen verdienen,
-lebt ein normaler Haushalt von der Arbeit. Sein Vermögen (Median rund 182 248 USD pro
-Erwachsenem, `ubs`) steckt grösstenteils in Pensionskasse und Wohneigentum und wirft kaum
-ausschüttbares Einkommen ab. Belegte Eingangsgrössen aus einer Quelle:
+**Direkter Vergleich — Spitze gegenüber normalem Haushalt.** Beide Seiten gemessen an der
+*ganzen* Jahressteuer, nicht nur an der Mehrbelastung.
+
+*Superreiche, passiv:* Bei ~7,1 % realem Vermögenszuwachs ist die ganze Mindeststeuer von
+2 % des Vermögens wieder verdient in `(0,02 ÷ 0,071) × 365 ≈ 103 Tagen` (`zucman_g20`).
+
+*Normaler Haushalt, einkommensbasiert* (Quelle `bfs_habe`, BFS Haushaltsbudgeterhebung 2023,
+**Durchschnittswerte**). Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. Sein
+passives Vermögenseinkommen ist klein; das Vermögen kommt in der Rechnung nicht vor, sie ist
+rein einkommensbezogen:
 ```
 Steuern (Einkommen + Vermögen)   = 12,0 % des Bruttoeinkommens   (1245 CHF/Monat)
 Vermögenseinkommen (passiv)      =  4,5 % des Bruttoeinkommens   (Mittelwert, konzentriert:
                                    nur jeder 7. Haushalt liegt über diesem Anteil)
 
-Zeit, um die Jahressteuer allein aus dem Vermögenseinkommen zu verdienen:
+Zeit, um die ganze Jahressteuer allein aus dem Vermögenseinkommen zu verdienen
+(das Bruttoeinkommen kürzt sich heraus):
    12,0 % ÷ 4,5 % ≈ 2,7 Jahre
 ```
 Es sind Mittelwerte; beim typischen (Median-)Haushalt ist das Vermögenseinkommen tiefer und
 die Zeit länger. Die ~2,7 Jahre sind also die konservative (geschönte) Variante. Kontrast:
-blosse Mehrbelastung der Spitze ~62 Tage gegenüber gesamter Jahressteuer der Mitte ~2,7 Jahre.
+ganze 2 %-Steuer der Spitze ~103 Tage gegenüber ganzer Jahressteuer der Mitte ~2,7 Jahre,
+also rund zehnmal so lange.
 
 **Deklaration und Grenzen:**
 

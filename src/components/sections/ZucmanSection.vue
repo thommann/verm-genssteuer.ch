@@ -12,22 +12,24 @@ import SourceTag from '@/components/ui/SourceTag.vue';
 const REVENUE = 10e9; // Zusatzaufkommen der Mindeststeuer, gerundet
 const K = spendRef.kennzahlen;
 
-// Wie schnell holen die Superreichen die Mehrbelastung ueber den passiven
-// Vermoegenszuwachs wieder herein. EXTRA_RATE = Mehrbelastung gegenueber heute
-// (~2 % minus ~0,8 %). PASSIVE_RETURN = realer Zuwachs grosser Vermoegen p. a.
-// (Zucman, G20-Report 2024: Top 0,0001 % rund 7,1 % real 1987-2024).
-const EXTRA_RATE = 0.012;
+// Wie schnell holen die Superreichen die Steuer ueber den passiven
+// Vermoegenszuwachs wieder herein. ZUCMAN_RATE = ganze Mindeststeuer (2 %),
+// nicht nur die Mehrbelastung. PASSIVE_RETURN = realer Zuwachs grosser
+// Vermoegen p. a. (Zucman, G20-Report 2024: Top 0,0001 % rund 7,1 % real
+// 1987-2024). Recovery = 0,02 / 0,071 ~ 103 Tage.
+const ZUCMAN_RATE = 0.02;
 const PASSIVE_RETURN = 0.071;
-const recoveryDays = Math.round((EXTRA_RATE / PASSIVE_RETURN) * 365);
+const recoveryDays = Math.round((ZUCMAN_RATE / PASSIVE_RETURN) * 365);
 
-// Spiegelbild fuer den Medianhaushalt: wie lange dessen passives Einkommen
-// (Vermoegenseinkommen) braucht, um die eigene Jahressteuer zu decken. BFS
-// Haushaltsbudgeterhebung 2023: Steuern = 12,0 % des Bruttoeinkommens,
-// Vermoegenseinkommen im Schnitt nur 4,5 % (und nur bei jedem 7. Haushalt
-// darueber). Recovery = 0,12 / 0,045 ~ 2,7 Jahre.
-const MEDIAN_TAX_SHARE = 0.12;
-const MEDIAN_PROPERTY_SHARE = 0.045;
-const medianRecoveryYears = MEDIAN_TAX_SHARE / MEDIAN_PROPERTY_SHARE;
+// Direkter Vergleich fuer einen normalen Haushalt: wie lange dessen passives
+// Einkommen (Vermoegenseinkommen) braucht, um die ganze Jahressteuer zu decken.
+// Einkommensbasiert, BFS Haushaltsbudgeterhebung 2023 (Durchschnittswerte):
+// Steuern = 12,0 % des Bruttoeinkommens, Vermoegenseinkommen im Schnitt nur
+// 4,5 % (und nur bei jedem 7. Haushalt darueber). Das Einkommen kuerzt sich
+// heraus: Recovery = 0,12 / 0,045 ~ 2,7 Jahre.
+const HH_TAX_SHARE = 0.12;
+const HH_PROPERTY_SHARE = 0.045;
+const hhRecoveryYears = HH_TAX_SHARE / HH_PROPERTY_SHARE;
 
 const perCapita = computed(() => chf(REVENUE / K.population.value));
 const incomeShare = computed(() => pct(REVENUE / K.einkommenssteuer_np_alle_ebenen.value, 0));
@@ -83,12 +85,11 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
       <p class="body" v-html="$t('zucman.medText')" />
       <div class="card medbox">
         <span class="calc-line" v-html="$t('zucman.medLine')" />
-        <span class="med-result">~{{ num(medianRecoveryYears, 1) }}&nbsp;<span class="med-unit">{{ $t('zucman.medUnit') }}</span></span>
+        <span class="med-result">~{{ num(hhRecoveryYears, 1) }}&nbsp;<span class="med-unit">{{ $t('zucman.medUnit') }}</span></span>
         <span class="days-sub" v-html="$t('zucman.medSub')" />
       </div>
       <div class="srcrow">
         <SourceTag id="bfs_habe" :note="$t('zucman.medSource')" />
-        <SourceTag id="ubs" :note="$t('zucman.medSourceWealth')" />
       </div>
 
       <h3 class="block-h">{{ $t('zucman.meaningHeading') }}</h3>
