@@ -213,8 +213,13 @@ onUnmounted(() => {
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
+  /* dvh berücksichtigt die ein- und ausfahrende Adressleiste mobiler Browser,
+     damit das Menü nicht abgeschnitten wird; vh bleibt als Fallback. */
   max-height: calc(100vh - 62px);
+  max-height: calc(100dvh - 62px);
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 18px 0 26px;
 }
 .menu-top {

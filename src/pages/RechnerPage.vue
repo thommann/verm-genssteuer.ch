@@ -91,4 +91,11 @@ const { activeId } = useScrollSpy(['rechner', 'dynamik', 'verwendung']);
   align-self: center;
 }
 .cs-steps li { display: inline-flex; align-items: center; }
+/* Auf schmalen Schirmen brechen die Schritte um; dann die baumelnden Pfeile
+   ausblenden und die Pillen auf volle Breite stellen. */
+@media (max-width: 480px) {
+  .cs-steps { flex-direction: column; align-items: stretch; }
+  .cs-steps li:not(:last-child)::after { content: none; }
+  .cs-steps a { justify-content: flex-start; }
+}
 </style>
