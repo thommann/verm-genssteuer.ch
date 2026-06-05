@@ -296,11 +296,11 @@ export default {
     daysSource: 'Vermögenszuwachs ~7,1 % p. a. (1987–2024)',
 
     medHeading: 'Und ein normaler Haushalt?',
-    medText: 'Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. Laut Haushaltsbudgeterhebung des BFS macht das <strong>Vermögenseinkommen im Schnitt nur 4,5&nbsp;%</strong> des Bruttoeinkommens aus, und nur jeder siebte Haushalt liegt darüber. Die <strong>Steuern nehmen 12&nbsp;%</strong>.',
-    medLine: 'Um die ganze Jahressteuer (12&nbsp;% des Einkommens) allein aus dem passiven Vermögenseinkommen (4,5&nbsp;%) zu verdienen, braucht ein Haushalt im Schnitt:',
-    medUnit: 'Jahre',
-    medSub: 'Die <strong>ganze Mindeststeuer von 2&nbsp;%</strong> der Superreichen ist passiv in gut drei Monaten verdient. Für seine <strong>gesamte Jahressteuer</strong> bräuchte ein normaler Haushalt aus passivem Einkommen rund 2,7&nbsp;Jahre, also fast zehnmal so lange. Und das ist erst der Durchschnitt: schon dieser 4,5%-Schnitt markiert die Schwelle zum <strong>obersten Siebtel</strong> (rund 14&nbsp;%), denn nur jeder siebte Haushalt liegt darüber. Der typische Haushalt hat noch weniger passives Einkommen und zahlt seine Steuern aus dem Lohn.',
-    medSource: 'Steuern 12 % und Vermögenseinkommen 4,5 % des Bruttoeinkommens (2023)',
+    medText: 'Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. Was er besitzt, steckt grösstenteils in Vorsorge und Eigenheim: gebunden, bis zur Pensionierung nicht verfügbar und ohne nennenswerten Barertrag.',
+    medLine: 'Sein passives Vermögenseinkommen ist praktisch null. Um daraus die ganze Jahressteuer zu verdienen, braucht er:',
+    medResult: 'ein Leben lang',
+    medSub: 'Die <strong>ganze Mindeststeuer von 2&nbsp;%</strong> der Superreichen ist passiv in gut drei Monaten verdient. Beim normalen Haushalt ist das passive Einkommen so klein, dass schon der Durchschnitt von 4,5&nbsp;% des Einkommens zum <strong>obersten Siebtel</strong> zählt: nur jeder siebte Haushalt liegt darüber. Aus fast nichts lässt sich keine Steuer verdienen, er zahlt sie aus dem Lohn.',
+    medSource: 'Vermögenseinkommen im Schnitt 4,5 % des Bruttoeinkommens, nur jeder 7. Haushalt darüber (2023)',
 
     meaningHeading: 'Was ~10 Mrd. bedeuten',
     meaningPerCapita: 'pro Kopf und Jahr',

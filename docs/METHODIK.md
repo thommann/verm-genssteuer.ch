@@ -417,25 +417,17 @@ pro 1 Mrd.:    ~7–13 Mio./Jahr
 *Superreiche, passiv:* Bei ~7,1 % realem Vermögenszuwachs ist die ganze Mindeststeuer von
 2 % des Vermögens wieder verdient in `(0,02 ÷ 0,071) × 365 ≈ 103 Tagen` (`zucman_g20`).
 
-*Normaler Haushalt, einkommensbasiert* (Quelle `bfs_habe`, BFS Haushaltsbudgeterhebung 2023,
-**Durchschnittswerte**). Ein normaler Haushalt lebt von der Arbeit, nicht vom Vermögen. Sein
-passives Vermögenseinkommen ist klein; das Vermögen kommt in der Rechnung nicht vor, sie ist
-rein einkommensbezogen:
-```
-Steuern (Einkommen + Vermögen)   = 12,0 % des Bruttoeinkommens   (1245 CHF/Monat)
-Vermögenseinkommen (passiv)      =  4,5 % des Bruttoeinkommens   (Mittelwert, konzentriert:
-                                   nur jeder 7. Haushalt liegt über diesem Anteil)
+*Normaler Haushalt* (Quelle `bfs_habe`, BFS Haushaltsbudgeterhebung 2023). Ein normaler
+Haushalt lebt von der Arbeit, nicht vom Vermögen. Das passive Vermögenseinkommen beträgt im
+Schnitt nur 4,5 % des Bruttoeinkommens, und dieser Schnitt ist bereits stark nach oben
+gezogen: nur jeder 7. Haushalt liegt darüber, der Durchschnitt markiert also schon die
+Schwelle zum obersten Siebtel (rund 14 %). Der typische (Median-)Haushalt hat damit praktisch
+kein passives Einkommen. Aus diesem Nichts lässt sich die Steuer auch in einem ganzen Leben
+nicht passiv verdienen; sie wird aus dem Lohn bezahlt. Ein Renditesatz, eine Währungs-
+umrechnung oder das gebundene Vorsorge-/Wohnvermögen sind dafür bewusst nicht nötig.
 
-Zeit, um die ganze Jahressteuer allein aus dem Vermögenseinkommen zu verdienen
-(das Bruttoeinkommen kürzt sich heraus):
-   12,0 % ÷ 4,5 % ≈ 2,7 Jahre
-```
-Es sind Mittelwerte; beim typischen (Median-)Haushalt ist das Vermögenseinkommen tiefer und
-die Zeit länger. Schon der Durchschnittswert von 4,5 % markiert die Schwelle zum obersten
-Siebtel (rund 14 %), da nur jeder 7. Haushalt darüber liegt. Die ~2,7 Jahre sind also die
-konservative (geschönte) Variante. Kontrast:
-ganze 2 %-Steuer der Spitze ~103 Tage gegenüber ganzer Jahressteuer der Mitte ~2,7 Jahre,
-also rund zehnmal so lange.
+Kontrast: ganze 2 %-Steuer der Spitze passiv in ~103 Tagen, gegenüber dem normalen Haushalt,
+der seine Steuer überhaupt nicht passiv aufbringen kann.
 
 **Deklaration und Grenzen:**
 
