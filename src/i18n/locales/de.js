@@ -3,18 +3,36 @@
 // per v-html gerendert; {platzhalter} werden zur Laufzeit mit formatierten Werten
 // gefüllt. Es wird kein deutsches Eszett verwendet (immer «ss»).
 export default {
+  // Seitentitel je Route (Browser-Tab); werden mit nav.brand zusammengesetzt.
+  routes: {
+    home: 'Das reichste 1 %',
+    verteilung: 'Wie ungleich ist die Schweiz?',
+    rechner: 'Vermögenssteuer-Rechner',
+    modelle: 'Steuermodelle der Forschung',
+    quellen: 'Quellen & Methodik',
+  },
+
   // Navigation und Abschnitts-Menü (App.vue)
   nav: {
     brand: 'vermögenssteuer.ch',
     cta: 'Ausprobieren',
     menu: 'Menü',
     menuAria: 'Abschnitts-Menü',
-    menuTitle: 'Abschnitte',
+    menuTitle: 'Themen & Abschnitte',
+    toTop: 'Nach oben',
+    // Überschriften der Themengruppen im Menü.
+    groups: {
+      verteilung: 'Wie ungleich ist die Schweiz?',
+      rechner: 'Was bringt eine Steuer?',
+      modelle: 'Welche Modelle gibt es?',
+      transparenz: 'Transparenz',
+    },
     items: {
       start: 'Start',
+      themen: 'Themen-Übersicht',
       verteilung: 'Verteilung',
       rechner: 'Rechner',
-      verwendung: 'Was tun?',
+      verwendung: 'Verwendung',
       dynamik: 'Dynamik',
       international: 'International',
       'wir-reports': 'WIR-Reports',
@@ -23,6 +41,45 @@ export default {
       pauschal: 'Pauschalbesteuerung',
       quellen: 'Quellen',
     },
+  },
+
+  // Themen-Hub auf der Startseite (TopicsSection): erklärt die drei Themen kurz und verlinkt sie.
+  topics: {
+    eyebrow: 'Worum es geht',
+    title: 'Drei Themen, eine Seite',
+    lead: 'Alles ist in drei Themen gegliedert. Spring direkt zu dem, was dich interessiert, oder scroll der Reihe nach durch.',
+    contains: 'Enthält',
+    card1Num: '1',
+    card1Kicker: 'Thema 1',
+    card1Title: 'Wie ungleich ist die Schweiz?',
+    card1Text: 'Steuerdaten, internationaler Vergleich und die UBS-Studie zeigen, wie stark sich das Vermögen beim reichsten Prozent ballt, samt dem blinden Fleck der Pauschalbesteuerten.',
+    card1Link: 'Zur Verteilung',
+    card2Num: '2',
+    card2Kicker: 'Thema 2',
+    card2Title: 'Was würde eine Vermögenssteuer bringen?',
+    card2Text: 'Bau im interaktiven Rechner deine eigene Steuer auf das oberste Prozent, sieh die dauerhaft tragbare Wirkung und wofür die Einnahmen reichen würden.',
+    card2Link: 'Zum Rechner',
+    card3Num: '3',
+    card3Kicker: 'Thema 3',
+    card3Title: 'Welche Modelle schlägt die Forschung vor?',
+    card3Text: 'Die Steuermodelle stammen aus dem World Inequality Report und der Mindeststeuer von Gabriel Zucman. Hier stehen ihre Designs und erwarteten Erträge.',
+    card3Link: 'Zu den Modellen',
+  },
+
+  // Kapitel-Überschriften zwischen den Themen (ChapterHeader / calc-suite).
+  chapters: {
+    verteilungNum: '01',
+    verteilungKicker: 'Thema 1 · Die Verteilung',
+    verteilungTitle: 'Wie ungleich ist die Schweiz?',
+    verteilungLead: 'Vier Blickwinkel auf dieselbe Konzentration: die ESTV-Steuerdaten, der internationale Trend, die UBS-Studie und die Pauschalbesteuerten, die in keiner Vermögensstatistik auftauchen.',
+    rechnerNum: '02',
+    rechnerKicker: 'Thema 2 · Der Rechner',
+    rechnerTitle: 'Was würde eine Vermögenssteuer bringen?',
+    rechnerLead: 'Stell ein Steuermodell auf das oberste Prozent ein und sieh in Echtzeit, was es einbringt, was davon dauerhaft tragbar ist und wofür das Geld reichen würde.',
+    modelleNum: '03',
+    modelleKicker: 'Thema 3 · Die Vorbilder',
+    modelleTitle: 'Welche Modelle schlägt die Forschung vor?',
+    modelleLead: 'Woher die Modelle stammen: die progressive Staffel des World Inequality Report und die 2-Prozent-Mindeststeuer von Gabriel Zucman.',
   },
 
   // Rechner-Einheit: Kopf der zusammengehörenden Abschnitte (Rechner, Rendite, Verwendung).
@@ -37,12 +94,12 @@ export default {
   hero: {
     eyebrow: 'Vermögen · Schweiz · 2022',
     title: 'Das reichste <span class="hl">1&nbsp;%</span> besitzt <span class="hl gold">{share}</span> des steuerbaren Vermögens.',
-    lead: 'Knapp <strong>{cnt}</strong> Steuerpflichtige, rund ein Prozent, halten zusammen fast so viel Vermögen wie die anderen 99&nbsp;% zusammen. Das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>. Diese Seite macht die Zahlen sichtbar und lässt dich ausprobieren, was eine faire Vermögenssteuer auf dieses eine Prozent bewirken könnte.',
+    lead: 'Knapp <strong>{cnt}</strong> Steuerpflichtige, rund ein Prozent, halten zusammen fast so viel Vermögen wie die anderen 99&nbsp;% zusammen. Das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>.',
     stat1Label: 'des Vermögens beim reichsten&nbsp;1&nbsp;%<br />(Vermögen ab 5&nbsp;Mio.)',
     stat2Label: 'Median-Vermögen,<br />die «mittlere» Schweiz',
     stat3Label: 'so hoch ist der Durchschnitt<br />wegen der Spitze',
-    ctaTry: 'Steuermodell ausprobieren ↓',
-    ctaDistribution: 'Erst die Verteilung ansehen',
+    ctaTry: 'Rechner ausprobieren',
+    ctaTopics: 'Erst die drei Themen ansehen',
     sourceNote: 'unbeschränkt Steuerpflichtige, 2022',
   },
 
@@ -201,7 +258,7 @@ export default {
     card2026Li2: 'Antwort: Mindeststeuer <strong>2&nbsp;/ 3&nbsp;/ 5&nbsp;%</strong> auf Centi-Millionäre&nbsp;und&nbsp;Milliardäre.',
     card2026Li3: '2&nbsp;% auf Milliardäre ≈ <strong>200&nbsp;bis&nbsp;250&nbsp;Mrd.&nbsp;$</strong> pro Jahr.',
     card2026Link: 'wir2026.wid.world ↗',
-    shift: '<strong>Was sich geändert hat:</strong> 2022 schlägt einen progressiven Mehrband-Tarif vor, 2026 eine <strong>flache Mindeststeuer</strong> auf Centi-Millionäre und Milliardäre, aufbauend auf Zucman&nbsp;(2024), den die brasilianische G20-Präsidentschaft 2024 auf die Agenda setzte. Laut WIR&nbsp;2026 «neutralisiert» bereits ein Satz von 2&nbsp;% die Regressivität an der Spitze. Die progressive Staffel von 2022 kannst du <a href="#rechner">im Rechner</a> als Preset durchprobieren; die Mindeststeuer von 2026 schlägt keine Vermögenssteuer vor und steht deshalb nicht im Rechner, sondern im Abschnitt <a href="#zucman">Zucman-Steuer</a>. Das interaktive Original-Tool zur progressiven Staffel ist der <a href="https://wid.world/world-wealth-tax-simulator/" target="_blank" rel="noopener">Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator</a> des World&nbsp;Inequality&nbsp;Lab.',
+    shift: '<strong>Was sich geändert hat:</strong> 2022 schlägt einen progressiven Mehrband-Tarif vor, 2026 eine <strong>flache Mindeststeuer</strong> auf Centi-Millionäre und Milliardäre, aufbauend auf Zucman&nbsp;(2024), den die brasilianische G20-Präsidentschaft 2024 auf die Agenda setzte. Laut WIR&nbsp;2026 «neutralisiert» bereits ein Satz von 2&nbsp;% die Regressivität an der Spitze. Die progressive Staffel von 2022 kannst du <a href="/rechner">im Rechner</a> als Preset durchprobieren; die Mindeststeuer von 2026 schlägt keine Vermögenssteuer vor und steht deshalb nicht im Rechner, sondern im Abschnitt <a href="#zucman">Zucman-Steuer</a>. Das interaktive Original-Tool zur progressiven Staffel ist der <a href="https://wid.world/world-wealth-tax-simulator/" target="_blank" rel="noopener">Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator</a> des World&nbsp;Inequality&nbsp;Lab.',
     videoLabel: 'Video · Gary\'s Economics mit Gabriel Zucman',
     videoTitle: '«The economist billionaires fear: this is how we get a wealth tax»',
     videoHint: 'youtube.com ↗',

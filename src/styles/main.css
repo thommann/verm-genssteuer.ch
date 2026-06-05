@@ -7,7 +7,9 @@
   --border: #2a3563;
   --text: #eef1fb;
   --text-soft: #aab4d4;
-  --text-mute: #7e88ad;
+  /* Gedämpfter Ton; aufgehellt, damit er auch auf dem dunkelsten Kartenverlauf
+     (bg-card-2) die WCAG-AA-Schwelle von 4.5:1 erreicht. */
+  --text-mute: #8a93b6;
 
   --accent: #ff5470;        /* «1 %» / Aktion */
   --accent-soft: #ff849a;
@@ -62,6 +64,24 @@ section { padding: clamp(56px, 9vw, 120px) 0; position: relative; }
 .eyebrow::before { content: ''; width: 26px; height: 2px; background: var(--accent); border-radius: 2px; }
 
 .lead { font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--text-soft); max-width: 60ch; }
+
+/* Kapitel-Kopf zwischen den Themen (ChapterHeader und Rechner-Einheit teilen diese Klassen). */
+.chapter-head { padding: clamp(54px, 9vw, 104px) 0 clamp(6px, 2vw, 18px); }
+.chapter-head-top { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
+.chapter-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 42px; height: 42px; padding: 0 10px; border-radius: 12px;
+  font-size: 1.02rem; font-weight: 800; font-variant-numeric: tabular-nums;
+  color: var(--accent); background: rgba(255, 84, 112, 0.1); border: 1px solid var(--border);
+}
+.chapter-kicker {
+  text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; font-weight: 700;
+  color: var(--accent-soft);
+}
+.chapter-title { font-size: clamp(1.9rem, 4.6vw, 3rem); max-width: 20ch; margin-bottom: 0.45em; }
+.chapter-lead { margin-bottom: 0; }
+/* Erster Abschnitt direkt nach einem Kapitel-Kopf rückt enger an die Überschrift. */
+.chapter-head + section { padding-top: clamp(22px, 4vw, 44px); }
 
 .card {
   background: linear-gradient(160deg, var(--bg-card), var(--bg-card-2));

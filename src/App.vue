@@ -1,103 +1,51 @@
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue';
-import HeroSection from '@/components/sections/HeroSection.vue';
-import DistributionSection from '@/components/sections/DistributionSection.vue';
-import CalculatorSection from '@/components/sections/CalculatorSection.vue';
-import SpendSection from '@/components/sections/SpendSection.vue';
-import ProjectionSection from '@/components/sections/ProjectionSection.vue';
-import InternationalSection from '@/components/sections/InternationalSection.vue';
-import WirSection from '@/components/sections/WirSection.vue';
-import ZucmanSection from '@/components/sections/ZucmanSection.vue';
-import UbsStudySection from '@/components/sections/UbsStudySection.vue';
-import PauschalSection from '@/components/sections/PauschalSection.vue';
-import SourcesSection from '@/components/sections/SourcesSection.vue';
+import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import ReadingProgress from '@/components/ui/ReadingProgress.vue';
 
-// Vollständige Liste aller Abschnitts-Anker. Jede id entspricht einem Anker im DOM,
-// der von überall (auch extern) per #id verlinkt werden kann. Die Beschriftungen
-// liegen zentral in der i18n-Locale (nav.items.<id>).
-const NAV = [
-  'start',
-  'verteilung',
-  'rechner',
-  'dynamik',
-  'verwendung',
-  'international',
-  'wir-reports',
-  'zucman',
-  'ubs-studie',
-  'pauschal',
-  'quellen',
+const route = useRoute();
+const router = useRouter();
+
+// Drei Themen plus Transparenz. Jede Gruppe trägt eine Route und ihre Abschnitts-Anker
+// in DOM-Reihenfolge; die Beschriftungen liegen in nav.groups.<key> und nav.items.<id>.
+const GROUPS = [
+  { key: 'verteilung', route: '/verteilung', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
+  { key: 'rechner', route: '/rechner', items: ['rechner', 'dynamik', 'verwendung'] },
+  { key: 'modelle', route: '/modelle', items: ['wir-reports', 'zucman'] },
+  { key: 'transparenz', route: '/quellen', items: ['quellen'] },
 ];
 
-const SECTION_IDS = NAV;
+const isGroupActive = (key) => route.meta.group === key;
+const isItemActive = (g, n) =>
+  route.path === g.route && (route.hash === `#${n}` || (!route.hash && n === g.items[0]));
+
+// Sticky-Navigation: ab etwas Scroll einen soliden Hintergrund einblenden.
 const scrolled = ref(false);
-const activeId = ref(SECTION_IDS[0]);
-
-// Scroll-Spy: ermittelt den aktuell sichtbaren Abschnitt und spiegelt dessen
-// Anker in die URL (ohne neue History-Einträge), damit Links jederzeit teilbar
-// sind und der aktive Eintrag im Menü markiert werden kann.
-const updateActive = () => {
-  const line = 90; // knapp unter der Sticky-Navigation
-  let current = SECTION_IDS[0];
-  for (const id of SECTION_IDS) {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top <= line) current = id;
-  }
-  // Am Seitenende den letzten Abschnitt aktiv setzen, auch wenn er kurz ist.
-  if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) {
-    current = SECTION_IDS[SECTION_IDS.length - 1];
-  }
-  if (current !== activeId.value) activeId.value = current;
-  if (location.hash !== `#${current}`) {
-    history.replaceState(null, '', `#${current}`);
-  }
-};
-
-let ticking = false;
-const onScroll = () => {
-  scrolled.value = window.scrollY > 40;
-  if (!ticking) {
-    ticking = true;
-    requestAnimationFrame(() => {
-      ticking = false;
-      updateActive();
-    });
-  }
-};
+const onScroll = () => { scrolled.value = window.scrollY > 40; };
 
 const menuOpen = ref(false);
 const toggleMenu = () => (menuOpen.value = !menuOpen.value);
 const closeMenu = () => (menuOpen.value = false);
-const onKeydown = (e) => {
-  if (e.key === 'Escape') closeMenu();
-};
+const onKeydown = (e) => { if (e.key === 'Escape') closeMenu(); };
 
-// Externe Deeplinks (#abschnitt) zuverlässig anspringen: Diagramme werden
-// asynchron gerendert und schieben das Layout nach. Wir korrigieren das
-// Anspringen daher so lange nach, bis das Layout steht, brechen aber ab,
-// sobald der Nutzer selbst scrollt. Das Ziel wird einmal aus der initialen
-// URL gelesen, bevor der Scroll-Spy den Hash verändern kann.
-const settleDeeplink = async () => {
-  const id = decodeURIComponent(location.hash.slice(1));
+// Anker innerhalb einer Seite zuverlässig anspringen: Diagramme rendern asynchron und
+// schieben das Layout nach. Wir springen daher wiederholt zum Ziel, bis das Layout steht,
+// brechen aber ab, sobald der Nutzer selbst scrollt.
+const settleScroll = async (hash) => {
+  if (!hash) return;
   await nextTick();
-  const target = id && document.getElementById(id);
-  if (!target) {
-    updateActive(); // ohne Deeplink: Hash auf den obersten Abschnitt setzen
-    return;
-  }
-  const jumpToTarget = () => target.scrollIntoView({ behavior: 'instant', block: 'start' });
-  jumpToTarget();
+  const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+  if (!target) return;
+  const jump = () => target.scrollIntoView({ behavior: 'instant', block: 'start' });
+  jump();
 
   let userScrolled = false;
   const cancel = () => (userScrolled = true);
   window.addEventListener('wheel', cancel, { passive: true, once: true });
   window.addEventListener('touchmove', cancel, { passive: true, once: true });
 
-  // Bei Höhenänderungen (nachladende Charts) erneut zum Anker springen.
-  const ro = new ResizeObserver(() => { if (!userScrolled) jumpToTarget(); });
+  const ro = new ResizeObserver(() => { if (!userScrolled) jump(); });
   ro.observe(document.body);
-
-  // Beobachtung nach kurzer Stabilisierungsphase wieder lösen.
   setTimeout(() => {
     ro.disconnect();
     window.removeEventListener('wheel', cancel);
@@ -105,28 +53,54 @@ const settleDeeplink = async () => {
   }, 1800);
 };
 
+// Interne Absolut-Links aus v-html-Texten (z. B. «/rechner») ohne Vollreload navigieren.
+// router-link-Klicks haben e.defaultPrevented bereits gesetzt und werden übersprungen.
+const onDocClick = (e) => {
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const a = e.target.closest('a');
+  if (!a) return;
+  const href = a.getAttribute('href');
+  if (!href || !href.startsWith('/')) return;
+  if (a.target && a.target !== '_self') return;
+  e.preventDefault();
+  const url = new URL(a.href);
+  router.push(url.pathname + url.search + url.hash);
+};
+
+// Bei jedem Seitenwechsel das Menü schliessen und Anker (falls vorhanden) anspringen.
+watch(
+  () => route.fullPath,
+  () => {
+    closeMenu();
+    if (route.hash) settleScroll(route.hash);
+  },
+);
+
 onMounted(() => {
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('keydown', onKeydown);
-  settleDeeplink();
+  document.addEventListener('click', onDocClick);
+
+  if (route.hash) settleScroll(route.hash);
 });
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll);
   window.removeEventListener('keydown', onKeydown);
+  document.removeEventListener('click', onDocClick);
 });
 </script>
 
 <template>
   <nav class="nav" :class="{ solid: scrolled || menuOpen }">
     <div class="wrap nav-inner">
-      <a href="#start" class="brand" @click="closeMenu">
+      <router-link to="/" class="brand" @click="closeMenu">
         <img class="brand-flag" src="/logo.svg" alt="" aria-hidden="true" />
         {{ $t('nav.brand') }}
-      </a>
+      </router-link>
 
       <div class="nav-actions">
-        <a href="#rechner" class="btn btn-primary nav-cta" @click="closeMenu">{{ $t('nav.cta') }}</a>
+        <router-link to="/rechner" class="btn btn-primary nav-cta" @click="closeMenu">{{ $t('nav.cta') }}</router-link>
         <button
           type="button"
           class="menu-toggle"
@@ -141,125 +115,52 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <!-- Vollständiges Abschnitts-Menü: listet alle Sektionen und springt zum Anker. -->
+    <!-- Themen-Menü: nach den drei Themen (plus Transparenz) gruppiert. Jede Gruppe
+         verlinkt ihre Seite und Abschnitts-Anker; die aktive Gruppe ist markiert. -->
     <transition name="menu">
       <div v-if="menuOpen" id="section-menu" class="section-menu" @click.self="closeMenu">
         <div class="wrap">
-          <p class="menu-title">{{ $t('nav.menuTitle') }}</p>
-          <ul class="menu-list">
-            <li v-for="(n, i) in NAV" :key="n">
-              <a
-                :href="`#${n}`"
-                :class="{ active: activeId === n }"
-                :aria-current="activeId === n ? 'true' : undefined"
-                @click="closeMenu"
-              >
-                <span class="menu-num">{{ String(i + 1).padStart(2, '0') }}</span>
-                {{ $t(`nav.items.${n}`) }}
-              </a>
-            </li>
-          </ul>
+          <div class="menu-top">
+            <router-link to="/" @click="closeMenu">{{ $t('nav.items.start') }}</router-link>
+            <router-link :to="{ path: '/', hash: '#themen' }" @click="closeMenu">{{ $t('nav.items.themen') }}</router-link>
+          </div>
+          <div class="menu-groups">
+            <div
+              v-for="g in GROUPS"
+              :key="g.key"
+              class="menu-group"
+              :class="{ active: isGroupActive(g.key) }"
+            >
+              <router-link class="menu-group-title" :to="g.route" @click="closeMenu">
+                {{ $t(`nav.groups.${g.key}`) }}
+              </router-link>
+              <ul class="menu-list">
+                <li v-for="n in g.items" :key="n">
+                  <router-link
+                    :to="{ path: g.route, hash: `#${n}` }"
+                    :class="{ active: isItemActive(g, n) }"
+                    :aria-current="isItemActive(g, n) ? 'true' : undefined"
+                    @click="closeMenu"
+                  >
+                    {{ $t(`nav.items.${n}`) }}
+                  </router-link>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </transition>
   </nav>
 
+  <ReadingProgress />
+
   <main id="top">
-    <HeroSection />
-    <DistributionSection />
-
-    <!-- Zusammenhängende Rechner-Einheit: Modell wählen, Rendite einstellen, Wirkung sehen.
-         Alle drei Abschnitte teilen denselben reaktiven Datensatz (useCalculator) und werden
-         durch den Rahmen, die Akzentlinie und die Schritt-Navigation als ein Block markiert. -->
-    <div class="calc-suite">
-      <div class="wrap calc-suite-head">
-        <span class="cs-kicker">{{ $t('calcSuite.kicker') }}</span>
-        <ol class="cs-steps">
-          <li>
-            <a href="#rechner" :class="{ active: activeId === 'rechner' }">
-              <span class="cs-num">1</span>{{ $t('calcSuite.step1') }}
-            </a>
-          </li>
-          <li>
-            <a href="#dynamik" :class="{ active: activeId === 'dynamik' }">
-              <span class="cs-num">2</span>{{ $t('calcSuite.step2') }}
-            </a>
-          </li>
-          <li>
-            <a href="#verwendung" :class="{ active: activeId === 'verwendung' }">
-              <span class="cs-num">3</span>{{ $t('calcSuite.step3') }}
-            </a>
-          </li>
-        </ol>
-      </div>
-      <CalculatorSection />
-      <ProjectionSection />
-      <SpendSection />
-    </div>
-
-    <InternationalSection />
-    <WirSection />
-    <ZucmanSection />
-    <UbsStudySection />
-    <PauschalSection />
-    <SourcesSection />
+    <router-view />
   </main>
 </template>
 
 <style scoped>
-/* Rechner-Einheit: full-bleed Band, das die drei zusammengehörenden Abschnitte
-   (Rechner, Rendite, Verwendung) optisch zu einem Block zusammenfasst. */
-.calc-suite {
-  position: relative;
-  background:
-    radial-gradient(1100px 500px at 50% -8%, rgba(255, 84, 112, 0.07), transparent 60%),
-    linear-gradient(180deg, rgba(124, 92, 255, 0.05), rgba(56, 214, 196, 0.035));
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-/* Akzentlinie am oberen Rand markiert den Anfang der Einheit. */
-.calc-suite::before {
-  content: '';
-  position: absolute; top: -1px; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--violet), var(--teal));
-}
-/* Innenabstände der gebündelten Abschnitte verringern, damit sie als Einheit lesen. */
-.calc-suite > section { padding-top: clamp(40px, 5vw, 72px); padding-bottom: clamp(40px, 5vw, 72px); }
-.calc-suite > section:first-of-type { padding-top: clamp(20px, 3vw, 36px); }
-
-.calc-suite-head { padding-top: clamp(40px, 6vw, 80px); }
-.cs-kicker {
-  display: inline-flex; align-items: center; gap: 8px;
-  text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.72rem; font-weight: 700;
-  color: var(--accent-soft);
-}
-.cs-kicker::before { content: ''; width: 26px; height: 2px; background: var(--accent); border-radius: 2px; }
-.cs-steps {
-  list-style: none; margin: 14px 0 0; padding: 0;
-  display: flex; flex-wrap: wrap; gap: 10px;
-}
-.cs-steps a {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 8px 15px 8px 8px; border-radius: 999px;
-  font-size: 0.88rem; font-weight: 700; color: var(--text-soft);
-  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
-  text-decoration: none; transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
-}
-.cs-steps a:hover { color: var(--text); border-color: var(--accent); }
-.cs-steps a.active { color: var(--text); border-color: var(--accent); background: rgba(255, 84, 112, 0.1); }
-.cs-num {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 24px; height: 24px; border-radius: 999px;
-  font-size: 0.8rem; font-variant-numeric: tabular-nums;
-  background: var(--accent); color: #1a0008;
-}
-/* Verbindende Pfeile zwischen den Schritten. */
-.cs-steps li:not(:last-child)::after {
-  content: '→'; color: var(--text-mute); font-weight: 700; margin-left: 10px;
-  align-self: center;
-}
-.cs-steps li { display: inline-flex; align-items: center; }
-
 .nav {
   position: sticky; top: 0; z-index: 50;
   transition: background 0.2s ease, border-color 0.2s ease, backdrop-filter 0.2s ease;
@@ -297,20 +198,39 @@ onUnmounted(() => {
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
+  /* dvh berücksichtigt die ein- und ausfahrende Adressleiste mobiler Browser,
+     damit das Menü nicht abgeschnitten wird; vh bleibt als Fallback. */
   max-height: calc(100vh - 62px);
+  max-height: calc(100dvh - 62px);
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 18px 0 26px;
 }
-.menu-title { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute); margin: 0 0 12px; }
-.menu-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px 22px; }
-.menu-list a {
-  display: flex; align-items: baseline; gap: 12px;
-  padding: 11px 12px; border-radius: var(--radius-sm, 10px);
-  color: var(--text); font-weight: 600; text-decoration: none;
+.menu-top {
+  display: flex; flex-wrap: wrap; gap: 20px;
+  margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
 }
-.menu-list a:hover { background: rgba(255, 255, 255, 0.06); }
+.menu-top a { font-size: 0.86rem; font-weight: 700; color: var(--text-soft); text-decoration: none; }
+.menu-top a:hover { color: var(--text); text-decoration: none; }
+
+.menu-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px 26px; }
+.menu-group { padding: 6px 0 10px; }
+.menu-group.active .menu-group-title { color: var(--accent-soft); }
+.menu-group-title {
+  display: block;
+  font-size: 0.74rem; font-weight: 800; letter-spacing: 0.02em;
+  color: var(--text-mute); margin: 0 0 8px; padding: 0 12px; text-decoration: none;
+}
+.menu-group-title:hover { color: var(--text); text-decoration: none; }
+
+.menu-list { list-style: none; margin: 0; padding: 0; }
+.menu-list a {
+  display: block; padding: 9px 12px; border-radius: var(--radius-sm, 10px);
+  color: var(--text); font-weight: 600; font-size: 0.95rem; text-decoration: none;
+}
+.menu-list a:hover { background: rgba(255, 255, 255, 0.06); text-decoration: none; }
 .menu-list a.active { background: rgba(255, 84, 112, 0.12); color: var(--accent-soft); }
-.menu-num { color: var(--accent-soft); font-variant-numeric: tabular-nums; font-size: 0.82rem; font-weight: 700; }
 
 .menu-enter-active, .menu-leave-active { transition: opacity 0.18s ease, transform 0.18s ease; }
 .menu-enter-from, .menu-leave-to { opacity: 0; transform: translateY(-6px); }

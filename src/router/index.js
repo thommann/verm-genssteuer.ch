@@ -1,0 +1,32 @@
+import { createRouter, createWebHistory } from 'vue-router';
+import HomePage from '@/pages/HomePage.vue';
+import VerteilungPage from '@/pages/VerteilungPage.vue';
+import RechnerPage from '@/pages/RechnerPage.vue';
+import ModellePage from '@/pages/ModellePage.vue';
+import QuellenPage from '@/pages/QuellenPage.vue';
+
+// Drei Themen plus Startseite und Quellen. Die meta.group-Schlüssel verbinden eine Route
+// mit ihrer Menü-Überschrift (nav.groups.<group>) und der aktiven Hervorhebung.
+export const routes = [
+  { path: '/', name: 'home', component: HomePage, meta: { titleKey: 'routes.home' } },
+  { path: '/verteilung', name: 'verteilung', component: VerteilungPage, meta: { group: 'verteilung', titleKey: 'routes.verteilung' } },
+  { path: '/rechner', name: 'rechner', component: RechnerPage, meta: { group: 'rechner', titleKey: 'routes.rechner' } },
+  { path: '/modelle', name: 'modelle', component: ModellePage, meta: { group: 'modelle', titleKey: 'routes.modelle' } },
+  { path: '/quellen', name: 'quellen', component: QuellenPage, meta: { group: 'transparenz', titleKey: 'routes.quellen' } },
+  // Unbekannte Pfade führen zurück zur Startseite.
+  { path: '/:pathMatch(.*)*', redirect: '/' },
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+  // Beim Seitenwechsel nach oben; Anker-Sprünge innerhalb einer Seite übernimmt die
+  // settleScroll-Routine in App.vue, weil Diagramme das Layout asynchron verschieben.
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) return false;
+    if (savedPosition) return savedPosition;
+    return { top: 0 };
+  },
+});
+
+export default router;

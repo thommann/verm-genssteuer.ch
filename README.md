@@ -9,32 +9,48 @@ erlebbar/experimentierbar macht.
 
 ## Was die Seite zeigt
 
-1. **Verteilung** — wer in der Schweiz wie viel Vermögen besitzt (ESTV 2012–2022).
-2. **Rechner** — baue per Regler deine eigene progressive Vermögenssteuer und sieh das
-   Jahresaufkommen in Echtzeit (statisch, auf echten ESTV-Daten + Pareto-Tail).
-3. **Was tun mit dem Geld?** — dieselben Einnahmen als
-   *Einkommenssteuer-Senkung*, *Übernahme von Krankenkassenprämien* oder
-   *Pro-Kopf-Dividende* — live aus dem Rechner.
-4. **Dynamik** — ehrliche Hochrechnung: Einmaleffekt vs. dauerhaft tragbares Niveau.
-5. **International** — Vermögenskonzentration im Zeitverlauf (WID) und im Ländervergleich (WID/UBS-Gini).
-6. **WIR 2022 & 2026** — die Steuermodelle des World Inequality Report (progressive Staffel
-   vs. Mindeststeuer), kurz verglichen und verlinkt; dazu der interaktive *Global Wealth Tax
-   Simulator* und ein Video mit Gabriel Zucman. Die progressive Staffel von 2022 ist im
-   Rechner als Preset; die Mindeststeuer von 2026 (keine Vermögenssteuer) steht im
-   Abschnitt «Zucman-Steuer».
-7. **UBS-Studie** — der UBS Global Wealth Report (vormals Credit Suisse): Vermögens-Gini
-   im Ländervergleich, die Lücke zwischen Durchschnitts- und Median-Vermögen und die globale
-   Vermögenspyramide.
-8. **Pauschalbesteuerung** — der statistische blinde Fleck an der Spitze (FDK).
-9. **Quellen & Methodik** — alle Quellen, transparent verlinkt.
+Die Inhalte sind in drei Themen plus Transparenz gegliedert. Die Startseite (`/`) erklärt
+die Themen kurz und verlinkt sie; jedes Thema ist eine eigene Seite (Route).
+
+**Thema 1: Wie ungleich ist die Schweiz? (`/verteilung`)**
+
+- **Verteilung**: wer in der Schweiz wie viel Vermögen besitzt (ESTV 2012–2022).
+- **International**: Vermögenskonzentration im Zeitverlauf (WID) und im Ländervergleich (WID/UBS-Gini).
+- **UBS-Studie**: der UBS Global Wealth Report (vormals Credit Suisse) mit Vermögens-Gini,
+  der Lücke zwischen Durchschnitts- und Median-Vermögen und der globalen Vermögenspyramide.
+- **Pauschalbesteuerung**: der statistische blinde Fleck an der Spitze (FDK).
+
+**Thema 2: Was bringt eine Steuer? (`/rechner`)**
+
+- **Rechner**: baue per Regler deine eigene progressive Vermögenssteuer und sieh das
+  Jahresaufkommen in Echtzeit (statisch, auf echten ESTV-Daten + Pareto-Tail).
+- **Dynamik**: ehrliche Hochrechnung, Einmaleffekt gegen dauerhaft tragbares Niveau.
+- **Verwendung**: dieselben Einnahmen als *Einkommenssteuer-Senkung*, *Übernahme von
+  Krankenkassenprämien*, *Pro-Kopf-Dividende* oder *Schuldentilgung*, live aus dem Rechner.
+
+**Thema 3: Welche Modelle gibt es? (`/modelle`)**
+
+- **WIR 2022 & 2026**: die Steuermodelle des World Inequality Report (progressive Staffel
+  gegen Mindeststeuer), kurz verglichen und verlinkt, dazu der interaktive *Global Wealth Tax
+  Simulator* und ein Video mit Gabriel Zucman. Die progressive Staffel von 2022 ist im
+  Rechner als Preset; die Mindeststeuer von 2026 (keine Vermögenssteuer) steht im Abschnitt
+  «Zucman-Steuer».
+- **Zucman-Steuer**: die 2-Prozent-Mindeststeuer auf das Vermögen und ihre Wirkung in der Schweiz.
+
+**Quellen & Methodik (`/quellen`)**: alle Quellen, transparent verlinkt.
 
 ## Stack
 
 - **Vue 3** (`<script setup>`, Composition API) + **Vite**
+- **vue-router** für die Themen als eigene Seiten (History-Mode, Seiten unter `src/pages/`)
 - **vue-i18n** für die zentrale Textverwaltung (alle Oberflächentexte über Schlüssel)
 - Eigene, abhängigkeitsfreie **SVG-Charts** (`LineChart`, `BarChart`)
 - Reine, getestete Rechen-Logik in `src/lib/taxModel.js`
-- Schlanke Laufzeit-Abhängigkeiten: nur Vue und vue-i18n
+- Schlanke Laufzeit-Abhängigkeiten: nur Vue, vue-router und vue-i18n
+
+Das Routing läuft im History-Mode (saubere URLs wie `/rechner`). Da GitHub Pages keinen
+SPA-Fallback kennt, kopiert der Build `dist/index.html` zusätzlich nach `dist/404.html`,
+damit Direktaufrufe der Routen funktionieren.
 
 ## Texte & i18n
 
