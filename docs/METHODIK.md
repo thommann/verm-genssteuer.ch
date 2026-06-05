@@ -417,23 +417,27 @@ pro 1 Mrd.:    ~7–13 Mio./Jahr
 *Superreiche, passiv:* Bei ~7,1 % realem Vermögenszuwachs ist die ganze Mindeststeuer von
 2 % des Vermögens wieder verdient in `(0,02 ÷ 0,071) × 365 ≈ 103 Tagen` (`zucman_g20`).
 
-*Normaler Haushalt* (einkommensbasiert, Quelle `bfs_habe`, HABE-Übersichtstabellen, Blatt
-«nach Einkommensklasse»). Die fünf Einkommensklassen sind gleich grosse Quintile (je 20 % der
-Haushalte); das **mittlere Quintil enthält den Median** (Bruttoeinkommen 7337–9978 CHF/Monat).
-Belegte Werte aus einer Quelle, das Bruttoeinkommen kürzt sich heraus:
+*Normaler Haushalt* (einkommensbasiert, Quelle `bfs_habe`, HABE-Querschnittstabelle «nach
+Einkommensklasse», neueste Periode 2015–2017). Die fünf Einkommensklassen sind gleich grosse
+Quintile (je 20 % der Haushalte, geprüft über die Zeile «Prozentuale Verteilung der
+Haushalte» = 0,20); das **mittlere Quintil enthält den Median**. Belegte Werte aus einer
+Quelle, das Bruttoeinkommen kürzt sich heraus:
 ```
-Einkommen aus Vermögen und Vermietung   = 234 CHF/Monat =  2,7 % des Bruttoeinkommens
-Steuern (Einkommen und Vermögen)        = 829 CHF/Monat =  9,6 % des Bruttoeinkommens
+Einkommen aus Vermögen und Vermietung   = 232 CHF/Monat =  2,9 % des Bruttoeinkommens
+Steuern (Einkommen und Vermögen)        = 785 CHF/Monat =  9,9 % des Bruttoeinkommens
 
 Zeit, die ganze Jahressteuer allein aus dem Vermögenseinkommen zu verdienen:
-   9,6 % ÷ 2,7 % ≈ 3,5 Jahre
+   9,9 % ÷ 2,9 % ≈ 3,4 Jahre
 Zeit, dieselbe Steuersumme aus dem gesamten Einkommen (v. a. Arbeit) zu verdienen:
-   9,6 % × 365 ≈ 35 Tage
+   9,9 % × 365 ≈ 36 Tage
 ```
-Zum Vergleich: oberstes Quintil 6,3 % des Bruttoeinkommens (1272 CHF/Monat, rund neunmal so
-viel in Franken). Die HABE rechnet keinen Eigenmietwert als Einkommen ein, es ist also echtes
-Vermögens- und Vermietungseinkommen. Kontrast: ganze 2 %-Steuer der Spitze passiv in ~103
-Tagen, Medianhaushalt ~3,5 Jahre, also gut zwölfmal so lange.
+Zum Vergleich: oberstes Quintil 6,5 % des Bruttoeinkommens (1250 CHF/Monat, rund fünfmal so
+viel in Franken wie das mittlere Quintil). Die HABE rechnet keinen Eigenmietwert als
+Einkommen ein, es ist also echtes Vermögens- und Vermietungseinkommen. Die Querschnittstabellen
+erscheinen nur als Mehrjahres-Pool; 2015–2017 ist die aktuellste, die Mittelwerte 2023
+(Vermögenseinkommen 4,5 %, Steuern 12,0 %) bestätigen die Stabilität. Kontrast: ganze
+2 %-Steuer der Spitze passiv in ~103 Tagen, Medianhaushalt ~3,4 Jahre, also rund zwölfmal so
+lange.
 
 Ergänzend (Quelle `estv_vermoegen`): das steuerbare Medianvermögen liegt bei nur rund
 45 000 CHF (über die Hälfte der Steuerpflichtigen hat höchstens 50 000 CHF).

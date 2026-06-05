@@ -22,17 +22,17 @@ const PASSIVE_RETURN = 0.071;
 const recoveryDays = Math.round((ZUCMAN_RATE / PASSIVE_RETURN) * 365);
 
 // Gegenstueck fuer den Medianhaushalt, einkommensbasiert und aus einer Quelle
-// (BFS HABE, Uebersichtstabellen, nach Einkommensklasse). Jede Klasse umfasst
-// 20 % der Haushalte; das mittlere Quintil enthaelt den Median. Steuern
-// 829 CHF/Monat (9,6 % des Bruttoeinkommens), Einkommen aus Vermoegen und
-// Vermietung 234 CHF/Monat (2,7 %). Das Einkommen kuerzt sich heraus:
-// Recovery = 829 / 234 ~ 3,5 Jahre, also gut zwoelfmal die ~103 Tage der Spitze.
-const HH_TAX_CHF = 829.3;
-const HH_PROPERTY_CHF = 234.4;
-const HH_GROSS_CHF = 8627.8; // Bruttoeinkommen mittleres Quintil (HABE)
+// (BFS HABE, neueste Querschnittstabelle nach Einkommensklasse, Periode
+// 2015-2017). Jede Klasse umfasst 20 % der Haushalte; das mittlere Quintil
+// enthaelt den Median. Steuern 785 CHF/Monat (9,9 % des Bruttoeinkommens),
+// Einkommen aus Vermoegen und Vermietung 232 CHF/Monat (2,9 %). Recovery =
+// 785 / 232 ~ 3,4 Jahre, also rund zwoelfmal die ~103 Tage der Spitze.
+const HH_TAX_CHF = 784.6;
+const HH_PROPERTY_CHF = 231.7;
+const HH_GROSS_CHF = 7923.2; // Bruttoeinkommen mittleres Quintil (HABE 2015-2017)
 const hhRecoveryYears = HH_TAX_CHF / HH_PROPERTY_CHF;
 // Aus dem gesamten Einkommen (v. a. Arbeit) ist die Steuersumme in
-// 9,6 % eines Jahres ~ 35 Tagen verdient.
+// 9,9 % eines Jahres ~ 36 Tagen verdient.
 const hhTaxIncomeDays = Math.round((HH_TAX_CHF / HH_GROSS_CHF) * 365);
 
 const perCapita = computed(() => chf(REVENUE / K.population.value));
