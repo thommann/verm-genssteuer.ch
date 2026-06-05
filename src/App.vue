@@ -1,6 +1,7 @@
 <script setup>
-import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import ReadingProgress from '@/components/ui/ReadingProgress.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -166,6 +167,8 @@ onUnmounted(() => {
       </div>
     </transition>
   </nav>
+
+  <ReadingProgress />
 
   <main id="top">
     <router-view />
