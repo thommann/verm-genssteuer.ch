@@ -22,6 +22,6 @@ export function pct(v, digits = 1) {
   return `${nf({ maximumFractionDigits: digits, minimumFractionDigits: digits }).format(v * 100)} %`;
 }
 
-export function num(v, digits = 0) {
-  return nf({ maximumFractionDigits: digits }).format(v);
+export function num(v, digits = 0, minDigits = 0) {
+  return nf({ maximumFractionDigits: digits, minimumFractionDigits: minDigits }).format(v);
 }

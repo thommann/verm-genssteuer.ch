@@ -56,7 +56,9 @@ const debtShare = computed(() => (debtFreeYears.value ? 1 / debtFreeYears.value 
 const debtFreeYearsLabel = computed(() => {
   const y = debtFreeYears.value;
   if (y == null) return `> ${DEBTFREE_HORIZON}`;
-  return num(y, y < 10 ? 1 : 0);
+  // Unter 10 Jahren immer genau eine Dezimalstelle (auch die «.0»), damit die Anzeige beim
+  // Schieben nicht zwischen «8.1» und «8» springt; ab 10 Jahren ganzzahlig.
+  return y < 10 ? num(y, 1, 1) : num(y, 0);
 });
 
 const capPct = (v) => Math.min(v, 1);
@@ -153,7 +155,7 @@ const over = (v) => v > 1;
           <div class="spend-icon">🗓️</div>
           <h3>{{ $t('spend.debtfreeTitle') }}</h3>
           <div class="spend-big violet">
-            {{ debtFreeYearsLabel }}<span class="spend-unit"> {{ $t('spend.debtfreeUnit') }}</span>
+            {{ debtFreeYearsLabel }}<span class="spend-unit">{{ $t('spend.debtfreeUnit') }}</span>
           </div>
           <p class="spend-text" v-html="$t('spend.debtfreeText')" />
           <div class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(debtShare) * 100}%` }" /></div>
@@ -193,7 +195,7 @@ const over = (v) => v > 1;
 .spend-big.teal { color: var(--teal); }
 .spend-big.violet { color: var(--violet); }
 .spend-big.blue { color: var(--blue); }
-.spend-unit { font-size: 0.4em; font-weight: 700; letter-spacing: 0; }
+.spend-unit { font-size: 0.4em; font-weight: 700; letter-spacing: 0; margin-left: 0.5em; }
 
 /* Vierte Karte: normale Rasterkarte (auf Mobile ohnehin volle Breite), leicht violett
    abgesetzt; unabhängig vom Basis-Umschalter. */
