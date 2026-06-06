@@ -162,21 +162,12 @@
     "hinweis": "Übersichtstabellen, Blatt «nach Einkommensklasse» (Tabelle T20.02.01.00.12, neueste Querschnittsperiode 2015–2017): fünf gleich grosse Quintile (je 20 % der Haushalte, Zeile «Prozentuale Verteilung der Haushalte» = 0,20). Mittleres Quintil (enthält den Median, durchschnittliches Bruttoeinkommen 7923 CHF/Monat): Einkommen aus Vermögen und Vermietung 232 CHF/Monat = 2,9 % des Bruttoeinkommens, Steuern (Einkommen und Vermögen) 785 CHF/Monat = 9,9 %. Oberstes Quintil: Vermögenseinkommen 1250 CHF/Monat = 6,5 % (rund fünfmal so viel in Franken wie das mittlere Quintil). Zeit, die Jahressteuer allein aus dem Vermögenseinkommen zu verdienen: 9,9 % ÷ 2,9 % ≈ 3,4 Jahre, gegenüber den ~103 Tagen der Superreichen also rund zwölfmal so lange. Aus dem gesamten Einkommen (vor allem Arbeit) ist dieselbe Steuersumme in 9,9 % eines Jahres ≈ 36 Tagen verdient. Über alle Haushalte (Durchschnitt, Spalte «Sämtliche», gleiche Tabelle 2015–2017, durchschnittliches Bruttoeinkommen 9349 CHF/Monat): Steuern 1083 CHF/Monat = 11,6 %, Einkommen aus Vermögen und Vermietung 421 CHF/Monat = 4,5 % des Bruttoeinkommens; das ergibt 11,6 % ÷ 4,5 % ≈ 2,6 Jahre aus dem Vermögenseinkommen bzw. ≈ 42 Tage aus dem gesamten Einkommen. Der Durchschnitt liegt beim Vermögenseinkommen über dem Median, weil die Spitze den Schnitt nach oben zieht. Die HABE rechnet keinen Eigenmietwert als Einkommen ein. Die Querschnittstabellen erscheinen nur als Mehrjahres-Pool; 2015–2017 ist die aktuellste. Die Mittelwerte 2023 (Vermögenseinkommen 4,5 %, Steuern 12,0 %) bestätigen die Stabilität."
   },
   {
-    "id": "sbb",
-    "kurz": "SBB Jahresergebnis 2024",
-    "titel": "SBB-Jahresergebnis 2024: Personenverkehrserträge rund 3,97 Mrd., Rekord bei den Reisenden",
-    "herausgeber": "Schweizerische Bundesbahnen SBB (Medienmitteilung zum Jahresergebnis)",
-    "url": "https://news.sbb.ch/de/019d7b77-2c7d-7981-9c2f-9f6526ca50d6/sbb-bewegt-so-viele-reisende-wie-noch-nie-fuer-angebotsausbau-braucht-es-genuegend-ertraege",
-    "stand": "Jahresergebnis 2024, publiziert 2025",
-    "hinweis": "Die Personenverkehrserträge der SBB (Fahrgeldeinnahmen aus Billetten und Abonnementen, Fern- und Regionalverkehr) stiegen 2024 um 6,5 % auf rund CHF 3'974 Mio. (2023: 3'731 Mio.), bei täglich rund 1,39 Mio. Reisenden. Einordnungsgrösse für das «Was tun mit dem Geld?»-Modul: der Anteil «SBB-Billette günstiger» rechnet Aufkommen ÷ 3'974 Mio.; über 100 % bedeutet, der gesamte SBB-Personenverkehr liesse sich aus dem Steueraufkommen gratis anbieten. Nominal, gerundet, nur Einordnungsgrösse."
-  },
-  {
     "id": "litra",
     "kurz": "LITRA Verkehrszahlen 2024",
     "titel": "Verkehrszahlen 2024: Finanzierung des öffentlichen Verkehrs (Kundenertrag Personenverkehr)",
     "herausgeber": "LITRA, Informationsdienst für den öffentlichen Verkehr",
     "url": "https://litra.ch/media/article_images/2024/08/Verkehrszahlen_2024_DE.pdf",
     "stand": "Ausgabe 2024 (PDF), Grafik «Finanzierung öffentlicher Verkehr»",
-    "hinweis": "Grafik «Finanzierung öffentlicher Verkehr» (Betrieb, Mittelherkunft): Kundenertrag Personenverkehr des gesamten öV (alle Transportunternehmen, Bahn, Bus, Tram zusammen) rund CHF 7'482 Mio. (Fussnote 6: Daten 2020, Quelle BFS). 2020 war ein Corona-Jahr mit tieferen öV-Einnahmen, der Wert ist daher eher eine Untergrenze des normalen Fahrgeldertrags. Einordnungsgrösse für das «Was tun?»-Modul: der öV-Fussanteil rechnet Aufkommen ÷ 7'482 Mio. Die Grafik ist laut LITRA eine grobe Illustration mit summarischen Daten aus unterschiedlichen Jahren. Nominal, gerundet, nur Einordnungsgrösse."
+    "hinweis": "Schätzung der LITRA: Kundenertrag Personenverkehr des gesamten öV (alle Transportunternehmen, Bahn, Bus, Tram zusammen) rund CHF 7'482 Mio. pro Jahr. Einordnungsgrösse für das «Was tun mit dem Geld?»-Modul: der Anteil «öV-Billette verbilligen» rechnet Aufkommen ÷ 7'482 Mio. Nominal, gerundet."
   }
 ]
