@@ -56,6 +56,14 @@
       "einheit": "CHF",
       "source": "efv",
       "bezug": "kuratiert"
+    },
+    "oev_personenverkehrsertrag": {
+      "value": 7482000000,
+      "label": "Kundenertrag Personenverkehr gesamter öV (Bahn, Bus, Tram)",
+      "jahr": 2020,
+      "einheit": "CHF/Jahr",
+      "source": "litra",
+      "bezug": "kuratiert"
     }
   }
 }

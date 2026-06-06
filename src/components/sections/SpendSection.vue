@@ -23,6 +23,16 @@ const premiumShare = computed(() => revenue.value / netPraemien.value);
 const premiumPerPersonMonth = computed(() => revenue.value / K.population.value / 12);
 const dividendYear = computed(() => revenue.value / K.population.value);
 
+// Um wie viel könnten die Fahrgeldeinnahmen (Billette, Abos) des gesamten öV gesenkt werden?
+// Anteil des Aufkommens am Kundenertrag Personenverkehr aller Transportunternehmen.
+const oevCut = computed(() => revenue.value / K.oev_personenverkehrsertrag.value);
+
+// Überschuss, sobald eine Karte ihre Bezugsgrösse voll deckt (Anteil > 100 %): so viel
+// Aufkommen bliebe nach dieser Verwendung noch für anderes übrig.
+const incomeLeft = computed(() => revenue.value - K.einkommenssteuer_np_alle_ebenen.value);
+const premiumLeft = computed(() => revenue.value - netPraemien.value);
+const oevLeft = computed(() => revenue.value - K.oev_personenverkehrsertrag.value);
+
 // Nach wie vielen Jahren wäre die Staatsschuld getilgt, wenn das gesamte Aufkommen in den
 // Schuldenabbau flösse? Nicht ein flaches Jahresaufkommen vervielfacht, sondern die dynamische
 // Hochrechnung (inkl. Rendite): das Aufkommen jedes Jahres folgt dem Pfad
@@ -46,7 +56,9 @@ const debtShare = computed(() => (debtFreeYears.value ? 1 / debtFreeYears.value 
 const debtFreeYearsLabel = computed(() => {
   const y = debtFreeYears.value;
   if (y == null) return `> ${DEBTFREE_HORIZON}`;
-  return num(y, y < 10 ? 1 : 0);
+  // Unter 10 Jahren immer genau eine Dezimalstelle (auch die «.0»), damit die Anzeige beim
+  // Schieben nicht zwischen «8.1» und «8» springt; ab 10 Jahren ganzzahlig.
+  return y < 10 ? num(y, 1, 1) : num(y, 0);
 });
 
 const capPct = (v) => Math.min(v, 1);
@@ -84,7 +96,9 @@ const over = (v) => v > 1;
           <p class="spend-text" v-html="over(incomeCut) ? $t('spend.incomeTextOver') : $t('spend.incomeTextUnder')" />
           <div class="spend-meter"><div class="fill teal" :style="{ width: `${capPct(incomeCut) * 100}%` }" /></div>
           <p class="spend-foot muted">
-            {{ over(bundCut) ? $t('spend.incomeFootOver') : $t('spend.incomeFootUnder', { pct: pct(bundCut, 0) }) }}
+            <span v-if="over(incomeCut)">{{ $t('spend.leftover', { rest: chfCompact(incomeLeft, 1) }) }}</span>
+            <span v-else-if="over(bundCut)">{{ $t('spend.incomeFootOver') }}</span>
+            <span v-else>{{ $t('spend.incomeFootUnder', { pct: pct(bundCut, 0) }) }}</span>
           </p>
           <SourceTag id="efv" />
         </article>
@@ -100,7 +114,8 @@ const over = (v) => v > 1;
           <p class="spend-text" v-html="over(premiumShare) ? $t('spend.premiumTextOver') : $t('spend.premiumTextUnder')" />
           <div class="spend-meter"><div class="fill gold" :style="{ width: `${capPct(premiumShare) * 100}%` }" /></div>
           <p class="spend-foot muted">
-            {{ $t('spend.premiumFoot', { amount: chf(premiumPerPersonMonth) }) }}
+            <span v-if="over(premiumShare)">{{ $t('spend.leftover', { rest: chfCompact(premiumLeft, 1) }) }}</span>
+            <span v-else>{{ $t('spend.premiumFoot', { amount: chf(premiumPerPersonMonth) }) }}</span>
           </p>
           <SourceTag id="bag" />
         </article>
@@ -118,12 +133,29 @@ const over = (v) => v > 1;
           <SourceTag id="bfs" />
         </article>
 
+        <!-- Public transit tickets -->
+        <article class="card spend">
+          <div class="spend-icon">🚆</div>
+          <h3>{{ $t('spend.oevTitle') }}</h3>
+          <div class="spend-big blue">
+            <span v-if="over(oevCut)">{{ $t('spend.oevOver') }}</span>
+            <span v-else>−{{ pct(oevCut, 0) }}</span>
+          </div>
+          <p class="spend-text" v-html="over(oevCut) ? $t('spend.oevTextOver') : $t('spend.oevTextUnder')" />
+          <div class="spend-meter"><div class="fill blue" :style="{ width: `${capPct(oevCut) * 100}%` }" /></div>
+          <p class="spend-foot muted">
+            <span v-if="over(oevCut)">{{ $t('spend.leftover', { rest: chfCompact(oevLeft, 1) }) }}</span>
+            <span v-else>{{ $t('spend.oevFoot', { amount: chfCompact(K.oev_personenverkehrsertrag.value, 1) }) }}</span>
+          </p>
+          <SourceTag id="litra" :note="$t('spend.oevSourceNote')" />
+        </article>
+
         <!-- Debt-free state: normal grid card, independent of the dauerhaft/jahr1 toggle -->
         <article class="card spend spend-accent">
           <div class="spend-icon">🗓️</div>
           <h3>{{ $t('spend.debtfreeTitle') }}</h3>
           <div class="spend-big violet">
-            {{ debtFreeYearsLabel }}<span class="spend-unit"> {{ $t('spend.debtfreeUnit') }}</span>
+            {{ debtFreeYearsLabel }}<span class="spend-unit">{{ $t('spend.debtfreeUnit') }}</span>
           </div>
           <p class="spend-text" v-html="$t('spend.debtfreeText')" />
           <div class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(debtShare) * 100}%` }" /></div>
@@ -162,7 +194,8 @@ const over = (v) => v > 1;
 .spend-big.accent { color: var(--accent); }
 .spend-big.teal { color: var(--teal); }
 .spend-big.violet { color: var(--violet); }
-.spend-unit { font-size: 0.4em; font-weight: 700; letter-spacing: 0; }
+.spend-big.blue { color: var(--blue); }
+.spend-unit { font-size: 0.4em; font-weight: 700; letter-spacing: 0; margin-left: 0.5em; }
 
 /* Vierte Karte: normale Rasterkarte (auf Mobile ohnehin volle Breite), leicht violett
    abgesetzt; unabhängig vom Basis-Umschalter. */
@@ -179,6 +212,7 @@ const over = (v) => v > 1;
 .fill.gold { background: var(--gold); }
 .fill.accent { background: var(--accent); }
 .fill.violet { background: var(--violet); }
+.fill.blue { background: var(--blue); }
 .spend-foot { font-size: 0.8rem; margin: 2px 0 8px; }
 .disclaimer { font-size: 0.82rem; margin-top: 24px; max-width: 75ch; }
 .srcs { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
