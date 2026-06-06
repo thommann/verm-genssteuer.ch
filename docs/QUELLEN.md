@@ -15,7 +15,7 @@ den Eintrag in `src/data/sources.json` zeigt.
 | Hero | Anteil ≥ 5 Mio., Anzahl, Median, Ø/Median | ESTV (`estv_vermoegen`) | `estv_kennzahlen.json` | `02_extract_estv.py` |
 | Verteilung | Anteile/Anzahl je Klasse, Median, Mittel | ESTV (`estv_vermoegen`) | `estv_distribution.json`, `estv_kennzahlen.json` | `02_extract_estv.py` |
 | Rechner | Aufkommen, Tarifkurve, Bänder, Gleichgewicht | ESTV (`estv_vermoegen`) + FDK (`fdk`, M im Tail) | `calculator_bins.json`, `calculator_params.json` | `02_extract_estv.py` (M aus `01`) |
-| Was tun? | Aufkommen (Zähler); Vergleichsgrössen (Nenner) | ESTV+FDK; BFS (`bfs`), EFV (`efv`), BAG (`bag`) | (Rechner) + `spend_reference.json` | `02`/`01`; `04` (BFS live, EFV/BAG kuratiert, §5) |
+| Was tun? | Aufkommen (Zähler); Vergleichsgrössen (Nenner) | ESTV+FDK; BFS (`bfs`), EFV (`efv`), BAG (`bag`), SBB (`sbb`), LITRA (`litra`) | (Rechner) + `spend_reference.json` | `02`/`01`; `04` (BFS live, EFV/BAG/SBB/LITRA kuratiert, §5) |
 | Dynamik | dynamisches Aufkommen je Jahr, voreingestellte Rendite 6 % | ESTV (`estv_vermoegen`) + FDK (`fdk`) + WIR 2022 (`wir2022_wachstum`, Default-Rendite) | `projektion_cohorts.json`, `calculator_params.json` | `02_extract_estv.py` |
 | International | Anteils-Zeitreihen + WID-Gini | WID (`wid`) | `wid_timeseries.json` | `03_extract_wid_ubs.py` |
 | WIR 2022 | Vergleich der Steuermodelle (Rechner-Preset «WIR 2022») | World Inequality Lab (`wir2022`) | — (Texte + `sources.json`) | — |
@@ -26,10 +26,11 @@ den Eintrag in `src/data/sources.json` zeigt.
 | Quellen & Methodik | Quellenliste | — | `sources.json` | kuratiert (Metadaten) |
 
 **Lesart der Reproduzierbarkeit:** alle Datendateien werden **skriptbasiert** erzeugt
-(byte-/zahlengenau prüfbar, siehe `00_reproduce_statistics.py`). Einzige Ausnahme sind vier
-Makro-Bezugsgrössen in `spend_reference.json` (EFV/BAG), die als belegte Konstanten im
-Skript `04` gepflegt werden (Feld `bezug: "kuratiert"`); die Bevölkerung darin kommt live
-aus BFS-PXWeb (`bezug: "skript"`). `sources.json` enthält Quellen-Metadaten (kuratiert).
+(byte-/zahlengenau prüfbar, siehe `00_reproduce_statistics.py`). Einzige Ausnahme sind die
+kuratierten Makro-Bezugsgrössen in `spend_reference.json` (EFV/BAG/SBB/LITRA), die als
+belegte Konstanten im Skript `04` gepflegt werden (Feld `bezug: "kuratiert"`); die
+Bevölkerung darin kommt live aus BFS-PXWeb (`bezug: "skript"`). `sources.json` enthält
+Quellen-Metadaten (kuratiert).
 Details in Abschnitt 5.
 
 ## Überblick: ein Befehl pro Schritt
@@ -242,7 +243,7 @@ Kanton». `fetch_sources.sh` stellt die deterministische Abfrage (Schweiz-Total,
   `Demografische Komponente=14` (Bestand am 31. Dezember).
 - Wert Ende 2024: **9 051 029** (Quelle: BFS – ESPOP/STATPOP).
 
-**`bezug: "kuratiert"` — EFV-/ESTV-/BAG-Aggregate (belegte Konstanten in `04`).**
+**`bezug: "kuratiert"` — EFV-/ESTV-/BAG-/SBB-/LITRA-Aggregate (belegte Konstanten in `04`).**
 Diese gerundeten Einordnungsgrössen stammen aus mehreren Publikationen (kein einzelner Cube)
 und werden als belegte Konstanten im Skript gepflegt; beim Jahreswechsel dort aktualisieren.
 Jeder Wert ist auf eine konkrete Tabelle/Zelle zurückgeführt und gegen die Quelle geprüft:
@@ -255,6 +256,8 @@ Jeder Wert ist auf eine konkrete Tabelle/Zelle zurückgeführt und gegen die Que
 | OKP-Leistungen total | ~ 52,1 Mrd. | 2023 | BAG: von den Gesundheitskosten total 95 Mrd. entfallen **«rund 52 Milliarden»** auf Leistungen, die unter die OKP fallen (Kostenoptik) | <https://www.bag.admin.ch/de/newnsb/pwGPlqnWtp7n-FU2nvwJ0> |
 | OKP-Prämien (von Versicherten finanziert) | ~ 36 Mrd. | 2023 | BAG: davon **«rund 36 Milliarden … durch Prämien der Versicherten finanziert»** (gleiche Quelle) | s. o. |
 | Individuelle Prämienverbilligung (Bund + Kantone) | ~ 5,9 Mrd. | 2023 | BAG-Faktenblatt «Prämienverbilligung» (26.9.2024): **«Im Jahr 2023 wurden insgesamt rund 5,9 Milliarden Franken Prämienverbilligung ausbezahlt. Der Bundesanteil belief sich dabei auf mehr als die Hälfte (3,0 Milliarden Franken respektive 51,2 Prozent).»** | <https://www.bag.admin.ch/dam/en/sd-web/oICf0gNSbo8b/faktenblatt-2025-praemienverbilligung1.pdf> |
+| Personenverkehrserträge SBB (Billette, Abos) | ~ 3,97 Mrd. | 2024 | SBB-Medienmitteilung zum Jahresergebnis 2024: **«Die Personenverkehrserträge haben gegenüber dem Vorjahr um 6,5 Prozent auf 3974 Millionen Franken zugenommen»** (Vorjahr 3731 Mio.), bei täglich rund 1,39 Mio. Reisenden im Fern- und Regionalverkehr | <https://news.sbb.ch/de/019d7b77-2c7d-7981-9c2f-9f6526ca50d6/sbb-bewegt-so-viele-reisende-wie-noch-nie-fuer-angebotsausbau-braucht-es-genuegend-ertraege> |
+| Kundenertrag Personenverkehr gesamter öV | ~ 7,48 Mrd. | 2020 | LITRA «Verkehrszahlen 2024», Grafik «Finanzierung öffentlicher Verkehr» (Betrieb, Mittelherkunft), Posten **«Kundenertrag Personenverkehr» = 7'482 Mio.** (Fussnote 6: Daten 2020, BFS; Corona-Jahr, daher eher Untergrenze des normalen Fahrgeldertrags) | <https://litra.ch/media/article_images/2024/08/Verkehrszahlen_2024_DE.pdf> |
 
 > **Abgrenzung OKP (warum nicht die STATKV-Tabellen?):** Die BAG-Aussage «rund 52 Mrd.
 > OKP-Leistungen» nutzt die **Kostenoptik** (Anteil der Gesundheitskosten 2023, der unter die
@@ -271,6 +274,14 @@ Jeder Wert ist auf eine konkrete Tabelle/Zelle zurückgeführt und gegen die Que
 > Prämienverbilligung (~5,9 Mrd.) abgezogen, also `Prämienanteil = Aufkommen / (Prämien −
 > Prämienverbilligung)`. So wird der vom Staat schon getragene Teil nicht ein zweites Mal als
 > «übernommen» gezählt.
+
+> **SBB als Schlagzeile, öV als Einordnung:** Der Anteil «SBB-Billette günstiger» rechnet
+> `Aufkommen / Personenverkehrserträge SBB` (~3,97 Mrd., 2024, sauberer Einzeljahr-Wert aus
+> dem Geschäftsbericht); über 100 % hiesse, der gesamte SBB-Personenverkehr liesse sich gratis
+> anbieten. Die Fusszeile skaliert mit `Aufkommen / Kundenertrag Personenverkehr öV` (~7,48 Mrd.)
+> auf den ganzen öV (Bahn, Bus, Tram). Die öV-Zahl ist eine LITRA-Illustrationsgrafik mit Daten
+> aus 2020 (Corona), also eher eine Untergrenze; sie dient nur der Grössenordnung, daher steht
+> der robuste SBB-Wert in der Schlagzeile.
 
 ---
 

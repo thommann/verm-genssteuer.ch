@@ -23,6 +23,12 @@ const premiumShare = computed(() => revenue.value / netPraemien.value);
 const premiumPerPersonMonth = computed(() => revenue.value / K.population.value / 12);
 const dividendYear = computed(() => revenue.value / K.population.value);
 
+// Um wie viel könnten die Fahrgeldeinnahmen (Billette, Abos) gesenkt werden? Anteil des
+// Aufkommens an den SBB-Personenverkehrserträgen (Schlagzeile) und, zur Einordnung auf den
+// ganzen öV, am Kundenertrag Personenverkehr aller Transportunternehmen (Fusszeile).
+const sbbCut = computed(() => revenue.value / K.sbb_personenverkehrsertrag.value);
+const oevCut = computed(() => revenue.value / K.oev_personenverkehrsertrag.value);
+
 // Nach wie vielen Jahren wäre die Staatsschuld getilgt, wenn das gesamte Aufkommen in den
 // Schuldenabbau flösse? Nicht ein flaches Jahresaufkommen vervielfacht, sondern die dynamische
 // Hochrechnung (inkl. Rendite): das Aufkommen jedes Jahres folgt dem Pfad
@@ -118,6 +124,25 @@ const over = (v) => v > 1;
           <SourceTag id="bfs" />
         </article>
 
+        <!-- SBB / public transit tickets -->
+        <article class="card spend">
+          <div class="spend-icon">🚆</div>
+          <h3>{{ $t('spend.sbbTitle') }}</h3>
+          <div class="spend-big blue">
+            <span v-if="over(sbbCut)">{{ $t('spend.sbbOver') }}</span>
+            <span v-else>−{{ pct(sbbCut, 0) }}</span>
+          </div>
+          <p class="spend-text" v-html="over(sbbCut) ? $t('spend.sbbTextOver') : $t('spend.sbbTextUnder')" />
+          <div class="spend-meter"><div class="fill blue" :style="{ width: `${capPct(sbbCut) * 100}%` }" /></div>
+          <p class="spend-foot muted">
+            {{ over(oevCut) ? $t('spend.sbbFootOver') : $t('spend.sbbFootUnder', { pct: pct(oevCut, 0) }) }}
+          </p>
+          <div class="spend-srcs">
+            <SourceTag id="sbb" />
+            <SourceTag id="litra" />
+          </div>
+        </article>
+
         <!-- Debt-free state: normal grid card, independent of the dauerhaft/jahr1 toggle -->
         <article class="card spend spend-accent">
           <div class="spend-icon">🗓️</div>
@@ -162,6 +187,7 @@ const over = (v) => v > 1;
 .spend-big.accent { color: var(--accent); }
 .spend-big.teal { color: var(--teal); }
 .spend-big.violet { color: var(--violet); }
+.spend-big.blue { color: var(--blue); }
 .spend-unit { font-size: 0.4em; font-weight: 700; letter-spacing: 0; }
 
 /* Vierte Karte: normale Rasterkarte (auf Mobile ohnehin volle Breite), leicht violett
@@ -179,7 +205,9 @@ const over = (v) => v > 1;
 .fill.gold { background: var(--gold); }
 .fill.accent { background: var(--accent); }
 .fill.violet { background: var(--violet); }
+.fill.blue { background: var(--blue); }
 .spend-foot { font-size: 0.8rem; margin: 2px 0 8px; }
+.spend-srcs { display: flex; flex-wrap: wrap; gap: 6px 16px; }
 .disclaimer { font-size: 0.82rem; margin-top: 24px; max-width: 75ch; }
 .srcs { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
 .srcs-lab { font-size: 0.74rem; font-weight: 600; color: var(--text-mute); }

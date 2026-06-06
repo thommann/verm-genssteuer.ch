@@ -8,10 +8,11 @@ nicht Teil des Steuermodells. Zwei Herkunftsarten, im Feld ``bezug`` ausgewiesen
   - "skript"    Ständige Wohnbevölkerung: live aus dem BFS-PXWeb-Cube
                 px-x-0102020000_101 «Demografische Bilanz nach Kanton»
                 (data/raw/bfs/population.json, Bestand 31.12., Schweiz-Total).
-  - "kuratiert" EFV- und BAG-Aggregate: als belegte Konstanten unten gepflegt.
+  - "kuratiert" EFV-/BAG-/SBB-/LITRA-Aggregate: als belegte Konstanten unten gepflegt.
                 Begründung: für diese Einzelwerte gibt es keine stabile, eindeutige
-                maschinenlesbare Einzelquelle (FS-Klassifikationscodes bzw. BAG-
-                T-Tabellen); der Bezug ist als Runbook in docs/QUELLEN.md §5 notiert.
+                maschinenlesbare Einzelquelle (FS-Klassifikationscodes, BAG-T-Tabellen,
+                Geschäftsbericht/Verbandsgrafik); der Bezug ist als Runbook in
+                docs/QUELLEN.md §5 notiert.
 
 Verwendung: bash scripts/fetch_sources.sh (lädt u. a. die BFS-Antwort), dann
 python3 scripts/04_extract_spend_reference.py.
@@ -92,6 +93,24 @@ CURATED = {
         "label": "Staatsschuld (Maastricht-Definition; Bund, Kantone, Gemeinden, Sozialversicherungen)",
         "jahr": 2023, "einheit": "CHF", "source": "efv",
     },
+    "sbb_personenverkehrsertrag": {
+        # Beleg: SBB-Medienmitteilung zum Jahresergebnis 2024 (news.sbb.ch): «Die
+        # Personenverkehrserträge haben gegenüber dem Vorjahr um 6,5 Prozent auf 3974
+        # Millionen Franken zugenommen» (Vorjahr 3731 Mio.), bei täglich rund 1,39 Mio.
+        # Reisenden im Fern- und Regionalverkehr. Fahrgeldeinnahmen (Billette, Abos).
+        "value": 3974000000,
+        "label": "Personenverkehrserträge SBB (Billette, Abonnemente)",
+        "jahr": 2024, "einheit": "CHF/Jahr", "source": "sbb",
+    },
+    "oev_personenverkehrsertrag": {
+        # Beleg: LITRA Verkehrszahlen 2024, Grafik «Finanzierung öffentlicher Verkehr»
+        # (Betrieb, Mittelherkunft): Posten «Kundenertrag Personenverkehr» des gesamten
+        # öV (alle Transportunternehmen, Bahn, Bus, Tram) = 7'482 Mio. (Fussnote 6: Daten
+        # 2020, BFS; Corona-Jahr, daher eher Untergrenze des normalen Fahrgeldertrags).
+        "value": 7482000000,
+        "label": "Kundenertrag Personenverkehr gesamter öV (Bahn, Bus, Tram)",
+        "jahr": 2020, "einheit": "CHF/Jahr", "source": "litra",
+    },
 }
 
 
@@ -109,14 +128,14 @@ def main():
     out = {
         "hinweis": ("Einordnungsgrössen für das «Was tun mit dem Geld?»-Modul, reine "
                     "Bezugsgrössen, nominal, gerundet. Bevölkerung live aus BFS-PXWeb "
-                    "(bezug=skript); EFV-/BAG-Aggregate belegte Konstanten "
+                    "(bezug=skript); EFV-/BAG-/SBB-/LITRA-Aggregate belegte Konstanten "
                     "(bezug=kuratiert, Runbook in docs/QUELLEN.md §5)."),
         "kennzahlen": kennzahlen,
     }
     with open(OUT, "w") as fh:
         json.dump(out, fh, ensure_ascii=False, indent=2)
     print(f"  [OK ] spend_reference.json: BFS-Bevölkerung {pop_value:,} ({pop_jahr}, live); "
-          f"{len(CURATED)} kuratierte EFV/BAG-Grössen")
+          f"{len(CURATED)} kuratierte EFV/BAG/SBB/LITRA-Grössen")
 
 
 if __name__ == "__main__":

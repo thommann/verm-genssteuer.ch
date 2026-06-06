@@ -56,6 +56,22 @@
       "einheit": "CHF",
       "source": "efv",
       "bezug": "kuratiert"
+    },
+    "sbb_personenverkehrsertrag": {
+      "value": 3974000000,
+      "label": "Personenverkehrserträge SBB (Billette, Abonnemente)",
+      "jahr": 2024,
+      "einheit": "CHF/Jahr",
+      "source": "sbb",
+      "bezug": "kuratiert"
+    },
+    "oev_personenverkehrsertrag": {
+      "value": 7482000000,
+      "label": "Kundenertrag Personenverkehr gesamter öV (Bahn, Bus, Tram)",
+      "jahr": 2020,
+      "einheit": "CHF/Jahr",
+      "source": "litra",
+      "bezug": "kuratiert"
     }
   }
 }
