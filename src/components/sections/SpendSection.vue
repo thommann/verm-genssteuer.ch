@@ -27,6 +27,12 @@ const dividendYear = computed(() => revenue.value / K.population.value);
 // Anteil des Aufkommens am Kundenertrag Personenverkehr aller Transportunternehmen.
 const oevCut = computed(() => revenue.value / K.oev_personenverkehrsertrag.value);
 
+// Überschuss, sobald eine Karte ihre Bezugsgrösse voll deckt (Anteil > 100 %): so viel
+// Aufkommen bliebe nach dieser Verwendung noch für anderes übrig.
+const incomeLeft = computed(() => revenue.value - K.einkommenssteuer_np_alle_ebenen.value);
+const premiumLeft = computed(() => revenue.value - netPraemien.value);
+const oevLeft = computed(() => revenue.value - K.oev_personenverkehrsertrag.value);
+
 // Nach wie vielen Jahren wäre die Staatsschuld getilgt, wenn das gesamte Aufkommen in den
 // Schuldenabbau flösse? Nicht ein flaches Jahresaufkommen vervielfacht, sondern die dynamische
 // Hochrechnung (inkl. Rendite): das Aufkommen jedes Jahres folgt dem Pfad
@@ -88,7 +94,9 @@ const over = (v) => v > 1;
           <p class="spend-text" v-html="over(incomeCut) ? $t('spend.incomeTextOver') : $t('spend.incomeTextUnder')" />
           <div class="spend-meter"><div class="fill teal" :style="{ width: `${capPct(incomeCut) * 100}%` }" /></div>
           <p class="spend-foot muted">
-            {{ over(bundCut) ? $t('spend.incomeFootOver') : $t('spend.incomeFootUnder', { pct: pct(bundCut, 0) }) }}
+            <span v-if="over(incomeCut)">{{ $t('spend.leftover', { rest: chfCompact(incomeLeft, 1) }) }}</span>
+            <span v-else-if="over(bundCut)">{{ $t('spend.incomeFootOver') }}</span>
+            <span v-else>{{ $t('spend.incomeFootUnder', { pct: pct(bundCut, 0) }) }}</span>
           </p>
           <SourceTag id="efv" />
         </article>
@@ -104,7 +112,8 @@ const over = (v) => v > 1;
           <p class="spend-text" v-html="over(premiumShare) ? $t('spend.premiumTextOver') : $t('spend.premiumTextUnder')" />
           <div class="spend-meter"><div class="fill gold" :style="{ width: `${capPct(premiumShare) * 100}%` }" /></div>
           <p class="spend-foot muted">
-            {{ $t('spend.premiumFoot', { amount: chf(premiumPerPersonMonth) }) }}
+            <span v-if="over(premiumShare)">{{ $t('spend.leftover', { rest: chfCompact(premiumLeft, 1) }) }}</span>
+            <span v-else>{{ $t('spend.premiumFoot', { amount: chf(premiumPerPersonMonth) }) }}</span>
           </p>
           <SourceTag id="bag" />
         </article>
@@ -133,7 +142,8 @@ const over = (v) => v > 1;
           <p class="spend-text" v-html="over(oevCut) ? $t('spend.oevTextOver') : $t('spend.oevTextUnder')" />
           <div class="spend-meter"><div class="fill blue" :style="{ width: `${capPct(oevCut) * 100}%` }" /></div>
           <p class="spend-foot muted">
-            {{ $t('spend.oevFoot', { amount: chfCompact(K.oev_personenverkehrsertrag.value, 1) }) }}
+            <span v-if="over(oevCut)">{{ $t('spend.leftover', { rest: chfCompact(oevLeft, 1) }) }}</span>
+            <span v-else>{{ $t('spend.oevFoot', { amount: chfCompact(K.oev_personenverkehrsertrag.value, 1) }) }}</span>
           </p>
           <SourceTag id="litra" :note="$t('spend.oevSourceNote')" />
         </article>
