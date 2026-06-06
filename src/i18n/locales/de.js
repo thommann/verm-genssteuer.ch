@@ -47,7 +47,7 @@ export default {
   topics: {
     eyebrow: 'Worum es geht',
     title: 'Drei Themen, eine Seite',
-    lead: 'Alles ist in drei Themen gegliedert. Spring direkt zu dem, was dich interessiert, oder scroll der Reihe nach durch.',
+    lead: 'Alles ist in drei Themen gegliedert. Spring direkt zu dem, was dich interessiert.',
     contains: 'Enthält',
     card1Num: '1',
     card1Kicker: 'Thema 1',
