@@ -24,7 +24,7 @@
     "herausgeber": "UBS (vormals Credit Suisse Global Wealth Report)",
     "url": "https://www.ubs.com/global/en/wealthmanagement/insights/global-wealth-report.html",
     "stand": "Report 2025, Daten Ende 2024",
-    "hinweis": "Wealth-Gini je Markt aus der Tabelle «Wealth inequality, measured by the Gini coefficient». Eigene UBS-Berechnung auf Basis von OECD-/IWF-/UN-/Weltbank- und nationalen Daten. Misst Gesamt-Marktvermögen, nicht steuerbares Vermögen."
+    "hinweis": "Wealth-Gini je Markt aus der Tabelle «Wealth inequality, measured by the Gini coefficient». Eigene UBS-Berechnung auf Basis von OECD-/IWF-/UN-/Weltbank- und nationalen Daten. Misst Gesamt-Marktvermögen, nicht steuerbares Vermögen. Vermögen pro Erwachsenem Schweiz (Tabelle «Wealth per adult», USD, Ende 2024): Median rund 182 248 USD, Durchschnitt rund 687 166 USD."
   },
   {
     "id": "wir2022",
@@ -96,7 +96,7 @@
     "herausgeber": "Gabriel Zucman; im Auftrag der brasilianischen G20-Präsidentschaft",
     "url": "https://gabriel-zucman.eu/files/report-g20.pdf",
     "stand": "Juni 2024",
-    "hinweis": "Begründung der 2-%-Mindeststeuer. Das Vermögen der Milliardäre (Top 0,0001 %) wuchs 1987–2024 real um rund 7,1 % pro Jahr, das Durchschnittsvermögen pro Erwachsenem nur um 1,8 %. Der reale Zuwachs bündelt Dividenden, Zinsen und Vermögensgewinne. Der World Inequality Report 2022 nennt für die Reichsten 6 bis 9 % real seit 1995. Bei ~7,1 % Rendite ist die Mehrbelastung von ~1,2 % des Vermögens in rund 62 Tagen wieder verdient: (0,012 ÷ 0,071) × 365."
+    "hinweis": "Begründung der 2-%-Mindeststeuer. Das Vermögen der Milliardäre (Top 0,0001 %) wuchs 1987–2024 real um rund 7,1 % pro Jahr, das Durchschnittsvermögen pro Erwachsenem nur um 1,8 %. Der reale Zuwachs bündelt Dividenden, Zinsen und Vermögensgewinne. Der World Inequality Report 2022 nennt für die Reichsten 6 bis 9 % real seit 1995. Bei ~7,1 % Rendite ist die ganze Mindeststeuer von 2 % des Vermögens in rund 103 Tagen wieder verdient: (0,02 ÷ 0,071) × 365; die blosse Mehrbelastung von ~1,2 % bereits in rund 62 Tagen."
   },
   {
     "id": "workzeitung_reiche",
@@ -151,5 +151,14 @@
     "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung/stand-entwicklung.html",
     "stand": "Ende 2024",
     "hinweis": "9 051 029 Personen Ende 2024."
+  },
+  {
+    "id": "bfs_habe",
+    "kurz": "BFS Haushaltsbudgeterhebung",
+    "titel": "Haushaltsbudgeterhebung (HABE): Einkommen, Steuern und Vermögenseinkommen der Haushalte nach Einkommensklasse",
+    "herausgeber": "Bundesamt für Statistik (BFS)",
+    "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/einkommen-verbrauch-vermoegen/haushaltsbudget.html",
+    "stand": "Querschnittstabelle nach Einkommensklasse 2015–2017 (neueste); Mittelwerte bis 2023",
+    "hinweis": "Übersichtstabellen, Blatt «nach Einkommensklasse» (Tabelle T20.02.01.00.12, neueste Querschnittsperiode 2015–2017): fünf gleich grosse Quintile (je 20 % der Haushalte, Zeile «Prozentuale Verteilung der Haushalte» = 0,20). Mittleres Quintil (enthält den Median, durchschnittliches Bruttoeinkommen 7923 CHF/Monat): Einkommen aus Vermögen und Vermietung 232 CHF/Monat = 2,9 % des Bruttoeinkommens, Steuern (Einkommen und Vermögen) 785 CHF/Monat = 9,9 %. Oberstes Quintil: Vermögenseinkommen 1250 CHF/Monat = 6,5 % (rund fünfmal so viel in Franken wie das mittlere Quintil). Zeit, die Jahressteuer allein aus dem Vermögenseinkommen zu verdienen: 9,9 % ÷ 2,9 % ≈ 3,4 Jahre, gegenüber den ~103 Tagen der Superreichen also rund zwölfmal so lange. Aus dem gesamten Einkommen (vor allem Arbeit) ist dieselbe Steuersumme in 9,9 % eines Jahres ≈ 36 Tagen verdient. Über alle Haushalte (Durchschnitt, Spalte «Sämtliche», gleiche Tabelle 2015–2017, durchschnittliches Bruttoeinkommen 9349 CHF/Monat): Steuern 1083 CHF/Monat = 11,6 %, Einkommen aus Vermögen und Vermietung 421 CHF/Monat = 4,5 % des Bruttoeinkommens; das ergibt 11,6 % ÷ 4,5 % ≈ 2,6 Jahre aus dem Vermögenseinkommen bzw. ≈ 42 Tage aus dem gesamten Einkommen. Der Durchschnitt liegt beim Vermögenseinkommen über dem Median, weil die Spitze den Schnitt nach oben zieht. Die HABE rechnet keinen Eigenmietwert als Einkommen ein. Die Querschnittstabellen erscheinen nur als Mehrjahres-Pool; 2015–2017 ist die aktuellste. Die Mittelwerte 2023 (Vermögenseinkommen 4,5 %, Steuern 12,0 %) bestätigen die Stabilität."
   }
 ]

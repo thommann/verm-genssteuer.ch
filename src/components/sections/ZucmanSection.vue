@@ -6,19 +6,45 @@
 // Zusatzaufkommen (~10 Mrd.) im Verhaltnis zu bekannten Bezugsgroessen bedeutet.
 import { computed } from 'vue';
 import spendRef from '@/data/spend_reference.json';
-import { chf, pct } from '@/lib/format.js';
+import { chf, pct, num } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const REVENUE = 10e9; // Zusatzaufkommen der Mindeststeuer, gerundet
 const K = spendRef.kennzahlen;
 
-// Wie schnell holen die Superreichen die Mehrbelastung ueber den passiven
-// Vermoegenszuwachs wieder herein. EXTRA_RATE = Mehrbelastung gegenueber heute
-// (~2 % minus ~0,8 %). PASSIVE_RETURN = realer Zuwachs grosser Vermoegen p. a.
-// (Zucman, G20-Report 2024: Top 0,0001 % rund 7,1 % real 1987-2024).
-const EXTRA_RATE = 0.012;
+// Wie schnell holen die Superreichen die Steuer ueber den passiven
+// Vermoegenszuwachs wieder herein. ZUCMAN_RATE = ganze Mindeststeuer (2 %),
+// nicht nur die Mehrbelastung. PASSIVE_RETURN = realer Zuwachs grosser
+// Vermoegen p. a. (Zucman, G20-Report 2024: Top 0,0001 % rund 7,1 % real
+// 1987-2024). Recovery = 0,02 / 0,071 ~ 103 Tage.
+const ZUCMAN_RATE = 0.02;
 const PASSIVE_RETURN = 0.071;
-const recoveryDays = Math.round((EXTRA_RATE / PASSIVE_RETURN) * 365);
+const recoveryDays = Math.round((ZUCMAN_RATE / PASSIVE_RETURN) * 365);
+
+// Gegenstueck fuer den Medianhaushalt, einkommensbasiert und aus einer Quelle
+// (BFS HABE, neueste Querschnittstabelle nach Einkommensklasse, Periode
+// 2015-2017). Jede Klasse umfasst 20 % der Haushalte; das mittlere Quintil
+// enthaelt den Median. Steuern 785 CHF/Monat (9,9 % des Bruttoeinkommens),
+// Einkommen aus Vermoegen und Vermietung 232 CHF/Monat (2,9 %). Recovery =
+// 785 / 232 ~ 3,4 Jahre, also rund zwoelfmal die ~103 Tage der Spitze.
+const HH_TAX_CHF = 784.6;
+const HH_PROPERTY_CHF = 231.7;
+const HH_GROSS_CHF = 7923.2; // Bruttoeinkommen mittleres Quintil (HABE 2015-2017)
+const hhRecoveryYears = HH_TAX_CHF / HH_PROPERTY_CHF;
+// Aus dem gesamten Einkommen (v. a. Arbeit) ist die Steuersumme in
+// 9,9 % eines Jahres ~ 36 Tagen verdient.
+const hhTaxIncomeDays = Math.round((HH_TAX_CHF / HH_GROSS_CHF) * 365);
+
+// Dieselbe Rechnung fuer den Durchschnitt aller Haushalte (Spalte «Saemtliche»
+// der gleichen HABE-Tabelle 2015-2017): Steuern 1083 CHF/Monat (11,6 %),
+// Vermoegenseinkommen 421 CHF/Monat (4,5 %), Bruttoeinkommen 9349 CHF/Monat.
+// Der Durchschnitt holt das Vermoegenseinkommen schneller herein, weil die
+// Spitze den Schnitt nach oben zieht.
+const AVG_TAX_CHF = 1083.0;
+const AVG_PROPERTY_CHF = 421.0;
+const AVG_GROSS_CHF = 9349.1;
+const avgRecoveryYears = AVG_TAX_CHF / AVG_PROPERTY_CHF;
+const avgTaxIncomeDays = Math.round((AVG_TAX_CHF / AVG_GROSS_CHF) * 365);
 
 const perCapita = computed(() => chf(REVENUE / K.population.value));
 const incomeShare = computed(() => pct(REVENUE / K.einkommenssteuer_np_alle_ebenen.value, 0));
@@ -68,6 +94,39 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
       </div>
       <div class="srcrow">
         <SourceTag id="zucman_g20" :note="$t('zucman.daysSource')" />
+      </div>
+
+      <h3 class="block-h">{{ $t('zucman.medHeading') }}</h3>
+      <div class="card medbox">
+        <span class="calc-line">{{ $t('zucman.medLine') }}</span>
+        <table class="medtable">
+          <thead>
+            <tr>
+              <th></th>
+              <th>{{ $t('zucman.medColIncome') }}</th>
+              <th>{{ $t('zucman.medColPassive') }}</th>
+              <th>{{ $t('zucman.medColTotal') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{{ $t('zucman.medRowMedian') }}</th>
+              <td class="mt-income">{{ num(HH_GROSS_CHF, 0) }}</td>
+              <td class="mt-accent">~{{ num(hhRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
+              <td>~{{ hhTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
+            </tr>
+            <tr>
+              <th>{{ $t('zucman.medRowAvg') }}</th>
+              <td class="mt-income">{{ num(AVG_GROSS_CHF, 0) }}</td>
+              <td>~{{ num(avgRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
+              <td>~{{ avgTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <span class="days-sub" v-html="$t('zucman.medCaption')" />
+      </div>
+      <div class="srcrow">
+        <SourceTag id="bfs_habe" :note="$t('zucman.medSource')" />
       </div>
 
       <h3 class="block-h">{{ $t('zucman.meaningHeading') }}</h3>
@@ -133,6 +192,31 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
 .days-unit { font-size: 1.05rem; font-weight: 700; }
 .days-sub { color: var(--text-soft); font-size: 0.94rem; line-height: 1.55; }
 .days-sub :deep(strong) { color: var(--text); }
+
+.medbox {
+  margin: 16px 0 4px; padding: 22px 24px;
+  display: flex; flex-direction: column; gap: 8px;
+  border-left: 3px solid var(--accent);
+}
+.medtable {
+  width: 100%; border-collapse: collapse; margin: 14px 0 4px;
+  font-variant-numeric: tabular-nums;
+}
+.medtable th, .medtable td { padding: 8px 6px; text-align: right; }
+.medtable thead th {
+  color: var(--text-soft); font-weight: 600; font-size: 0.8rem;
+  line-height: 1.25; vertical-align: bottom;
+}
+.medtable thead th:first-child { width: 1%; }
+.medtable tbody th {
+  text-align: left; color: var(--text-soft); font-weight: 600; font-size: 0.9rem;
+}
+.medtable tbody td { color: var(--text); font-weight: 800; font-size: 1.2rem; white-space: nowrap; }
+.medtable tbody td.mt-income { color: var(--text-soft); font-weight: 600; font-size: 1rem; }
+.medtable tbody td.mt-accent { color: var(--accent); }
+.medtable tbody tr + tr th, .medtable tbody tr + tr td {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
 
 .egrid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 18px; }
 .ecard { padding: 22px; display: flex; flex-direction: column; gap: 8px; }
