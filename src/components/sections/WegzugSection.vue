@@ -77,11 +77,11 @@ const wegzugDisplay = computed(() =>
             <div class="result-breakdown">
               <div class="rb-row">
                 <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
-                <span class="rb-val">+{{ chfCompact(staticRevenue, 1) }}</span>
+                <span class="rb-val">+{{ num(staticRevenue / 1e6, 1) }} Mio.</span>
               </div>
               <div class="rb-row neg">
                 <span class="rb-lab">{{ $t('calculator.nettoHeuteLabel') }}</span>
-                <span class="rb-val">−{{ chfCompact(wegzugAktuelleSteuern, 1) }}</span>
+                <span class="rb-val">−{{ num(wegzugAktuelleSteuern / 1e6, 1) }} Mio.</span>
               </div>
             </div>
             <div class="result-sub">
