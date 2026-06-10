@@ -71,11 +71,11 @@ const wegzugDisplay = computed(() =>
         <div class="card wegzug-result">
           <div class="rb-row">
             <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
-            <span class="rb-val">{{ wegzugAktiv ? '+' + chfCompact(staticRevenue, 1) : '–' }}</span>
+            <span class="rb-val">+{{ chfCompact(staticRevenue, 1) }}</span>
           </div>
-          <div class="rb-row" :class="{ neg: wegzugAktiv }">
+          <div class="rb-row neg">
             <span class="rb-lab">{{ $t('calculator.nettoHeuteLabel') }}</span>
-            <span class="rb-val">{{ wegzugAktiv ? '−' + chfCompact(wegzugAktuelleSteuern, 1) : '–' }}</span>
+            <span class="rb-val">−{{ chfCompact(wegzugAktuelleSteuern, 1) }}</span>
           </div>
         </div>
       </div>

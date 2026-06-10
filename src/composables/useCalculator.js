@@ -196,6 +196,7 @@ export function useCalculator() {
     wegzugAktuelleSteuern,
     wegzugNeuVerlust,
     wegzugGesamtverlust,
+    effectiveWegzug,
     nettoStatisch,
     nettoDauerhaft,
     WEGZUG_MAX,

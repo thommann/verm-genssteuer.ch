@@ -8,20 +8,14 @@ import { chf, chfCompact, pct, num } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const {
-  staticRevenue, sustainableRevenue,
   nettoStatisch, nettoDauerhaft,
-  wegzugAktiv, wegzugAktuelleSteuern,
+  effectiveWegzug, wegzugAktuelleSteuern,
   state, model,
 } = useCalculator();
 const K = spendRef.kennzahlen;
 
 const basis = ref('dauerhaft'); // 'dauerhaft' | 'jahr1'
-const revenue = computed(() => {
-  if (wegzugAktiv.value) {
-    return basis.value === 'jahr1' ? nettoStatisch.value : nettoDauerhaft.value;
-  }
-  return basis.value === 'jahr1' ? staticRevenue.value : sustainableRevenue.value;
-});
+const revenue = computed(() => basis.value === 'jahr1' ? nettoStatisch.value : nettoDauerhaft.value);
 
 const incomeCut = computed(() => revenue.value / K.einkommenssteuer_np_alle_ebenen.value);
 const bundCut = computed(() => revenue.value / K.direkte_bundessteuer_np.value);
@@ -51,12 +45,10 @@ const oevLeft = computed(() => revenue.value - K.oev_personenverkehrsertrag.valu
 const DEBTFREE_HORIZON = 250;
 const debtFreeYears = computed(() => {
   const target = K.staatsschuld_maastricht.value;
-  const wegzugSchwelle = wegzugAktiv.value ? state.wegzugSchwelle : Infinity;
-  const annualLoss = wegzugAktiv.value ? wegzugAktuelleSteuern.value : 0;
-  const series = dynamicProjection(cohorts, model.value, state.rendite, state.year, DEBTFREE_HORIZON, wegzugSchwelle);
+  const series = dynamicProjection(cohorts, model.value, state.rendite, state.year, DEBTFREE_HORIZON, effectiveWegzug.value);
   let cum = 0;
   for (let i = 0; i < series.length; i += 1) {
-    const rev = series[i].revenue - annualLoss;
+    const rev = series[i].revenue - wegzugAktuelleSteuern.value;
     if (rev <= 0) break;
     if (cum + rev >= target) return i + (target - cum) / rev;
     cum += rev;
