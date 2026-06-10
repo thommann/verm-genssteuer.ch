@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCalculator, WEGZUG_MAX } from '@/composables/useCalculator.js';
-import { chfCompact } from '@/lib/format.js';
+import { chfCompact, num } from '@/lib/format.js';
 import RangeControl from '@/components/ui/RangeControl.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
@@ -10,6 +10,7 @@ const { t } = useI18n();
 const calc = useCalculator();
 const {
   state,
+  wegzugPersonen,
   wegzugAktuelleSteuern,
   staticRevenue,
 } = calc;
@@ -45,20 +46,22 @@ const wegzugDisplay = computed(() =>
       <h2>{{ $t('wegzug.title') }}</h2>
       <p class="lead" v-html="$t('wegzug.lead')" />
 
-      <div class="wegzug-grid">
-        <div class="card wegzug-ctrl">
-          <RangeControl
-            v-model="wegzugLogPos"
-            :min="0"
-            :max="200"
-            :step="1"
-            :label="$t('calculator.wegzugLabel')"
-            :display="wegzugDisplay"
-            :hint="$t('calculator.wegzugHint')"
-          />
-        </div>
-
-        <div class="card wegzug-result">
+      <div class="card wegzug-card">
+        <RangeControl
+          v-model="wegzugLogPos"
+          :min="0"
+          :max="200"
+          :step="1"
+          :label="$t('calculator.wegzugLabel')"
+          :display="wegzugDisplay"
+          :hint="$t('calculator.wegzugHint')"
+        />
+        <p class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
+          cnt: num(wegzugPersonen),
+          year: state.year,
+          schwelle: chfCompact(state.wegzugSchwelle, 0),
+        })" />
+        <div class="rb-rows">
           <div class="rb-row">
             <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
             <span class="rb-val">+{{ chfCompact(staticRevenue, 1) }}</span>
@@ -70,7 +73,6 @@ const wegzugDisplay = computed(() =>
         </div>
       </div>
 
-      <p class="disclaimer muted" v-html="$t('calculator.disclaimer')" />
       <div class="srcs">
         <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
         <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
@@ -80,17 +82,17 @@ const wegzugDisplay = computed(() =>
 </template>
 
 <style scoped>
-.wegzug-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  align-items: start;
+.wegzug-card { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.wegzug-info {
+  font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
+  padding: 12px 14px; border-radius: 8px;
+  background: rgba(255, 92, 92, 0.08);
+  border: 1px solid var(--border); border-left: 3px solid #e05;
+  margin: 0;
 }
-.wegzug-ctrl { padding: 24px; }
-.wegzug-result { min-height: 160px; padding: 20px 24px; }
-
-.disclaimer { font-size: 0.82rem; margin-top: 18px; max-width: 75ch; }
+.wegzug-info :deep(strong) { color: var(--text); }
+.rb-rows { display: flex; flex-direction: column; gap: 6px; }
 .srcs { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; }
 
-@media (max-width: 820px) { .wegzug-grid { grid-template-columns: 1fr; } }
+@media (max-width: 820px) { .wegzug-card { padding: 18px; } }
 </style>
