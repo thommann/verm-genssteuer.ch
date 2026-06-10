@@ -57,12 +57,12 @@ const wegzugDisplay = computed(() =>
             :display="wegzugDisplay"
             :hint="$t('calculator.wegzugHint')"
           />
-          <p v-if="wegzugAktiv" class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
+          <p v-if="wegzugAktiv && wegzugPersonen > 0" class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
             cnt: num(wegzugPersonen),
             year: state.year,
             schwelle: chfCompact(state.wegzugSchwelle, 0),
           })" />
-          <p v-if="wegzugAktiv" class="wi-note">
+          <p v-if="wegzugAktiv && wegzugPersonen > 0" class="wi-note">
             <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
             <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
           </p>
