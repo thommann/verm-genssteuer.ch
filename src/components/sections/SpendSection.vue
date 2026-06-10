@@ -1,38 +1,14 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useCalculator } from '@/composables/useCalculator.js';
-import { dynamicProjection } from '@/lib/taxModel.js';
-import cohorts from '@/data/projektion_cohorts.json';
-import spendRef from '@/data/spend_reference.json';
 import { chfCompact } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 import SpendGrid from '@/components/ui/SpendGrid.vue';
 
-const {
-  nettoStatisch, nettoDauerhaft,
-  effectiveWegzug, wegzugAktuelleSteuern,
-  state, model,
-} = useCalculator();
-const K = spendRef.kennzahlen;
+const { nettoStatisch, nettoDauerhaft, state, debtFreeYears } = useCalculator();
 
 const basis = ref('dauerhaft'); // 'dauerhaft' | 'jahr1'
 const revenue = computed(() => basis.value === 'jahr1' ? nettoStatisch.value : nettoDauerhaft.value);
-
-// Anzahl Jahre, bis die dynamische Projektion die Staatsschuld kumulativ deckt.
-// null = Aufkommen versiegt vor dem Horizont (250 Jahre).
-const DEBTFREE_HORIZON = 250;
-const debtFreeYears = computed(() => {
-  const target = K.staatsschuld_maastricht.value;
-  const series = dynamicProjection(cohorts, model.value, state.rendite, state.year, DEBTFREE_HORIZON, effectiveWegzug.value);
-  let cum = 0;
-  for (let i = 0; i < series.length; i += 1) {
-    const rev = series[i].revenue - wegzugAktuelleSteuern.value;
-    if (rev <= 0) break;
-    if (cum + rev >= target) return i + (target - cum) / rev;
-    cum += rev;
-  }
-  return null;
-});
 </script>
 
 <template>
