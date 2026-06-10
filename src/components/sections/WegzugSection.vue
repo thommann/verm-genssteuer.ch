@@ -1,0 +1,148 @@
+<script setup>
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useCalculator, WEGZUG_MAX } from '@/composables/useCalculator.js';
+import { chfCompact, pct, num } from '@/lib/format.js';
+import RangeControl from '@/components/ui/RangeControl.vue';
+import SourceTag from '@/components/ui/SourceTag.vue';
+
+const { t } = useI18n();
+const calc = useCalculator();
+const {
+  state,
+  wegzugAktiv, wegzugPersonen,
+  wegzugAktuelleSteuern,
+  nettoStatisch, nettoDauerhaft,
+  staticRevenue,
+} = calc;
+
+// Logarithmische Skala: 0–200 UI-Schritte → 100 Mio.–50 Mrd. CHF
+const WEGZUG_LOG_MIN = 1e8;
+const WEGZUG_LOG_STEPS = 200;
+const _logMin = Math.log10(WEGZUG_LOG_MIN);
+const _logMax = Math.log10(WEGZUG_MAX);
+
+const wegzugLogPos = computed({
+  get: () => {
+    if (state.wegzugSchwelle >= WEGZUG_MAX) return WEGZUG_LOG_STEPS;
+    return Math.round(((Math.log10(state.wegzugSchwelle) - _logMin) / (_logMax - _logMin)) * WEGZUG_LOG_STEPS);
+  },
+  set: (pos) => {
+    if (pos >= WEGZUG_LOG_STEPS) { state.wegzugSchwelle = WEGZUG_MAX; return; }
+    state.wegzugSchwelle = Math.pow(10, _logMin + (pos / WEGZUG_LOG_STEPS) * (_logMax - _logMin));
+  },
+});
+
+const wegzugDisplay = computed(() =>
+  state.wegzugSchwelle >= WEGZUG_MAX
+    ? t('calculator.wegzugNone')
+    : `ab ${chfCompact(state.wegzugSchwelle, 0)}`
+);
+</script>
+
+<template>
+  <section id="wegzug">
+    <div class="wrap">
+      <div class="eyebrow">{{ $t('wegzug.eyebrow') }}</div>
+      <h2>{{ $t('wegzug.title') }}</h2>
+      <p class="lead" v-html="$t('wegzug.lead')" />
+
+      <div class="wegzug-grid">
+        <div class="card wegzug-ctrl">
+          <RangeControl
+            v-model="wegzugLogPos"
+            :min="0"
+            :max="200"
+            :step="1"
+            :label="$t('calculator.wegzugLabel')"
+            :display="wegzugDisplay"
+            :hint="$t('calculator.wegzugHint')"
+          />
+          <p v-if="wegzugAktiv" class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
+            cnt: num(wegzugPersonen),
+            year: state.year,
+            schwelle: chfCompact(state.wegzugSchwelle, 0),
+          })" />
+          <p v-if="wegzugAktiv" class="wi-note">
+            <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
+            <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
+          </p>
+        </div>
+
+        <div class="card result wegzug-result">
+          <template v-if="wegzugAktiv">
+            <div class="result-label">{{ $t('calculator.nettoResultLabel', { year: state.year }) }}</div>
+            <div class="result-value" :class="{ negative: nettoStatisch < 0 }">{{ chfCompact(nettoStatisch, 1) }}</div>
+            <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
+            <div class="result-breakdown">
+              <div class="rb-row">
+                <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
+                <span class="rb-val">+{{ chfCompact(staticRevenue, 1) }}</span>
+              </div>
+              <div class="rb-row neg">
+                <span class="rb-lab">{{ $t('calculator.nettoHeuteLabel') }}</span>
+                <span class="rb-val">−{{ chfCompact(wegzugAktuelleSteuern, 1) }}</span>
+              </div>
+            </div>
+            <div class="result-sub">
+              <div>
+                <span class="rs-val gold">{{ chfCompact(nettoDauerhaft, 1) }}</span>
+                <span class="rs-lab" v-html="$t('calculator.nettoDauerhaftLabel')" />
+              </div>
+            </div>
+          </template>
+          <template v-else>
+            <p class="wegzug-idle muted" v-html="$t('calculator.wegzugResultIdle')" />
+          </template>
+        </div>
+      </div>
+
+      <p class="disclaimer muted" v-html="$t('calculator.disclaimer')" />
+    </div>
+  </section>
+</template>
+
+<style scoped>
+.wegzug-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+.wegzug-ctrl { padding: 24px; }
+.wegzug-result { min-height: 160px; }
+.wegzug-idle { font-size: 0.88rem; line-height: 1.6; margin: 0; }
+
+.wegzug-info {
+  font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
+  margin-top: 10px; padding: 12px 14px; border-radius: 8px;
+  background: rgba(255, 92, 92, 0.08);
+  border: 1px solid var(--border); border-left: 3px solid #e05;
+}
+.wegzug-info :deep(strong) { color: var(--text); }
+.wi-note { color: var(--text-mute); font-size: 0.75rem; margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+.result {
+  padding: 28px 24px;
+  background: linear-gradient(160deg, #1d2952, #161f3d);
+  border-color: #34407a;
+}
+.result-label { color: var(--text-soft); font-size: 0.9rem; font-weight: 600; }
+.result-value { font-size: clamp(2.6rem, 7vw, 4rem); font-weight: 800; color: var(--accent); letter-spacing: -0.03em; line-height: 1.05; }
+.result-value.negative { color: #f07; }
+.result-unit { color: var(--text-mute); font-weight: 600; }
+.result-breakdown { margin: 12px 0 4px; display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
+.rb-row { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-soft); }
+.rb-row.neg { color: #f07; }
+.rb-lab { flex: 1; }
+.rb-val { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; padding-left: 8px; }
+.result-sub { display: flex; gap: 24px; margin: 14px 0; flex-wrap: wrap; }
+.result-sub > div { display: flex; flex-direction: column; }
+.rs-val { font-size: 1.5rem; font-weight: 800; }
+.rs-val.gold { color: var(--gold); }
+.rs-lab { color: var(--text-mute); font-size: 0.78rem; }
+
+.disclaimer { font-size: 0.82rem; margin-top: 18px; max-width: 75ch; }
+
+@media (max-width: 820px) { .wegzug-grid { grid-template-columns: 1fr; } }
+</style>

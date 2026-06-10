@@ -32,6 +32,7 @@ export default {
       themen: 'Themen-Übersicht',
       verteilung: 'Verteilung',
       rechner: 'Rechner',
+      wegzug: 'Wegzug',
       verwendung: 'Verwendung',
       dynamik: 'Dynamik',
       international: 'International',
@@ -82,12 +83,20 @@ export default {
     modelleLead: 'Woher die Modelle stammen: die progressive Staffel des World Inequality Report und die 2-Prozent-Mindeststeuer von Gabriel Zucman.',
   },
 
-  // Rechner-Einheit: Kopf der zusammengehörenden Abschnitte (Rechner, Rendite, Verwendung).
+  // Rechner-Einheit: Kopf der zusammengehörenden Abschnitte (Rechner, Wegzug, Rendite, Verwendung).
   calcSuite: {
     kicker: 'Interaktiver Rechner',
     step1: 'Modell',
-    step2: 'Rendite',
-    step3: 'Verwendung',
+    step2: 'Wegzug',
+    step3: 'Rendite',
+    step4: 'Verwendung',
+  },
+
+  // WegzugSection
+  wegzug: {
+    eyebrow: 'Das Wegzug-Argument',
+    title: 'Was kostet der Wegzug?',
+    lead: 'Gegner einer Vermögenssteuer warnen, die Reichen ziehen weg. Simuliere hier, was das konkret bedeutet: wie viele Personen betroffen wären und was nach dem Steuerausfall netto für den Fiskus übrig bliebe.',
   },
 
   // HeroSection
