@@ -64,6 +64,22 @@
       "einheit": "CHF/Jahr",
       "source": "litra",
       "bezug": "kuratiert"
+    },
+    "f35_preis_pro_jet": {
+      "value": 227433333,
+      "label": "Beschaffungskosten pro F-35A: Volkskredit CHF 6,429 Mrd. (indexiert) + Nachtragskredit CHF 394 Mio. = CHF 6,823 Mrd. für 30 Jets",
+      "jahr": 2026,
+      "einheit": "CHF/Jet",
+      "source": "f35_beschaffung",
+      "bezug": "kuratiert"
+    },
+    "f35_flotte": {
+      "value": 30,
+      "label": "Anzahl F-35A, die die Schweizer Armee beschafft (Armeebotschaft 2026)",
+      "jahr": 2026,
+      "einheit": "Jets",
+      "source": "f35_beschaffung",
+      "bezug": "kuratiert"
     }
   }
 }

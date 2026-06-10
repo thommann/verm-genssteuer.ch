@@ -104,11 +104,6 @@ export default {
     eyebrow: 'Vermögen · Schweiz · 2022',
     title: 'Das reichste <span class="hl">1&nbsp;%</span> besitzt <span class="hl gold">{share}</span> des steuerbaren Vermögens.',
     lead: 'Knapp <strong>{cnt}</strong> Steuerpflichtige, rund ein Prozent, halten zusammen fast so viel Vermögen wie die anderen 99&nbsp;% zusammen. Das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>.',
-    stat1Label: 'des Vermögens beim reichsten&nbsp;1&nbsp;%<br />(Vermögen ab 5&nbsp;Mio.)',
-    stat2Label: 'Median-Vermögen,<br />die «mittlere» Schweiz',
-    stat3Label: 'so hoch ist der Durchschnitt<br />wegen der Spitze',
-    ctaTry: 'Rechner ausprobieren',
-    ctaTopics: 'Erst die drei Themen ansehen',
     sourceNote: 'unbeschränkt Steuerpflichtige, 2022',
   },
 
@@ -221,7 +216,14 @@ export default {
     debtfreeTitle: 'Staatsschulden tilgen',
     debtfreeUnit: 'Jahre',
     debtfreeText: 'So viele Jahre, bis das gesamte Aufkommen die <strong>Staatsschuld der Schweiz</strong> (Bund, Kantone, Gemeinden, Sozialwerke; rund 214 Mrd. nach Maastricht) vollständig getilgt hätte. Aufsummiert über die dynamische Hochrechnung, nicht das flache Vielfache eines Jahres.',
+    debtfreeTextFlat: 'So viele Jahre, bis das Aufkommen die <strong>Staatsschuld der Schweiz</strong> (Bund, Kantone, Gemeinden, Sozialwerke; rund 214 Mrd. nach Maastricht) vollständig getilgt hätte. Flache Hochrechnung: Aufkommen konstant pro Jahr.',
     debtfreeFoot: 'Kumuliert über die dynamische Hochrechnung, inkl. {rendite} Rendite p.a.',
+    debtfreeFootFlat: 'Aufkommen konstant, ohne dynamische Projektion.',
+    f35Title: 'F-35-Kampfjets kaufen',
+    f35TextUnder: 'So viele F-35A könnten pro Jahr beschafft werden, zum tatsächlichen Gesamtstückpreis von rund CHF {price} Mio. Die Schweizer Armee kauft {fleet} Stück insgesamt.',
+    f35TextOver: 'Die ganze Schweizer Flotte von {fleet} F-35A wäre pro Jahr finanziert, mit {extra} Jets übrig.',
+    f35Foot: 'Volkskredit (indexiert CHF 6,429 Mrd.) + Nachtragskredit CHF 394 Mio. = CHF 6,823 Mrd. für {fleet} Jets, Armeebotschaft März 2026.',
+    f35Unit: 'F-35',
     disclaimer: 'Bezugsgrössen aus offiziellen Quellen (EFV/ESTV, BAG, BFS, LITRA), gerundet, nominal. Es ist <em>entweder/oder</em>: jeder Franken kann nur einmal ausgegeben werden. Die Beispiele zeigen die Grössenordnung, keine fertige Politik.',
     srcsLabel: 'Aufkommen (Zähler):',
     sourceNoteEstv: 'Aufkommen aus dem Rechner, Pareto-Tail >10 Mio.',
@@ -338,10 +340,6 @@ export default {
     medSource: 'Median / Durchschnitt: Steuern 9,9 % / 11,6 %, Vermögenseinkommen 2,9 % / 4,5 % des Bruttoeinkommens (HABE 2015–2017)',
 
     meaningHeading: 'Was ~10 Mrd. bedeuten',
-    meaningPerCapita: 'pro Kopf und Jahr',
-    meaningIncome: 'der gesamten Einkommenssteuer natürlicher Personen',
-    meaningPremium: 'der selbst getragenen Krankenkassenprämien',
-    meaningDebt: 'der Schweizer Staatsschuld',
   },
 
   // UbsStudySection
