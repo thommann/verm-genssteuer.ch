@@ -19,6 +19,7 @@ const {
   wegzugAktiv, wegzugPersonen,
   wegzugVstVerlust, wegzugEstVerlust, wegzugAktuelleSteuern,
   wegzugNeuVerlust, wegzugGesamtverlust,
+  nettoStatisch, nettoDauerhaft,
   WEGZUG_MAX, VST_RATE, EST_RATE,
 } = calc;
 
@@ -235,24 +236,49 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 
         <!-- Headline result -->
         <div class="card result">
-          <div class="result-main">
-            <div class="result-label">{{ $t('calculator.resultLabel', { year: state.year }) }}</div>
-            <div class="result-value">{{ chfCompact(staticRevenue, 1) }}</div>
-            <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
-          </div>
-          <div class="result-sub">
-            <div>
-              <span class="rs-val gold">{{ chfCompact(sustainableRevenue, 1) }}</span>
-              <span class="rs-lab" v-html="$t('calculator.sustainableLabel')" />
+          <template v-if="wegzugAktiv">
+            <div class="result-main">
+              <div class="result-label">{{ $t('calculator.nettoResultLabel', { year: state.year }) }}</div>
+              <div class="result-value" :class="{ negative: nettoStatisch < 0 }">{{ chfCompact(nettoStatisch, 1) }}</div>
+              <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
             </div>
-            <div>
-              <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
-              <span class="rs-lab">{{ $t('calculator.avgRateLabel', { wealth: chfCompact(model.schwelle * 2, 0) }) }}</span>
+            <div class="result-breakdown">
+              <div class="rb-row">
+                <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
+                <span class="rb-val">+{{ chfCompact(staticRevenue, 1) }}</span>
+              </div>
+              <div class="rb-row neg">
+                <span class="rb-lab">{{ $t('calculator.nettoHeuteLabel') }}</span>
+                <span class="rb-val">−{{ chfCompact(wegzugAktuelleSteuern, 1) }}</span>
+              </div>
             </div>
-          </div>
+            <div class="result-sub">
+              <div>
+                <span class="rs-val gold">{{ chfCompact(nettoDauerhaft, 1) }}</span>
+                <span class="rs-lab" v-html="$t('calculator.nettoDauerhaftLabel')" />
+              </div>
+            </div>
+          </template>
+          <template v-else>
+            <div class="result-main">
+              <div class="result-label">{{ $t('calculator.resultLabel', { year: state.year }) }}</div>
+              <div class="result-value">{{ chfCompact(staticRevenue, 1) }}</div>
+              <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
+            </div>
+            <div class="result-sub">
+              <div>
+                <span class="rs-val gold">{{ chfCompact(sustainableRevenue, 1) }}</span>
+                <span class="rs-lab" v-html="$t('calculator.sustainableLabel')" />
+              </div>
+              <div>
+                <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
+                <span class="rs-lab">{{ $t('calculator.avgRateLabel', { wealth: chfCompact(model.schwelle * 2, 0) }) }}</span>
+              </div>
+            </div>
+          </template>
           <p class="readout muted">
             <template v-if="capBinds">{{ $t('calculator.readoutCap', { wcap: chfCompact(model.wcap, 0) }) }}</template>
-            <template v-if="equilibrium">
+            <template v-if="equilibrium && !wegzugAktiv">
               {{ $t('calculator.readoutEquilibrium', { eq: chfCompact(equilibrium, 0) }) }}
             </template>
           </p>
@@ -357,8 +383,14 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 }
 .result-label { color: var(--text-soft); font-size: 0.9rem; font-weight: 600; }
 .result-value { font-size: clamp(2.6rem, 7vw, 4rem); font-weight: 800; color: var(--accent); letter-spacing: -0.03em; line-height: 1.05; }
+.result-value.negative { color: #f07; }
 .result-unit { color: var(--text-mute); font-weight: 600; }
-.result-sub { display: flex; gap: 24px; margin: 20px 0 14px; flex-wrap: wrap; }
+.result-breakdown { margin: 12px 0 4px; display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
+.rb-row { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-soft); }
+.rb-row.neg { color: #f07; }
+.rb-lab { flex: 1; }
+.rb-val { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; padding-left: 8px; }
+.result-sub { display: flex; gap: 24px; margin: 14px 0 14px; flex-wrap: wrap; }
 .result-sub > div { display: flex; flex-direction: column; }
 .rs-val { font-size: 1.5rem; font-weight: 800; }
 .rs-val.gold { color: var(--gold); }

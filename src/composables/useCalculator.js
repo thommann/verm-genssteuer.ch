@@ -155,6 +155,11 @@ const wegzugNeuVerlust = computed(() => staticRevenueVoll.value - staticRevenue.
 // Gesamtausfall: neue Steuer + heutige Steuern.
 const wegzugGesamtverlust = computed(() => wegzugNeuVerlust.value + wegzugAktuelleSteuern.value);
 
+// Netto-Fiskalgewinn: was der Staat netto mehr hat als heute.
+// = neue Steuer von den Verbliebenen − heutige Steuern der Abgewanderten.
+const nettoStatisch = computed(() => staticRevenue.value - wegzugAktuelleSteuern.value);
+const nettoDauerhaft = computed(() => sustainableRevenue.value - wegzugAktuelleSteuern.value);
+
 function applyPreset(key) {
   const p = PRESETS[key];
   if (!p) return;
@@ -191,6 +196,8 @@ export function useCalculator() {
     wegzugAktuelleSteuern,
     wegzugNeuVerlust,
     wegzugGesamtverlust,
+    nettoStatisch,
+    nettoDauerhaft,
     WEGZUG_MAX,
     VST_RATE,
     EST_RATE,
