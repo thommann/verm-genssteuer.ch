@@ -120,7 +120,7 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
       </div>
 
       <h3 class="block-h">{{ $t('zucman.meaningHeading') }}</h3>
-      <SpendGrid :revenue="REVENUE" :debt-free-years="debtFreeYearsFlat" />
+      <SpendGrid :revenue="REVENUE" :debt-free-years="debtFreeYearsFlat" mini />
     </div>
   </section>
 </template>
