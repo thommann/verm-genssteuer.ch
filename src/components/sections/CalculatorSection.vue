@@ -197,7 +197,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
           </div>
           <p class="readout muted">
             <template v-if="capBinds">{{ $t('calculator.readoutCap', { wcap: chfCompact(model.wcap, 0) }) }}</template>
-            <template v-if="equilibrium && !wegzugAktiv">
+            <template v-if="equilibrium">
               {{ $t('calculator.readoutEquilibrium', { eq: chfCompact(equilibrium, 0) }) }}
             </template>
           </p>
