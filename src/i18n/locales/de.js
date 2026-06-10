@@ -32,6 +32,7 @@ export default {
       themen: 'Themen-Übersicht',
       verteilung: 'Verteilung',
       rechner: 'Rechner',
+      wegzug: 'Wegzug',
       verwendung: 'Verwendung',
       dynamik: 'Dynamik',
       international: 'International',
@@ -82,12 +83,20 @@ export default {
     modelleLead: 'Woher die Modelle stammen: die progressive Staffel des World Inequality Report und die 2-Prozent-Mindeststeuer von Gabriel Zucman.',
   },
 
-  // Rechner-Einheit: Kopf der zusammengehörenden Abschnitte (Rechner, Rendite, Verwendung).
+  // Rechner-Einheit: Kopf der zusammengehörenden Abschnitte (Rechner, Wegzug, Rendite, Verwendung).
   calcSuite: {
     kicker: 'Interaktiver Rechner',
     step1: 'Modell',
-    step2: 'Rendite',
-    step3: 'Verwendung',
+    step2: 'Wegzug',
+    step3: 'Rendite',
+    step4: 'Verwendung',
+  },
+
+  // WegzugSection
+  wegzug: {
+    eyebrow: 'Das Wegzug-Argument',
+    title: 'Was kostet der Wegzug?',
+    lead: 'Gegner einer Vermögenssteuer warnen, die Reichen ziehen weg. Simuliere hier, was das konkret bedeutet: wie viele Personen betroffen wären und was nach dem Steuerausfall netto für den Fiskus übrig bliebe.',
   },
 
   // HeroSection
@@ -139,6 +148,11 @@ export default {
     capHint: 'Deckel für den Grenzsatz der allergrössten Vermögen.',
     yearLabel: 'Datenjahr:',
     resultLabel: 'Jährliches Aufkommen ({year}, statisch)',
+    resultLabelWegzug: 'Aufkommen ({year}, Verbliebene)',
+    nettoResultLabel: 'Netto-Fiskalgewinn ({year}, mit Wegzug)',
+    nettoNeuLabel: 'Neue Steuer (Verbliebene)',
+    nettoHeuteLabel: 'Heutige Steuern (Abgewanderte)',
+    nettoDauerhaftLabel: 'dauerhaft tragbar, netto<br />(dynamisch, siehe unten)',
     resultUnit: 'CHF pro Jahr',
     sustainableLabel: 'dauerhaft tragbares Niveau<br />(dynamisch, siehe unten)',
     avgRateLabel: 'Ø-Satz bei {wealth}',
@@ -160,7 +174,16 @@ export default {
       5: '> 10 Mrd.',
     },
     bandNote: 'Der grösste Teil stammt von ganz oben, von wenigen Milliarden­vermögen. Genau dort, wo heute am wenigsten Vermögenssteuer anfällt.',
-    disclaimer: 'Statisches Modell: keine Abwanderung, kein Verhalten, kein Vermögenszuwachs. Die grössten Realfaktoren bleiben aussen vor. Die Zahlen zeigen das <em>Potenzial</em> der Bemessungsgrundlage, nicht eine politische Prognose.',
+    wegzugLabel: 'Wegzug ab (Szenario)',
+    wegzugHint: 'Alle Steuerpflichtigen mit Vermögen über diesem Betrag gelten im Szenario als weggezogen.',
+    wegzugNone: 'kein Wegzug',
+    wegzugInfo: '<strong>{cnt}</strong> Steuerpflichtige ({year}) mit Vermögen über {schwelle} verlassen im Szenario die Schweiz.',
+    wegzugIdleText: 'Schiebe den Regler nach links, um ein Wegzug-Szenario zu aktivieren.',
+    wegzugResultIdle: 'Kein Wegzug-Szenario aktiv. Der Netto-Fiskalgewinn erscheint hier, sobald eine Schwelle gewählt ist.',
+    wegzugSourceVst: 'Heutige Steuersätze: Vermögenssteuer Ø 0,28 % (NZZ)',
+    wegzugSourceEst: 'Einkommenssteuer auf Kapital ~0,9 % des steuerbaren Vermögens (Martínez/KOF)',
+    disclaimer: 'Statisches Modell: kein Vermögenszuwachs, kein Verhalten. Der Wegzug-Schieber simuliert ein vereinfachtes Szenario (vollständiger Abgang aller Personen über der Schwelle, ohne Teilwegzug oder Reaktion). Die Zahlen zeigen das <em>Potenzial</em> der Bemessungsgrundlage, nicht eine politische Prognose.',
+    disclaimerOhneWegzug: 'Statisches Modell: keine Abwanderung, kein Verhalten, kein Vermögenszuwachs. Die grössten Realfaktoren bleiben aussen vor. Die Zahlen zeigen das <em>Potenzial</em> der Bemessungsgrundlage, nicht eine politische Prognose.',
     sourceNoteEstv: 'Vermögensverteilung + Pareto-Tail >10 Mio.',
     sourceNoteFdk: 'Pauschalbesteuerte im Tail (M)',
   },

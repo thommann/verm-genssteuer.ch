@@ -460,7 +460,96 @@ Diese Herleitung erscheint zusammengefasst und als Schätzung deklariert auch im
 
 ---
 
-## 12. Reproduktion
+## 12. Wegzug-Szenario — Netto-Fiskaleffekt (Schätzung)
+
+> Anders als die Verfahren 1–8 ist dieser Abschnitt **keine** exakt reproduzierbare
+> Rechnung aus den ESTV-Klassendaten, sondern eine **Schätzung** auf Basis belegter
+> Durchschnittssätze aus externen Quellen. Die Sätze sind ausdrücklich als
+> Näherungen deklariert. VST_RATE ist ein gut belegter Durchschnittssatz; EST_RATE
+> ist der Mittelwert einer empirisch gestützten Bandbreite.
+
+### Fragestellung
+
+Wenn Steuerpflichtige ab einer Vermögensschwelle die Schweiz verlassen, verliert
+der Staat nicht nur die neue Vermögenssteuer, sondern auch deren heutige Steuerbeiträge
+(kantonale Vermögenssteuer und Einkommenssteuer auf Kapitalerträge). Der
+**Netto-Fiskalgewinn** ist:
+
+```
+nettoStatisch  = staticRevenue(mit Wegzug)  − (VST_RATE + EST_RATE) · Σ cnt[i] · mid[i]
+nettoDauerhaft = sustainableRevenue(mit Wegzug) − (VST_RATE + EST_RATE) · Σ cnt[i] · mid[i]
+```
+
+wobei die Summe über alle Bins läuft, deren `mid >= wegzugSchwelle`. Pauschalbesteuerte
+sind bereits modellhaft im Pareto-Tail eingerechnet (Verfahren D, §5); kein
+zusätzlicher Term.
+
+### VST_RATE = 0,28 % — Vermögenssteuer auf das steuerbare Vermögen
+
+**Quelle:** NZZ (`nzz_vermoegenssteuer`): «Der durchschnittliche Vermögenssteuersatz
+ist von 0,35 % (1990) auf rund 0,28 % (2025) gesunken.»
+
+Der kantonale Steuersatz wird auf das **steuerbare Reinvermögen** berechnet — genau
+dieselbe Basis wie die ESTV-Bins. VST_RATE = 0,0028 ist daher direkt auf `mid`
+anwendbar. Der Wert stimmt mit dem Fallbeispiel des Mustermillionärs (Zug/Baar, 83 Mio.)
+in der Martínez-Studie überein (0,26 %, `reichensteuer_studie_ch`), und liegt unterhalb
+des Basler Satzes (0,49 %), was den Schweizer Durchschnitt plausibel macht.
+
+**Bandbreite:** 0,25–0,49 % je Kanton.
+
+### EST_RATE = 0,90 % — Einkommenssteuer auf Kapitalerträge
+
+**Herleitung:** Basis ist die Martínez-Länderstudie (`reichensteuer_studie_ch`), konkret
+das Duschmalé-Beispiel (Roche-Erbe, Kanton Waadt, wirtschaftliches Einkommen 95,2 Mio.):
+
+- Persönliche Einkommenssteuer: 16,8 Mio. CHF
+- Vermögenssteuerbetrag: 9,5 Mio. CHF, daraus steuerbares Vermögen ~1,4–2,4 Mrd.
+  (je nach kantonalem Steuerfuss, zurückgerechnet aus dem Vermögenssteuerbetrag)
+- Einkommenssteuer als Anteil des steuerbaren Vermögens: **0,7–1,2 %**
+
+Der Mittelwert der Bandbreite 0,7–1,2 % beträgt 0,95 %; gerundet auf **0,9 %** (leicht
+zur Untergrenze hin verschoben, da das Duschmalé-Beispiel einen Hochsteuerkanton darstellt
+und der schweizweite Durchschnitt tiefer liegen dürfte).
+
+**Kontrolle mit §11-Proxy:**
+
+```
+e ≈ (Ausschüttungsrendite ~2 %) × (effektiver Einkommenssteuersatz ~25 %) ≈ 0,5 %
+```
+
+Dieser Proxy bezieht sich auf das Marktvermögen und erfasst nur ausgeschüttete Dividenden;
+thesaurierte Gewinne und nicht realisierte Kapitalgewinne bleiben aussen vor. Er bildet
+deshalb die Untergrenze. Das Duschmalé-Beispiel liegt mit 0,7–1,2 % erwartungsgemäss
+darüber.
+
+**Bandbreite:** 0,7–1,2 % des steuerbaren Vermögens (Duschmalé-Beispiel,
+`reichensteuer_studie_ch`).
+
+### Gesamtbild und Deklaration
+
+| Rate | Wert | Basis | Quelle | Charakter |
+|---|---|---|---|---|
+| VST_RATE | 0,28 % | steuerbares Vermögen (ESTV) | NZZ (`nzz_vermoegenssteuer`) | gut belegt, Ø-Satz |
+| EST_RATE | ~0,9 % | steuerbares Vermögen | Martínez/KOF (`reichensteuer_studie_ch`), Mittelwert 0,7–1,2 % | Mittelwert |
+| **VST + EST** | **~1,18 %** | steuerbares Vermögen | — | Mittelwert |
+
+Zum Vergleich: Die Zucman-Herleitung (§11) kommt am Marktvermögen auf ~0,8 %
+(Bandbreite 0,7–1,3 %). Die 1,18 % auf ESTV-Basis liegen am oberen Ende dieser Spanne,
+was plausibel ist: das Duschmalé-Beispiel stammt aus Kanton Waadt, einem Hochsteuerkanton,
+und die schweizweite effektive Last dürfte etwas tiefer liegen.
+
+**Nicht enthalten:** AHV/IV-Beiträge, Kirchensteuern, Erbschafts- und Schenkungssteuern,
+Unternehmenssteuern (auf Ebene der juristischen Person). Diese sind bewusst
+ausgeschlossen, weil das Wegzug-Szenario nur die direkte Personensteuer der natürlichen
+Person modelliert — analog zur Zucman-Herleitung in §11.
+
+**Konstanten im Code:** `VST_RATE` und `EST_RATE` in
+`src/composables/useCalculator.js`; keine separate Datendatei (Begründung: die Sätze
+sind keine Tabellenwerte, sondern belegte Näherungskonstanten aus externen Studien).
+
+---
+
+## 13. Reproduktion
 
 ```bash
 # 1. Rohdaten direkt von ESTV/WID/FDK/UBS laden (benötigt curl):

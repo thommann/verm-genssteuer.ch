@@ -11,5 +11,9 @@ dist-ssr
 __pycache__/
 *.pyc
 
+# Playwright Testergebnisse und Browser-Cache
+test-results/
+playwright-report/
+
 # Heruntergeladene Rohquellen (re-fetchbar via scripts/fetch_sources.sh; Integrität über data/CHECKSUMS.txt)
 data/raw/

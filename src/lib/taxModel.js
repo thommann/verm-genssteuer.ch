@@ -86,11 +86,17 @@ export function makeBracketModel(brackets) {
   return { tax, marginalRate, avgRate, schwelle, cap: null, wcap: null, k: null, basis: null, brackets: b };
 }
 
-/** Statisches Jahresaufkommen: Σ Anzahl(Band) · Steuer(Bandmitte). */
-export function revenueForYear(bins, model, year) {
+/**
+ * Statisches Jahresaufkommen: Σ Anzahl(Band) · Steuer(Bandmitte).
+ * wegzugSchwelle: Bins mit mid >= Schwelle werden ausgeschlossen (Wegzug-Szenario).
+ */
+export function revenueForYear(bins, model, year, wegzugSchwelle = Infinity) {
   const key = `cnt${year}`;
   let sum = 0;
-  for (const b of bins) sum += b[key] * model.tax(b.mid);
+  for (const b of bins) {
+    if (b.mid >= wegzugSchwelle) continue;
+    sum += b[key] * model.tax(b.mid);
+  }
   return sum;
 }
 
@@ -104,11 +110,12 @@ const BANDS = [
 ];
 
 /** Aufkommen pro Vermögensband (wie im Workbook gruppiert). */
-export function revenueByBand(bins, model, year) {
+export function revenueByBand(bins, model, year, wegzugSchwelle = Infinity) {
   const key = `cnt${year}`;
   return BANDS.map((band) => {
     let sum = 0;
     for (const b of bins) {
+      if (b.mid >= wegzugSchwelle) continue;
       if (b.mid >= band.lo && b.mid < band.hi) sum += b[key] * model.tax(b.mid);
     }
     return { label: band.label, value: sum };
@@ -129,11 +136,12 @@ export function tariffCurve(model, fromW, toW, points = 60) {
 
 /**
  * Dynamische Hochrechnung je Kohorte: W(t+1) = W(t)·(1+r) − Steuer(W(t)).
- * Rein mechanisch (keine Abwanderung/Verhalten). Gibt Jahresaufkommen zurück.
+ * wegzugSchwelle: Kohorten mit W0 >= Schwelle werden ausgeschlossen (Wegzug-Szenario).
  */
-export function dynamicProjection(cohorts, model, rendite, startYear = 2022, nYears = 11) {
-  const W = cohorts.map((c) => c.W0);
-  const n = cohorts.map((c) => c.anzahl);
+export function dynamicProjection(cohorts, model, rendite, startYear = 2022, nYears = 11, wegzugSchwelle = Infinity) {
+  const src = wegzugSchwelle < Infinity ? cohorts.filter((c) => c.W0 < wegzugSchwelle) : cohorts;
+  const W = src.map((c) => c.W0);
+  const n = src.map((c) => c.anzahl);
   const series = [];
   for (let t = 0; t < nYears; t += 1) {
     let rev = 0;

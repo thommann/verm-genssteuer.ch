@@ -1,11 +1,12 @@
 <script setup>
 import CalculatorSection from '@/components/sections/CalculatorSection.vue';
+import WegzugSection from '@/components/sections/WegzugSection.vue';
 import ProjectionSection from '@/components/sections/ProjectionSection.vue';
 import SpendSection from '@/components/sections/SpendSection.vue';
 import { useScrollSpy } from '@/composables/useScrollSpy.js';
 
-// Stepper-Hervorhebung: markiert den gerade sichtbaren Schritt (Modell, Rendite, Verwendung).
-const { activeId } = useScrollSpy(['rechner', 'dynamik', 'verwendung']);
+// Stepper-Hervorhebung: markiert den gerade sichtbaren Schritt (Modell, Wegzug, Rendite, Verwendung).
+const { activeId } = useScrollSpy(['rechner', 'wegzug', 'dynamik', 'verwendung']);
 </script>
 
 <template>
@@ -27,18 +28,24 @@ const { activeId } = useScrollSpy(['rechner', 'dynamik', 'verwendung']);
           </a>
         </li>
         <li>
-          <a href="#dynamik" :class="{ active: activeId === 'dynamik' }">
+          <a href="#wegzug" :class="{ active: activeId === 'wegzug' }">
             <span class="cs-num">2</span>{{ $t('calcSuite.step2') }}
           </a>
         </li>
         <li>
-          <a href="#verwendung" :class="{ active: activeId === 'verwendung' }">
+          <a href="#dynamik" :class="{ active: activeId === 'dynamik' }">
             <span class="cs-num">3</span>{{ $t('calcSuite.step3') }}
+          </a>
+        </li>
+        <li>
+          <a href="#verwendung" :class="{ active: activeId === 'verwendung' }">
+            <span class="cs-num">4</span>{{ $t('calcSuite.step4') }}
           </a>
         </li>
       </ol>
     </div>
     <CalculatorSection />
+    <WegzugSection />
     <ProjectionSection />
     <SpendSection />
   </div>

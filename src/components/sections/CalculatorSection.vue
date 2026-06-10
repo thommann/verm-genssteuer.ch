@@ -13,7 +13,11 @@ import SourceTag from '@/components/ui/SourceTag.vue';
 
 const { t } = useI18n();
 const calc = useCalculator();
-const { state, model, staticRevenue, sustainableRevenue, bands, curve, equilibrium } = calc;
+const {
+  state, model, staticRevenue, sustainableRevenue,
+  bands, curve, equilibrium,
+  wegzugAktiv,
+} = calc;
 
 const onSlider = () => calc.markCustom();
 
@@ -174,7 +178,9 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
         <!-- Headline result -->
         <div class="card result">
           <div class="result-main">
-            <div class="result-label">{{ $t('calculator.resultLabel', { year: state.year }) }}</div>
+            <div class="result-label">
+              {{ wegzugAktiv ? $t('calculator.resultLabelWegzug', { year: state.year }) : $t('calculator.resultLabel', { year: state.year }) }}
+            </div>
             <div class="result-value">{{ chfCompact(staticRevenue, 1) }}</div>
             <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
           </div>
@@ -183,14 +189,14 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
               <span class="rs-val gold">{{ chfCompact(sustainableRevenue, 1) }}</span>
               <span class="rs-lab" v-html="$t('calculator.sustainableLabel')" />
             </div>
-            <div>
+            <div v-if="!wegzugAktiv">
               <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
               <span class="rs-lab">{{ $t('calculator.avgRateLabel', { wealth: chfCompact(model.schwelle * 2, 0) }) }}</span>
             </div>
           </div>
           <p class="readout muted">
             <template v-if="capBinds">{{ $t('calculator.readoutCap', { wcap: chfCompact(model.wcap, 0) }) }}</template>
-            <template v-if="equilibrium">
+            <template v-if="equilibrium && !wegzugAktiv">
               {{ $t('calculator.readoutEquilibrium', { eq: chfCompact(equilibrium, 0) }) }}
             </template>
           </p>
@@ -228,7 +234,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       </div>
 
       <p class="disclaimer">
-        <span v-html="$t('calculator.disclaimer')" />
+        <span v-html="$t('calculator.disclaimerOhneWegzug')" />
         <span class="srcs">
           <SourceTag id="estv_vermoegen" :note="$t('calculator.sourceNoteEstv')" />
           <SourceTag id="fdk" :note="$t('calculator.sourceNoteFdk')" />
@@ -294,8 +300,14 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 }
 .result-label { color: var(--text-soft); font-size: 0.9rem; font-weight: 600; }
 .result-value { font-size: clamp(2.6rem, 7vw, 4rem); font-weight: 800; color: var(--accent); letter-spacing: -0.03em; line-height: 1.05; }
+.result-value.negative { color: #f07; }
 .result-unit { color: var(--text-mute); font-weight: 600; }
-.result-sub { display: flex; gap: 24px; margin: 20px 0 14px; flex-wrap: wrap; }
+.result-breakdown { margin: 12px 0 4px; display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
+.rb-row { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-soft); }
+.rb-row.neg { color: #f07; }
+.rb-lab { flex: 1; }
+.rb-val { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; padding-left: 8px; }
+.result-sub { display: flex; gap: 24px; margin: 14px 0 14px; flex-wrap: wrap; }
 .result-sub > div { display: flex; flex-direction: column; }
 .rs-val { font-size: 1.5rem; font-weight: 800; }
 .rs-val.gold { color: var(--gold); }

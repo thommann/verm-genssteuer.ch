@@ -78,7 +78,7 @@
     "herausgeber": "Dr. Isabel Z. Martínez (KOF/ETH); im Auftrag von Oxfam Deutschland e. V. und Netzwerk Steuergerechtigkeit",
     "url": "https://www.netzwerk-steuergerechtigkeit.de/wp-content/uploads/2024/04/Besteuerung_Reichtum_Schweiz-.pdf",
     "stand": "18. April 2024",
-    "hinweis": "Detaillierte Modellrechnung hinter den 32 %/19 %, mit Aufschlüsselung nach Steuerart. Mustermillionär (Zug/Baar, Standardszenario, Tab. 3): reine Personensteuer aus Einkommens- plus Vermögenssteuer rund 1,01 Mio. CHF = etwa 16 % des Bruttoeinkommens (Vermögenssteuer 0,26 % des Vermögens). Beispiel-Milliardär (Roche-Erbe J. Duschmalé, 2022, Standardszenario, Tab. 12; Basis wirtschaftliches Einkommen 95,2 Mio.): persönliche Einkommenssteuer 16,8 Mio. = rund 18 %, Vermögenssteuer 9,5 Mio. = rund 10 % (0,69 % des Vermögens), anteilige Gewinnsteuer der Beteiligung 13,9 Mio. = rund 15 %. Die Schlagzeile 32 % ist Einkommens- plus Gewinnsteuer; inkl. Vermögenssteuer ergibt sich eine Gesamtlast von 42,25 % des wirtschaftlichen Einkommens."
+    "hinweis": "Detaillierte Modellrechnung hinter den 32 %/19 %, mit Aufschlüsselung nach Steuerart. Mustermillionär (Zug/Baar, Standardszenario, Tab. 3): reine Personensteuer aus Einkommens- plus Vermögenssteuer rund 1,01 Mio. CHF = etwa 16 % des Bruttoeinkommens (Vermögenssteuer 0,26 % des steuerbaren Vermögens). Beispiel-Milliardär (Roche-Erbe J. Duschmalé, 2022, Standardszenario, Tab. 12; Basis wirtschaftliches Einkommen 95,2 Mio.): persönliche Einkommenssteuer 16,8 Mio. = rund 18 %, Vermögenssteuer 9,5 Mio. = rund 10 % (0,69 % des steuerbaren Vermögens, entspricht ~1,4–2,4 Mrd. steuerbares Vermögen je nach kantonalem Satz); daraus Einkommenssteuer als % des steuerbaren Vermögens: 0,7–1,2 %. EST_RATE = 0,9 % ist der Mittelwert dieser Bandbreite; verwendet in METHODIK §12. Die Schlagzeile 32 % ist Einkommens- plus Gewinnsteuer; inkl. Vermögenssteuer ergibt sich eine Gesamtlast von 42,25 % des wirtschaftlichen Einkommens."
   },
   {
     "id": "woz_zucman",
@@ -114,7 +114,7 @@
     "herausgeber": "Neue Zürcher Zeitung (NZZ)",
     "url": "https://www.nzz.ch/schweiz/ausgerechnet-der-milliardaer-alfred-gantner-schlug-eine-vermoegenssteuer-vor-nun-ziehen-einige-politiker-nach-ld.1926794",
     "stand": "Februar 2026",
-    "hinweis": "Der durchschnittliche Vermögenssteuersatz ist von 0,35 % (1990) auf rund 0,28 % (2025) gesunken. Artikel hinter einer Bezahlschranke."
+    "hinweis": "Der durchschnittliche Vermögenssteuersatz ist von 0,35 % (1990) auf rund 0,28 % (2025) gesunken. Der Satz gilt auf das steuerbare Reinvermögen (ESTV-Basis). Im Rechner-Wegzug-Szenario wird dieser Wert als VST_RATE = 0,28 % direkt auf die ESTV-Bins angewendet (Verfahren METHODIK §12). Artikel hinter einer Bezahlschranke."
   },
   {
     "id": "fdk",
