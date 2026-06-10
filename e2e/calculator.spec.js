@@ -50,7 +50,7 @@ test.describe('Rechner', () => {
   });
 
   test('Wegzug-Anzeige zeigt "kein Wegzug" im Grundzustand', async ({ page }) => {
-    const display = page.locator('.wegzug-section .range-display');
+    const display = page.locator('.wegzug-ctrl .range-display');
     await expect(display).toHaveText('kein Wegzug');
   });
 
@@ -142,18 +142,18 @@ test.describe('Rechner', () => {
   // -------------------------------------------------------------------------
 
   test('Wegzug-Schieber aktiviert das Wegzug-Szenario', async ({ page }) => {
-    const slider = page.locator('.wegzug-section input[type="range"]');
+    const slider = page.locator('.wegzug-ctrl input[type="range"]');
     await setSlider(slider, POS_1MRD);
 
     // Anzeige wechselt von "kein Wegzug" auf "ab …"
-    await expect(page.locator('.wegzug-section .range-display')).toContainText('ab');
+    await expect(page.locator('.wegzug-ctrl .range-display')).toContainText('ab');
 
     // Wegzug-Info-Kasten erscheint.
     await expect(page.locator('.wegzug-info')).toBeVisible();
   });
 
   test('Wegzug-Info zeigt Personenzahl und Schwelle', async ({ page }) => {
-    const slider = page.locator('.wegzug-section input[type="range"]');
+    const slider = page.locator('.wegzug-ctrl input[type="range"]');
     await setSlider(slider, POS_1MRD);
 
     const infoBox = page.locator('.wegzug-info');
@@ -164,13 +164,13 @@ test.describe('Rechner', () => {
   });
 
   test('Ergebnis-Karte wechselt bei aktivem Wegzug auf Netto-Fiskalgewinn', async ({ page }) => {
-    const slider = page.locator('.wegzug-section input[type="range"]');
+    const slider = page.locator('.wegzug-ctrl input[type="range"]');
     await setSlider(slider, POS_1MRD);
 
-    await expect(page.locator('.result-label')).toContainText('Netto-Fiskalgewinn');
+    await expect(page.locator('.wegzug-result .result-label')).toContainText('Netto-Fiskalgewinn');
 
     // Aufschlüsselung (+ neue Steuer / − heutige Steuern) erscheint.
-    const breakdown = page.locator('.result-breakdown');
+    const breakdown = page.locator('.wegzug-result .result-breakdown');
     await expect(breakdown).toBeVisible();
     const text = await breakdown.textContent();
     expect(text).toMatch(/\+/);
@@ -178,28 +178,28 @@ test.describe('Rechner', () => {
   });
 
   test('Dauerhaft-Wert ist bei aktivem Wegzug sichtbar', async ({ page }) => {
-    const slider = page.locator('.wegzug-section input[type="range"]');
+    const slider = page.locator('.wegzug-ctrl input[type="range"]');
     await setSlider(slider, POS_1MRD);
 
-    // Der nettoDauerhaft-Wert (gold) erscheint in result-sub.
-    await expect(page.locator('.result-sub .rs-val.gold')).toBeVisible();
+    // Der nettoDauerhaft-Wert (gold) erscheint in der Wegzug-Karte.
+    await expect(page.locator('.wegzug-result .rs-val.gold')).toBeVisible();
   });
 
   test('Wegzug-Schieber auf Maximum setzt auf "kein Wegzug" zurück', async ({ page }) => {
-    const slider = page.locator('.wegzug-section input[type="range"]');
+    const slider = page.locator('.wegzug-ctrl input[type="range"]');
     // Zuerst aktivieren.
     await setSlider(slider, POS_1MRD);
     await expect(page.locator('.wegzug-info')).toBeVisible();
 
     // Zurück auf Maximum (Sentinel = kein Wegzug).
     await setSlider(slider, POS_MAX);
-    await expect(page.locator('.wegzug-section .range-display')).toHaveText('kein Wegzug');
+    await expect(page.locator('.wegzug-ctrl .range-display')).toHaveText('kein Wegzug');
     await expect(page.locator('.wegzug-info')).not.toBeVisible();
     await expect(page.locator('.result-label')).toContainText('Jährliches Aufkommen');
   });
 
   test('Höhere Wegzug-Schwelle bedeutet weniger Wegziehende', async ({ page }) => {
-    const slider = page.locator('.wegzug-section input[type="range"]');
+    const slider = page.locator('.wegzug-ctrl input[type="range"]');
 
     // Tiefer Schwellwert: viele Wegziehende.
     await setSlider(slider, POS_1MRD);
@@ -223,10 +223,10 @@ test.describe('Rechner', () => {
     await expect(page.locator('.controls-lock')).toBeVisible();
 
     // Wegzug-Schieber setzen: ist auch im WIR-Modus aktiv.
-    const slider = page.locator('.wegzug-section input[type="range"]');
+    const slider = page.locator('.wegzug-ctrl input[type="range"]');
     await setSlider(slider, POS_1MRD);
 
-    await expect(page.locator('.result-label')).toContainText('Netto-Fiskalgewinn');
+    await expect(page.locator('.wegzug-result .result-label')).toContainText('Netto-Fiskalgewinn');
     await expect(page.locator('.wegzug-info')).toBeVisible();
   });
 });

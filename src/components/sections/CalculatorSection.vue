@@ -200,71 +200,27 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
               @click="state.year = y"
             >{{ y }}</button>
           </div>
-
-          <div class="wegzug-section">
-            <RangeControl
-              v-model="wegzugLogPos"
-              :min="0"
-              :max="200"
-              :step="1"
-              :label="$t('calculator.wegzugLabel')"
-              :display="wegzugDisplay"
-              :hint="$t('calculator.wegzugHint')"
-            />
-            <p v-if="wegzugAktiv" class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
-              cnt: num(wegzugPersonen),
-              year: state.year,
-              schwelle: chfCompact(state.wegzugSchwelle, 0),
-            })" />
-            <p v-if="wegzugAktiv" class="wi-note">
-              <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
-              <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
-            </p>
-          </div>
         </div>
 
         <!-- Headline result -->
         <div class="card result">
-          <template v-if="wegzugAktiv">
-            <div class="result-main">
-              <div class="result-label">{{ $t('calculator.nettoResultLabel', { year: state.year }) }}</div>
-              <div class="result-value" :class="{ negative: nettoStatisch < 0 }">{{ chfCompact(nettoStatisch, 1) }}</div>
-              <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
+          <div class="result-main">
+            <div class="result-label">
+              {{ wegzugAktiv ? $t('calculator.resultLabelWegzug', { year: state.year }) : $t('calculator.resultLabel', { year: state.year }) }}
             </div>
-            <div class="result-breakdown">
-              <div class="rb-row">
-                <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
-                <span class="rb-val">+{{ chfCompact(staticRevenue, 1) }}</span>
-              </div>
-              <div class="rb-row neg">
-                <span class="rb-lab">{{ $t('calculator.nettoHeuteLabel') }}</span>
-                <span class="rb-val">−{{ chfCompact(wegzugAktuelleSteuern, 1) }}</span>
-              </div>
+            <div class="result-value">{{ chfCompact(staticRevenue, 1) }}</div>
+            <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
+          </div>
+          <div class="result-sub">
+            <div>
+              <span class="rs-val gold">{{ chfCompact(sustainableRevenue, 1) }}</span>
+              <span class="rs-lab" v-html="$t('calculator.sustainableLabel')" />
             </div>
-            <div class="result-sub">
-              <div>
-                <span class="rs-val gold">{{ chfCompact(nettoDauerhaft, 1) }}</span>
-                <span class="rs-lab" v-html="$t('calculator.nettoDauerhaftLabel')" />
-              </div>
+            <div v-if="!wegzugAktiv">
+              <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
+              <span class="rs-lab">{{ $t('calculator.avgRateLabel', { wealth: chfCompact(model.schwelle * 2, 0) }) }}</span>
             </div>
-          </template>
-          <template v-else>
-            <div class="result-main">
-              <div class="result-label">{{ $t('calculator.resultLabel', { year: state.year }) }}</div>
-              <div class="result-value">{{ chfCompact(staticRevenue, 1) }}</div>
-              <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
-            </div>
-            <div class="result-sub">
-              <div>
-                <span class="rs-val gold">{{ chfCompact(sustainableRevenue, 1) }}</span>
-                <span class="rs-lab" v-html="$t('calculator.sustainableLabel')" />
-              </div>
-              <div>
-                <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
-                <span class="rs-lab">{{ $t('calculator.avgRateLabel', { wealth: chfCompact(model.schwelle * 2, 0) }) }}</span>
-              </div>
-            </div>
-          </template>
+          </div>
           <p class="readout muted">
             <template v-if="capBinds">{{ $t('calculator.readoutCap', { wcap: chfCompact(model.wcap, 0) }) }}</template>
             <template v-if="equilibrium && !wegzugAktiv">
@@ -304,9 +260,62 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
         </div>
       </div>
 
+      <!-- Wegzug-Szenario: eigene Karte unterhalb der Hauptgrafiken -->
+      <div class="wegzug-grid">
+        <div class="card wegzug-ctrl">
+          <RangeControl
+            v-model="wegzugLogPos"
+            :min="0"
+            :max="200"
+            :step="1"
+            :label="$t('calculator.wegzugLabel')"
+            :display="wegzugDisplay"
+            :hint="$t('calculator.wegzugHint')"
+          />
+          <p v-if="wegzugAktiv" class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
+            cnt: num(wegzugPersonen),
+            year: state.year,
+            schwelle: chfCompact(state.wegzugSchwelle, 0),
+          })" />
+          <p v-if="wegzugAktiv" class="wi-note">
+            <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
+            <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
+          </p>
+          <p v-if="!wegzugAktiv" class="wegzug-idle muted" v-html="$t('calculator.wegzugIdleText')" />
+        </div>
+
+        <div class="card result wegzug-result">
+          <template v-if="wegzugAktiv">
+            <div class="result-main">
+              <div class="result-label">{{ $t('calculator.nettoResultLabel', { year: state.year }) }}</div>
+              <div class="result-value" :class="{ negative: nettoStatisch < 0 }">{{ chfCompact(nettoStatisch, 1) }}</div>
+              <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
+            </div>
+            <div class="result-breakdown">
+              <div class="rb-row">
+                <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
+                <span class="rb-val">+{{ chfCompact(staticRevenue, 1) }}</span>
+              </div>
+              <div class="rb-row neg">
+                <span class="rb-lab">{{ $t('calculator.nettoHeuteLabel') }}</span>
+                <span class="rb-val">−{{ chfCompact(wegzugAktuelleSteuern, 1) }}</span>
+              </div>
+            </div>
+            <div class="result-sub">
+              <div>
+                <span class="rs-val gold">{{ chfCompact(nettoDauerhaft, 1) }}</span>
+                <span class="rs-lab" v-html="$t('calculator.nettoDauerhaftLabel')" />
+              </div>
+            </div>
+          </template>
+          <template v-else>
+            <p class="wegzug-idle muted" v-html="$t('calculator.wegzugResultIdle')" />
+          </template>
+        </div>
+      </div>
+
       <p class="disclaimer">
-        <span v-if="wegzugAktiv" v-html="$t('calculator.disclaimer')" />
-        <span v-else v-html="$t('calculator.disclaimerOhneWegzug')" />
+        <span v-html="$t('calculator.disclaimerOhneWegzug')" />
         <span class="srcs">
           <SourceTag id="estv_vermoegen" :note="$t('calculator.sourceNoteEstv')" />
           <SourceTag id="fdk" :note="$t('calculator.sourceNoteFdk')" />
@@ -400,10 +409,16 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 }
 .ychip.active { background: var(--gold); border-color: var(--gold); color: #1a1400; }
 
-.wegzug-section {
-  margin-top: 22px; padding-top: 18px;
-  border-top: 1px solid var(--border);
+.wegzug-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 18px;
+  align-items: start;
 }
+.wegzug-ctrl { padding: 24px; }
+.wegzug-result { min-height: 160px; }
+.wegzug-idle { font-size: 0.88rem; line-height: 1.6; margin: 0; }
 .wegzug-info {
   font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
   margin-top: 10px; padding: 12px 14px; border-radius: 8px;
@@ -430,5 +445,6 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 
 @media (max-width: 820px) {
   .calc-grid { grid-template-columns: 1fr; }
+  .wegzug-grid { grid-template-columns: 1fr; }
 }
 </style>
