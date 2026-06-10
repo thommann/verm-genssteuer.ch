@@ -162,6 +162,15 @@
     "hinweis": "Übersichtstabellen, Blatt «nach Einkommensklasse» (Tabelle T20.02.01.00.12, neueste Querschnittsperiode 2015–2017): fünf gleich grosse Quintile (je 20 % der Haushalte, Zeile «Prozentuale Verteilung der Haushalte» = 0,20). Mittleres Quintil (enthält den Median, durchschnittliches Bruttoeinkommen 7923 CHF/Monat): Einkommen aus Vermögen und Vermietung 232 CHF/Monat = 2,9 % des Bruttoeinkommens, Steuern (Einkommen und Vermögen) 785 CHF/Monat = 9,9 %. Oberstes Quintil: Vermögenseinkommen 1250 CHF/Monat = 6,5 % (rund fünfmal so viel in Franken wie das mittlere Quintil). Zeit, die Jahressteuer allein aus dem Vermögenseinkommen zu verdienen: 9,9 % ÷ 2,9 % ≈ 3,4 Jahre, gegenüber den ~103 Tagen der Superreichen also rund zwölfmal so lange. Aus dem gesamten Einkommen (vor allem Arbeit) ist dieselbe Steuersumme in 9,9 % eines Jahres ≈ 36 Tagen verdient. Über alle Haushalte (Durchschnitt, Spalte «Sämtliche», gleiche Tabelle 2015–2017, durchschnittliches Bruttoeinkommen 9349 CHF/Monat): Steuern 1083 CHF/Monat = 11,6 %, Einkommen aus Vermögen und Vermietung 421 CHF/Monat = 4,5 % des Bruttoeinkommens; das ergibt 11,6 % ÷ 4,5 % ≈ 2,6 Jahre aus dem Vermögenseinkommen bzw. ≈ 42 Tage aus dem gesamten Einkommen. Der Durchschnitt liegt beim Vermögenseinkommen über dem Median, weil die Spitze den Schnitt nach oben zieht. Die HABE rechnet keinen Eigenmietwert als Einkommen ein. Die Querschnittstabellen erscheinen nur als Mehrjahres-Pool; 2015–2017 ist die aktuellste. Die Mittelwerte 2023 (Vermögenseinkommen 4,5 %, Steuern 12,0 %) bestätigen die Stabilität."
   },
   {
+    "id": "f35_beschaffung",
+    "kurz": "F-35A Beschaffung (VBS)",
+    "titel": "F-35A: Bundesrat beschafft weniger als die beabsichtigten 36 Flugzeuge",
+    "herausgeber": "Cockpit, das Schweizer Luftfahrt-Magazin (nach VBS-Armeebotschaft 2026)",
+    "url": "https://www.cockpit.aero/rubriken/detailseite/news/f-35a-bundesrat-beschafft-weniger-als-die-beabsichtigten-36-flugzeuge",
+    "stand": "März 2026",
+    "hinweis": "Volkskredit CHF 6,035 Mrd. (Volksabstimmung September 2020), indexiert auf CHF 6,429 Mrd. (Ende 2025). Nachtragskredit (Armeebotschaft 2026): CHF 394 Mio. Total: CHF 6,823 Mrd. für 30 F-35A. Preis pro Jet: 6 823 000 000 / 30 = CHF 227 433 333 (gerundet CHF 227 Mio.). Reine Beschaffungskosten ohne Betrieb (30 Jahre geschätzt: rund CHF 15,5 Mrd.)."
+  },
+  {
     "id": "litra",
     "kurz": "LITRA Verkehrszahlen 2024",
     "titel": "Verkehrszahlen 2024: Finanzierung des öffentlichen Verkehrs (Kundenertrag Personenverkehr)",

@@ -34,6 +34,11 @@ const debtFreeYearsLabel = computed(() => {
   return y < 10 ? num(y, 1, 1) : num(y, 0);
 });
 
+const F35_FLEET = K.f35_flotte.value;
+const f35Price = Math.round(K.f35_preis_pro_jet.value / 1e6);
+const f35Count = computed(() => Math.floor(props.revenue / K.f35_preis_pro_jet.value));
+const f35Ratio = computed(() => f35Count.value / F35_FLEET);
+
 const capPct = (v) => Math.min(v, 1);
 const over = (v) => v > 1;
 </script>
@@ -106,6 +111,25 @@ const over = (v) => v > 1;
           <span v-else>{{ $t('spend.oevFoot', { amount: chfCompact(K.oev_personenverkehrsertrag.value, 1) }) }}</span>
         </p>
         <SourceTag id="litra" :note="$t('spend.oevSourceNote')" />
+      </template>
+    </article>
+
+    <article class="card spend">
+      <div v-if="!mini" class="spend-icon">✈️</div>
+      <h3>{{ $t('spend.f35Title') }}</h3>
+      <div class="spend-big gold">
+        {{ f35Count }}<span class="spend-unit">{{ $t('spend.f35Unit') }}</span>
+      </div>
+      <template v-if="!mini">
+        <p
+          class="spend-text"
+          v-html="over(f35Ratio)
+            ? $t('spend.f35TextOver', { fleet: F35_FLEET, extra: f35Count - F35_FLEET })
+            : $t('spend.f35TextUnder', { fleet: F35_FLEET, price: f35Price })"
+        />
+        <div class="spend-meter"><div class="fill gold" :style="{ width: `${capPct(f35Ratio) * 100}%` }" /></div>
+        <p class="spend-foot muted">{{ $t('spend.f35Foot', { fleet: F35_FLEET }) }}</p>
+        <SourceTag id="f35_beschaffung" />
       </template>
     </article>
 
