@@ -10,7 +10,7 @@ const router = useRouter();
 // in DOM-Reihenfolge; die Beschriftungen liegen in nav.groups.<key> und nav.items.<id>.
 const GROUPS = [
   { key: 'verteilung', route: '/verteilung', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
-  { key: 'rechner', route: '/rechner', items: ['rechner', 'dynamik', 'verwendung'] },
+  { key: 'rechner', route: '/rechner', items: ['rechner', 'wegzug', 'dynamik', 'verwendung'] },
   { key: 'modelle', route: '/modelle', items: ['wir-reports', 'zucman'] },
   { key: 'transparenz', route: '/quellen', items: ['quellen'] },
 ];
