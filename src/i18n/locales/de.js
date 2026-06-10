@@ -166,7 +166,7 @@ export default {
     },
     bandNote: 'Der grösste Teil stammt von ganz oben, von wenigen Milliarden­vermögen. Genau dort, wo heute am wenigsten Vermögenssteuer anfällt.',
     wegzugLabel: 'Wegzug ab (Szenario)',
-    wegzugHint: 'Alle Steuerpflichtigen mit Vermögen über diesem Betrag gelten im Szenario als weggezogen. Pauschalbesteuerte sind im Pareto-Tail bereits eingerechnet.',
+    wegzugHint: 'Alle Steuerpflichtigen mit Vermögen über diesem Betrag gelten im Szenario als weggezogen.',
     wegzugNone: 'kein Wegzug',
     wegzugInfo: '<strong>{cnt}</strong> Steuerpflichtige ({year}) mit Vermögen über {schwelle} verlassen im Szenario die Schweiz.',
     wegzugIdleText: 'Schiebe den Regler nach links, um ein Wegzug-Szenario zu aktivieren.',
