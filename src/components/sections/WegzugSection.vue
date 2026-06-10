@@ -69,21 +69,16 @@ const wegzugDisplay = computed(() =>
         </div>
 
         <div class="card result wegzug-result">
-          <template v-if="wegzugAktiv">
-            <div class="result-breakdown">
-              <div class="rb-row">
-                <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
-                <span class="rb-val">+{{ chfCompact(staticRevenue, 1) }}</span>
-              </div>
-              <div class="rb-row neg">
-                <span class="rb-lab">{{ $t('calculator.nettoHeuteLabel') }}</span>
-                <span class="rb-val">−{{ chfCompact(wegzugAktuelleSteuern, 1) }}</span>
-              </div>
+          <div class="result-breakdown">
+            <div class="rb-row">
+              <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
+              <span class="rb-val">{{ wegzugAktiv ? '+' + chfCompact(staticRevenue, 1) : '–' }}</span>
             </div>
-          </template>
-          <template v-else>
-            <p class="wegzug-idle muted" v-html="$t('calculator.wegzugResultIdle')" />
-          </template>
+            <div class="rb-row" :class="{ neg: wegzugAktiv }">
+              <span class="rb-lab">{{ $t('calculator.nettoHeuteLabel') }}</span>
+              <span class="rb-val">{{ wegzugAktiv ? '−' + chfCompact(wegzugAktuelleSteuern, 1) : '–' }}</span>
+            </div>
+          </div>
         </div>
       </div>
 
