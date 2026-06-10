@@ -12,6 +12,9 @@ import {
   equilibriumWealth,
 } from '@/lib/taxModel.js';
 
+// Sentinel-Wert für «kein Wegzug»: Schwelle oberhalb aller bekannten Bins.
+export const WEGZUG_MAX = 50e9;
+
 const d = paramsData.defaults;
 
 // Direkte Modell-Komponenten: schwelle, basis (Grenzsatz an der Schwelle), exponent, cap.
@@ -75,6 +78,7 @@ const state = reactive({
   rendite: d.rendite,
   year: 2022,
   activePreset: FIRST_PRESET,
+  wegzugSchwelle: WEGZUG_MAX,
 });
 
 const model = computed(() => {
@@ -88,15 +92,35 @@ const model = computed(() => {
   });
 });
 
-const staticRevenue = computed(() => revenueForYear(bins, model.value, state.year));
-const bands = computed(() => revenueByBand(bins, model.value, state.year));
+// Effektive Wegzugs-Schwelle: Infinity = kein Wegzug (sentinel WEGZUG_MAX).
+const effectiveWegzug = computed(() =>
+  state.wegzugSchwelle >= WEGZUG_MAX ? Infinity : state.wegzugSchwelle
+);
+const wegzugAktiv = computed(() => effectiveWegzug.value < Infinity);
+
+const staticRevenue = computed(() => revenueForYear(bins, model.value, state.year, effectiveWegzug.value));
+const staticRevenueVoll = computed(() => revenueForYear(bins, model.value, state.year));
+const bands = computed(() => revenueByBand(bins, model.value, state.year, effectiveWegzug.value));
 const curve = computed(() => tariffCurve(model.value, model.value.schwelle, 2e10, 64));
-const projection = computed(() => dynamicProjection(cohorts, model.value, state.rendite));
+const projection = computed(() =>
+  dynamicProjection(cohorts, model.value, state.rendite, 2022, 11, effectiveWegzug.value)
+);
 const sustainableRevenue = computed(() => {
   const p = projection.value;
   return p[p.length - 1].revenue;
 });
 const equilibrium = computed(() => equilibriumWealth(model.value, state.rendite));
+
+// Anzahl Steuerpflichtige, die laut Szenario die Schweiz verlassen.
+const wegzugPersonen = computed(() => {
+  if (!wegzugAktiv.value) return 0;
+  const key = `cnt${state.year}`;
+  let sum = 0;
+  for (const b of bins) {
+    if (b.mid >= effectiveWegzug.value) sum += b[key];
+  }
+  return Math.round(sum);
+});
 
 function applyPreset(key) {
   const p = PRESETS[key];
@@ -121,11 +145,15 @@ export function useCalculator() {
     state,
     model,
     staticRevenue,
+    staticRevenueVoll,
     sustainableRevenue,
     bands,
     curve,
     projection,
     equilibrium,
+    wegzugAktiv,
+    wegzugPersonen,
+    WEGZUG_MAX,
     years: Object.keys(paramsData.years).map(Number),
     publishedRevenue: paramsData.published_revenue,
     applyPreset,

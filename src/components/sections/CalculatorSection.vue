@@ -13,7 +13,10 @@ import SourceTag from '@/components/ui/SourceTag.vue';
 
 const { t } = useI18n();
 const calc = useCalculator();
-const { state, model, staticRevenue, sustainableRevenue, bands, curve, equilibrium } = calc;
+const {
+  state, model, staticRevenue, staticRevenueVoll, sustainableRevenue,
+  bands, curve, equilibrium, wegzugAktiv, wegzugPersonen, WEGZUG_MAX,
+} = calc;
 
 const onSlider = () => calc.markCustom();
 
@@ -46,6 +49,14 @@ const bandItems = computed(() =>
 );
 
 const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
+
+const wegzugDisplay = computed(() =>
+  state.wegzugSchwelle >= WEGZUG_MAX
+    ? t('calculator.wegzugNone')
+    : `ab ${chfCompact(state.wegzugSchwelle, 0)}`
+);
+
+const wegzugVerlust = computed(() => staticRevenueVoll.value - staticRevenue.value);
 
 // Cap-Hinweis nur zeigen, wenn das Modell überhaupt einen (endlichen) Cap hat.
 const capBinds = computed(() => Number.isFinite(model.value.wcap));
@@ -169,6 +180,24 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
               @click="state.year = y"
             >{{ y }}</button>
           </div>
+
+          <div class="wegzug-section">
+            <RangeControl
+              v-model="state.wegzugSchwelle"
+              :min="1e8"
+              :max="WEGZUG_MAX"
+              :step="1e8"
+              :label="$t('calculator.wegzugLabel')"
+              :display="wegzugDisplay"
+              :hint="$t('calculator.wegzugHint')"
+            />
+            <div v-if="wegzugAktiv" class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
+              cnt: num(wegzugPersonen),
+              year: state.year,
+              schwelle: chfCompact(state.wegzugSchwelle, 0),
+              verlust: chfCompact(wegzugVerlust, 1),
+            })" />
+          </div>
         </div>
 
         <!-- Headline result -->
@@ -228,7 +257,8 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       </div>
 
       <p class="disclaimer">
-        <span v-html="$t('calculator.disclaimer')" />
+        <span v-if="wegzugAktiv" v-html="$t('calculator.disclaimer')" />
+        <span v-else v-html="$t('calculator.disclaimerOhneWegzug')" />
         <span class="srcs">
           <SourceTag id="estv_vermoegen" :note="$t('calculator.sourceNoteEstv')" />
           <SourceTag id="fdk" :note="$t('calculator.sourceNoteFdk')" />
@@ -315,6 +345,18 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-soft);
 }
 .ychip.active { background: var(--gold); border-color: var(--gold); color: #1a1400; }
+
+.wegzug-section {
+  margin-top: 22px; padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+.wegzug-info {
+  font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
+  margin-top: 10px; padding: 10px 14px; border-radius: 8px;
+  background: rgba(255, 92, 92, 0.08);
+  border: 1px solid var(--border); border-left: 3px solid #e05;
+}
+.wegzug-info :deep(strong) { color: var(--text); }
 
 .disclaimer { font-size: 0.82rem; color: var(--text-mute); margin-top: 22px; max-width: 75ch; display: flex; flex-direction: column; gap: 8px; }
 .disclaimer .srcs { display: flex; gap: 18px; flex-wrap: wrap; }
