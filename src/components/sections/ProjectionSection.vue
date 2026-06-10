@@ -9,7 +9,7 @@ import SourceTag from '@/components/ui/SourceTag.vue';
 
 const { t } = useI18n();
 const calc = useCalculator();
-const { state, projection } = calc;
+const { state, nettoProjection } = calc;
 
 const series = computed(() => [
   {
@@ -17,11 +17,11 @@ const series = computed(() => [
     color: 'var(--accent)',
     width: 3,
     marker: true,
-    points: projection.value.map((p) => ({ x: p.year, y: p.revenue / 1e9 })),
+    points: nettoProjection.value.map((p) => ({ x: p.year, y: p.revenue / 1e9 })),
   },
 ]);
 
-const yMax = computed(() => Math.max(...projection.value.map((p) => p.revenue / 1e9)) * 1.08);
+const yMax = computed(() => Math.max(...nettoProjection.value.map((p) => p.revenue / 1e9)) * 1.08);
 const yTicks = computed(() => {
   const top = yMax.value;
   const step = top > 80 ? 25 : top > 40 ? 20 : 10;
@@ -29,10 +29,10 @@ const yTicks = computed(() => {
   for (let v = 0; v <= top; v += step) out.push(v);
   return out;
 });
-const xTicks = computed(() => projection.value.map((p) => p.year).filter((_, i) => i % 2 === 0));
+const xTicks = computed(() => nettoProjection.value.map((p) => p.year).filter((_, i) => i % 2 === 0));
 
-const first = computed(() => projection.value[0].revenue);
-const last = computed(() => projection.value[projection.value.length - 1].revenue);
+const first = computed(() => nettoProjection.value[0].revenue);
+const last = computed(() => nettoProjection.value[nettoProjection.value.length - 1].revenue);
 
 // Richtung der Hochrechnung: steile Modelle sinken auf ein tragbares Niveau,
 // milde Modelle bremsen kaum, dann wächst das Aufkommen weiter.

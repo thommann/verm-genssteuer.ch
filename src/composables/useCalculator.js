@@ -2,6 +2,7 @@ import { reactive, computed } from 'vue';
 import bins from '@/data/calculator_bins.json';
 import paramsData from '@/data/calculator_params.json';
 import cohorts from '@/data/projektion_cohorts.json';
+import spendRef from '@/data/spend_reference.json';
 import {
   makeModel,
   makeBracketModel,
@@ -159,6 +160,25 @@ const wegzugGesamtverlust = computed(() => wegzugNeuVerlust.value + wegzugAktuel
 // = neue Steuer von den Verbliebenen − heutige Steuern der Abgewanderten.
 const nettoStatisch = computed(() => staticRevenue.value - wegzugAktuelleSteuern.value);
 const nettoDauerhaft = computed(() => sustainableRevenue.value - wegzugAktuelleSteuern.value);
+const nettoProjection = computed(() =>
+  projection.value.map((p) => ({ ...p, revenue: p.revenue - wegzugAktuelleSteuern.value }))
+);
+
+// Jahre bis zur vollstaendigen Tilgung der Staatsschuld (Maastricht-Definition)
+// durch kumulierte Netto-Einnahmen. null = Horizont (250 Jahre) wird ueberschritten.
+const DEBTFREE_HORIZON = 250;
+const debtFreeYears = computed(() => {
+  const target = spendRef.kennzahlen.staatsschuld_maastricht.value;
+  const series = dynamicProjection(cohorts, model.value, state.rendite, state.year, DEBTFREE_HORIZON, effectiveWegzug.value);
+  let cum = 0;
+  for (let i = 0; i < series.length; i += 1) {
+    const rev = series[i].revenue - wegzugAktuelleSteuern.value;
+    if (rev <= 0) break;
+    if (cum + rev >= target) return i + (target - cum) / rev;
+    cum += rev;
+  }
+  return null;
+});
 
 function applyPreset(key) {
   const p = PRESETS[key];
@@ -199,6 +219,8 @@ export function useCalculator() {
     effectiveWegzug,
     nettoStatisch,
     nettoDauerhaft,
+    nettoProjection,
+    debtFreeYears,
     WEGZUG_MAX,
     VST_RATE,
     EST_RATE,
