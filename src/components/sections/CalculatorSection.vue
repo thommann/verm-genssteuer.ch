@@ -17,10 +17,9 @@ const {
   state, model, staticRevenue, sustainableRevenue,
   bands, curve, equilibrium,
   wegzugAktiv, wegzugPersonen,
-  wegzugVstVerlust, wegzugEstVerlust, wegzugAktuelleSteuern,
-  wegzugNeuVerlust, wegzugGesamtverlust,
+  wegzugAktuelleSteuern,
   nettoStatisch, nettoDauerhaft,
-  WEGZUG_MAX, VST_RATE, EST_RATE,
+  WEGZUG_MAX,
 } = calc;
 
 const onSlider = () => calc.markCustom();
@@ -212,43 +211,15 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
               :display="wegzugDisplay"
               :hint="$t('calculator.wegzugHint')"
             />
-            <div v-if="wegzugAktiv" class="wegzug-info">
-              <div class="wi-head" v-html="$t('calculator.wegzugHead', {
-                cnt: num(wegzugPersonen),
-                year: state.year,
-                schwelle: chfCompact(state.wegzugSchwelle, 0),
-              })" />
-              <table class="wi-table">
-                <tr>
-                  <td>{{ $t('calculator.wegzugNeuLabel') }}</td>
-                  <td class="wi-val neg">−{{ chfCompact(wegzugNeuVerlust, 1) }}</td>
-                </tr>
-                <tr class="wi-sep">
-                  <td colspan="2" class="wi-subhead">{{ $t('calculator.wegzugHeuteHead') }}</td>
-                </tr>
-                <tr>
-                  <td>{{ $t('calculator.wegzugVstLabel', { rate: pct(VST_RATE, 2) }) }}</td>
-                  <td class="wi-val neg">−{{ chfCompact(wegzugVstVerlust, 1) }}</td>
-                </tr>
-                <tr>
-                  <td>{{ $t('calculator.wegzugEstLabel', { rate: pct(EST_RATE, 1) }) }}</td>
-                  <td class="wi-val neg">−{{ chfCompact(wegzugEstVerlust, 1) }}</td>
-                </tr>
-                <tr>
-                  <td class="wi-sub-total">{{ $t('calculator.wegzugHeuteSumLabel') }}</td>
-                  <td class="wi-val neg wi-sub-total">−{{ chfCompact(wegzugAktuelleSteuern, 1) }}</td>
-                </tr>
-                <tr class="wi-total-row">
-                  <td><strong>{{ $t('calculator.wegzugGesamtLabel') }}</strong></td>
-                  <td class="wi-val neg"><strong>−{{ chfCompact(wegzugGesamtverlust, 1) }}</strong></td>
-                </tr>
-              </table>
-              <p class="wi-note">
-                {{ $t('calculator.wegzugNote') }}
-                <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
-                <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
-              </p>
-            </div>
+            <p v-if="wegzugAktiv" class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
+              cnt: num(wegzugPersonen),
+              year: state.year,
+              schwelle: chfCompact(state.wegzugSchwelle, 0),
+            })" />
+            <p v-if="wegzugAktiv" class="wi-note">
+              <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
+              <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
+            </p>
           </div>
         </div>
 

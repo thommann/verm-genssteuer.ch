@@ -152,16 +152,15 @@ test.describe('Rechner', () => {
     await expect(page.locator('.wegzug-info')).toBeVisible();
   });
 
-  test('Wegzug-Info-Kasten zeigt alle Zeilen', async ({ page }) => {
+  test('Wegzug-Info zeigt Personenzahl und Schwelle', async ({ page }) => {
     const slider = page.locator('.wegzug-section input[type="range"]');
     await setSlider(slider, POS_1MRD);
 
     const infoBox = page.locator('.wegzug-info');
-    await expect(infoBox).toContainText('Neue Vermögenssteuer (Ausfall)');
-    await expect(infoBox).toContainText('Vermögenssteuer (Ø');
-    await expect(infoBox).toContainText('Einkommenssteuer auf Kapital');
-    await expect(infoBox).toContainText('Heutige Steuern zusammen');
-    await expect(infoBox).toContainText('Gesamtausfall');
+    // Enthält Personenanzahl und Text über die Schweiz.
+    await expect(infoBox).toContainText('Steuerpflichtige');
+    await expect(infoBox).toContainText('2022');
+    await expect(infoBox).toContainText('Schweiz');
   });
 
   test('Ergebnis-Karte wechselt bei aktivem Wegzug auf Netto-Fiskalgewinn', async ({ page }) => {
@@ -199,22 +198,22 @@ test.describe('Rechner', () => {
     await expect(page.locator('.result-label')).toContainText('Jährliches Aufkommen');
   });
 
-  test('Höhere Wegzug-Schwelle bedeutet weniger Personen im Ausfall', async ({ page }) => {
+  test('Höhere Wegzug-Schwelle bedeutet weniger Wegziehende', async ({ page }) => {
     const slider = page.locator('.wegzug-section input[type="range"]');
 
-    // Tiefer Schwellwert: viele Wegziehende, grosser Gesamtausfall.
+    // Tiefer Schwellwert: viele Wegziehende.
     await setSlider(slider, POS_1MRD);
     await page.waitForTimeout(50);
-    const lowText = await page.locator('.wi-total-row .wi-val').textContent();
+    const lowText = await page.locator('.wegzug-info').textContent();
 
-    // Hoher Schwellwert: weniger Wegziehende, kleinerer Gesamtausfall.
+    // Hoher Schwellwert: weniger Wegziehende.
     await setSlider(slider, POS_10MRD);
     await page.waitForTimeout(50);
-    const highText = await page.locator('.wi-total-row .wi-val').textContent();
+    const highText = await page.locator('.wegzug-info').textContent();
 
-    // Zahlen als Milliarden-Werte parsen und vergleichen.
-    const parse = (t) => parseFloat(t.replace(/[^0-9,.]/g, '').replace(',', '.'));
-    expect(parse(lowText)).toBeGreaterThan(parse(highText));
+    // Personenzahl aus dem Info-Text parsen (erste Ganzzahl im String).
+    const parseCnt = (t) => parseInt(t.match(/\d+/)?.[0] ?? '0', 10);
+    expect(parseCnt(lowText)).toBeGreaterThan(parseCnt(highText));
   });
 
   test('Wegzug-Szenario in Kombination mit WIR-Preset funktioniert', async ({ page }) => {
