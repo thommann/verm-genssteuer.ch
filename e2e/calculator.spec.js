@@ -8,6 +8,22 @@ async function setSlider(locator, value) {
   }, value);
 }
 
+// Logarithmische Wegzug-Skala (identisch mit CalculatorSection.vue):
+// 0–200 UI-Schritte → 100 Mio.–50 Mrd. CHF
+const WEGZUG_LOG_MIN = 1e8;
+const WEGZUG_MAX = 50e9;
+const WEGZUG_LOG_STEPS = 200;
+function chfToLogPos(chf) {
+  if (chf >= WEGZUG_MAX) return WEGZUG_LOG_STEPS;
+  const logMin = Math.log10(WEGZUG_LOG_MIN);
+  const logMax = Math.log10(WEGZUG_MAX);
+  return Math.round(((Math.log10(chf) - logMin) / (logMax - logMin)) * WEGZUG_LOG_STEPS);
+}
+// Vordefinierte Positionen für die Tests
+const POS_1MRD  = chfToLogPos(1e9);   // ≈ 74
+const POS_10MRD = chfToLogPos(10e9);  // ≈ 148
+const POS_MAX   = WEGZUG_LOG_STEPS;   // 200 = kein Wegzug
+
 test.describe('Rechner', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/rechner');
@@ -127,10 +143,9 @@ test.describe('Rechner', () => {
 
   test('Wegzug-Schieber aktiviert das Wegzug-Szenario', async ({ page }) => {
     const slider = page.locator('.wegzug-section input[type="range"]');
-    // 1 Mrd. CHF Schwelle setzen (Schritt 1e8, also 10 Schritte vom Minimum).
-    await setSlider(slider, 1_000_000_000);
+    await setSlider(slider, POS_1MRD);
 
-    // Anzeige wechselt von "kein Wegzug" auf "ab 1,0 Mrd."
+    // Anzeige wechselt von "kein Wegzug" auf "ab …"
     await expect(page.locator('.wegzug-section .range-display')).toContainText('ab');
 
     // Wegzug-Info-Kasten erscheint.
@@ -139,7 +154,7 @@ test.describe('Rechner', () => {
 
   test('Wegzug-Info-Kasten zeigt alle Zeilen', async ({ page }) => {
     const slider = page.locator('.wegzug-section input[type="range"]');
-    await setSlider(slider, 1_000_000_000);
+    await setSlider(slider, POS_1MRD);
 
     const infoBox = page.locator('.wegzug-info');
     await expect(infoBox).toContainText('Neue Vermögenssteuer (Ausfall)');
@@ -151,7 +166,7 @@ test.describe('Rechner', () => {
 
   test('Ergebnis-Karte wechselt bei aktivem Wegzug auf Netto-Fiskalgewinn', async ({ page }) => {
     const slider = page.locator('.wegzug-section input[type="range"]');
-    await setSlider(slider, 1_000_000_000);
+    await setSlider(slider, POS_1MRD);
 
     await expect(page.locator('.result-label')).toContainText('Netto-Fiskalgewinn');
 
@@ -165,7 +180,7 @@ test.describe('Rechner', () => {
 
   test('Dauerhaft-Wert ist bei aktivem Wegzug sichtbar', async ({ page }) => {
     const slider = page.locator('.wegzug-section input[type="range"]');
-    await setSlider(slider, 1_000_000_000);
+    await setSlider(slider, POS_1MRD);
 
     // Der nettoDauerhaft-Wert (gold) erscheint in result-sub.
     await expect(page.locator('.result-sub .rs-val.gold')).toBeVisible();
@@ -174,11 +189,11 @@ test.describe('Rechner', () => {
   test('Wegzug-Schieber auf Maximum setzt auf "kein Wegzug" zurück', async ({ page }) => {
     const slider = page.locator('.wegzug-section input[type="range"]');
     // Zuerst aktivieren.
-    await setSlider(slider, 1_000_000_000);
+    await setSlider(slider, POS_1MRD);
     await expect(page.locator('.wegzug-info')).toBeVisible();
 
-    // Zurück auf Maximum (50 Mrd. = Sentinel).
-    await setSlider(slider, 50_000_000_000);
+    // Zurück auf Maximum (Sentinel = kein Wegzug).
+    await setSlider(slider, POS_MAX);
     await expect(page.locator('.wegzug-section .range-display')).toHaveText('kein Wegzug');
     await expect(page.locator('.wegzug-info')).not.toBeVisible();
     await expect(page.locator('.result-label')).toContainText('Jährliches Aufkommen');
@@ -188,12 +203,12 @@ test.describe('Rechner', () => {
     const slider = page.locator('.wegzug-section input[type="range"]');
 
     // Tiefer Schwellwert: viele Wegziehende, grosser Gesamtausfall.
-    await setSlider(slider, 1_000_000_000);
+    await setSlider(slider, POS_1MRD);
     await page.waitForTimeout(50);
     const lowText = await page.locator('.wi-total-row .wi-val').textContent();
 
     // Hoher Schwellwert: weniger Wegziehende, kleinerer Gesamtausfall.
-    await setSlider(slider, 10_000_000_000);
+    await setSlider(slider, POS_10MRD);
     await page.waitForTimeout(50);
     const highText = await page.locator('.wi-total-row .wi-val').textContent();
 
@@ -210,7 +225,7 @@ test.describe('Rechner', () => {
 
     // Wegzug-Schieber setzen: ist auch im WIR-Modus aktiv.
     const slider = page.locator('.wegzug-section input[type="range"]');
-    await setSlider(slider, 1_000_000_000);
+    await setSlider(slider, POS_1MRD);
 
     await expect(page.locator('.result-label')).toContainText('Netto-Fiskalgewinn');
     await expect(page.locator('.wegzug-info')).toBeVisible();

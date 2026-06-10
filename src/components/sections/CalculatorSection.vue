@@ -61,6 +61,24 @@ const wegzugDisplay = computed(() =>
     : `ab ${chfCompact(state.wegzugSchwelle, 0)}`
 );
 
+// Logarithmische Skala für den Wegzug-Schieber: 0–200 UI-Schritte → 100 Mio.–50 Mrd. CHF.
+// Die interessanten Schwellen (500 Mio., 1 Mrd., 5 Mrd.) liegen so gleichmässig verteilt.
+const WEGZUG_LOG_MIN = 1e8;
+const WEGZUG_LOG_STEPS = 200;
+const _logMin = Math.log10(WEGZUG_LOG_MIN);
+const _logMax = Math.log10(WEGZUG_MAX);
+
+const wegzugLogPos = computed({
+  get: () => {
+    if (state.wegzugSchwelle >= WEGZUG_MAX) return WEGZUG_LOG_STEPS;
+    return Math.round(((Math.log10(state.wegzugSchwelle) - _logMin) / (_logMax - _logMin)) * WEGZUG_LOG_STEPS);
+  },
+  set: (pos) => {
+    if (pos >= WEGZUG_LOG_STEPS) { state.wegzugSchwelle = WEGZUG_MAX; return; }
+    state.wegzugSchwelle = Math.pow(10, _logMin + (pos / WEGZUG_LOG_STEPS) * (_logMax - _logMin));
+  },
+});
+
 // Cap-Hinweis nur zeigen, wenn das Modell überhaupt einen (endlichen) Cap hat.
 const capBinds = computed(() => Number.isFinite(model.value.wcap));
 
@@ -186,10 +204,10 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 
           <div class="wegzug-section">
             <RangeControl
-              v-model="state.wegzugSchwelle"
-              :min="1e8"
-              :max="WEGZUG_MAX"
-              :step="1e8"
+              v-model="wegzugLogPos"
+              :min="0"
+              :max="200"
+              :step="1"
               :label="$t('calculator.wegzugLabel')"
               :display="wegzugDisplay"
               :hint="$t('calculator.wegzugHint')"
