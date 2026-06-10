@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCalculator, WEGZUG_MAX } from '@/composables/useCalculator.js';
-import { chfCompact, num } from '@/lib/format.js';
+import { chfCompact } from '@/lib/format.js';
 import RangeControl from '@/components/ui/RangeControl.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
@@ -10,7 +10,6 @@ const { t } = useI18n();
 const calc = useCalculator();
 const {
   state,
-  wegzugAktiv, wegzugPersonen,
   wegzugAktuelleSteuern,
   staticRevenue,
 } = calc;
@@ -57,15 +56,6 @@ const wegzugDisplay = computed(() =>
             :display="wegzugDisplay"
             :hint="$t('calculator.wegzugHint')"
           />
-          <p v-if="wegzugAktiv && wegzugPersonen > 0" class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
-            cnt: num(wegzugPersonen),
-            year: state.year,
-            schwelle: chfCompact(state.wegzugSchwelle, 0),
-          })" />
-          <p v-if="wegzugAktiv && wegzugPersonen > 0" class="wi-note">
-            <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
-            <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
-          </p>
         </div>
 
         <div class="card wegzug-result">
@@ -81,6 +71,10 @@ const wegzugDisplay = computed(() =>
       </div>
 
       <p class="disclaimer muted" v-html="$t('calculator.disclaimer')" />
+      <div class="srcs">
+        <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
+        <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
+      </div>
     </div>
   </section>
 </template>
@@ -95,16 +89,8 @@ const wegzugDisplay = computed(() =>
 .wegzug-ctrl { padding: 24px; }
 .wegzug-result { min-height: 160px; padding: 20px 24px; }
 
-.wegzug-info {
-  font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
-  margin-top: 10px; padding: 12px 14px; border-radius: 8px;
-  background: rgba(255, 92, 92, 0.08);
-  border: 1px solid var(--border); border-left: 3px solid #e05;
-}
-.wegzug-info :deep(strong) { color: var(--text); }
-.wi-note { color: var(--text-mute); font-size: 0.75rem; margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-
 .disclaimer { font-size: 0.82rem; margin-top: 18px; max-width: 75ch; }
+.srcs { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; }
 
 @media (max-width: 820px) { .wegzug-grid { grid-template-columns: 1fr; } }
 </style>
