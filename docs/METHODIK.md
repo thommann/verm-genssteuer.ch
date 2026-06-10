@@ -530,8 +530,8 @@ darüber.
 | Rate | Wert | Basis | Quelle | Charakter |
 |---|---|---|---|---|
 | VST_RATE | 0,28 % | steuerbares Vermögen (ESTV) | NZZ (`nzz_vermoegenssteuer`) | gut belegt, Ø-Satz |
-| EST_RATE | ~0,9 % | steuerbares Vermögen | Martínez/KOF (`reichensteuer_studie_ch`), Mittelwert 0,7–1,2 % | konservativer Mittelwert |
-| **VST + EST** | **~1,18 %** | steuerbares Vermögen | — | konservativer Mittelwert |
+| EST_RATE | ~0,9 % | steuerbares Vermögen | Martínez/KOF (`reichensteuer_studie_ch`), Mittelwert 0,7–1,2 % | Mittelwert |
+| **VST + EST** | **~1,18 %** | steuerbares Vermögen | — | Mittelwert |
 
 Zum Vergleich: Die Zucman-Herleitung (§11) kommt am Marktvermögen auf ~0,8 %
 (Bandbreite 0,7–1,3 %). Die 1,18 % auf ESTV-Basis liegen am oberen Ende dieser Spanne,
