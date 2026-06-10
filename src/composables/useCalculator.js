@@ -15,6 +15,12 @@ import {
 // Sentinel-Wert für «kein Wegzug»: Schwelle oberhalb aller bekannten Bins.
 export const WEGZUG_MAX = 50e9;
 
+// Effektive Sätze auf steuerbares Reinvermögen (ESTV-Basis).
+// Vermögenssteuer: NZZ (nzz_vermoegenssteuer), Ø 0,28 %.
+// Einkommenssteuer: Schätzung auf Basis Martinez/KOF (reichensteuer_studie_ch), ~0,5 % des steuerbaren Vermögens.
+export const VST_RATE = 0.0028;
+export const EST_RATE = 0.0050;
+
 const d = paramsData.defaults;
 
 // Direkte Modell-Komponenten: schwelle, basis (Grenzsatz an der Schwelle), exponent, cap.
@@ -111,7 +117,7 @@ const sustainableRevenue = computed(() => {
 });
 const equilibrium = computed(() => equilibriumWealth(model.value, state.rendite));
 
-// Anzahl Steuerpflichtige, die laut Szenario die Schweiz verlassen.
+// Anzahl Steuerpflichtige und heutige Steuerleistung der wegziehenden Gruppe.
 const wegzugPersonen = computed(() => {
   if (!wegzugAktiv.value) return 0;
   const key = `cnt${state.year}`;
@@ -121,6 +127,33 @@ const wegzugPersonen = computed(() => {
   }
   return Math.round(sum);
 });
+
+// Heutiger Steuerausfall durch Wegzug (auf steuerbares Vermögen, Quellen: NZZ + Martinez/KOF).
+const wegzugVstVerlust = computed(() => {
+  if (!wegzugAktiv.value) return 0;
+  const key = `cnt${state.year}`;
+  let sum = 0;
+  for (const b of bins) {
+    if (b.mid >= effectiveWegzug.value) sum += b[key] * b.mid * VST_RATE;
+  }
+  return sum;
+});
+const wegzugEstVerlust = computed(() => {
+  if (!wegzugAktiv.value) return 0;
+  const key = `cnt${state.year}`;
+  let sum = 0;
+  for (const b of bins) {
+    if (b.mid >= effectiveWegzug.value) sum += b[key] * b.mid * EST_RATE;
+  }
+  return sum;
+});
+const wegzugAktuelleSteuern = computed(() => wegzugVstVerlust.value + wegzugEstVerlust.value);
+
+// Ausfall der neuen Steuer durch Wegzug.
+const wegzugNeuVerlust = computed(() => staticRevenueVoll.value - staticRevenue.value);
+
+// Gesamtausfall: neue Steuer + heutige Steuern.
+const wegzugGesamtverlust = computed(() => wegzugNeuVerlust.value + wegzugAktuelleSteuern.value);
 
 function applyPreset(key) {
   const p = PRESETS[key];
@@ -153,7 +186,14 @@ export function useCalculator() {
     equilibrium,
     wegzugAktiv,
     wegzugPersonen,
+    wegzugVstVerlust,
+    wegzugEstVerlust,
+    wegzugAktuelleSteuern,
+    wegzugNeuVerlust,
+    wegzugGesamtverlust,
     WEGZUG_MAX,
+    VST_RATE,
+    EST_RATE,
     years: Object.keys(paramsData.years).map(Number),
     publishedRevenue: paramsData.published_revenue,
     applyPreset,

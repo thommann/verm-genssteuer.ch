@@ -14,8 +14,12 @@ import SourceTag from '@/components/ui/SourceTag.vue';
 const { t } = useI18n();
 const calc = useCalculator();
 const {
-  state, model, staticRevenue, staticRevenueVoll, sustainableRevenue,
-  bands, curve, equilibrium, wegzugAktiv, wegzugPersonen, WEGZUG_MAX,
+  state, model, staticRevenue, sustainableRevenue,
+  bands, curve, equilibrium,
+  wegzugAktiv, wegzugPersonen,
+  wegzugVstVerlust, wegzugEstVerlust, wegzugAktuelleSteuern,
+  wegzugNeuVerlust, wegzugGesamtverlust,
+  WEGZUG_MAX, VST_RATE, EST_RATE,
 } = calc;
 
 const onSlider = () => calc.markCustom();
@@ -55,8 +59,6 @@ const wegzugDisplay = computed(() =>
     ? t('calculator.wegzugNone')
     : `ab ${chfCompact(state.wegzugSchwelle, 0)}`
 );
-
-const wegzugVerlust = computed(() => staticRevenueVoll.value - staticRevenue.value);
 
 // Cap-Hinweis nur zeigen, wenn das Modell überhaupt einen (endlichen) Cap hat.
 const capBinds = computed(() => Number.isFinite(model.value.wcap));
@@ -191,12 +193,43 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
               :display="wegzugDisplay"
               :hint="$t('calculator.wegzugHint')"
             />
-            <div v-if="wegzugAktiv" class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
-              cnt: num(wegzugPersonen),
-              year: state.year,
-              schwelle: chfCompact(state.wegzugSchwelle, 0),
-              verlust: chfCompact(wegzugVerlust, 1),
-            })" />
+            <div v-if="wegzugAktiv" class="wegzug-info">
+              <div class="wi-head" v-html="$t('calculator.wegzugHead', {
+                cnt: num(wegzugPersonen),
+                year: state.year,
+                schwelle: chfCompact(state.wegzugSchwelle, 0),
+              })" />
+              <table class="wi-table">
+                <tr>
+                  <td>{{ $t('calculator.wegzugNeuLabel') }}</td>
+                  <td class="wi-val neg">−{{ chfCompact(wegzugNeuVerlust, 1) }}</td>
+                </tr>
+                <tr class="wi-sep">
+                  <td colspan="2" class="wi-subhead">{{ $t('calculator.wegzugHeuteHead') }}</td>
+                </tr>
+                <tr>
+                  <td>{{ $t('calculator.wegzugVstLabel', { rate: pct(VST_RATE, 2) }) }}</td>
+                  <td class="wi-val neg">−{{ chfCompact(wegzugVstVerlust, 1) }}</td>
+                </tr>
+                <tr>
+                  <td>{{ $t('calculator.wegzugEstLabel', { rate: pct(EST_RATE, 1) }) }}</td>
+                  <td class="wi-val neg">−{{ chfCompact(wegzugEstVerlust, 1) }}</td>
+                </tr>
+                <tr>
+                  <td class="wi-sub-total">{{ $t('calculator.wegzugHeuteSumLabel') }}</td>
+                  <td class="wi-val neg wi-sub-total">−{{ chfCompact(wegzugAktuelleSteuern, 1) }}</td>
+                </tr>
+                <tr class="wi-total-row">
+                  <td><strong>{{ $t('calculator.wegzugGesamtLabel') }}</strong></td>
+                  <td class="wi-val neg"><strong>−{{ chfCompact(wegzugGesamtverlust, 1) }}</strong></td>
+                </tr>
+              </table>
+              <p class="wi-note">
+                {{ $t('calculator.wegzugNote') }}
+                <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
+                <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
+              </p>
+            </div>
           </div>
         </div>
 
@@ -352,11 +385,24 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 }
 .wegzug-info {
   font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
-  margin-top: 10px; padding: 10px 14px; border-radius: 8px;
+  margin-top: 10px; padding: 12px 14px; border-radius: 8px;
   background: rgba(255, 92, 92, 0.08);
   border: 1px solid var(--border); border-left: 3px solid #e05;
+  display: flex; flex-direction: column; gap: 10px;
 }
-.wegzug-info :deep(strong) { color: var(--text); }
+.wi-head { color: var(--text-soft); }
+.wi-head :deep(strong) { color: var(--text); }
+.wi-table { width: 100%; border-collapse: collapse; font-size: 0.80rem; }
+.wi-table td { padding: 2px 0; vertical-align: top; }
+.wi-table td:last-child { text-align: right; white-space: nowrap; padding-left: 8px; }
+.wi-val { font-variant-numeric: tabular-nums; }
+.wi-val.neg { color: #f07; }
+.wi-subhead { color: var(--text-mute); font-size: 0.76rem; padding-top: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+.wi-sub-total { color: var(--text); font-weight: 600; }
+.wi-sep td { padding-top: 4px; }
+.wi-total-row td { border-top: 1px solid var(--border); padding-top: 6px; }
+.wi-total-row .wi-val { color: #f07; font-size: 0.88rem; }
+.wi-note { color: var(--text-mute); font-size: 0.75rem; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 
 .disclaimer { font-size: 0.82rem; color: var(--text-mute); margin-top: 22px; max-width: 75ch; display: flex; flex-direction: column; gap: 8px; }
 .disclaimer .srcs { display: flex; gap: 18px; flex-wrap: wrap; }
