@@ -216,7 +216,9 @@ export default {
     debtfreeTitle: 'Staatsschulden tilgen',
     debtfreeUnit: 'Jahre',
     debtfreeText: 'So viele Jahre, bis das gesamte Aufkommen die <strong>Staatsschuld der Schweiz</strong> (Bund, Kantone, Gemeinden, Sozialwerke; rund 214 Mrd. nach Maastricht) vollständig getilgt hätte. Aufsummiert über die dynamische Hochrechnung, nicht das flache Vielfache eines Jahres.',
+    debtfreeTextFlat: 'So viele Jahre, bis das Aufkommen die <strong>Staatsschuld der Schweiz</strong> (Bund, Kantone, Gemeinden, Sozialwerke; rund 214 Mrd. nach Maastricht) vollständig getilgt hätte. Flache Hochrechnung: Aufkommen konstant pro Jahr.',
     debtfreeFoot: 'Kumuliert über die dynamische Hochrechnung, inkl. {rendite} Rendite p.a.',
+    debtfreeFootFlat: 'Aufkommen konstant, ohne dynamische Projektion.',
     disclaimer: 'Bezugsgrössen aus offiziellen Quellen (EFV/ESTV, BAG, BFS, LITRA), gerundet, nominal. Es ist <em>entweder/oder</em>: jeder Franken kann nur einmal ausgegeben werden. Die Beispiele zeigen die Grössenordnung, keine fertige Politik.',
     srcsLabel: 'Aufkommen (Zähler):',
     sourceNoteEstv: 'Aufkommen aus dem Rechner, Pareto-Tail >10 Mio.',
@@ -333,10 +335,6 @@ export default {
     medSource: 'Median / Durchschnitt: Steuern 9,9 % / 11,6 %, Vermögenseinkommen 2,9 % / 4,5 % des Bruttoeinkommens (HABE 2015–2017)',
 
     meaningHeading: 'Was ~10 Mrd. bedeuten',
-    meaningPerCapita: 'pro Kopf und Jahr',
-    meaningIncome: 'der gesamten Einkommenssteuer natürlicher Personen',
-    meaningPremium: 'der selbst getragenen Krankenkassenprämien',
-    meaningDebt: 'der Schweizer Staatsschuld',
   },
 
   // UbsStudySection

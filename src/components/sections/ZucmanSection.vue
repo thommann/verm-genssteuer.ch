@@ -1,13 +1,8 @@
 <script setup>
-// Inhalts-/Analyse-Abschnitt zu Gabriel Zucmans Mindeststeuer (2 % auf das
-// Gesamtvermoegen ab 100 Mio.). Reduziert auf drei Punkte: was Zucman will,
-// was die Superreichen heute an privaten Steuern zahlen und wie viel die
-// Mindeststeuer zusaetzlich einbringt. Am Schluss vier Einordnungen, was das
-// Zusatzaufkommen (~10 Mrd.) im Verhaltnis zu bekannten Bezugsgroessen bedeutet.
-import { computed } from 'vue';
 import spendRef from '@/data/spend_reference.json';
-import { chf, pct, num } from '@/lib/format.js';
+import { num } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
+import SpendGrid from '@/components/ui/SpendGrid.vue';
 
 const REVENUE = 10e9; // Zusatzaufkommen der Mindeststeuer, gerundet
 const K = spendRef.kennzahlen;
@@ -46,12 +41,7 @@ const AVG_GROSS_CHF = 9349.1;
 const avgRecoveryYears = AVG_TAX_CHF / AVG_PROPERTY_CHF;
 const avgTaxIncomeDays = Math.round((AVG_TAX_CHF / AVG_GROSS_CHF) * 365);
 
-const perCapita = computed(() => chf(REVENUE / K.population.value));
-const incomeShare = computed(() => pct(REVENUE / K.einkommenssteuer_np_alle_ebenen.value, 0));
-const premiumShare = computed(() =>
-  pct(REVENUE / (K.okp_praemien.value - K.praemienverbilligung.value), 0),
-);
-const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 0));
+const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
 </script>
 
 <template>
@@ -130,29 +120,7 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
       </div>
 
       <h3 class="block-h">{{ $t('zucman.meaningHeading') }}</h3>
-      <div class="grid egrid">
-        <div class="ecard card">
-          <span class="ev">~{{ perCapita }}</span>
-          <span class="el">{{ $t('zucman.meaningPerCapita') }}</span>
-        </div>
-        <div class="ecard card">
-          <span class="ev gold">~{{ incomeShare }}</span>
-          <span class="el">{{ $t('zucman.meaningIncome') }}</span>
-        </div>
-        <div class="ecard card">
-          <span class="ev gold">~{{ premiumShare }}</span>
-          <span class="el">{{ $t('zucman.meaningPremium') }}</span>
-        </div>
-        <div class="ecard card">
-          <span class="ev gold">~{{ debtShare }}</span>
-          <span class="el">{{ $t('zucman.meaningDebt') }}</span>
-        </div>
-      </div>
-      <div class="srcrow">
-        <SourceTag id="efv" />
-        <SourceTag id="bag" />
-        <SourceTag id="bfs" />
-      </div>
+      <SpendGrid :revenue="REVENUE" :debt-free-years="debtFreeYearsFlat" />
     </div>
   </section>
 </template>
@@ -217,10 +185,4 @@ const debtShare = computed(() => pct(REVENUE / K.staatsschuld_maastricht.value, 
 .medtable tbody tr + tr th, .medtable tbody tr + tr td {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
-
-.egrid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 18px; }
-.ecard { padding: 22px; display: flex; flex-direction: column; gap: 8px; }
-.ev { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
-.ev.gold { color: var(--gold); }
-.el { color: var(--text-soft); font-size: 0.86rem; line-height: 1.45; }
 </style>
