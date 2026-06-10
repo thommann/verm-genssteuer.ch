@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCalculator, WEGZUG_MAX } from '@/composables/useCalculator.js';
-import { chfCompact, pct, num } from '@/lib/format.js';
+import { chfCompact, num } from '@/lib/format.js';
 import RangeControl from '@/components/ui/RangeControl.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
@@ -12,7 +12,6 @@ const {
   state,
   wegzugAktiv, wegzugPersonen,
   wegzugAktuelleSteuern,
-  nettoStatisch, nettoDauerhaft,
   staticRevenue,
 } = calc;
 
@@ -71,23 +70,14 @@ const wegzugDisplay = computed(() =>
 
         <div class="card result wegzug-result">
           <template v-if="wegzugAktiv">
-            <div class="result-label">{{ $t('calculator.nettoResultLabel', { year: state.year }) }}</div>
-            <div class="result-value" :class="{ negative: nettoStatisch < 0 }">{{ chfCompact(nettoStatisch, 1) }}</div>
-            <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
             <div class="result-breakdown">
               <div class="rb-row">
                 <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
-                <span class="rb-val">+{{ num(staticRevenue / 1e6, 1) }} Mio.</span>
+                <span class="rb-val">+{{ chfCompact(staticRevenue, 1) }}</span>
               </div>
               <div class="rb-row neg">
                 <span class="rb-lab">{{ $t('calculator.nettoHeuteLabel') }}</span>
-                <span class="rb-val">−{{ num(wegzugAktuelleSteuern / 1e6, 1) }} Mio.</span>
-              </div>
-            </div>
-            <div class="result-sub">
-              <div>
-                <span class="rs-val gold">{{ chfCompact(nettoDauerhaft, 1) }}</span>
-                <span class="rs-lab" v-html="$t('calculator.nettoDauerhaftLabel')" />
+                <span class="rb-val">−{{ chfCompact(wegzugAktuelleSteuern, 1) }}</span>
               </div>
             </div>
           </template>

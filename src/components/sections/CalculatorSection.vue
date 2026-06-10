@@ -15,6 +15,7 @@ const { t } = useI18n();
 const calc = useCalculator();
 const {
   state, model, staticRevenue, sustainableRevenue,
+  nettoStatisch, nettoDauerhaft,
   bands, curve, equilibrium,
   wegzugAktiv,
 } = calc;
@@ -179,15 +180,17 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
         <div class="card result">
           <div class="result-main">
             <div class="result-label">
-              {{ wegzugAktiv ? $t('calculator.resultLabelWegzug', { year: state.year }) : $t('calculator.resultLabel', { year: state.year }) }}
+              {{ wegzugAktiv ? $t('calculator.nettoResultLabel', { year: state.year }) : $t('calculator.resultLabel', { year: state.year }) }}
             </div>
-            <div class="result-value">{{ chfCompact(staticRevenue, 1) }}</div>
+            <div class="result-value" :class="{ negative: wegzugAktiv && nettoStatisch < 0 }">
+              {{ wegzugAktiv ? chfCompact(nettoStatisch, 1) : chfCompact(staticRevenue, 1) }}
+            </div>
             <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
           </div>
           <div class="result-sub">
             <div>
-              <span class="rs-val gold">{{ chfCompact(sustainableRevenue, 1) }}</span>
-              <span class="rs-lab" v-html="$t('calculator.sustainableLabel')" />
+              <span class="rs-val gold">{{ wegzugAktiv ? chfCompact(nettoDauerhaft, 1) : chfCompact(sustainableRevenue, 1) }}</span>
+              <span class="rs-lab" v-html="wegzugAktiv ? $t('calculator.nettoDauerhaftLabel') : $t('calculator.sustainableLabel')" />
             </div>
             <div v-if="!wegzugAktiv">
               <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
