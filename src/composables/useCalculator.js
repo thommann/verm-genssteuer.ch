@@ -159,6 +159,9 @@ const wegzugGesamtverlust = computed(() => wegzugNeuVerlust.value + wegzugAktuel
 // = neue Steuer von den Verbliebenen − heutige Steuern der Abgewanderten.
 const nettoStatisch = computed(() => staticRevenue.value - wegzugAktuelleSteuern.value);
 const nettoDauerhaft = computed(() => sustainableRevenue.value - wegzugAktuelleSteuern.value);
+const nettoProjection = computed(() =>
+  projection.value.map((p) => ({ ...p, revenue: p.revenue - wegzugAktuelleSteuern.value }))
+);
 
 function applyPreset(key) {
   const p = PRESETS[key];
@@ -199,6 +202,7 @@ export function useCalculator() {
     effectiveWegzug,
     nettoStatisch,
     nettoDauerhaft,
+    nettoProjection,
     WEGZUG_MAX,
     VST_RATE,
     EST_RATE,
