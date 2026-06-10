@@ -460,7 +460,99 @@ Diese Herleitung erscheint zusammengefasst und als Schätzung deklariert auch im
 
 ---
 
-## 12. Reproduktion
+## 12. Wegzug-Szenario — Netto-Fiskaleffekt (Schätzung)
+
+> Anders als die Verfahren 1–8 ist dieser Abschnitt **keine** exakt reproduzierbare
+> Rechnung aus den ESTV-Klassendaten, sondern eine **Schätzung** auf Basis belegter
+> Durchschnittssätze aus externen Quellen. Die Sätze sind ausdrücklich als
+> Näherungen deklariert. Das Ergebnis ist ein **konservativer Mindestwert**,
+> da das steuerbare Vermögen (ESTV-Basis) unter dem Marktvermögen liegt.
+
+### Fragestellung
+
+Wenn Steuerpflichtige ab einer Vermögensschwelle die Schweiz verlassen, verliert
+der Staat nicht nur die neue Vermögenssteuer, sondern auch deren heutige Steuerbeiträge
+(kantonale Vermögenssteuer und Einkommenssteuer auf Kapitalerträge). Der
+**Netto-Fiskalgewinn** ist:
+
+```
+nettoStatisch  = staticRevenue(mit Wegzug)  − (VST_RATE + EST_RATE) · Σ cnt[i] · mid[i]
+nettoDauerhaft = sustainableRevenue(mit Wegzug) − (VST_RATE + EST_RATE) · Σ cnt[i] · mid[i]
+```
+
+wobei die Summe über alle Bins läuft, deren `mid >= wegzugSchwelle`. Pauschalbesteuerte
+sind bereits modellhaft im Pareto-Tail eingerechnet (Verfahren D, §5); kein
+zusätzlicher Term.
+
+### VST_RATE = 0,28 % — Vermögenssteuer auf das steuerbare Vermögen
+
+**Quelle:** NZZ (`nzz_vermoegenssteuer`): «Der durchschnittliche Vermögenssteuersatz
+ist von 0,35 % (1990) auf rund 0,28 % (2025) gesunken.»
+
+Der kantonale Steuersatz wird auf das **steuerbare Reinvermögen** berechnet — genau
+dieselbe Basis wie die ESTV-Bins. VST_RATE = 0,0028 ist daher direkt auf `mid`
+anwendbar. Der Wert stimmt mit dem Fallbeispiel des Mustermillionärs (Zug/Baar, 83 Mio.)
+in der Martínez-Studie überein (0,26 %, `reichensteuer_studie_ch`), und liegt unterhalb
+des Basler Satzes (0,49 %), was den Schweizer Durchschnitt plausibel macht.
+
+**Bandbreite:** 0,25–0,49 % je Kanton.
+
+### EST_RATE = 0,50 % — Einkommenssteuer auf Kapitalerträge
+
+**Herleitung:** Der Wert ist eine Proxy-Übertragung aus der Zucman-Herleitung (§11):
+
+```
+e ≈ (Ausschüttungsrendite ~2 %) × (effektiver Einkommenssteuersatz ~25 %) ≈ 0,5 %
+```
+
+Dort wird `e` auf das **Marktvermögen** bezogen (Bilanz-300-Basis). Da im Rechner die
+ESTV-Bins (steuerbares Vermögen) die Bemessungsgrundlage sind und für an der Börse
+kotierte Beteiligungen steuerbares Vermögen ≈ Marktwert gilt (Liegenschaften und
+Privatunternehmen liegen meist darunter), wird 0,5 % direkt auf `mid` angewendet.
+
+Kontrolle aus der Martínez-Länderstudie (`reichensteuer_studie_ch`):
+- Beispiel-Milliardär (Roche-Erbe Duschmalé, Kanton Waadt, wirtschaftliches Einkommen
+  95,2 Mio.): persönliche Einkommenssteuer 16,8 Mio. Bei geschätztem steuerbarem Vermögen
+  von ~1,4–2,4 Mrd. (aus dem Vermögenssteuerbetrag 9,5 Mio. zurückgerechnet, je nach
+  kantonalem Satz) ergibt sich eine Einkommenssteuer von 0,7–1,2 % des steuerbaren
+  Vermögens.
+- Dieser Kontrollwert liegt **über** den 0,5 %, was bedeutet: EST_RATE ist eine
+  **konservative Untergrenze** für die Einkommenssteuer dieser Kohorte.
+
+**Gründe für die Untergrenze:** (a) Der 0,5 %-Proxy basiert auf dem kleineren
+Marktwert-Nenner und ignoriert, dass Kantone mit tieferen Eigenkapitalwerten das
+steuerbare Vermögen weiter unter den Marktwert drücken; (b) das Modell erfasst nur
+ausgeschüttete Erträge; thesaurierte Gewinne und nicht realisierte Kapitalgewinne
+(steuerfrei) erhöhen das wirtschaftliche Vermögen, ohne die steuerbare Bemessungsgrundlage
+zu erhöhen.
+
+**Bandbreite:** 0,14–1,22 % des steuerbaren Vermögens (Hofmann-Beispiel vs.
+Duschmalé-Beispiel, KOF 2024).
+
+### Gesamtbild und Deklaration
+
+| Rate | Wert | Basis | Quelle | Charakter |
+|---|---|---|---|---|
+| VST_RATE | 0,28 % | steuerbares Vermögen (ESTV) | NZZ (`nzz_vermoegenssteuer`) | gut belegt, Ø-Satz |
+| EST_RATE | ~0,5 % | steuerbares Vermögen (Proxy) | §11-Ableitung + Martínez/KOF (`reichensteuer_studie_ch`) | konservative Untergrenze |
+| **VST + EST** | **~0,78 %** | steuerbares Vermögen | — | untere Schranke der heutigen Last |
+
+Zum Vergleich: Die Zucman-Herleitung (§11) kommt am Marktvermögen auf ~0,8 %
+(Bandbreite 0,7–1,3 %). Da für börsennotierte Beteiligungen steuerbares ≈ Marktvermögen,
+sind die 0,78 % auf ESTV-Basis damit grössenordnungsmässig konsistent, aber am unteren Rand.
+
+**Nicht enthalten:** AHV/IV-Beiträge, Kirchensteuern, Erbschafts- und Schenkungssteuern,
+Unternehmenssteuern (auf Ebene der juristischen Person). Diese sind bewusst
+ausgeschlossen, weil das Wegzug-Szenario nur die direkte Personensteuer der natürlichen
+Person modelliert — analog zur Zucman-Herleitung in §11.
+
+**Konstanten im Code:** `VST_RATE` und `EST_RATE` in
+`src/composables/useCalculator.js`; keine separate Datendatei (Begründung: die Sätze
+sind keine Tabellenwerte, sondern belegte Näherungskonstanten aus externen Studien).
+
+---
+
+## 13. Reproduktion
 
 ```bash
 # 1. Rohdaten direkt von ESTV/WID/FDK/UBS laden (benötigt curl):
