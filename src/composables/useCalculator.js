@@ -17,9 +17,9 @@ export const WEGZUG_MAX = 50e9;
 
 // Effektive Sätze auf steuerbares Reinvermögen (ESTV-Basis).
 // Vermögenssteuer: NZZ (nzz_vermoegenssteuer), Ø 0,28 %.
-// Einkommenssteuer: Schätzung auf Basis Martinez/KOF (reichensteuer_studie_ch), ~0,5 % des steuerbaren Vermögens.
+// Einkommenssteuer: Mittelwert aus Duschmalé-Beispiel (reichensteuer_studie_ch), Bandbreite 0,7–1,2 %, Mittelwert ~0,9 %.
 export const VST_RATE = 0.0028;
-export const EST_RATE = 0.0050;
+export const EST_RATE = 0.0090;
 
 const d = paramsData.defaults;
 

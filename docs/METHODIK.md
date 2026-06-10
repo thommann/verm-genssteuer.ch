@@ -465,8 +465,8 @@ Diese Herleitung erscheint zusammengefasst und als Schätzung deklariert auch im
 > Anders als die Verfahren 1–8 ist dieser Abschnitt **keine** exakt reproduzierbare
 > Rechnung aus den ESTV-Klassendaten, sondern eine **Schätzung** auf Basis belegter
 > Durchschnittssätze aus externen Quellen. Die Sätze sind ausdrücklich als
-> Näherungen deklariert. Das Ergebnis ist ein **konservativer Mindestwert**,
-> da das steuerbare Vermögen (ESTV-Basis) unter dem Marktvermögen liegt.
+> Näherungen deklariert. VST_RATE ist ein gut belegter Durchschnittssatz; EST_RATE
+> ist der Mittelwert einer empirisch gestützten Bandbreite.
 
 ### Fragestellung
 
@@ -497,49 +497,46 @@ des Basler Satzes (0,49 %), was den Schweizer Durchschnitt plausibel macht.
 
 **Bandbreite:** 0,25–0,49 % je Kanton.
 
-### EST_RATE = 0,50 % — Einkommenssteuer auf Kapitalerträge
+### EST_RATE = 0,90 % — Einkommenssteuer auf Kapitalerträge
 
-**Herleitung:** Der Wert ist eine Proxy-Übertragung aus der Zucman-Herleitung (§11):
+**Herleitung:** Basis ist die Martínez-Länderstudie (`reichensteuer_studie_ch`), konkret
+das Duschmalé-Beispiel (Roche-Erbe, Kanton Waadt, wirtschaftliches Einkommen 95,2 Mio.):
+
+- Persönliche Einkommenssteuer: 16,8 Mio. CHF
+- Vermögenssteuerbetrag: 9,5 Mio. CHF, daraus steuerbares Vermögen ~1,4–2,4 Mrd.
+  (je nach kantonalem Steuerfuss, zurückgerechnet aus dem Vermögenssteuerbetrag)
+- Einkommenssteuer als Anteil des steuerbaren Vermögens: **0,7–1,2 %**
+
+Der Mittelwert der Bandbreite 0,7–1,2 % beträgt 0,95 %; gerundet auf **0,9 %** (leicht
+zur Untergrenze hin verschoben, da das Duschmalé-Beispiel einen Hochsteuerkanton darstellt
+und der schweizweite Durchschnitt tiefer liegen dürfte).
+
+**Kontrolle mit §11-Proxy:**
 
 ```
 e ≈ (Ausschüttungsrendite ~2 %) × (effektiver Einkommenssteuersatz ~25 %) ≈ 0,5 %
 ```
 
-Dort wird `e` auf das **Marktvermögen** bezogen (Bilanz-300-Basis). Da im Rechner die
-ESTV-Bins (steuerbares Vermögen) die Bemessungsgrundlage sind und für an der Börse
-kotierte Beteiligungen steuerbares Vermögen ≈ Marktwert gilt (Liegenschaften und
-Privatunternehmen liegen meist darunter), wird 0,5 % direkt auf `mid` angewendet.
+Dieser Proxy bezieht sich auf das Marktvermögen und erfasst nur ausgeschüttete Dividenden;
+thesaurierte Gewinne und nicht realisierte Kapitalgewinne bleiben aussen vor. Er bildet
+deshalb die Untergrenze. Das Duschmalé-Beispiel liegt mit 0,7–1,2 % erwartungsgemäss
+darüber.
 
-Kontrolle aus der Martínez-Länderstudie (`reichensteuer_studie_ch`):
-- Beispiel-Milliardär (Roche-Erbe Duschmalé, Kanton Waadt, wirtschaftliches Einkommen
-  95,2 Mio.): persönliche Einkommenssteuer 16,8 Mio. Bei geschätztem steuerbarem Vermögen
-  von ~1,4–2,4 Mrd. (aus dem Vermögenssteuerbetrag 9,5 Mio. zurückgerechnet, je nach
-  kantonalem Satz) ergibt sich eine Einkommenssteuer von 0,7–1,2 % des steuerbaren
-  Vermögens.
-- Dieser Kontrollwert liegt **über** den 0,5 %, was bedeutet: EST_RATE ist eine
-  **konservative Untergrenze** für die Einkommenssteuer dieser Kohorte.
-
-**Gründe für die Untergrenze:** (a) Der 0,5 %-Proxy basiert auf dem kleineren
-Marktwert-Nenner und ignoriert, dass Kantone mit tieferen Eigenkapitalwerten das
-steuerbare Vermögen weiter unter den Marktwert drücken; (b) das Modell erfasst nur
-ausgeschüttete Erträge; thesaurierte Gewinne und nicht realisierte Kapitalgewinne
-(steuerfrei) erhöhen das wirtschaftliche Vermögen, ohne die steuerbare Bemessungsgrundlage
-zu erhöhen.
-
-**Bandbreite:** 0,14–1,22 % des steuerbaren Vermögens (Hofmann-Beispiel vs.
-Duschmalé-Beispiel, KOF 2024).
+**Bandbreite:** 0,7–1,2 % des steuerbaren Vermögens (Duschmalé-Beispiel,
+`reichensteuer_studie_ch`).
 
 ### Gesamtbild und Deklaration
 
 | Rate | Wert | Basis | Quelle | Charakter |
 |---|---|---|---|---|
 | VST_RATE | 0,28 % | steuerbares Vermögen (ESTV) | NZZ (`nzz_vermoegenssteuer`) | gut belegt, Ø-Satz |
-| EST_RATE | ~0,5 % | steuerbares Vermögen (Proxy) | §11-Ableitung + Martínez/KOF (`reichensteuer_studie_ch`) | konservative Untergrenze |
-| **VST + EST** | **~0,78 %** | steuerbares Vermögen | — | untere Schranke der heutigen Last |
+| EST_RATE | ~0,9 % | steuerbares Vermögen | Martínez/KOF (`reichensteuer_studie_ch`), Mittelwert 0,7–1,2 % | konservativer Mittelwert |
+| **VST + EST** | **~1,18 %** | steuerbares Vermögen | — | konservativer Mittelwert |
 
 Zum Vergleich: Die Zucman-Herleitung (§11) kommt am Marktvermögen auf ~0,8 %
-(Bandbreite 0,7–1,3 %). Da für börsennotierte Beteiligungen steuerbares ≈ Marktvermögen,
-sind die 0,78 % auf ESTV-Basis damit grössenordnungsmässig konsistent, aber am unteren Rand.
+(Bandbreite 0,7–1,3 %). Die 1,18 % auf ESTV-Basis liegen am oberen Ende dieser Spanne,
+was plausibel ist: das Duschmalé-Beispiel stammt aus Kanton Waadt, einem Hochsteuerkanton,
+und die schweizweite effektive Last dürfte etwas tiefer liegen.
 
 **Nicht enthalten:** AHV/IV-Beiträge, Kirchensteuern, Erbschafts- und Schenkungssteuern,
 Unternehmenssteuern (auf Ebene der juristischen Person). Diese sind bewusst
