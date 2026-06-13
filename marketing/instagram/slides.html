@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Instagram-Material — Vermögenssteuer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Kampagnen-Palette (aus src/styles/main.css), hier in leuchtender Variante */
+    --pink: #ff2d6b;
+    --pink-soft: #ff84a6;
+    --magenta: #d6249f;
+    --orange: #ff7a33;
+    --gold: #ffce5c;
+    --teal: #25e3c8;
+    --green: #14c98a;
+    --blue: #4f8bff;
+    --violet: #a78bfa;
+    --ink: #0b1020;
+    --white: #ffffff;
+    --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: #05070f;
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    padding: 40px;
+  }
+
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+  }
+
+  /* Instagram Feed-Format 2026: 4:5 Hochformat, 1080 x 1350 px (volle Feed-Breite). */
+  .slide {
+    position: relative;
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 96px 88px 80px;
+    isolation: isolate;
+    color: var(--white);
+  }
+
+  /* Leuchtender Verlaufs-Hintergrund je Slide via Custom Properties. */
+  .slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(120% 90% at 18% 8%, var(--g1), transparent 60%),
+      radial-gradient(120% 90% at 88% 96%, var(--g2), transparent 62%),
+      linear-gradient(150deg, var(--g3), var(--g4));
+  }
+  /* Sanfter Dunkel-Schleier unten für Lesbarkeit der Fusszeile. */
+  .slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(5,7,15,0.04) 0%, rgba(5,7,15,0) 38%, rgba(5,7,15,0.32) 100%);
+  }
+
+  /* Körnungs-/Glanzfreie, klare Flächen: dezente Lichtflecken oben. */
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(8px);
+    opacity: 0.5;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 26px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.92);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 54px;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--white);
+  }
+
+  .index {
+    font-size: 30px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.78);
+  }
+
+  .body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 36px;
+    padding: 40px 0;
+  }
+
+  h1 {
+    font-weight: 900;
+    font-size: 104px;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+  /* Längere Aussagen etwas kleiner, damit sie sicher passen. */
+  .slide[data-len="long"] h1 { font-size: 82px; line-height: 1.05; }
+  .slide[data-len="xlong"] h1 { font-size: 70px; line-height: 1.08; }
+
+  .hl { color: var(--ink); }
+  h1 .mark {
+    color: var(--white);
+    -webkit-text-fill-color: var(--white);
+  }
+  /* Hervorhebung: leuchtender Unterstrich-Marker hinter Schlüsselwörtern. */
+  .underline {
+    background: linear-gradient(180deg, transparent 58%, rgba(255,255,255,0.92) 58%, rgba(255,255,255,0.92) 92%, transparent 92%);
+    padding: 0 4px;
+    border-radius: 4px;
+  }
+  .ink-underline {
+    color: var(--ink);
+  }
+
+  .sub {
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.94);
+    max-width: 24ch;
+  }
+  .sub strong { font-weight: 900; }
+
+  /* Grosse Kennzahl (Slide 5/6). */
+  .statrow {
+    display: flex;
+    gap: 56px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .stat .num {
+    font-size: 150px;
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .num.ink { color: var(--ink); }
+  .stat .lab {
+    font-size: 30px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    max-width: 16ch;
+  }
+  .vs {
+    font-size: 44px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.75);
+    padding-bottom: 70px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(11,16,32,0.34);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 999px;
+    padding: 16px 28px;
+    font-size: 30px;
+    font-weight: 800;
+  }
+
+  .foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 2px solid rgba(255,255,255,0.28);
+    padding-top: 34px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .brand .logo {
+    width: 64px;
+    height: 64px;
+    flex: none;
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+  }
+  .brand .name {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+  }
+  .brand .name span { display: block; font-size: 24px; font-weight: 600; color: rgba(255,255,255,0.82); letter-spacing: 0.02em; }
+
+  .source {
+    font-size: 23px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.82);
+    text-align: right;
+    max-width: 42ch;
+    line-height: 1.35;
+  }
+
+  /* Cover-Slide-Spezifika */
+  .slide.cover .body { justify-content: flex-end; gap: 28px; }
+  .slide.cover h1 { font-size: 132px; line-height: 0.96; }
+  .slide.cover .kicker {
+    font-size: 40px; font-weight: 700; color: rgba(255,255,255,0.95); max-width: 22ch; line-height: 1.3;
+  }
+  .swipe {
+    display: inline-flex; align-items: center; gap: 16px;
+    font-size: 30px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.92);
+  }
+  .swipe svg { width: 40px; height: 40px; }
+
+  /* CTA-Slide */
+  .slide.cta .body { justify-content: center; align-items: center; text-align: center; gap: 40px; }
+  .slide.cta h1 { font-size: 96px; }
+  .slide.cta .url {
+    font-size: 56px; font-weight: 900; letter-spacing: -0.01em;
+    background: rgba(11,16,32,0.34); border: 2px solid rgba(255,255,255,0.55);
+    border-radius: 999px; padding: 26px 52px;
+  }
+  .slide.cta .sub { text-align: center; max-width: 26ch; }
+
+  /* Reihen-Etikett über dem Gallery-Print, nicht Teil des Slides. */
+  .cap {
+    width: 1080px; text-align: center; color: #aab4d4; font-size: 22px; font-weight: 700;
+    margin: -22px auto 2px; letter-spacing: 0.04em;
+  }
+  .cap b { color: #fff; }
+
+  @media print {
+    body { padding: 0; background: #fff; }
+    .cap { display: none; }
+    .gallery { gap: 0; }
+    .slide { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+<div class="gallery">
+
+  <!-- ============ 01 — COVER ============ -->
+  <div class="cap"><b>01</b> · Cover</div>
+  <section class="slide cover" id="s01"
+    style="--g1:#ff2d6b; --g2:#a78bfa; --g3:#d6249f; --g4:#4f8bff;">
+    <div class="glow" style="width:520px;height:520px;top:-120px;right:-80px;background:#ffce5c;opacity:.35;"></div>
+    <div class="top">
+      <div class="eyebrow">Tax the Rich</div>
+      <div class="index">CH</div>
+    </div>
+    <div class="body">
+      <div class="kicker">Acht Sätze, warum eine faire Steuer auf die grössten Vermögen uns allen nützt.</div>
+      <h1>Wem gehört<br/>die Schweiz?</h1>
+      <div class="swipe">
+        Weiterwischen
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="brand">
+        <span class="logo" data-logo></span>
+        <span class="name">Vermögenssteuer<span>vermögenssteuer.ch</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 — Statement 1 ============ -->
+  <div class="cap"><b>02</b> · Sinkender Lebensstandard</div>
+  <section class="slide" id="s02" data-len="long"
+    style="--g1:#ff2d6b; --g2:#ff7a33; --g3:#d6249f; --g4:#ff2d6b;">
+    <div class="glow" style="width:480px;height:480px;bottom:-100px;left:-120px;background:#ffce5c;opacity:.3;"></div>
+    <div class="top">
+      <div class="eyebrow">Das Problem</div>
+      <div class="index">01 / 08</div>
+    </div>
+    <div class="body">
+      <h1>Der Grund für deinen <span class="underline ink-underline">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.</h1>
+    </div>
+    <div class="foot">
+      <div class="brand">
+        <span class="logo" data-logo></span>
+        <span class="name">Vermögenssteuer<span>vermögenssteuer.ch</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 — Statement 2 ============ -->
+  <div class="cap"><b>03</b> · Schwächelnde Wirtschaft</div>
+  <section class="slide" id="s03" data-len="long"
+    style="--g1:#ff7a33; --g2:#ff2d6b; --g3:#ff7a33; --g4:#d6249f;">
+    <div class="glow" style="width:520px;height:520px;top:-120px;right:-100px;background:#ffce5c;opacity:.35;"></div>
+    <div class="top">
+      <div class="eyebrow">Das Problem</div>
+      <div class="index">02 / 08</div>
+    </div>
+    <div class="body">
+      <h1>Der Grund für die <span class="underline ink-underline">schwächelnde Wirtschaft</span> ist die wachsende Ungleichheit.</h1>
+    </div>
+    <div class="foot">
+      <div class="brand">
+        <span class="logo" data-logo></span>
+        <span class="name">Vermögenssteuer<span>vermögenssteuer.ch</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 — Statement 3 ============ -->
+  <div class="cap"><b>04</b> · Warum es der Schweiz gut geht</div>
+  <section class="slide" id="s04" data-len="long"
+    style="--g1:#25e3c8; --g2:#4f8bff; --g3:#14c98a; --g4:#4f8bff;">
+    <div class="glow" style="width:520px;height:520px;bottom:-120px;right:-120px;background:#25e3c8;opacity:.4;"></div>
+    <div class="top">
+      <div class="eyebrow">Was funktioniert</div>
+      <div class="index">03 / 08</div>
+    </div>
+    <div class="body">
+      <h1>Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="underline ink-underline">Superreichen</span> besteuern.</h1>
+    </div>
+    <div class="foot">
+      <div class="brand">
+        <span class="logo" data-logo></span>
+        <span class="name">Vermögenssteuer<span>vermögenssteuer.ch</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 — Statement 4 ============ -->
+  <div class="cap"><b>05</b> · Mittelklasse entlasten</div>
+  <section class="slide" id="s05"
+    style="--g1:#ffce5c; --g2:#ff7a33; --g3:#ffb13c; --g4:#ff7a33;">
+    <div class="glow" style="width:560px;height:560px;top:-140px;left:-120px;background:#fff3c4;opacity:.5;"></div>
+    <div class="top">
+      <div class="eyebrow" style="color:var(--ink);">Die Forderung</div>
+      <div class="index" style="color:rgba(11,16,32,.7);">04 / 08</div>
+    </div>
+    <div class="body">
+      <h1 style="color:var(--ink);">Die Mittel&shy;klasse muss <span class="underline" style="background:linear-gradient(180deg,transparent 58%,rgba(11,16,32,.9) 58%,rgba(11,16,32,.9) 92%,transparent 92%);color:#fff;">entlastet</span> werden.</h1>
+    </div>
+    <div class="foot" style="border-top-color:rgba(11,16,32,.32);">
+      <div class="brand">
+        <span class="logo" data-logo></span>
+        <span class="name" style="color:var(--ink);">Vermögenssteuer<span style="color:rgba(11,16,32,.7);">vermögenssteuer.ch</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 — Statement 5 (Stat) ============ -->
+  <div class="cap"><b>06</b> · Superreiche zahlen weniger (Quelle: Zucman)</div>
+  <section class="slide" id="s06"
+    style="--g1:#a78bfa; --g2:#ff2d6b; --g3:#7c3aed; --g4:#d6249f;">
+    <div class="glow" style="width:520px;height:520px;top:-120px;right:-110px;background:#ff84a6;opacity:.4;"></div>
+    <div class="top">
+      <div class="eyebrow">Die Ungerechtigkeit</div>
+      <div class="index">05 / 08</div>
+    </div>
+    <div class="body">
+      <h1 style="font-size:78px;line-height:1.04;">Superreiche zahlen <span class="underline ink-underline">weniger Steuern</span> als der Durchschnitt.</h1>
+      <div class="statrow">
+        <div class="stat">
+          <span class="num ink">~0,3<span style="font-size:80px;">%</span></span>
+          <span class="lab">effektiver Steuersatz der reichsten 0,01 % auf ihr Vermögen</span>
+        </div>
+      </div>
+      <div class="badge">Vermögen über 100 Mio.</div>
+    </div>
+    <div class="foot">
+      <div class="brand">
+        <span class="logo" data-logo></span>
+        <span class="name">Vermögenssteuer<span>vermögenssteuer.ch</span></span>
+      </div>
+      <div class="source">Quelle: G. Zucman, G20-Report 2024;<br/>World Inequality Report 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 07 — Statement 6 (Stat) ============ -->
+  <div class="cap"><b>07</b> · 2 % Mindeststeuer</div>
+  <section class="slide" id="s07"
+    style="--g1:#25e3c8; --g2:#4f8bff; --g3:#14c98a; --g4:#4f8bff;">
+    <div class="glow" style="width:560px;height:560px;bottom:-140px;left:-130px;background:#25e3c8;opacity:.45;"></div>
+    <div class="top">
+      <div class="eyebrow">Die Lösung</div>
+      <div class="index">06 / 08</div>
+    </div>
+    <div class="body">
+      <div class="statrow" style="align-items:flex-start;">
+        <div class="stat">
+          <span class="num ink">2<span style="font-size:80px;">%</span></span>
+          <span class="lab">Mindeststeuer auf Vermögen über 100 Mio.</span>
+        </div>
+      </div>
+      <h1 style="font-size:72px;line-height:1.07;">Schon <span class="mark">2 %</span> sorgen dafür, dass Superreiche <span class="underline ink-underline">gleich viel</span> zahlen wie der Durchschnitt.</h1>
+    </div>
+    <div class="foot">
+      <div class="brand">
+        <span class="logo" data-logo></span>
+        <span class="name">Vermögenssteuer<span>vermögenssteuer.ch</span></span>
+      </div>
+      <div class="source">Modell: G. Zucman, G20-Report 2024;<br/>World Inequality Report 2026</div>
+    </div>
+  </section>
+
+  <!-- ============ 08 — Statement 7 ============ -->
+  <div class="cap"><b>08</b> · Niemand wandert aus</div>
+  <section class="slide" id="s08" data-len="long"
+    style="--g1:#4f8bff; --g2:#a78bfa; --g3:#3b6fe0; --g4:#7c3aed;">
+    <div class="glow" style="width:520px;height:520px;top:-120px;right:-110px;background:#25e3c8;opacity:.4;"></div>
+    <div class="top">
+      <div class="eyebrow">Der Mythos</div>
+      <div class="index">07 / 08</div>
+    </div>
+    <div class="body">
+      <h1>Wegen <span class="mark">2 %</span> Mindeststeuer wandert <span class="underline ink-underline">niemand</span> aus der schönen Schweiz aus.</h1>
+    </div>
+    <div class="foot">
+      <div class="brand">
+        <span class="logo" data-logo></span>
+        <span class="name">Vermögenssteuer<span>vermögenssteuer.ch</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 09 — Statement 8 ============ -->
+  <div class="cap"><b>09</b> · Trifft fair Besteuerte nicht</div>
+  <section class="slide" id="s09" data-len="long"
+    style="--g1:#a78bfa; --g2:#25e3c8; --g3:#7c3aed; --g4:#14c98a;">
+    <div class="glow" style="width:520px;height:520px;bottom:-120px;left:-120px;background:#4f8bff;opacity:.4;"></div>
+    <div class="top">
+      <div class="eyebrow">Fair bleibt fair</div>
+      <div class="index">08 / 08</div>
+    </div>
+    <div class="body">
+      <h1>Wer heute schon <span class="underline ink-underline">fair besteuert</span> wird, zahlt mit der Mindeststeuer keinen Franken mehr.</h1>
+    </div>
+    <div class="foot">
+      <div class="brand">
+        <span class="logo" data-logo></span>
+        <span class="name">Vermögenssteuer<span>vermögenssteuer.ch</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10 — CTA ============ -->
+  <div class="cap"><b>10</b> · Call to action</div>
+  <section class="slide cta" id="s10"
+    style="--g1:#ff2d6b; --g2:#4f8bff; --g3:#d6249f; --g4:#7c3aed;">
+    <div class="glow" style="width:560px;height:560px;top:-120px;right:-120px;background:#ffce5c;opacity:.35;"></div>
+    <div class="glow" style="width:480px;height:480px;bottom:-120px;left:-120px;background:#25e3c8;opacity:.35;"></div>
+    <div class="top">
+      <div class="eyebrow">Mach mit</div>
+      <div class="index">CH</div>
+    </div>
+    <div class="body">
+      <span class="logo" data-logo style="width:120px;height:120px;"></span>
+      <h1>Rechne selbst nach.</h1>
+      <div class="sub">Alle Zahlen, Quellen und der interaktive Steuer-Rechner:</div>
+      <div class="url">vermögenssteuer.ch</div>
+    </div>
+    <div class="foot" style="justify-content:center;border-top:none;">
+      <div class="source" style="text-align:center;max-width:60ch;">Quellenbasiert · ESTV · WID.world · UBS · Zucman / World Inequality Report</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Waage-Logo (aus public/logo.svg), als weisse Variante eingesetzt.
+  const LOGO = `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <rect width="32" height="32" rx="8" fill="#ffffff"/>
+    <rect x="11" y="26.4" width="10" height="2" rx="1" fill="#0b1020"/>
+    <rect x="15" y="9" width="2" height="17.4" fill="#0b1020"/>
+    <circle cx="16" cy="8.4" r="1.7" fill="#0b1020"/>
+    <rect x="5" y="9.1" width="22" height="1.8" rx="0.9" fill="#0b1020"/>
+    <line x1="6" y1="10.9" x2="2.5" y2="16.5" stroke="#0b1020" stroke-width="0.9"/>
+    <line x1="6" y1="10.9" x2="9.5" y2="16.5" stroke="#0b1020" stroke-width="0.9"/>
+    <path d="M2.5 16.5 Q 6 19.8 9.5 16.5 Z" fill="#0b1020"/>
+    <line x1="26" y1="10.9" x2="22.5" y2="16.5" stroke="#0b1020" stroke-width="0.9"/>
+    <line x1="26" y1="10.9" x2="29.5" y2="16.5" stroke="#0b1020" stroke-width="0.9"/>
+    <path d="M22.5 16.5 Q 26 19.8 29.5 16.5 Z" fill="#0b1020"/>
+  </svg>`;
+  document.querySelectorAll('[data-logo]').forEach(el => { el.innerHTML = LOGO; });
+</script>
+</body>
+</html>
