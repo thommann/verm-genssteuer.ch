@@ -10,6 +10,8 @@ export default {
     rechner: 'Vermögenssteuer-Rechner',
     modelle: 'Steuermodelle der Forschung',
     quellen: 'Quellen & Methodik',
+    impressum: 'Impressum',
+    datenschutz: 'Datenschutz',
   },
 
   // Navigation und Abschnitts-Menü (App.vue)
@@ -480,5 +482,75 @@ export default {
   // Gemeinsame UI-Bausteine
   ui: {
     sourcePrefix: 'Quelle:',
+  },
+
+  // Globale Fusszeile (App.vue) mit den rechtlichen Seiten.
+  siteFooter: {
+    tagline: 'Ein unabhängiges, politisches Argument für eine Vermögenssteuer auf das reichste 1 %.',
+    impressum: 'Impressum',
+    datenschutz: 'Datenschutz',
+    quellen: 'Quellen',
+    start: 'Start',
+  },
+
+  // Impressum (ImpressumSection.vue). Die Seite ist nicht kommerziell; die
+  // Angaben erfüllen die Identifikationspflicht des revidierten DSG.
+  impressum: {
+    eyebrow: 'Rechtliches',
+    title: 'Impressum',
+    lead: 'Verantwortlich für diese Website.',
+    operatorTitle: 'Verantwortliche Person',
+    operatorName: 'Thomas Mannhart',
+    operatorRole: 'Privatperson',
+    contactTitle: 'Kontakt',
+    contactEmailLabel: 'E-Mail',
+    contactEmail: "thomas{'@'}mannhart.ai",
+    natureTitle: 'Art des Angebots',
+    natureBody: 'Diese Website ist ein privates, nicht kommerzielles Informationsangebot zu einem politischen Thema. Es werden keine Waren oder Dienstleistungen angeboten und nichts verkauft. Eine Impressumspflicht nach Art.&nbsp;3 Abs.&nbsp;1 lit.&nbsp;s <a href="https://www.fedlex.admin.ch/eli/cc/1988/223_223_223/de" target="_blank" rel="noopener">UWG</a> besteht für ein solches Angebot nicht; die obigen Angaben erfüllen freiwillig die Identifikationspflicht des Datenschutzgesetzes.',
+    liabilityTitle: 'Haftung für Inhalte und Links',
+    liabilityBody: 'Die Inhalte werden mit Sorgfalt aus den unter <a href="/quellen">Quellen &amp; Methodik</a> belegten Primärquellen erstellt. Für externe Links wird keine Haftung übernommen; für deren Inhalte sind ausschliesslich die jeweiligen Betreiber verantwortlich.',
+    privacyHint: 'Wie diese Website mit Personendaten umgeht, steht in der <a href="/datenschutz">Datenschutzerklärung</a>.',
+  },
+
+  // Datenschutzerklärung (DatenschutzSection.vue). Mindestinhalt nach Art. 19
+  // des revidierten DSG: Verantwortlicher, Zweck, Empfänger, Bekanntgabe ins
+  // Ausland, Betroffenenrechte. Die Seite ist statisch, ohne Cookies und Tracking.
+  datenschutz: {
+    eyebrow: 'Rechtliches',
+    title: 'Datenschutzerklärung',
+    lead: 'Diese Website verarbeitet so wenige Personendaten wie technisch möglich. Es gibt keine Cookies, keine Tracker, keine Analyse-Werkzeuge und keine Formulare.',
+    updated: 'Stand: Juni 2026',
+
+    controllerTitle: 'Verantwortlicher',
+    controllerBody: 'Verantwortlich im Sinne des <a href="https://www.fedlex.admin.ch/eli/cc/2022/491/de" target="_blank" rel="noopener">Datenschutzgesetzes (DSG)</a> ist Thomas Mannhart. Anfragen zum Datenschutz richtest du an <a href="mailto:thomas{\'@\'}mannhart.ai">thomas{\'@\'}mannhart.ai</a>.',
+
+    scopeTitle: 'Welche Daten bearbeitet werden',
+    scopeBody: 'Die Seite ist eine statische Website. Beim Besuch werden keine Konten geführt und keine Eingaben gespeichert. Personendaten fallen nur als technische Server-Protokolle an, die beim Ausliefern jeder Website entstehen.',
+
+    logsTitle: 'Server-Protokolle (Hosting)',
+    logsIntro: 'Die Website wird über <strong>GitHub&nbsp;Pages</strong> ausgeliefert (GitHub,&nbsp;Inc., USA). Der Hosting-Anbieter erfasst beim Abruf automatisch technische Daten:',
+    logsLi1: 'IP-Adresse des anfragenden Geräts',
+    logsLi2: 'Datum und Uhrzeit des Abrufs',
+    logsLi3: 'abgerufene Adresse sowie übermittelte Datenmenge',
+    logsLi4: 'Browser-Typ und Betriebssystem (User-Agent), gegebenenfalls die verweisende Seite',
+    logsPurposeLabel: 'Zweck',
+    logsPurpose: 'Auslieferung, Betrieb, Sicherheit und Stabilität der Website. Eine Auswertung zu einzelnen Personen findet nicht statt.',
+    logsRecipientLabel: 'Empfänger',
+    logsRecipient: 'GitHub,&nbsp;Inc. als Hosting-Dienstleister.',
+
+    abroadTitle: 'Bekanntgabe ins Ausland',
+    abroadBody: 'Da GitHub&nbsp;Pages in den USA betrieben wird, können die Server-Protokolle in den <strong>USA</strong> bearbeitet werden. GitHub stützt diese Bearbeitung auf vertragliche Garantien (Standardvertragsklauseln) und beschreibt sie in seiner <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Datenschutzerklärung</a>. Hinweise zur Datenerfassung durch GitHub&nbsp;Pages stehen <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" target="_blank" rel="noopener">in der GitHub-Dokumentation</a>.',
+
+    cookiesTitle: 'Keine Cookies, kein Tracking',
+    cookiesBody: 'Diese Website setzt keine Cookies, bindet keine Analyse- oder Werbedienste ein und lädt keine externen Schriften oder Skripte von Dritten. Es findet kein Profiling und keine automatisierte Einzelentscheidung statt.',
+
+    linksTitle: 'Links zu Dritt-Websites',
+    linksBody: 'Die Seite verlinkt auf externe Quellen und Werkzeuge (etwa amtliche Statistiken oder den Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator). Für deren Inhalte und Datenbearbeitung gelten die jeweils dort veröffentlichten Datenschutzerklärungen.',
+
+    rightsTitle: 'Deine Rechte',
+    rightsBody: 'Nach dem DSG hast du das Recht auf Auskunft über die zu deiner Person bearbeiteten Daten sowie auf deren Berichtigung oder Löschung. Da diese Website selbst keine Daten zu identifizierbaren Personen speichert, beziehen sich solche Anfragen in der Regel auf die Server-Protokolle des Hosting-Anbieters. Für eine Anfrage genügt eine E-Mail an <a href="mailto:thomas{\'@\'}mannhart.ai">thomas{\'@\'}mannhart.ai</a>. Zudem kannst du dich beim <a href="https://www.edoeb.admin.ch/de" target="_blank" rel="noopener">Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB)</a> beschweren.',
+
+    changesTitle: 'Änderungen',
+    changesBody: 'Diese Datenschutzerklärung kann angepasst werden, wenn sich die Website oder die rechtlichen Vorgaben ändern. Massgebend ist die jeweils hier veröffentlichte Fassung.',
   },
 };
