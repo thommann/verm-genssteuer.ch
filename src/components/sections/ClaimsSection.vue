@@ -6,7 +6,7 @@
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const CLAIMS = [
-  { id: 'ende-monat', key: 'endeMonat', route: '/verteilung', hash: 'ubs-studie', bg: ['#ff2d6b', '#ff7a33', '#d6249f', '#ff2d6b'] },
+  { id: 'lebensstandard', key: 'lebensstandard', route: '/verteilung', hash: 'verteilung', bg: ['#ff7a33', '#d6249f', '#ffb13c', '#ff2d6b'] },
   { id: 'wirtschaft', key: 'wirtschaft', route: '/verteilung', hash: 'international', bg: ['#ff7a33', '#ff2d6b', '#ff7a33', '#d6249f'] },
   { id: 'eigenheim', key: 'eigenheim', route: '/verteilung', hash: 'ubs-studie', bg: ['#ff2d6b', '#d6249f', '#c01651', '#ff2d6b'] },
   { id: 'krankenkasse', key: 'krankenkasse', route: '/rechner', hash: 'verwendung', bg: ['#d6249f', '#ff2d6b', '#7c3aed', '#d6249f'] },

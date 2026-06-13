@@ -103,7 +103,7 @@ export default {
   // HeroSection: die Hauptaussage der Kampagne, mit der konkreten Zahl als Beleg darunter.
   hero: {
     eyebrow: 'Darum geht es',
-    title: 'Der Grund für deinen <span class="hl">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.',
+    title: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
     lead: 'Das reichste 1&nbsp;% besitzt <span class="hl gold">{share}</span> des steuerbaren Vermögens; das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>.',
     sourceNote: 'unbeschränkt Steuerpflichtige, 2022',
     explain: 'Wie ungleich die Schweiz ist',
@@ -114,6 +114,11 @@ export default {
   // mit Eyebrow, Aussage und internem Link zur Erklärung (Datenseite + Anker).
   claims: {
     items: {
+      lebensstandard: {
+        eyebrow: 'Das Problem',
+        text: 'Der Grund für deinen <span class="hl">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.',
+        link: 'Wie ungleich die Schweiz ist',
+      },
       wirtschaft: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">schwächelnde Wirtschaft</span> ist die wachsende Ungleichheit.',
@@ -138,11 +143,6 @@ export default {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">verstopften Strassen</span> ist die wachsende Ungleichheit.',
         link: 'Wie das Vermögen verteilt ist',
-      },
-      endeMonat: {
-        eyebrow: 'Das Problem',
-        text: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
-        link: 'Median gegen Durchschnitt',
       },
       standort: {
         eyebrow: 'Was funktioniert',
