@@ -160,7 +160,7 @@ export default {
       erfolgsmodell: {
         eyebrow: 'Das Problem',
         text: 'Die wachsende Ungleichheit zerstört das <span class="hl">Erfolgsmodell Schweiz</span>.',
-        explainText: 'Unsere Stärken sind Bildung und Qualitätsarbeit. Doch in die Bildung kann nicht mehr investiert werden, und Arbeit wird mit hohen Abgaben und Steuern bestraft, während grosse Vermögen kaum belastet sind.',
+        explainText: 'Unsere Stärken sind Bildung und Qualitätsarbeit. Doch in die Bildung kann nicht mehr investiert werden, und Arbeit wird mit hohen Abgaben und Steuern bestraft.',
         link: 'Warum Arbeit mehr zahlt als Vermögen',
       },
       standort: {
