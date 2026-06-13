@@ -157,6 +157,12 @@ export default {
         explainText: 'Dem Staat fehlt das Geld, um in kleinere Klassen, gut bezahlte Lehrkräfte und gute Schulen zu investieren. Gleichzeitig zieht sich die Spitze in Privatschulen zurück, so entstehen Parallelgesellschaften statt gleicher Chancen für alle Kinder.',
         link: 'Wie ungleich die Schweiz ist',
       },
+      erfolgsmodell: {
+        eyebrow: 'Das Problem',
+        text: 'Die wachsende Ungleichheit zerstört das <span class="hl">Erfolgsmodell Schweiz</span>.',
+        explainText: 'Unsere Stärken sind Bildung und Qualitätsarbeit. Doch in die Bildung kann nicht mehr investiert werden, und Arbeit wird mit hohen Abgaben und Steuern bestraft, während grosse Vermögen kaum belastet sind.',
+        link: 'Warum Arbeit mehr zahlt als Vermögen',
+      },
       standort: {
         eyebrow: 'Was funktioniert',
         text: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="hl">Superreichen</span> besteuern.',
