@@ -62,11 +62,23 @@
   .slide[data-len="long"] h1 { font-size: 80px; line-height: 1.05; }
 
   h1 .mark { color: var(--white); }
+  /* Marker wie auf der Website (.hl): Form zentral hier, Varianten setzen nur --hl-bg/--hl-fg.
+     --hl-trim schneidet oben und unten etwas ab, damit sich Marker bei mehrzeiligem Text
+     nicht berühren oder überlappen. Wer das Aussehen ändert, ändert diesen einen Block. */
   .underline {
-    background: linear-gradient(180deg, transparent 58%, rgba(255,255,255,0.92) 58%, rgba(255,255,255,0.92) 92%, transparent 92%);
+    --hl-bg: rgba(255,255,255,0.92);
+    --hl-fg: inherit;
+    --hl-trim: 14%;
+    background: linear-gradient(180deg,
+      transparent var(--hl-trim),
+      var(--hl-bg) var(--hl-trim),
+      var(--hl-bg) calc(100% - var(--hl-trim)),
+      transparent calc(100% - var(--hl-trim)));
+    color: var(--hl-fg);
     padding: 0 4px; border-radius: 4px;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
   }
-  .ink-underline { color: var(--ink); }
+  .ink-underline { --hl-fg: var(--ink); }
 
   /* Dunkle Variante (z. B. Gold-Hintergrund): Text dunkel, Marker dunkel mit weisser Schrift. */
   .slide.dark h1, .slide.dark .eyebrow { color: var(--ink); }
@@ -74,10 +86,7 @@
   .slide.dark .foot { border-top-color: rgba(11,16,32,0.32); }
   .slide.dark .brand .name { color: var(--ink); }
   .slide.dark .brand .name span { color: rgba(11,16,32,0.7); }
-  .underline.on-dark {
-    background: linear-gradient(180deg, transparent 58%, rgba(11,16,32,0.9) 58%, rgba(11,16,32,0.9) 92%, transparent 92%);
-    color: #fff;
-  }
+  .underline.on-dark { --hl-bg: rgba(11,16,32,0.9); --hl-fg: #fff; }
 
   .sub { font-size: 38px; font-weight: 600; line-height: 1.4; color: rgba(255,255,255,0.94); max-width: 24ch; }
 
