@@ -29,6 +29,7 @@ export default {
     },
     items: {
       start: 'Start',
+      aussagen: 'Aussagen',
       themen: 'Themen-Übersicht',
       verteilung: 'Verteilung',
       rechner: 'Rechner',
@@ -99,12 +100,55 @@ export default {
     lead: 'Gegner einer Vermögenssteuer warnen, die Reichen ziehen weg. Simuliere hier, was das konkret bedeutet: wie viele Personen betroffen wären und was nach dem Steuerausfall netto für den Fiskus übrig bliebe.',
   },
 
-  // HeroSection
+  // HeroSection: die Hauptaussage der Kampagne, mit der konkreten Zahl als Beleg darunter.
   hero: {
-    eyebrow: 'Vermögen · Schweiz · 2022',
-    title: 'Das reichste <span class="hl">1&nbsp;%</span> besitzt <span class="hl gold">{share}</span> des steuerbaren Vermögens.',
-    lead: 'Knapp <strong>{cnt}</strong> Steuerpflichtige, rund ein Prozent, halten zusammen fast so viel Vermögen wie die anderen 99&nbsp;% zusammen. Das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>.',
+    eyebrow: 'Darum geht es',
+    title: 'Der Grund für deinen <span class="hl">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.',
+    lead: 'Das reichste 1&nbsp;% besitzt <span class="hl gold">{share}</span> des steuerbaren Vermögens; das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>.',
     sourceNote: 'unbeschränkt Steuerpflichtige, 2022',
+    explain: 'Wie ungleich die Schweiz ist',
+  },
+
+  // ClaimsSection: die übrigen Kampagnen-Aussagen, je ein verlinkbarer Abschnitt mit
+  // internem Link zur Erklärung (Datenseite + Anker).
+  claims: {
+    eyebrow: 'Punkt für Punkt',
+    title: 'Was wir sagen, und wo es belegt ist',
+    lead: 'Jede Aussage führt zu den Zahlen und Belegen dahinter.',
+    items: {
+      wirtschaft: {
+        text: 'Der Grund für die <span class="hl">schwächelnde Wirtschaft</span> ist die wachsende Ungleichheit.',
+        link: 'Die Zahlen zur Ungleichheit',
+      },
+      eigenheim: {
+        text: 'Der Grund, warum du dir wohl <span class="hl">nie ein eigenes Haus</span> leisten kannst, ist die wachsende Ungleichheit.',
+        link: 'Der Graben zwischen Median und Durchschnitt',
+      },
+      standort: {
+        text: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="hl">Superreichen</span> besteuern.',
+        link: 'Was eine Vermögenssteuer bringt',
+      },
+      mittelstand: {
+        text: 'Die <span class="hl">Mittelklasse</span> muss entlastet werden.',
+        link: 'Wofür die Einnahmen reichen',
+      },
+      faireSteuern: {
+        text: 'Milliardäre zahlen nur <span class="hl">halb so viel</span> Steuern auf ihr Einkommen wie der Mittelstand.',
+        link: 'Warum das stimmt',
+      },
+      mindeststeuer: {
+        text: 'Eine Mindeststeuer von nur <span class="hl">2&nbsp;%</span> sorgt dafür, dass Superreiche gleich viel zahlen wie der Durchschnitt.',
+        link: 'Wie die Mindeststeuer wirkt',
+      },
+      keinWegzug: {
+        text: 'Wegen einer Mindeststeuer von <span class="hl">2&nbsp;%</span> wandert niemand aus der schönen Schweiz aus.',
+        link: 'Das Wegzug-Argument im Rechner',
+      },
+      schonFair: {
+        text: 'Wer heute schon <span class="hl">fair besteuert</span> wird, zahlt mit einer Mindeststeuer keinen Franken mehr.',
+        link: 'So funktioniert die Mindeststeuer',
+      },
+    },
   },
 
   // DistributionSection
