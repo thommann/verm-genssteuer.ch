@@ -151,6 +151,12 @@ export default {
         explainText: 'Dem Staat fehlt das Geld, um vernünftig in die Infrastruktur zu investieren, während sich an der Spitze Vermögen staut. Eine Vermögenssteuer schafft den Spielraum für Strassen, Unterhalt und Ausbau.',
         link: 'Wie das Vermögen verteilt ist',
       },
+      bildung: {
+        eyebrow: 'Das Problem',
+        text: 'Der Grund für die <span class="hl">sinkende Bildungsqualität</span> ist die wachsende Ungleichheit.',
+        explainText: 'Dem Staat fehlt das Geld, um in kleinere Klassen, gut bezahlte Lehrkräfte und gute Schulen zu investieren. Gleichzeitig zieht sich die Spitze in Privatschulen und teure Quartiere zurück, so entstehen Parallelgesellschaften statt gleicher Chancen für alle Kinder. Eine Vermögenssteuer schafft den Spielraum, in eine Schule für alle zu investieren.',
+        link: 'Wie ungleich die Schweiz ist',
+      },
       standort: {
         eyebrow: 'Was funktioniert',
         text: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="hl">Superreichen</span> besteuern.',

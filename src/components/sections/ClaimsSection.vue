@@ -14,6 +14,7 @@ const CLAIMS = [
   { id: 'krankenkasse', key: 'krankenkasse', route: '/rechner', hash: 'verwendung', bg: ['#d6249f', '#ff2d6b', '#7c3aed', '#d6249f'] },
   { id: 'oev', key: 'oev', route: '/rechner', hash: 'verwendung', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'] },
   { id: 'strassen', key: 'strassen', route: '/verteilung', hash: 'verteilung', bg: ['#4f8bff', '#a78bfa', '#3b6fe0', '#7c3aed'] },
+  { id: 'bildung', key: 'bildung', route: '/verteilung', hash: 'verteilung', bg: ['#25e3c8', '#7c3aed', '#14c98a', '#a78bfa'] },
   { id: 'mittelstand', key: 'mittelstand', route: '/modelle', hash: 'zucman', dark: true, bg: ['#ffce5c', '#ff7a33', '#ffb13c', '#ff7a33'] },
   { id: 'faire-steuern', key: 'faireSteuern', route: '/modelle', hash: 'zucman', source: 'zucman_g20', bg: ['#a78bfa', '#ff2d6b', '#7c3aed', '#d6249f'] },
   { id: 'standort', key: 'standort', route: '/rechner', hash: 'rechner', bg: ['#14c98a', '#25e3c8', '#14c98a', '#4f8bff'] },
