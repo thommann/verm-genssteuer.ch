@@ -15,23 +15,42 @@ Instagram empfohlene Standard und auch für die Profil-Vorschau optimal). Jeder
 > versehen werden; das ist hier bewusst nicht enthalten, da das Karussell auf den
 > Feed zielt.
 
-## Slides
+## Aufbau: Hauptbotschaft als jeder 2. Post
+
+Die **Hauptbotschaft** („Der Grund für deinen sinkenden Lebensstandard ist die wachsende
+Ungleichheit.") ist die Kernaussage der Kampagne und erscheint deshalb **als jeder zweite
+Post**, jedes Mal textgleich, aber mit **anderem Verlaufs-Hintergrund** (Varianten A–H).
+So bleibt die Botschaft im Feed dauerpräsent, ohne dass zwei identische Bilder
+nebeneinander stehen. Reihenfolge: Cover → Hauptbotschaft → andere Karte → Hauptbotschaft
+→ … → Call to action.
 
 | # | Datei | Inhalt |
 | --- | --- | --- |
 | 01 | `slide-01.png` | Cover: „Wem gehört die Schweiz?" |
-| 02 | `slide-02.png` | Problem: sinkender Lebensstandard ↔ Ungleichheit |
+| 02 | `slide-02.png` | ★ **Hauptbotschaft** · BG A (pink/orange) |
 | 03 | `slide-03.png` | Problem: schwächelnde Wirtschaft ↔ Ungleichheit |
-| 04 | `slide-04.png` | Problem: nie ein eigenes Haus ↔ Ungleichheit |
-| 05 | `slide-05.png` | Warum es der Schweiz gut geht (Vermögenssteuer) |
-| 06 | `slide-06.png` | Die Mittelklasse muss entlastet werden |
-| 07 | `slide-07.png` | **Die Ungerechtigkeit:** Milliardäre zahlen nur halb so viel Einkommenssteuer wie der Mittelstand |
-| 08 | `slide-08.png` | 2 % Mindeststeuer (Lösung) |
-| 09 | `slide-09.png` | Niemand wandert aus |
-| 10 | `slide-10.png` | Trifft fair Besteuerte nicht |
-| 11 | `slide-11.png` | Call to action: vermögenssteuer.ch |
+| 04 | `slide-04.png` | ★ **Hauptbotschaft** · BG B (violett/pink) |
+| 05 | `slide-05.png` | Problem: nie ein eigenes Haus ↔ Ungleichheit |
+| 06 | `slide-06.png` | ★ **Hauptbotschaft** · BG C (blau/violett) |
+| 07 | `slide-07.png` | Warum es der Schweiz gut geht (Vermögenssteuer) |
+| 08 | `slide-08.png` | ★ **Hauptbotschaft** · BG D (türkis/blau) |
+| 09 | `slide-09.png` | Die Mittelklasse muss entlastet werden |
+| 10 | `slide-10.png` | ★ **Hauptbotschaft** · BG E (magenta/violett) |
+| 11 | `slide-11.png` | Milliardäre zahlen nur halb so viel Einkommenssteuer wie der Mittelstand |
+| 12 | `slide-12.png` | ★ **Hauptbotschaft** · BG F (orange/rot) |
+| 13 | `slide-13.png` | 2 % Mindeststeuer (Lösung) |
+| 14 | `slide-14.png` | ★ **Hauptbotschaft** · BG G (blau/türkis) |
+| 15 | `slide-15.png` | Niemand wandert aus |
+| 16 | `slide-16.png` | ★ **Hauptbotschaft** · BG H (pink/blau) |
+| 17 | `slide-17.png` | Trifft fair Besteuerte nicht |
+| 18 | `slide-18.png` | Call to action: vermögenssteuer.ch |
 
-Die Slides tragen bewusst **keinen** „X / N"-Zähler mehr, damit Reihenfolge und Anzahl
+Als **Einzelposts** (statt Karussell) einfach in dieser Reihenfolge posten, dann ist jeder
+zweite Beitrag die Hauptbotschaft. Als **Karussell** funktioniert dieselbe Reihenfolge
+ebenfalls (18 ≤ 20 erlaubte Slides). Mehr/weniger Hauptbotschafts-Karten: in `slides.html`
+eine `.main-msg`-Section duplizieren und die `--g1..--g4` anpassen.
+
+Die Slides tragen bewusst **keinen** „X / N"-Zähler, damit Reihenfolge und Anzahl
 ohne Renummerierung änderbar bleiben; Instagram zeigt die Position ohnehin als Punkte.
 
 ## Export (PNG erzeugen)
