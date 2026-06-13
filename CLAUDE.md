@@ -28,7 +28,7 @@ Jede Zahl, Aussage oder Schätzung auf der Seite muss belegt, deklariert und dok
 
 Die Kampagne arbeitet mit kurzen Aussagen (z. B. „Der Grund für deinen sinkenden Lebensstandard ist die wachsende Ungleichheit."). Sie leben an zwei Orten, die **synchron** zu halten sind:
 
-- **Startseite** (`/`): die Hauptaussage zuoberst im Hero (`src/components/sections/HeroSection.vue`), die übrigen Aussagen als volle Bänder in `src/components/sections/ClaimsSection.vue`. Texte liegen in `src/i18n/locales/de.js` (`hero.*` und `claims.items.*`), nicht im Template.
+- **Startseite** (`/`): ein einziger Bereich (`src/components/sections/ClaimsSection.vue`) mit allen Aussagen als volle Bänder. Zuoberst die Hauptaussage (`#start`), darunter die übrigen Aussagen. Texte liegen in `src/i18n/locales/de.js` (`hero.*` für die Hauptaussage, `claims.items.*` für die übrigen), nicht im Template.
 - **Instagram-Deck**: `marketing/instagram/slides.html` (datengetrieben: `MAIN`, `MAIN_BG`, `OTHERS`). Format 4:5, 1080 × 1350 px; Export per `node marketing/instagram/export.mjs` nach `marketing/instagram/out/` (nicht eingecheckt). Details im dortigen `README.md`.
 
 Regeln:
@@ -36,5 +36,5 @@ Regeln:
 - **Jede Aussage steht in beiden:** auf der Startseite (verlinkbarer Abschnitt mit eigener Anker-`id`) und im Instagram-Deck. Wird eine Aussage ergänzt, geändert oder entfernt, gilt das für beide Orte.
 - **Gleicher Hintergrund:** Eine Aussage trägt auf der Startseite denselben Verlauf (`--g1..--g4`) wie ihre Slide. Farben an beiden Orten abgleichen.
 - **Interner Erklär-Link:** Unter jeder Aussage auf der Startseite ein Link zur Erklärung (Themenseite + Anker), der auf einen real existierenden Abschnitt zeigt.
-- **Hauptaussage:** erscheint im Deck als jeder zweite Post mit wechselndem Hintergrund (Varianten A–L) und steht auf der Startseite im Hero.
+- **Hauptaussage:** erscheint im Deck als jeder zweite Post mit wechselndem Hintergrund (Varianten A–L) und steht auf der Startseite zuoberst (`#start`).
 - **Belege gelten weiter:** Sobald eine Aussage eine konkrete Zahl zeigt, braucht sie einen `<SourceTag>` bzw. eine Quellenzeile gemäss den Quellen-Konventionen oben.
