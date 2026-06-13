@@ -206,14 +206,14 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 6px;
   }
   .medtable tbody td {
-    display: flex; justify-content: space-between; align-items: baseline;
-    gap: 14px; padding: 6px 0; text-align: right; white-space: nowrap;
-    font-size: 1.05rem;
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: 1px; padding: 6px 0; text-align: left; white-space: normal;
+    font-size: 1.1rem; overflow-wrap: anywhere;
   }
-  .medtable tbody td.mt-income { font-size: 1.05rem; }
+  .medtable tbody td.mt-income { font-size: 1.1rem; }
   .medtable tbody td::before {
-    content: attr(data-label); flex: 1; text-align: left; white-space: normal;
-    color: var(--text-soft); font-weight: 600; font-size: 0.8rem; line-height: 1.3;
+    content: attr(data-label); order: -1;
+    color: var(--text-soft); font-weight: 600; font-size: 0.78rem; line-height: 1.3;
   }
 }
 </style>
