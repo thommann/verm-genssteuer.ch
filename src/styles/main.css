@@ -182,16 +182,23 @@ button { font-family: inherit; cursor: pointer; }
 .rs-lab { color: var(--text-mute); font-size: 0.78rem; }
 
 /* Highlighter-Marker der Kernaussagen, auch ausserhalb der Bänder nutzbar (dunkle Sektionen).
-   Auf den hellen Aussage-Bändern überschreibt .claim-band .hl diesen Stil (weisser Streifen).
-   Der Marker liegt deckend über der gesamten Zeilenhöhe, die Schrift bleibt in der Sektionsfarbe. */
+   Der Marker liegt deckend über der gesamten Zeilenhöhe, die Schrift bleibt in der Sektionsfarbe.
+
+   Zentral gelöst: Die FORM des Markers (Höhe, Padding, Radius, Zeilenumbruch) steht nur hier.
+   Wer das Aussehen ändern will, ändert diesen einen Block. Die VARIANTEN (Bänder, Farben)
+   setzen ausschliesslich die zwei Variablen --hl-bg (Hintergrund) und --hl-fg (Schrift). */
 .hl {
-  background: rgba(255, 84, 112, 0.85);
-  padding: 0.08em 0.12em; border-radius: 4px;
+  --hl-bg: rgba(255, 84, 112, 0.85);
+  --hl-fg: inherit;
+  background: var(--hl-bg);
+  color: var(--hl-fg);
+  padding: 0.08em 0.12em;
+  border-radius: 4px;
   box-decoration-break: clone; -webkit-box-decoration-break: clone;
 }
-.hl.gold { background: rgba(255, 206, 92, 0.9); }
-.hl.teal { background: rgba(56, 214, 196, 0.85); }
-.hl.violet { background: rgba(167, 139, 250, 0.85); }
+.hl.gold { --hl-bg: rgba(255, 206, 92, 0.9); }
+.hl.teal { --hl-bg: rgba(56, 214, 196, 0.85); }
+.hl.violet { --hl-bg: rgba(167, 139, 250, 0.85); }
 
 /* Aussage-Bänder (Startseite): volle Breite, gleicher Verlauf wie die Instagram-Slides.
    Die Verlaufsfarben kommen je Band über --g1..--g4 (inline gesetzt). */
@@ -223,21 +230,15 @@ button { font-family: inherit; cursor: pointer; }
   max-width: 20ch;
   color: #fff;
 }
-.claim-band .hl {
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--ink); padding: 0.08em 0.12em; border-radius: 4px;
-  box-decoration-break: clone; -webkit-box-decoration-break: clone;
-}
+/* Heller Marker auf den farbigen Aussage-Bändern: nur Farben setzen, Form kommt aus .hl. */
+.claim-band .hl { --hl-bg: rgba(255, 255, 255, 0.92); --hl-fg: var(--ink); }
 
 /* Dunkle Variante (Gold-Hintergrund): dunkler Text, heller Marker. */
 .claim-band.dark { color: var(--ink); }
 .claim-band.dark .eyebrow { color: var(--ink); }
 .claim-band.dark .eyebrow::before { background: var(--ink); }
 .claim-band.dark .band-text { color: var(--ink); }
-.claim-band.dark .hl {
-  background: rgba(11, 16, 32, 0.9);
-  color: #fff;
-}
+.claim-band.dark .hl { --hl-bg: rgba(11, 16, 32, 0.9); --hl-fg: #fff; }
 
 .band-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 22px; margin-top: clamp(22px, 4vh, 38px); }
 .band-link {
