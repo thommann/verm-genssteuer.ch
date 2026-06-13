@@ -1,11 +1,16 @@
 <script setup>
-// Jede Aussage als volles Band über die ganze Breite, mit demselben Verlauf wie die
-// zugehörige Instagram-Slide. Eigene Anker-id je Aussage. Das Band ist aufklappbar:
-// im aufgeklappten Zustand erscheint ein kurzer Erklärungstext und darunter der interne
-// Link zur ausführlichen Erklärung (Themenseite + Anker). Texte/Beschriftungen liegen in
-// i18n (claims.items.*), Hintergrund, Route und Anker bleiben hier (Struktur).
+// Einziger Bereich der Startseite: alle Kampagnen-Aussagen als volle Bänder über die
+// ganze Breite, jedes mit demselben Verlauf wie die zugehörige Instagram-Slide. Zuoberst
+// die Hauptaussage (#start, Variante A im Deck), darunter die übrigen Aussagen. Jede
+// Aussage hat eine eigene Anker-id und ist aufklappbar: im aufgeklappten Zustand erscheint
+// ein kurzer Erklärungstext und darunter der interne Link zur ausführlichen Erklärung
+// (Datenseite + Anker). Texte/Beschriftungen liegen in i18n (hero.* für die Hauptaussage,
+// claims.items.* für die übrigen); Hintergrund, Route und Anker bleiben hier (Struktur).
 import { reactive } from 'vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
+
+// Hauptaussage: gleicher Verlauf wie die Hauptbotschaft-Slide (Variante A) im Deck.
+const HERO_BG = ['#ff2d6b', '#ff7a33', '#d6249f', '#ff2d6b'];
 
 const CLAIMS = [
   { id: 'lebensstandard', key: 'lebensstandard', route: '/verteilung', hash: 'verteilung', bg: ['#ff7a33', '#d6249f', '#ffb13c', '#ff2d6b'] },
@@ -33,6 +38,36 @@ const toggle = (id) => { open[id] = !open[id]; };
 
 <template>
   <div id="aussagen">
+    <!-- Hauptaussage zuoberst, volle Breite, verlinkbar (#start). -->
+    <header id="start" class="claim-band hero-band" :style="vars(HERO_BG)">
+      <div class="wrap">
+        <div class="eyebrow">{{ $t('hero.eyebrow') }}</div>
+        <h1 class="band-text" v-html="$t('hero.title')" />
+        <button
+          type="button"
+          class="band-cue"
+          :aria-expanded="open.start ? 'true' : 'false'"
+          aria-controls="expl-start"
+          @click="toggle('start')"
+        >
+          <span class="band-cue-label">{{ $t('hero.expand') }}</span>
+          <span class="band-cue-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="band-collapse" :class="{ open: open.start }">
+          <div class="band-collapse-inner">
+            <div id="expl-start" :aria-hidden="open.start ? 'false' : 'true'">
+              <p class="band-expl" v-html="$t('hero.explainText')" />
+              <div class="band-foot">
+                <router-link :to="{ path: '/verteilung', hash: '#verteilung' }" class="band-link">
+                  {{ $t('hero.explain') }} <span aria-hidden="true">→</span>
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
     <section
       v-for="c in CLAIMS"
       :id="c.id"
@@ -71,3 +106,7 @@ const toggle = (id) => { open[id] = !open[id]; };
     </section>
   </div>
 </template>
+
+<style scoped>
+.hero-band { padding-top: clamp(104px, 17vh, 200px); }
+</style>

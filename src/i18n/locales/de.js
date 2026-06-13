@@ -29,8 +29,6 @@ export default {
     },
     items: {
       start: 'Start',
-      aussagen: 'Aussagen',
-      themen: 'Themen-Übersicht',
       verteilung: 'Verteilung',
       rechner: 'Rechner',
       wegzug: 'Wegzug',
@@ -43,29 +41,6 @@ export default {
       pauschal: 'Pauschalbesteuerung',
       quellen: 'Quellen',
     },
-  },
-
-  // Themen-Hub auf der Startseite (TopicsSection): erklärt die drei Themen kurz und verlinkt sie.
-  topics: {
-    eyebrow: 'Worum es geht',
-    title: 'Drei <span class="hl">Themen</span>, eine Seite',
-    lead: 'Alles ist in drei Themen gegliedert. Spring direkt zu dem, was dich interessiert.',
-    contains: 'Enthält',
-    card1Num: '1',
-    card1Kicker: 'Thema 1',
-    card1Title: 'Wie ungleich ist die Schweiz?',
-    card1Text: 'Steuerdaten, internationaler Vergleich und die UBS-Studie zeigen, wie stark sich das Vermögen beim reichsten Prozent ballt, samt dem blinden Fleck der Pauschalbesteuerten.',
-    card1Link: 'Zur Verteilung',
-    card2Num: '2',
-    card2Kicker: 'Thema 2',
-    card2Title: 'Was würde eine Vermögenssteuer bringen?',
-    card2Text: 'Bau im interaktiven Rechner deine eigene Steuer auf das oberste Prozent, sieh die dauerhaft tragbare Wirkung und wofür die Einnahmen reichen würden.',
-    card2Link: 'Zum Rechner',
-    card3Num: '3',
-    card3Kicker: 'Thema 3',
-    card3Title: 'Welche Modelle schlägt die Forschung vor?',
-    card3Text: 'Die Steuermodelle stammen aus dem World Inequality Report und der Mindeststeuer von Gabriel Zucman. Hier stehen ihre Designs und erwarteten Erträge.',
-    card3Link: 'Zu den Modellen',
   },
 
   // Kapitel-Überschriften zwischen den Themen (ChapterHeader / calc-suite).
@@ -100,7 +75,8 @@ export default {
     lead: 'Gegner einer Vermögenssteuer warnen, die Reichen ziehen weg. Simuliere hier, was das konkret bedeutet: wie viele Personen betroffen wären und was nach dem Steuerausfall netto für den Fiskus übrig bliebe.',
   },
 
-  // HeroSection: die Hauptaussage der Kampagne, mit internem Link zur Erklärung.
+  // Hauptaussage der Kampagne (#start, oberstes Band der Aussagen-Section), mit internem
+  // Link zur Erklärung. Wird wie die übrigen claims.items.* in ClaimsSection gerendert.
   hero: {
     eyebrow: 'Darum geht es',
     title: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
@@ -109,7 +85,7 @@ export default {
     explain: 'Wie ungleich die Schweiz ist',
   },
 
-  // ClaimsSection: die übrigen Kampagnen-Aussagen als volle Aussage-Bänder (gleicher
+  // ClaimsSection: die übrigen Kampagnen-Aussagen unter der Hauptaussage, als volle Aussage-Bänder (gleicher
   // Verlauf wie die zugehörige Instagram-Slide). Je ein verlinkbarer Abschnitt (Anker-id)
   // mit Eyebrow, Aussage und internem Link zur Erklärung (Datenseite + Anker).
   claims: {

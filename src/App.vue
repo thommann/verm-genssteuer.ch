@@ -8,8 +8,7 @@ const router = useRouter();
 
 // Drei Themen plus Transparenz. Jede Gruppe trägt eine Route und ihre Abschnitts-Anker
 // in DOM-Reihenfolge; die Beschriftungen liegen in nav.groups.<key> und nav.items.<id>.
-// tone und num spiegeln die Signaturfarben und Nummern der Themen-Karten der Startseite
-// (TopicsSection), damit das Menü im selben Look auftritt.
+// tone und num geben den drei Themen je eine Signaturfarbe und Nummer im Menü.
 const GROUPS = [
   { key: 'verteilung', route: '/verteilung', tone: 'gold', num: '1', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
   { key: 'rechner', route: '/rechner', tone: 'accent', num: '2', items: ['rechner', 'wegzug', 'dynamik', 'verwendung'] },
@@ -124,8 +123,6 @@ onUnmounted(() => {
         <div class="wrap">
           <div class="menu-top">
             <router-link to="/" @click="closeMenu">{{ $t('nav.items.start') }}</router-link>
-            <router-link :to="{ path: '/', hash: '#aussagen' }" @click="closeMenu">{{ $t('nav.items.aussagen') }}</router-link>
-            <router-link :to="{ path: '/', hash: '#themen' }" @click="closeMenu">{{ $t('nav.items.themen') }}</router-link>
           </div>
           <div class="menu-groups">
             <div
