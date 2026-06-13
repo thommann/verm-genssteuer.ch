@@ -37,6 +37,8 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
     <div class="wrap">
       <div class="eyebrow">{{ $t('distribution.eyebrow') }}</div>
       <h2>{{ $t('distribution.title') }}</h2>
+      <p class="lead dist-lead" v-html="$t('distribution.lead', { share: pct(k.share_ge5M, 0), median: chf(k.median) })" />
+      <p class="dist-lead-src"><SourceTag id="estv_vermoegen" :note="$t('distribution.leadSourceNote')" /></p>
       <div class="card chart-card">
         <div class="legend">
           <span><i class="sw" style="background: var(--blue)" /> {{ $t('distribution.legendPeople') }}</span>
@@ -80,6 +82,10 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
 </template>
 
 <style scoped>
+.dist-lead { margin-bottom: 10px; max-width: 56ch; }
+.dist-lead-src { margin: 0 0 22px; }
+.dist-lead :deep(.hl.gold) { color: var(--gold); font-weight: 800; }
+.dist-lead :deep(strong) { font-weight: 800; }
 .stat-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 32px 0; }
 .ministat { display: flex; flex-direction: column; gap: 4px; padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); }
 .mv { font-size: 1.8rem; font-weight: 800; }

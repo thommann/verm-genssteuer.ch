@@ -100,12 +100,10 @@ export default {
     lead: 'Gegner einer Vermögenssteuer warnen, die Reichen ziehen weg. Simuliere hier, was das konkret bedeutet: wie viele Personen betroffen wären und was nach dem Steuerausfall netto für den Fiskus übrig bliebe.',
   },
 
-  // HeroSection: die Hauptaussage der Kampagne, mit der konkreten Zahl als Beleg darunter.
+  // HeroSection: die Hauptaussage der Kampagne, mit internem Link zur Erklärung.
   hero: {
     eyebrow: 'Darum geht es',
     title: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
-    lead: 'Das reichste 1&nbsp;% besitzt <span class="hl gold">{share}</span> des steuerbaren Vermögens; das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>.',
-    sourceNote: 'unbeschränkt Steuerpflichtige, 2022',
     explain: 'Wie ungleich die Schweiz ist',
   },
 
@@ -150,9 +148,9 @@ export default {
         link: 'Was eine Vermögenssteuer bringt',
       },
       mittelstand: {
-        eyebrow: 'Die Forderung',
-        text: 'Die <span class="hl">Mittelklasse</span> muss entlastet werden.',
-        link: 'Wofür die Einnahmen reichen',
+        eyebrow: 'Das Problem',
+        text: 'Der Mittelstand trägt heute die <span class="hl">grösste Steuerlast</span>.',
+        link: 'Wer die Steuerlast trägt',
       },
       faireSteuern: {
         eyebrow: 'Die Ungerechtigkeit',
@@ -181,6 +179,8 @@ export default {
   distribution: {
     eyebrow: 'Die Verteilung',
     title: 'Wenige besitzen fast alles',
+    lead: 'Das reichste 1&nbsp;% besitzt <span class="hl gold">{share}</span> des steuerbaren Vermögens; das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>.',
+    leadSourceNote: 'unbeschränkt Steuerpflichtige, 2022',
     legendPeople: 'Anteil an den Menschen',
     legendMoney: 'Anteil am Vermögen',
     labelZero: 'Kein Vermögen',
