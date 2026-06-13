@@ -55,7 +55,7 @@ const lastLabel = computed(() => ({
   <section id="dynamik">
     <div class="wrap">
       <div class="eyebrow">{{ $t('projection.eyebrow') }}</div>
-      <h2>{{ $t('projection.title') }}</h2>
+      <h2 v-html="$t('projection.title')" />
       <p class="lead" v-html="$t('projection.lead')" />
 
       <div class="proj-grid">

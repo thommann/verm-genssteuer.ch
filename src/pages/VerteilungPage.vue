@@ -9,6 +9,7 @@ import PauschalSection from '@/components/sections/PauschalSection.vue';
 <template>
   <ChapterHeader
     id="thema-verteilung"
+    tone="gold"
     :num="$t('chapters.verteilungNum')"
     :kicker="$t('chapters.verteilungKicker')"
     :title="$t('chapters.verteilungTitle')"

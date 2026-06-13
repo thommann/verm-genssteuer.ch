@@ -43,7 +43,7 @@ const wegzugDisplay = computed(() =>
   <section id="wegzug">
     <div class="wrap">
       <div class="eyebrow">{{ $t('wegzug.eyebrow') }}</div>
-      <h2>{{ $t('wegzug.title') }}</h2>
+      <h2 v-html="$t('wegzug.title')" />
       <p class="lead" v-html="$t('wegzug.lead')" />
 
       <div class="card wegzug-card">

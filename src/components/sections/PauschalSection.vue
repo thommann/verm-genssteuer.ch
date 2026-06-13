@@ -15,7 +15,7 @@ const avg = computed(() => totalRev.value / count);
   <section id="pauschal">
     <div class="wrap">
       <div class="eyebrow">{{ $t('pauschal.eyebrow') }}</div>
-      <h2>{{ $t('pauschal.title', { count: num(count) }) }}</h2>
+      <h2 v-html="$t('pauschal.title', { count: num(count) })" />
       <p class="lead" v-html="$t('pauschal.lead')" />
 
       <div class="grid pgrid">

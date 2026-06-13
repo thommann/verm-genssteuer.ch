@@ -17,8 +17,8 @@ Instagram empfohlene Standard und auch für die Profil-Vorschau optimal). Jeder
 
 ## Aufbau: Hauptbotschaft als jeder 2. Post
 
-Die **Hauptbotschaft** („Der Grund für deinen sinkenden Lebensstandard ist die wachsende
-Ungleichheit.") ist die Kernaussage der Kampagne und erscheint **als jeder zweite Post**,
+Die **Hauptbotschaft** („Der Grund, dass am Ende des Monats immer weniger übrig bleibt, ist
+die wachsende Ungleichheit.") ist die Kernaussage der Kampagne und erscheint **als jeder zweite Post**,
 jedes Mal textgleich, aber mit **anderem Verlaufs-Hintergrund** (Varianten A–L). Dazwischen
 liegen die zwölf übrigen Aussagen. Reihenfolge: Cover → Hauptbotschaft → andere Aussage →
 Hauptbotschaft → … → Call to action. So bleibt die Botschaft im Feed dauerpräsent, ohne
