@@ -25,12 +25,11 @@ Instagram empfohlene Standard und auch für die Profil-Vorschau optimal). Jeder
 | 04 | `slide-04.png` | Problem: nie ein eigenes Haus ↔ Ungleichheit |
 | 05 | `slide-05.png` | Warum es der Schweiz gut geht (Vermögenssteuer) |
 | 06 | `slide-06.png` | Die Mittelklasse muss entlastet werden |
-| 07 | `slide-07.png` | **Alle Steuern zusammen:** Superreiche zahlen nur halb so viel (~50 % vs ~27 %) |
-| 08 | `slide-08.png` | **Nur die Einkommenssteuer:** sie zahlen fast nichts (~3 % vs bis 20 %) |
-| 09 | `slide-09.png` | 2 % Mindeststeuer (Lösung) |
-| 10 | `slide-10.png` | Niemand wandert aus |
-| 11 | `slide-11.png` | Trifft fair Besteuerte nicht |
-| 12 | `slide-12.png` | Call to action: vermögenssteuer.ch |
+| 07 | `slide-07.png` | **Die Ungerechtigkeit:** Milliardäre zahlen nur halb so viel Einkommenssteuer wie der Mittelstand |
+| 08 | `slide-08.png` | 2 % Mindeststeuer (Lösung) |
+| 09 | `slide-09.png` | Niemand wandert aus |
+| 10 | `slide-10.png` | Trifft fair Besteuerte nicht |
+| 11 | `slide-11.png` | Call to action: vermögenssteuer.ch |
 
 Die Slides tragen bewusst **keinen** „X / N"-Zähler mehr, damit Reihenfolge und Anzahl
 ohne Renummerierung änderbar bleiben; Instagram zeigt die Position ohnehin als Punkte.
@@ -58,33 +57,25 @@ lange Aussagen bekommen `data-len="long"` bzw. `"xlong"` für eine kleinere Schr
 
 ## Quellen-Hinweis (wichtig)
 
-Die Slides 06 und 07 sind ein **Paar zur selben Studie**, einmal mit allen Steuern,
-einmal nur mit der Einkommenssteuer. Wichtig: Die Zahlen widersprechen sich nicht, sie
-messen Verschiedenes (deshalb die Eyebrows „Alle Steuern zusammen" vs „Nur die
-Einkommenssteuer").
+Slide 07 macht die zentrale Aussage **ohne Zahlen**: „Milliardäre zahlen nur halb so viel
+Steuern auf ihr Einkommen wie der Mittelstand."
 
-Quelle für beide: **Gabriel Zucman, „A blueprint for a coordinated minimum effective
-taxation standard for ultra-high-net-worth individuals", G20-Report 2024**
+Quelle: **Gabriel Zucman, „A blueprint for a coordinated minimum effective taxation
+standard for ultra-high-net-worth individuals", G20-Report 2024**
 ([PDF](https://gabriel-zucman.eu/files/report-g20.pdf), Quelle `zucman_g20` in
 `sources.json`). Der Report bündelt die nationalen Studien (Bach u. a. für Frankreich,
 Bruil u. a. für die Niederlande, Saez/Zucman für die USA, Berlusconi-Fall für Italien)
 mit einheitlicher Methode; alle Sätze als Anteil des Vor-Steuer-Einkommens.
 
-- **Slide 07 (alle Steuern, Abb. 1):** **~27 %** für die Superreichen gegenüber **~50 %**
-  für die Mittelschicht, also gut die Hälfte. Die Werte stammen aus der Frankreich-Studie
-  (Bach u. a.), dem Vorzeigebeispiel des Reports; dieselbe Regressivität an der Spitze
-  zeigt sich auch in den USA, Italien und den Niederlanden. Frankreich ist gewählt, weil
-  sich die „Hälfte" in einem Hochsteuerland sauber zeigt (in den USA liegt schon der
-  Schnitt nur bei ~28 %, dort wäre der Vergleich weniger anschaulich). Tilde = gerundet.
-- **Slide 08 (nur Einkommenssteuer, Abb. 2):** **~3 %** ist der **Durchschnitt** der drei
-  im Report ausgewiesenen Länder-Werte für Milliardäre (Niederlande ~0 %, Frankreich
-  1,7 %, USA ~8 %; Mittel ≈ 3,2 %). Normale Erwerbstätige zahlen bis ~15–20 %. Grund für
-  den Einbruch: quasi-systematische Nutzung von Holdinggesellschaften. (Die Differenz zu
-  den ~27 % in Slide 07 ist die anteilige **Unternehmenssteuer**, in FR ~25 %.)
+Die Zahlen hinter der „Hälfte" (zur Belegbarkeit, nicht auf dem Slide):
 
-Die beiden Datenslides nennen bewusst **kein einzelnes Land** mehr, sondern eine
-zusammengefasste Kennzahl, damit sie kurz und sofort verständlich bleiben. Die
-Einzelwerte je Land stehen hier im README zur Belegbarkeit.
+- **Alle Steuern zusammen (Abb. 1):** in Frankreich ~**27 %** für die Milliardäre
+  gegenüber ~**50 %** für fast alle anderen Gruppen, also gut die Hälfte. Dieselbe
+  Regressivität an der Spitze in den USA, Italien und den Niederlanden.
+- **Nur die individuelle Einkommenssteuer (Abb. 2):** noch krasser, Milliardäre
+  ~0 % (NL), 1,7 % (FR), ~8 % (US), normale Erwerbstätige bis ~15–20 %.
+
+Der Slogan „halb so viel" ist die konservative, gut belegte Variante (Gesamtsteuersatz).
 
 Einordnung für die Transparenz:
 
@@ -106,8 +97,8 @@ Einordnung für die Transparenz:
 >
 > #Vermögenssteuer #Steuergerechtigkeit #Schweiz #TaxTheRich #Ungleichheit #Mittelstand
 
-**Einzelpost Slide 07 + 08 (Paar):**
+**Einzelpost Slide 07:**
 
-> Superreiche zahlen insgesamt nur halb so viel Steuern wie die Mittelschicht (~27 % statt
-> ~50 %). Und auf ihr Einkommen sogar fast nichts: im Schnitt nur rund 3 %, während normale
-> Arbeit bis 20 % zahlt. Quelle: G. Zucman, G20-Report 2024. Mehr: vermögenssteuer.ch
+> Milliardäre zahlen nur halb so viel Steuern auf ihr Einkommen wie der Mittelstand. Das
+> ist keine Meinung, das ist gemessen. Quelle: G. Zucman, G20-Report 2024. Mehr:
+> vermögenssteuer.ch
