@@ -102,15 +102,15 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
           <tbody>
             <tr>
               <th>{{ $t('zucman.medRowMedian') }}</th>
-              <td class="mt-income">{{ num(HH_GROSS_CHF, 0) }}</td>
-              <td class="mt-accent">~{{ num(hhRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
-              <td>~{{ hhTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
+              <td class="mt-income" :data-label="$t('zucman.medColIncome')">{{ num(HH_GROSS_CHF, 0) }}</td>
+              <td class="mt-accent" :data-label="$t('zucman.medColPassive')">~{{ num(hhRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
+              <td :data-label="$t('zucman.medColTotal')">~{{ hhTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
             </tr>
             <tr>
               <th>{{ $t('zucman.medRowAvg') }}</th>
-              <td class="mt-income">{{ num(AVG_GROSS_CHF, 0) }}</td>
-              <td>~{{ num(avgRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
-              <td>~{{ avgTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
+              <td class="mt-income" :data-label="$t('zucman.medColIncome')">{{ num(AVG_GROSS_CHF, 0) }}</td>
+              <td :data-label="$t('zucman.medColPassive')">~{{ num(avgRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
+              <td :data-label="$t('zucman.medColTotal')">~{{ avgTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
             </tr>
           </tbody>
         </table>
@@ -191,10 +191,29 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
 
 @media (max-width: 560px) {
   .medbox { padding: 18px 16px; }
-  .medtable th, .medtable td { padding: 8px 5px; }
-  .medtable thead th { font-size: 0.72rem; }
-  .medtable tbody th { font-size: 0.82rem; }
-  .medtable tbody td { font-size: 1rem; }
-  .medtable tbody td.mt-income { font-size: 0.88rem; }
+  .medtable-scroll { overflow-x: visible; }
+  /* Tabelle als gestapelte Karten, damit die langen Spaltenkoepfe nicht ueberlaufen */
+  .medtable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .medtable, .medtable tbody, .medtable tr, .medtable tbody th, .medtable tbody td { display: block; }
+  .medtable tbody tr {
+    border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .medtable tbody tr + tr { margin-top: 12px; }
+  .medtable tbody tr + tr th, .medtable tbody tr + tr td { border-top: none; }
+  .medtable tbody th {
+    color: var(--text); font-size: 1rem; padding: 0 0 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 6px;
+  }
+  .medtable tbody td {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 14px; padding: 6px 0; text-align: right; white-space: nowrap;
+    font-size: 1.05rem;
+  }
+  .medtable tbody td.mt-income { font-size: 1.05rem; }
+  .medtable tbody td::before {
+    content: attr(data-label); flex: 1; text-align: left; white-space: normal;
+    color: var(--text-soft); font-weight: 600; font-size: 0.8rem; line-height: 1.3;
+  }
 }
 </style>
