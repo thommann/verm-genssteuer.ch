@@ -200,7 +200,7 @@
     main: true,
     cap: '★ Hauptbotschaft',
     eyebrow: 'Darum geht es',
-    html: 'Der Grund für deinen <span class="underline ink-underline">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.',
+    html: 'Der Grund, dass am <span class="underline ink-underline">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
   };
   const MAIN_BG = [
     ['#ff2d6b', '#ff7a33', '#d6249f', '#ff2d6b'], // A pink/orange
@@ -220,6 +220,8 @@
 
   // Die übrigen Aussagen, je einmal. Reihenfolge = Inhaltsfluss.
   const OTHERS = [
+    { cap: 'Sinkender Lebensstandard', eyebrow: 'Das Problem', bg: ['#ff7a33', '#d6249f', '#ffb13c', '#ff2d6b'],
+      html: 'Der Grund für deinen <span class="underline ink-underline">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.' },
     { cap: 'Schwächelnde Wirtschaft', eyebrow: 'Das Problem', bg: ['#ff7a33', '#ff2d6b', '#ff7a33', '#d6249f'],
       html: 'Der Grund für die <span class="underline ink-underline">schwächelnde Wirtschaft</span> ist die wachsende Ungleichheit.' },
     { cap: 'Nie ein Haus', eyebrow: 'Das Problem', bg: ['#ff2d6b', '#d6249f', '#c01651', '#ff2d6b'],
@@ -230,15 +232,13 @@
       html: 'Der Grund für die <span class="underline ink-underline">überfüllten Züge und Busse</span> ist die wachsende Ungleichheit.' },
     { cap: 'Verstopfte Strassen', eyebrow: 'Das Problem', bg: ['#4f8bff', '#a78bfa', '#3b6fe0', '#7c3aed'],
       html: 'Der Grund für die <span class="underline ink-underline">verstopften Strassen</span> ist die wachsende Ungleichheit.' },
-    { cap: 'Am Monatsende weniger übrig', eyebrow: 'Das Problem', bg: ['#ff2d6b', '#ff7a33', '#d6249f', '#ff2d6b'],
-      html: 'Der Grund, dass am <span class="underline ink-underline">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.' },
-    { cap: 'Warum es der Schweiz gut geht', eyebrow: 'Was funktioniert', bg: ['#14c98a', '#25e3c8', '#14c98a', '#4f8bff'],
-      html: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="underline ink-underline">Superreichen</span> besteuern.' },
     { cap: 'Mittelstand trägt die grösste Last', eyebrow: 'Das Problem', dark: true, bg: ['#ffce5c', '#ff7a33', '#ffb13c', '#ff7a33'],
       html: 'Der Mittelstand trägt heute die <span class="underline on-dark">grösste Steuerlast</span>.' },
     { cap: 'Milliardäre zahlen halb so viel', eyebrow: 'Die Ungerechtigkeit', bg: ['#a78bfa', '#ff2d6b', '#7c3aed', '#d6249f'],
       source: 'G. Zucman, G20-Report 2024',
       html: 'Milliardäre zahlen nur <span class="underline ink-underline">halb so viel</span> Steuern auf ihr Einkommen wie der Mittelstand.' },
+    { cap: 'Warum es der Schweiz gut geht', eyebrow: 'Was funktioniert', bg: ['#14c98a', '#25e3c8', '#14c98a', '#4f8bff'],
+      html: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="underline ink-underline">Superreichen</span> besteuern.' },
     { type: 'stat', cap: '2 % Mindeststeuer', eyebrow: 'Die Lösung', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'],
       num: '2<span style="font-size:80px;">%</span>', lab: 'Mindeststeuer auf Vermögen über 100 Mio.',
       source: 'Modell: G. Zucman, G20-Report 2024',

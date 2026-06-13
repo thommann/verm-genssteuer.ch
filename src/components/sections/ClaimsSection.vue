@@ -6,15 +6,15 @@
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const CLAIMS = [
+  { id: 'lebensstandard', key: 'lebensstandard', route: '/verteilung', hash: 'verteilung', bg: ['#ff7a33', '#d6249f', '#ffb13c', '#ff2d6b'] },
   { id: 'wirtschaft', key: 'wirtschaft', route: '/verteilung', hash: 'international', bg: ['#ff7a33', '#ff2d6b', '#ff7a33', '#d6249f'] },
   { id: 'eigenheim', key: 'eigenheim', route: '/verteilung', hash: 'ubs-studie', bg: ['#ff2d6b', '#d6249f', '#c01651', '#ff2d6b'] },
   { id: 'krankenkasse', key: 'krankenkasse', route: '/rechner', hash: 'verwendung', bg: ['#d6249f', '#ff2d6b', '#7c3aed', '#d6249f'] },
   { id: 'oev', key: 'oev', route: '/rechner', hash: 'verwendung', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'] },
   { id: 'strassen', key: 'strassen', route: '/verteilung', hash: 'verteilung', bg: ['#4f8bff', '#a78bfa', '#3b6fe0', '#7c3aed'] },
-  { id: 'ende-monat', key: 'endeMonat', route: '/verteilung', hash: 'ubs-studie', bg: ['#ff2d6b', '#ff7a33', '#d6249f', '#ff2d6b'] },
-  { id: 'standort', key: 'standort', route: '/rechner', hash: 'rechner', bg: ['#14c98a', '#25e3c8', '#14c98a', '#4f8bff'] },
   { id: 'mittelstand', key: 'mittelstand', route: '/modelle', hash: 'zucman', dark: true, bg: ['#ffce5c', '#ff7a33', '#ffb13c', '#ff7a33'] },
   { id: 'faire-steuern', key: 'faireSteuern', route: '/modelle', hash: 'zucman', source: 'zucman_g20', bg: ['#a78bfa', '#ff2d6b', '#7c3aed', '#d6249f'] },
+  { id: 'standort', key: 'standort', route: '/rechner', hash: 'rechner', bg: ['#14c98a', '#25e3c8', '#14c98a', '#4f8bff'] },
   { id: 'mindeststeuer', key: 'mindeststeuer', route: '/modelle', hash: 'zucman', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'] },
   { id: 'kein-wegzug', key: 'keinWegzug', route: '/rechner', hash: 'wegzug', bg: ['#3b6fe0', '#a78bfa', '#4f8bff', '#7c3aed'] },
   { id: 'schon-fair', key: 'schonFair', route: '/modelle', hash: 'zucman', bg: ['#a78bfa', '#25e3c8', '#7c3aed', '#14c98a'] },

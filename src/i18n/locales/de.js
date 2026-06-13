@@ -103,7 +103,7 @@ export default {
   // HeroSection: die Hauptaussage der Kampagne, mit internem Link zur Erklärung.
   hero: {
     eyebrow: 'Darum geht es',
-    title: 'Der Grund für deinen <span class="hl">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.',
+    title: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
     explain: 'Wie ungleich die Schweiz ist',
   },
 
@@ -112,6 +112,11 @@ export default {
   // mit Eyebrow, Aussage und internem Link zur Erklärung (Datenseite + Anker).
   claims: {
     items: {
+      lebensstandard: {
+        eyebrow: 'Das Problem',
+        text: 'Der Grund für deinen <span class="hl">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.',
+        link: 'Wie ungleich die Schweiz ist',
+      },
       wirtschaft: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">schwächelnde Wirtschaft</span> ist die wachsende Ungleichheit.',
@@ -136,11 +141,6 @@ export default {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">verstopften Strassen</span> ist die wachsende Ungleichheit.',
         link: 'Wie das Vermögen verteilt ist',
-      },
-      endeMonat: {
-        eyebrow: 'Das Problem',
-        text: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
-        link: 'Median gegen Durchschnitt',
       },
       standort: {
         eyebrow: 'Was funktioniert',
@@ -213,11 +213,8 @@ export default {
     capHint: 'Deckel für den Grenzsatz der allergrössten Vermögen.',
     yearLabel: 'Datenjahr:',
     resultLabel: 'Mehreinnahmen ({year})',
-    resultLabelWegzug: 'Aufkommen ({year}, Verbliebene)',
-    nettoResultLabel: 'Netto-Fiskalgewinn ({year}, mit Wegzug)',
     nettoNeuLabel: 'Neue Steuer (Verbliebene)',
     nettoHeuteLabel: 'Heutige Steuern (Abgewanderte)',
-    nettoDauerhaftLabel: 'dauerhaft tragbar<br />(dynamisch, siehe unten)',
     resultUnit: 'CHF pro Jahr',
     sustainableLabel: 'dauerhaft tragbar<br />(dynamisch, siehe unten)',
     avgRateLabel: 'Ø-Satz bei {wealth}',
@@ -243,8 +240,6 @@ export default {
     wegzugHint: 'Alle Steuerpflichtigen mit Vermögen über diesem Betrag gelten im Szenario als weggezogen.',
     wegzugNone: 'kein Wegzug',
     wegzugInfo: '<strong>{cnt}</strong> Steuerpflichtige ({year}) mit Vermögen über {schwelle} verlassen im Szenario die Schweiz.',
-    wegzugIdleText: 'Schiebe den Regler nach links, um ein Wegzug-Szenario zu aktivieren.',
-    wegzugResultIdle: 'Kein Wegzug-Szenario aktiv. Der Netto-Fiskalgewinn erscheint hier, sobald eine Schwelle gewählt ist.',
     wegzugSourceVst: 'Heutige Steuersätze: Vermögenssteuer Ø 0,28 % (NZZ)',
     wegzugSourceEst: 'Einkommenssteuer auf Kapital ~0,9 % des steuerbaren Vermögens (Martínez/KOF)',
     disclaimer: 'Statisches Modell: kein Vermögenszuwachs, kein Verhalten. Der Wegzug-Schieber simuliert ein vereinfachtes Szenario (vollständiger Abgang aller Personen über der Schwelle, ohne Teilwegzug oder Reaktion). Die Zahlen zeigen das <em>Potenzial</em> der Bemessungsgrundlage, nicht eine politische Prognose.',
