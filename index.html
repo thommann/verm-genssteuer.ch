@@ -9,6 +9,12 @@
       content="Interaktive, quellenbasierte Visualisierung der Schweizer Vermögensverteilung (ESTV, WID, UBS) und einer progressiven Vermögenssteuer für das reichste 1 %. Spiele mit Steuermodellen und sieh, was mit dem Geld möglich wäre."
     />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <!-- Scroll-Wiederherstellung des Browsers früh abschalten, bevor Inhalt rendert.
+         Sonst springt die Seite beim Reload (v. a. mobil) auf die alte Position zurück,
+         weil der Browser sie wiederherstellt, ehe das JS-Bundle geladen ist. -->
+    <script>
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    </script>
   </head>
   <body>
     <div id="app"></div>

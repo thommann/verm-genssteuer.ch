@@ -77,7 +77,7 @@ watch(
 );
 
 onMounted(() => {
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  // scrollRestoration wird bereits synchron in index.html auf 'manual' gesetzt.
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('keydown', onKeydown);
   document.addEventListener('click', onDocClick);
