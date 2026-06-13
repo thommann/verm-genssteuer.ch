@@ -81,7 +81,7 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
   <section id="international" class="section-alt">
     <div class="wrap">
       <div class="eyebrow">{{ $t('international.eyebrow') }}</div>
-      <h2>{{ $t('international.title') }}</h2>
+      <h2 v-html="$t('international.title')" />
       <p class="lead">{{ $t('international.lead') }}</p>
 
       <div class="metric-toggle">

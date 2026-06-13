@@ -80,7 +80,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   <section id="rechner">
     <div class="wrap">
       <div class="eyebrow">{{ $t('calculator.eyebrow') }}</div>
-      <h2>{{ $t('calculator.title') }}</h2>
+      <h2 v-html="$t('calculator.title')" />
       <p class="lead">{{ $t('calculator.lead') }}</p>
 
       <div class="presets">

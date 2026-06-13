@@ -40,7 +40,7 @@ const TOPICS = [
   <section id="themen" class="section">
     <div class="wrap">
       <div class="eyebrow">{{ $t('topics.eyebrow') }}</div>
-      <h2>{{ $t('topics.title') }}</h2>
+      <h2 v-html="$t('topics.title')" />
       <p class="lead">{{ $t('topics.lead') }}</p>
 
       <div class="topic-grid">

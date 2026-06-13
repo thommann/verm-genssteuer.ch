@@ -15,7 +15,7 @@ const revenue = computed(() => basis.value === 'jahr1' ? nettoStatisch.value : n
   <section id="verwendung" class="section-alt">
     <div class="wrap">
       <div class="eyebrow">{{ $t('spend.eyebrow') }}</div>
-      <h2>{{ $t('spend.title', { revenue: chfCompact(revenue, 1) }) }}</h2>
+      <h2 v-html="$t('spend.title', { revenue: chfCompact(revenue, 1) })" />
       <p class="lead">{{ $t('spend.lead') }}</p>
 
       <div class="basis-toggle">
