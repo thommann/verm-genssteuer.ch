@@ -168,45 +168,57 @@ onUnmounted(() => {
 <style scoped>
 .nav {
   position: sticky; top: 0; z-index: 50;
-  transition: background 0.2s ease, border-color 0.2s ease, backdrop-filter 0.2s ease;
-  border-bottom: 1px solid transparent;
+  transition: background 0.2s ease, box-shadow 0.2s ease, backdrop-filter 0.2s ease;
 }
 .nav.solid {
-  /* Glasleiste mit dezentem Farbschleier im Verlaufston der Startseite. */
+  /* Glasleiste mit Farbschleier im Verlaufston der Slides. */
   background:
-    radial-gradient(700px 220px at 82% -60%, rgba(255, 84, 112, 0.12), transparent 70%),
-    radial-gradient(600px 200px at 8% -60%, rgba(91, 141, 255, 0.1), transparent 70%),
-    rgba(11, 16, 32, 0.82);
-  backdrop-filter: blur(12px);
-  border-bottom-color: var(--border);
+    radial-gradient(760px 240px at 82% -60%, rgba(255, 45, 107, 0.18), transparent 70%),
+    radial-gradient(640px 220px at 8% -60%, rgba(124, 58, 237, 0.16), transparent 70%),
+    rgba(11, 16, 32, 0.78);
+  backdrop-filter: blur(14px);
 }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; gap: 16px; }
-.brand { display: flex; align-items: center; gap: 9px; font-weight: 800; color: var(--text); text-decoration: none; font-size: 0.98rem; letter-spacing: -0.01em; }
+/* Feine Verlaufslinie unter der soliden Leiste (wie der Lesefortschritt/die Slides). */
+.nav.solid::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--violet), var(--teal));
+  opacity: 0.9;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 900; color: #fff; text-decoration: none; font-size: 1rem; letter-spacing: -0.02em; }
 /* Am Seitenanfang (transparente Leiste) liegt die Leiste teils über hellen Bändern:
    dezenter Schatten hält Marke und Knopf lesbar, bis die Glasleiste einblendet. */
 .nav:not(.solid) .brand,
 .nav:not(.solid) .menu-toggle { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35); }
 .brand:hover { text-decoration: none; }
 .brand-flag {
-  display: block; width: 22px; height: 22px; flex: none; border-radius: 6px;
-  box-shadow: 0 0 0 3px rgba(227, 6, 19, 0.16);
+  display: block; width: 26px; height: 26px; flex: none; border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 6px 16px -6px rgba(0, 0, 0, 0.6);
   transition: box-shadow 0.18s ease, transform 0.18s ease;
 }
-.brand:hover .brand-flag { transform: rotate(-4deg) scale(1.06); box-shadow: 0 0 0 4px rgba(255, 84, 112, 0.22); }
-.nav-actions { display: flex; align-items: center; gap: 12px; }
-.nav-cta { padding: 8px 16px; font-size: 0.85rem; }
+.brand:hover .brand-flag { transform: rotate(-4deg) scale(1.06); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0 8px 18px -6px rgba(0, 0, 0, 0.6); }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+
+/* CTA als vivide Verlaufs-Pille im Slide-Look statt der flachen Akzentfläche. */
+.nav-cta {
+  padding: 10px 20px; font-size: 0.88rem; font-weight: 800; color: #fff;
+  border: 0; border-radius: 999px;
+  background: linear-gradient(135deg, #ff2d6b, #7c3aed);
+  box-shadow: 0 10px 24px -10px rgba(255, 45, 107, 0.8);
+}
+.nav-cta:hover { transform: translateY(-1px); filter: brightness(1.06); background: linear-gradient(135deg, #ff2d6b, #7c3aed); }
 
 .menu-toggle {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 16px; font-size: 0.85rem; font-weight: 700;
-  color: var(--text); cursor: pointer;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border); border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 10px 18px; font-size: 0.88rem; font-weight: 800;
+  color: #fff; cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 999px;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
-.menu-toggle:hover { background: rgba(255, 255, 255, 0.09); border-color: var(--text-mute); }
+.menu-toggle:hover { background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.5); }
 /* Geöffnetes Menü an den Akzent koppeln. */
-.menu-toggle[aria-expanded='true'] { background: rgba(255, 84, 112, 0.14); border-color: var(--accent); color: var(--accent-soft); }
+.menu-toggle[aria-expanded='true'] { background: rgba(255, 45, 107, 0.22); border-color: var(--accent); color: #fff; }
 .menu-icon { position: relative; display: inline-flex; flex-direction: column; justify-content: center; gap: 3px; width: 16px; height: 12px; }
 .menu-icon span { display: block; height: 2px; width: 100%; background: currentColor; border-radius: 2px; transition: transform 0.2s ease, opacity 0.2s ease; }
 .menu-icon.open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
