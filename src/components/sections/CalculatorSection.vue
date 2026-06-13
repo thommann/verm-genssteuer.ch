@@ -295,8 +295,8 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 }
 .result {
   padding: 28px 24px;
-  background: linear-gradient(160deg, #1d2952, #161f3d);
-  border-color: #34407a;
+  background: linear-gradient(160deg, rgba(255, 84, 112, 0.18), rgba(13, 18, 40, 0.42));
+  border-color: rgba(255, 84, 112, 0.42);
 }
 .readout { font-size: 0.82rem; margin: 0; }
 

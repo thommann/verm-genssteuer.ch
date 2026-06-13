@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import ReadingProgress from '@/components/ui/ReadingProgress.vue';
 
@@ -15,6 +15,10 @@ const GROUPS = [
   { key: 'modelle', route: '/modelle', tone: 'violet', num: '3', items: ['wir-reports', 'zucman'] },
   { key: 'transparenz', route: '/quellen', tone: 'teal', num: '·', items: ['quellen'] },
 ];
+
+// Jede Seite trägt den Signaturverlauf ihres Themas (main::before in main.css).
+// Die Startseite und unbekannte Routen laufen auf dem Home-Verlauf.
+const themeClass = computed(() => `theme-${route.meta.group || 'home'}`);
 
 const isGroupActive = (key) => route.meta.group === key;
 const isItemActive = (g, n) =>
@@ -128,7 +132,7 @@ onUnmounted(() => {
             <div
               v-for="g in GROUPS"
               :key="g.key"
-              class="menu-group card"
+              class="menu-group"
               :class="[`tone-${g.tone}`, { active: isGroupActive(g.key) }]"
             >
               <router-link class="menu-group-title" :to="g.route" @click="closeMenu">
@@ -156,7 +160,7 @@ onUnmounted(() => {
 
   <ReadingProgress />
 
-  <main id="top">
+  <main id="top" :class="themeClass">
     <router-view />
   </main>
 </template>
@@ -164,41 +168,57 @@ onUnmounted(() => {
 <style scoped>
 .nav {
   position: sticky; top: 0; z-index: 50;
-  transition: background 0.2s ease, border-color 0.2s ease, backdrop-filter 0.2s ease;
-  border-bottom: 1px solid transparent;
+  transition: background 0.2s ease, box-shadow 0.2s ease, backdrop-filter 0.2s ease;
 }
 .nav.solid {
-  /* Glasleiste mit dezentem Farbschleier im Verlaufston der Startseite. */
+  /* Glasleiste mit Farbschleier im Verlaufston der Slides. */
   background:
-    radial-gradient(700px 220px at 82% -60%, rgba(255, 84, 112, 0.12), transparent 70%),
-    radial-gradient(600px 200px at 8% -60%, rgba(91, 141, 255, 0.1), transparent 70%),
-    rgba(11, 16, 32, 0.82);
-  backdrop-filter: blur(12px);
-  border-bottom-color: var(--border);
+    radial-gradient(760px 240px at 82% -60%, rgba(255, 45, 107, 0.18), transparent 70%),
+    radial-gradient(640px 220px at 8% -60%, rgba(124, 58, 237, 0.16), transparent 70%),
+    rgba(11, 16, 32, 0.78);
+  backdrop-filter: blur(14px);
 }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; gap: 16px; }
-.brand { display: flex; align-items: center; gap: 9px; font-weight: 800; color: var(--text); text-decoration: none; font-size: 0.98rem; letter-spacing: -0.01em; }
+/* Feine Verlaufslinie unter der soliden Leiste (wie der Lesefortschritt/die Slides). */
+.nav.solid::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--violet), var(--teal));
+  opacity: 0.9;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 900; color: #fff; text-decoration: none; font-size: 1rem; letter-spacing: -0.02em; }
+/* Am Seitenanfang (transparente Leiste) liegt die Leiste teils über hellen Bändern:
+   dezenter Schatten hält Marke und Knopf lesbar, bis die Glasleiste einblendet. */
+.nav:not(.solid) .brand,
+.nav:not(.solid) .menu-toggle { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35); }
 .brand:hover { text-decoration: none; }
 .brand-flag {
-  display: block; width: 22px; height: 22px; flex: none; border-radius: 6px;
-  box-shadow: 0 0 0 3px rgba(227, 6, 19, 0.16);
+  display: block; width: 26px; height: 26px; flex: none; border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 6px 16px -6px rgba(0, 0, 0, 0.6);
   transition: box-shadow 0.18s ease, transform 0.18s ease;
 }
-.brand:hover .brand-flag { transform: rotate(-4deg) scale(1.06); box-shadow: 0 0 0 4px rgba(255, 84, 112, 0.22); }
-.nav-actions { display: flex; align-items: center; gap: 12px; }
-.nav-cta { padding: 8px 16px; font-size: 0.85rem; }
+.brand:hover .brand-flag { transform: rotate(-4deg) scale(1.06); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0 8px 18px -6px rgba(0, 0, 0, 0.6); }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+
+/* CTA als vivide Verlaufs-Pille im Slide-Look statt der flachen Akzentfläche. */
+.nav-cta {
+  padding: 10px 20px; font-size: 0.88rem; font-weight: 800; color: #fff;
+  border: 0; border-radius: 999px;
+  background: linear-gradient(135deg, #ff2d6b, #7c3aed);
+  box-shadow: 0 10px 24px -10px rgba(255, 45, 107, 0.8);
+}
+.nav-cta:hover { transform: translateY(-1px); filter: brightness(1.06); background: linear-gradient(135deg, #ff2d6b, #7c3aed); }
 
 .menu-toggle {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 16px; font-size: 0.85rem; font-weight: 700;
-  color: var(--text); cursor: pointer;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border); border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 10px 18px; font-size: 0.88rem; font-weight: 800;
+  color: #fff; cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 999px;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
-.menu-toggle:hover { background: rgba(255, 255, 255, 0.09); border-color: var(--text-mute); }
+.menu-toggle:hover { background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.5); }
 /* Geöffnetes Menü an den Akzent koppeln. */
-.menu-toggle[aria-expanded='true'] { background: rgba(255, 84, 112, 0.14); border-color: var(--accent); color: var(--accent-soft); }
+.menu-toggle[aria-expanded='true'] { background: rgba(255, 45, 107, 0.22); border-color: var(--accent); color: #fff; }
 .menu-icon { position: relative; display: inline-flex; flex-direction: column; justify-content: center; gap: 3px; width: 16px; height: 12px; }
 .menu-icon span { display: block; height: 2px; width: 100%; background: currentColor; border-radius: 2px; transition: transform 0.2s ease, opacity 0.2s ease; }
 .menu-icon.open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
@@ -239,45 +259,59 @@ onUnmounted(() => {
 
 .menu-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
 
-/* Themengruppen als Karten im Look der Startseiten-Karten (Akzentlinie + Signaturton). */
-.tone-gold { --tone: var(--gold); }
-.tone-accent { --tone: var(--accent); }
-.tone-violet { --tone: var(--violet); }
-.tone-teal { --tone: var(--teal); }
+/* Themengruppen als vivide Verlaufs-Kacheln im Look der Aussage-Bänder/Slides, je Thema
+   mit eigenem Signaturverlauf. Helle Gold-Kachel läuft mit dunkler Schrift. */
+.tone-gold   { --tone: var(--gold);   --tg1: #ffce5c; --tg2: #ff7a33; --tg3: #ffb13c; --tg4: #ff7a33; }
+.tone-accent { --tone: var(--accent); --tg1: #ff7a33; --tg2: #ff2d6b; --tg3: #ff7a33; --tg4: #d6249f; }
+.tone-violet { --tone: var(--violet); --tg1: #a78bfa; --tg2: #ff2d6b; --tg3: #7c3aed; --tg4: #d6249f; }
+.tone-teal   { --tone: var(--teal);   --tg1: #25e3c8; --tg2: #4f8bff; --tg3: #14c98a; --tg4: #3b6fe0; }
 
 .menu-group {
   position: relative; overflow: hidden;
-  padding: 16px 16px 12px;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  padding: 18px 18px 15px; border-radius: var(--radius);
+  color: #fff; border: 1px solid rgba(255, 255, 255, 0.22);
+  background:
+    radial-gradient(120% 100% at 14% 8%, var(--tg1), transparent 60%),
+    radial-gradient(120% 100% at 90% 96%, var(--tg2), transparent 62%),
+    linear-gradient(150deg, var(--tg3), var(--tg4));
+  box-shadow: 0 14px 36px -22px rgba(0, 0, 0, 0.75);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.menu-group::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--tone); opacity: 0.85;
+/* Leichter Dunkelschleier für Textkontrast (nicht auf der hellen Gold-Kachel). */
+.menu-group:not(.tone-gold)::before {
+  content: ''; position: absolute; inset: 0; background: rgba(5, 7, 15, 0.16); pointer-events: none;
 }
-.menu-group:hover { transform: translateY(-2px); border-color: var(--tone); }
-.menu-group.active { border-color: var(--tone); }
+.menu-group > * { position: relative; z-index: 1; }
+.menu-group:hover { transform: translateY(-3px); box-shadow: 0 22px 46px -22px rgba(0, 0, 0, 0.8); }
+.menu-group.active { outline: 2px solid rgba(255, 255, 255, 0.75); outline-offset: 2px; }
+.menu-group.tone-gold { color: var(--ink); }
 
 .menu-group-title {
   display: flex; align-items: center; gap: 10px;
-  font-size: 0.92rem; font-weight: 800; letter-spacing: -0.01em;
-  color: var(--text); margin: 0 0 12px; text-decoration: none;
+  font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em;
+  color: inherit; margin: 0 0 13px; text-decoration: none;
 }
-.menu-group-title:hover { color: var(--tone); text-decoration: none; }
+.menu-group-title:hover { color: inherit; opacity: 0.82; text-decoration: none; }
 .menu-group-num {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 26px; height: 26px; border-radius: 8px; flex: none;
-  font-size: 0.82rem; font-weight: 800; line-height: 1;
-  color: #11152b; background: var(--tone);
+  width: 28px; height: 28px; border-radius: 9px; flex: none;
+  font-size: 0.84rem; font-weight: 800; line-height: 1;
+  color: #fff; background: rgba(11, 16, 32, 0.3); border: 1px solid rgba(255, 255, 255, 0.5);
 }
+.menu-group.tone-gold .menu-group-num { color: var(--ink); background: rgba(11, 16, 32, 0.12); border-color: rgba(11, 16, 32, 0.42); }
 
-.menu-list { list-style: none; margin: 0; padding: 0; }
+.menu-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; }
 .menu-list a {
-  display: block; padding: 9px 12px; border-radius: var(--radius-sm, 10px);
-  color: var(--text-soft); font-weight: 600; font-size: 0.92rem; text-decoration: none;
-  transition: color 0.15s ease, background 0.15s ease;
+  display: inline-flex; align-items: center; padding: 6px 13px; border-radius: 999px;
+  color: #fff; font-weight: 700; font-size: 0.84rem; text-decoration: none;
+  background: rgba(11, 16, 32, 0.22); border: 1px solid rgba(255, 255, 255, 0.32);
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
-.menu-list a:hover { background: rgba(255, 255, 255, 0.06); color: var(--text); text-decoration: none; }
-.menu-list a.active { background: color-mix(in srgb, var(--tone) 16%, transparent); color: var(--tone); }
+.menu-list a:hover { background: rgba(11, 16, 32, 0.38); color: #fff; border-color: rgba(255, 255, 255, 0.6); text-decoration: none; }
+.menu-list a.active { background: rgba(255, 255, 255, 0.94); color: var(--ink); border-color: transparent; }
+.menu-group.tone-gold .menu-list a { color: var(--ink); background: rgba(11, 16, 32, 0.1); border-color: rgba(11, 16, 32, 0.34); }
+.menu-group.tone-gold .menu-list a:hover { background: rgba(11, 16, 32, 0.18); }
+.menu-group.tone-gold .menu-list a.active { background: var(--ink); color: #fff; }
 
 .menu-enter-active, .menu-leave-active { transition: opacity 0.18s ease, transform 0.18s ease; }
 .menu-enter-from, .menu-leave-to { opacity: 0; transform: translateY(-6px); }

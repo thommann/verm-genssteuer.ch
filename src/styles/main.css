@@ -1,22 +1,23 @@
 :root {
-  /* Farbsystem */
+  /* Farbsystem. Modernes Design: farbige Themenverläufe (wie die Aussage-Bänder und
+     Instagram-Slides) tragen die ganze Seite, darüber liegen halbtransparente Glas-Karten. */
   --bg: #0b1020;
   --bg-soft: #121933;
-  --bg-card: #161f3d;
-  --bg-card-2: #1b2548;
-  --border: #2a3563;
-  --text: #eef1fb;
-  --text-soft: #aab4d4;
-  /* Gedämpfter Ton; aufgehellt, damit er auch auf dem dunkelsten Kartenverlauf
-     (bg-card-2) die WCAG-AA-Schwelle von 4.5:1 erreicht. */
-  --text-mute: #8a93b6;
+  /* Glasflächen: halbtransparent mit Blur, lesen auf jedem farbigen Verlauf. */
+  --bg-card: rgba(13, 18, 40, 0.44);
+  --bg-card-2: rgba(13, 18, 40, 0.30);
+  --border: rgba(255, 255, 255, 0.16);
+  --text: #ffffff;
+  /* Weiss-Töne mit Deckkraft: lesbar sowohl auf den Verläufen als auch auf den Glas-Karten. */
+  --text-soft: rgba(255, 255, 255, 0.85);
+  --text-mute: rgba(255, 255, 255, 0.64);
 
   --accent: #ff5470;        /* «1 %» / Aktion */
-  --accent-soft: #ff849a;
+  --accent-soft: #ffb1c2;
   --gold: #ffce5c;          /* Vermögen / Reichtum */
   --teal: #38d6c4;          /* Allgemeinheit / Nutzen */
-  --blue: #5b8dff;
-  --violet: #a78bfa;
+  --blue: #7faaff;
+  --violet: #c0a8ff;
   --ink: #0b1020;           /* dunkle Schrift auf hellen Flächen (Aussage-Bänder) */
 
   --radius: 16px;
@@ -33,13 +34,55 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: var(--font);
-  background:
-    radial-gradient(1200px 700px at 75% -10%, rgba(255, 84, 112, 0.16), transparent 60%),
-    radial-gradient(1000px 600px at 10% 0%, rgba(91, 141, 255, 0.14), transparent 55%),
-    var(--bg);
+  /* Tiefe Basisfläche; den farbigen Themenverlauf legt main::before je Seite darüber. */
+  background: linear-gradient(160deg, #1a1038, #0b1020 64%);
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Modernes Design: jede Seite trägt den Signaturverlauf ihres Themas (wie die
+   Aussage-Bänder und Instagram-Slides). Der Verlauf liegt fixiert hinter dem Inhalt;
+   transparente Sektionen lassen ihn durchscheinen, Glas-Karten schweben darüber.
+   Tief genug, damit weisse Schrift überall die Kontrastschwelle hält. */
+main { position: relative; isolation: isolate; }
+main::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+}
+.theme-home::before {
+  background:
+    radial-gradient(1100px 820px at 84% -8%, rgba(255, 45, 107, 0.34), transparent 58%),
+    radial-gradient(960px 760px at 6% 8%, rgba(79, 139, 255, 0.26), transparent 56%),
+    radial-gradient(940px 780px at 56% 110%, rgba(124, 58, 237, 0.30), transparent 60%),
+    linear-gradient(160deg, #1d0f3a, #0b1020 62%);
+}
+.theme-verteilung::before {
+  background:
+    radial-gradient(1100px 820px at 84% -8%, rgba(255, 122, 51, 0.30), transparent 56%),
+    radial-gradient(960px 760px at 6% 8%, rgba(214, 36, 159, 0.30), transparent 56%),
+    radial-gradient(940px 780px at 56% 110%, rgba(255, 206, 92, 0.18), transparent 58%),
+    linear-gradient(160deg, #2b1031, #0b1020 62%);
+}
+.theme-rechner::before {
+  background:
+    radial-gradient(1100px 820px at 84% -8%, rgba(255, 45, 107, 0.32), transparent 56%),
+    radial-gradient(960px 760px at 6% 8%, rgba(124, 58, 237, 0.32), transparent 56%),
+    radial-gradient(940px 780px at 56% 110%, rgba(255, 122, 51, 0.18), transparent 58%),
+    linear-gradient(160deg, #270f3b, #0b1020 62%);
+}
+.theme-modelle::before {
+  background:
+    radial-gradient(1100px 820px at 84% -8%, rgba(167, 139, 250, 0.34), transparent 56%),
+    radial-gradient(960px 760px at 6% 8%, rgba(79, 139, 255, 0.30), transparent 56%),
+    radial-gradient(940px 780px at 56% 110%, rgba(124, 58, 237, 0.28), transparent 60%),
+    linear-gradient(160deg, #1c1247, #0b1020 62%);
+}
+.theme-transparenz::before {
+  background:
+    radial-gradient(1100px 820px at 84% -8%, rgba(37, 227, 200, 0.26), transparent 56%),
+    radial-gradient(960px 760px at 6% 8%, rgba(59, 111, 224, 0.28), transparent 56%),
+    radial-gradient(940px 780px at 56% 110%, rgba(20, 201, 138, 0.20), transparent 60%),
+    linear-gradient(160deg, #0c2b3a, #0b1020 62%);
 }
 
 h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 0.5em; }
@@ -55,14 +98,16 @@ a:hover { text-decoration: underline; }
 section { padding: clamp(56px, 9vw, 120px) 0; position: relative; }
 /* Versatz, damit per Anker verlinkte Abschnitte nicht hinter der Sticky-Navigation liegen. */
 :where(section, header, [id])[id] { scroll-margin-top: 78px; }
-.section-alt { background: linear-gradient(180deg, transparent, rgba(18, 25, 51, 0.6) 12%, rgba(18, 25, 51, 0.6) 88%, transparent); }
+/* Dezenter dunkler Schleier für etwas Rhythmus zwischen den Sektionen, ohne den
+   farbigen Themenverlauf zu überdecken. */
+.section-alt { background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.16) 12%, rgba(0, 0, 0, 0.16) 88%, transparent); }
 
 .eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
   text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.72rem; font-weight: 700;
-  color: var(--accent-soft); margin-bottom: 14px;
+  color: rgba(255, 255, 255, 0.9); margin-bottom: 14px;
 }
-.eyebrow::before { content: ''; width: 26px; height: 2px; background: var(--accent); border-radius: 2px; }
+.eyebrow::before { content: ''; width: 26px; height: 2px; background: rgba(255, 255, 255, 0.9); border-radius: 2px; }
 
 .lead { font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--text-soft); max-width: 60ch; }
 
@@ -88,7 +133,9 @@ section { padding: clamp(56px, 9vw, 120px) 0; position: relative; }
   background: linear-gradient(160deg, var(--bg-card), var(--bg-card-2));
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .grid { display: grid; gap: 18px; }
