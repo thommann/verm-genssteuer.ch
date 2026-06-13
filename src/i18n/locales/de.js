@@ -154,7 +154,7 @@ export default {
       bildung: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">sinkende Bildungsqualität</span> ist die wachsende Ungleichheit.',
-        explainText: 'Dem Staat fehlt das Geld, um in kleinere Klassen, gut bezahlte Lehrkräfte und gute Schulen zu investieren. Gleichzeitig zieht sich die Spitze in Privatschulen und teure Quartiere zurück, so entstehen Parallelgesellschaften statt gleicher Chancen für alle Kinder. Eine Vermögenssteuer schafft den Spielraum, in eine Schule für alle zu investieren.',
+        explainText: 'Dem Staat fehlt das Geld, um in kleinere Klassen, gut bezahlte Lehrkräfte und gute Schulen zu investieren. Gleichzeitig zieht sich die Spitze in Privatschulen zurück, so entstehen Parallelgesellschaften statt gleicher Chancen für alle Kinder.',
         link: 'Wie ungleich die Schweiz ist',
       },
       standort: {
