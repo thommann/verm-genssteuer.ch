@@ -166,7 +166,6 @@ onUnmounted(() => {
 
   <footer class="site-footer">
     <div class="wrap site-footer-inner">
-      <p class="site-footer-tag">{{ $t('siteFooter.tagline') }}</p>
       <nav class="site-footer-links" :aria-label="$t('siteFooter.impressum')">
         <router-link to="/">{{ $t('siteFooter.start') }}</router-link>
         <router-link to="/quellen">{{ $t('siteFooter.quellen') }}</router-link>
@@ -347,7 +346,6 @@ onUnmounted(() => {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
   gap: 12px 24px; padding-top: 18px; padding-bottom: 18px;
 }
-.site-footer-tag { margin: 0; max-width: 52ch; font-size: 0.84rem; color: var(--text-mute); }
 .site-footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
 .site-footer-links a {
   font-size: 0.84rem; font-weight: 700; color: var(--text-soft); text-decoration: none;
