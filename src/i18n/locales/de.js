@@ -150,9 +150,9 @@ export default {
         link: 'Was eine Vermögenssteuer bringt',
       },
       mittelstand: {
-        eyebrow: 'Die Forderung',
-        text: 'Die <span class="hl">Mittelklasse</span> muss entlastet werden.',
-        link: 'Wofür die Einnahmen reichen',
+        eyebrow: 'Das Problem',
+        text: 'Der Mittelstand trägt heute die <span class="hl">grösste Steuerlast</span>.',
+        link: 'Wer die Steuerlast trägt',
       },
       faireSteuern: {
         eyebrow: 'Die Ungerechtigkeit',
