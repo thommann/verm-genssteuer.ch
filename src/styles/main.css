@@ -183,14 +183,15 @@ button { font-family: inherit; cursor: pointer; }
 
 /* Highlighter-Marker der Kernaussagen, auch ausserhalb der Bänder nutzbar (dunkle Sektionen).
    Auf den hellen Aussage-Bändern überschreibt .claim-band .hl diesen Stil (weisser Streifen).
-   Der Streifen liegt im unteren Drittel der Zeile, die Schrift bleibt in der Sektionsfarbe. */
+   Der Marker liegt deckend über der gesamten Zeilenhöhe, die Schrift bleibt in der Sektionsfarbe. */
 .hl {
-  background: linear-gradient(180deg, transparent 58%, rgba(255, 84, 112, 0.85) 58%, rgba(255, 84, 112, 0.85) 92%, transparent 92%);
-  padding: 0 0.06em; border-radius: 4px;
+  background: rgba(255, 84, 112, 0.85);
+  padding: 0.08em 0.12em; border-radius: 4px;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
 }
-.hl.gold { background: linear-gradient(180deg, transparent 58%, rgba(255, 206, 92, 0.9) 58%, rgba(255, 206, 92, 0.9) 92%, transparent 92%); }
-.hl.teal { background: linear-gradient(180deg, transparent 58%, rgba(56, 214, 196, 0.85) 58%, rgba(56, 214, 196, 0.85) 92%, transparent 92%); }
-.hl.violet { background: linear-gradient(180deg, transparent 58%, rgba(167, 139, 250, 0.85) 58%, rgba(167, 139, 250, 0.85) 92%, transparent 92%); }
+.hl.gold { background: rgba(255, 206, 92, 0.9); }
+.hl.teal { background: rgba(56, 214, 196, 0.85); }
+.hl.violet { background: rgba(167, 139, 250, 0.85); }
 
 /* Aussage-Bänder (Startseite): volle Breite, gleicher Verlauf wie die Instagram-Slides.
    Die Verlaufsfarben kommen je Band über --g1..--g4 (inline gesetzt). */
@@ -223,8 +224,9 @@ button { font-family: inherit; cursor: pointer; }
   color: #fff;
 }
 .claim-band .hl {
-  background: linear-gradient(180deg, transparent 58%, rgba(255, 255, 255, 0.92) 58%, rgba(255, 255, 255, 0.92) 92%, transparent 92%);
-  color: var(--ink); padding: 0 0.06em; border-radius: 4px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink); padding: 0.08em 0.12em; border-radius: 4px;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
 }
 
 /* Dunkle Variante (Gold-Hintergrund): dunkler Text, heller Marker. */
@@ -233,7 +235,7 @@ button { font-family: inherit; cursor: pointer; }
 .claim-band.dark .eyebrow::before { background: var(--ink); }
 .claim-band.dark .band-text { color: var(--ink); }
 .claim-band.dark .hl {
-  background: linear-gradient(180deg, transparent 58%, rgba(11, 16, 32, 0.9) 58%, rgba(11, 16, 32, 0.9) 92%, transparent 92%);
+  background: rgba(11, 16, 32, 0.9);
   color: #fff;
 }
 
