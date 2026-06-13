@@ -109,58 +109,68 @@ export default {
     explain: 'Wie ungleich die Schweiz ist',
   },
 
-  // ClaimsSection: die übrigen Kampagnen-Aussagen, je ein verlinkbarer Abschnitt mit
-  // internem Link zur Erklärung (Datenseite + Anker).
+  // ClaimsSection: die übrigen Kampagnen-Aussagen als volle Aussage-Bänder (gleicher
+  // Verlauf wie die zugehörige Instagram-Slide). Je ein verlinkbarer Abschnitt (Anker-id)
+  // mit Eyebrow, Aussage und internem Link zur Erklärung (Datenseite + Anker).
   claims: {
-    eyebrow: 'Punkt für Punkt',
-    title: 'Was wir sagen, und wo es belegt ist',
-    lead: 'Jede Aussage führt zu den Zahlen und Belegen dahinter.',
     items: {
       wirtschaft: {
+        eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">schwächelnde Wirtschaft</span> ist die wachsende Ungleichheit.',
         link: 'Die Zahlen zur Ungleichheit',
       },
       eigenheim: {
+        eyebrow: 'Das Problem',
         text: 'Der Grund, warum du dir wohl <span class="hl">nie ein eigenes Haus</span> leisten kannst, ist die wachsende Ungleichheit.',
         link: 'Der Graben zwischen Median und Durchschnitt',
       },
       krankenkasse: {
+        eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">steigenden Krankenkassenprämien</span> ist die wachsende Ungleichheit.',
         link: 'Prämien aus der Steuer zahlen',
       },
       oev: {
+        eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">überfüllten Züge und Busse</span> ist die wachsende Ungleichheit.',
         link: 'öV günstiger machen',
       },
       strassen: {
+        eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">verstopften Strassen</span> ist die wachsende Ungleichheit.',
         link: 'Wie das Vermögen verteilt ist',
       },
       endeMonat: {
+        eyebrow: 'Das Problem',
         text: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
         link: 'Median gegen Durchschnitt',
       },
       standort: {
+        eyebrow: 'Was funktioniert',
         text: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="hl">Superreichen</span> besteuern.',
         link: 'Was eine Vermögenssteuer bringt',
       },
       mittelstand: {
+        eyebrow: 'Die Forderung',
         text: 'Die <span class="hl">Mittelklasse</span> muss entlastet werden.',
         link: 'Wofür die Einnahmen reichen',
       },
       faireSteuern: {
+        eyebrow: 'Die Ungerechtigkeit',
         text: 'Milliardäre zahlen nur <span class="hl">halb so viel</span> Steuern auf ihr Einkommen wie der Mittelstand.',
         link: 'Warum das stimmt',
       },
       mindeststeuer: {
+        eyebrow: 'Die Lösung',
         text: 'Eine Mindeststeuer von nur <span class="hl">2&nbsp;%</span> sorgt dafür, dass Superreiche gleich viel zahlen wie der Durchschnitt.',
         link: 'Wie die Mindeststeuer wirkt',
       },
       keinWegzug: {
+        eyebrow: 'Der Mythos',
         text: 'Wegen einer Mindeststeuer von <span class="hl">2&nbsp;%</span> wandert niemand aus der schönen Schweiz aus.',
         link: 'Das Wegzug-Argument im Rechner',
       },
       schonFair: {
+        eyebrow: 'Fair bleibt fair',
         text: 'Wer heute schon <span class="hl">fair besteuert</span> wird, zahlt mit einer Mindeststeuer keinen Franken mehr.',
         link: 'So funktioniert die Mindeststeuer',
       },

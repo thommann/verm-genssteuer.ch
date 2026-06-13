@@ -18,40 +18,43 @@ Instagram empfohlene Standard und auch für die Profil-Vorschau optimal). Jeder
 ## Aufbau: Hauptbotschaft als jeder 2. Post
 
 Die **Hauptbotschaft** („Der Grund für deinen sinkenden Lebensstandard ist die wachsende
-Ungleichheit.") ist die Kernaussage der Kampagne und erscheint deshalb **als jeder zweite
-Post**, jedes Mal textgleich, aber mit **anderem Verlaufs-Hintergrund** (Varianten A–H).
-So bleibt die Botschaft im Feed dauerpräsent, ohne dass zwei identische Bilder
-nebeneinander stehen. Reihenfolge: Cover → Hauptbotschaft → andere Karte → Hauptbotschaft
-→ … → Call to action.
+Ungleichheit.") ist die Kernaussage der Kampagne und erscheint **als jeder zweite Post**,
+jedes Mal textgleich, aber mit **anderem Verlaufs-Hintergrund** (Varianten A–L). Dazwischen
+liegen die zwölf übrigen Aussagen. Reihenfolge: Cover → Hauptbotschaft → andere Aussage →
+Hauptbotschaft → … → Call to action. So bleibt die Botschaft im Feed dauerpräsent, ohne
+dass zwei gleiche Bilder nebeneinander stehen.
 
-| # | Datei | Inhalt |
-| --- | --- | --- |
-| 01 | `slide-01.png` | Cover: „Wem gehört die Schweiz?" |
-| 02 | `slide-02.png` | ★ **Hauptbotschaft** · BG A (pink/orange) |
-| 03 | `slide-03.png` | Problem: schwächelnde Wirtschaft ↔ Ungleichheit |
-| 04 | `slide-04.png` | ★ **Hauptbotschaft** · BG B (violett/pink) |
-| 05 | `slide-05.png` | Problem: nie ein eigenes Haus ↔ Ungleichheit |
-| 06 | `slide-06.png` | ★ **Hauptbotschaft** · BG C (blau/violett) |
-| 07 | `slide-07.png` | Warum es der Schweiz gut geht (Vermögenssteuer) |
-| 08 | `slide-08.png` | ★ **Hauptbotschaft** · BG D (türkis/blau) |
-| 09 | `slide-09.png` | Die Mittelklasse muss entlastet werden |
-| 10 | `slide-10.png` | ★ **Hauptbotschaft** · BG E (magenta/violett) |
-| 11 | `slide-11.png` | Milliardäre zahlen nur halb so viel Einkommenssteuer wie der Mittelstand |
-| 12 | `slide-12.png` | ★ **Hauptbotschaft** · BG F (orange/rot) |
-| 13 | `slide-13.png` | 2 % Mindeststeuer (Lösung) |
-| 14 | `slide-14.png` | ★ **Hauptbotschaft** · BG G (blau/türkis) |
-| 15 | `slide-15.png` | Niemand wandert aus |
-| 16 | `slide-16.png` | ★ **Hauptbotschaft** · BG H (pink/blau) |
-| 17 | `slide-17.png` | Trifft fair Besteuerte nicht |
-| 18 | `slide-18.png` | Call to action: vermögenssteuer.ch |
+26 Slides: Cover (01), 12× Hauptbotschaft (gerade Nummern 02–24), 12 übrige Aussagen
+(ungerade 03–25), CTA (26).
 
-Als **Einzelposts** (statt Karussell) einfach in dieser Reihenfolge posten, dann ist jeder
-zweite Beitrag die Hauptbotschaft. Als **Karussell** funktioniert dieselbe Reihenfolge
-ebenfalls (18 ≤ 20 erlaubte Slides). Mehr/weniger Hauptbotschafts-Karten: in `slides.html`
-eine `.main-msg`-Section duplizieren und die `--g1..--g4` anpassen.
+| # | Inhalt | # | Inhalt |
+| --- | --- | --- | --- |
+| 01 | Cover | 14 | ★ Hauptbotschaft · BG G |
+| 02 | ★ Hauptbotschaft · BG A | 15 | Warum es der Schweiz gut geht |
+| 03 | Schwächelnde Wirtschaft | 16 | ★ Hauptbotschaft · BG H |
+| 04 | ★ Hauptbotschaft · BG B | 17 | Mittelklasse entlasten |
+| 05 | Nie ein eigenes Haus | 18 | ★ Hauptbotschaft · BG I |
+| 06 | ★ Hauptbotschaft · BG C | 19 | Milliardäre zahlen halb so viel (Quelle) |
+| 07 | Krankenkassenprämien | 20 | ★ Hauptbotschaft · BG J |
+| 08 | ★ Hauptbotschaft · BG D | 21 | 2 % Mindeststeuer (Lösung) |
+| 09 | Überfüllte Züge und Busse | 22 | ★ Hauptbotschaft · BG K |
+| 10 | ★ Hauptbotschaft · BG E | 23 | Niemand wandert aus |
+| 11 | Verstopfte Strassen | 24 | ★ Hauptbotschaft · BG L |
+| 12 | ★ Hauptbotschaft · BG F | 25 | Trifft fair Besteuerte nicht |
+| 13 | Am Monatsende weniger übrig | 26 | Call to action |
+
+Als **Einzelposts** in dieser Reihenfolge posten, dann ist jeder zweite Beitrag die
+Hauptbotschaft. Als **Karussell** lieber eine Teilmenge wählen (Instagram erlaubt max. 20).
 
 Die Slides tragen bewusst **keinen** „X / N"-Zähler, damit Reihenfolge und Anzahl
 ohne Renummerierung änderbar bleiben; Instagram zeigt die Position ohnehin als Punkte.
+
+## Gleiche Aussagen, gleicher Hintergrund wie die Startseite
+
+Jede Aussage erscheint **auch auf der Startseite** (`/`) als Band über die volle Breite,
+mit **demselben Verlauf** wie die zugehörige Slide (Hero = Hauptbotschaft BG A, danach die
+Bänder in `src/components/sections/ClaimsSection.vue`). Wer hier eine Aussage oder eine
+Farbe ändert, gleicht sie dort an, und umgekehrt.
 
 ## Export (PNG erzeugen)
 
@@ -70,14 +73,16 @@ Screenshot/„Drucken als PDF" abgreifen.
 
 ## Texte bearbeiten
 
-Alle Aussagen stehen direkt im `slides.html`. Verlaufsfarben je Slide werden über die
-Custom Properties `--g1..--g4` im `style`-Attribut der `section.slide` gesetzt. Sehr
-lange Aussagen bekommen `data-len="long"` bzw. `"xlong"` für eine kleinere Schriftgrösse.
+`slides.html` erzeugt das Deck **datengetrieben** per JavaScript: oben die Hauptbotschaft
+(`MAIN`) mit den zwölf Hintergrund-Varianten (`MAIN_BG`, A–L), darunter die übrigen
+Aussagen (`OTHERS`, je mit `bg: [g1,g2,g3,g4]`, optional `dark`, `source`, `fs`). Eine
+neue Aussage: ein Eintrag in `OTHERS` ergänzen (und bei Bedarf eine `MAIN_BG`-Variante,
+damit die Alternierung aufgeht). Sehr lange Wörter bekommen `fs` (Schriftgrösse in px).
 
 ## Quellen-Hinweis (wichtig)
 
-Slide 07 macht die zentrale Aussage **ohne Zahlen**: „Milliardäre zahlen nur halb so viel
-Steuern auf ihr Einkommen wie der Mittelstand."
+Die Aussage „Milliardäre zahlen nur halb so viel Steuern auf ihr Einkommen wie der
+Mittelstand" steht **ohne Zahlen** auf der Slide.
 
 Quelle: **Gabriel Zucman, „A blueprint for a coordinated minimum effective taxation
 standard for ultra-high-net-worth individuals", G20-Report 2024**

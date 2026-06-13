@@ -1,109 +1,48 @@
 <script setup>
-// Die übrigen Kampagnen-Aussagen als eigene, verlinkbare Abschnitte (je eine id).
-// Unter jeder Aussage ein interner Link zur Erklärung: die passende Themenseite
-// und ihr Anker. Texte und Link-Beschriftungen liegen in i18n (claims.items.*),
-// Route und Anker bleiben hier, weil sie zur Struktur gehören.
+// Jede Aussage als volles Band über die ganze Breite, mit demselben Verlauf wie die
+// zugehörige Instagram-Slide. Eigene Anker-id je Aussage, darunter ein interner Link
+// zur Erklärung (Themenseite + Anker). Texte/Beschriftungen liegen in i18n
+// (claims.items.*), Hintergrund, Route und Anker bleiben hier (Struktur).
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const CLAIMS = [
-  { id: 'wirtschaft', key: 'wirtschaft', tone: 'accent', route: '/verteilung', hash: 'international' },
-  { id: 'eigenheim', key: 'eigenheim', tone: 'gold', route: '/verteilung', hash: 'ubs-studie' },
-  { id: 'krankenkasse', key: 'krankenkasse', tone: 'teal', route: '/rechner', hash: 'verwendung' },
-  { id: 'oev', key: 'oev', tone: 'blue', route: '/rechner', hash: 'verwendung' },
-  { id: 'strassen', key: 'strassen', tone: 'violet', route: '/verteilung', hash: 'verteilung' },
-  { id: 'ende-monat', key: 'endeMonat', tone: 'accent', route: '/verteilung', hash: 'ubs-studie' },
-  { id: 'standort', key: 'standort', tone: 'teal', route: '/rechner', hash: 'rechner' },
-  { id: 'mittelstand', key: 'mittelstand', tone: 'gold', route: '/rechner', hash: 'verwendung' },
-  { id: 'faire-steuern', key: 'faireSteuern', tone: 'violet', route: '/modelle', hash: 'zucman', source: 'zucman_g20' },
-  { id: 'mindeststeuer', key: 'mindeststeuer', tone: 'teal', route: '/modelle', hash: 'zucman' },
-  { id: 'kein-wegzug', key: 'keinWegzug', tone: 'blue', route: '/rechner', hash: 'wegzug' },
-  { id: 'schon-fair', key: 'schonFair', tone: 'violet', route: '/modelle', hash: 'zucman' },
+  { id: 'wirtschaft', key: 'wirtschaft', route: '/verteilung', hash: 'international', bg: ['#ff7a33', '#ff2d6b', '#ff7a33', '#d6249f'] },
+  { id: 'eigenheim', key: 'eigenheim', route: '/verteilung', hash: 'ubs-studie', bg: ['#ff2d6b', '#d6249f', '#c01651', '#ff2d6b'] },
+  { id: 'krankenkasse', key: 'krankenkasse', route: '/rechner', hash: 'verwendung', bg: ['#d6249f', '#ff2d6b', '#7c3aed', '#d6249f'] },
+  { id: 'oev', key: 'oev', route: '/rechner', hash: 'verwendung', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'] },
+  { id: 'strassen', key: 'strassen', route: '/verteilung', hash: 'verteilung', bg: ['#4f8bff', '#a78bfa', '#3b6fe0', '#7c3aed'] },
+  { id: 'ende-monat', key: 'endeMonat', route: '/verteilung', hash: 'ubs-studie', bg: ['#ff2d6b', '#ff7a33', '#d6249f', '#ff2d6b'] },
+  { id: 'standort', key: 'standort', route: '/rechner', hash: 'rechner', bg: ['#14c98a', '#25e3c8', '#14c98a', '#4f8bff'] },
+  { id: 'mittelstand', key: 'mittelstand', route: '/rechner', hash: 'verwendung', dark: true, bg: ['#ffce5c', '#ff7a33', '#ffb13c', '#ff7a33'] },
+  { id: 'faire-steuern', key: 'faireSteuern', route: '/modelle', hash: 'zucman', source: 'zucman_g20', bg: ['#a78bfa', '#ff2d6b', '#7c3aed', '#d6249f'] },
+  { id: 'mindeststeuer', key: 'mindeststeuer', route: '/modelle', hash: 'zucman', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'] },
+  { id: 'kein-wegzug', key: 'keinWegzug', route: '/rechner', hash: 'wegzug', bg: ['#3b6fe0', '#a78bfa', '#4f8bff', '#7c3aed'] },
+  { id: 'schon-fair', key: 'schonFair', route: '/modelle', hash: 'zucman', bg: ['#a78bfa', '#25e3c8', '#7c3aed', '#14c98a'] },
 ];
+
+const vars = (bg) => ({ '--g1': bg[0], '--g2': bg[1], '--g3': bg[2], '--g4': bg[3] });
 </script>
 
 <template>
-  <section id="aussagen" class="section section-alt">
-    <div class="wrap">
-      <div class="eyebrow">{{ $t('claims.eyebrow') }}</div>
-      <h2>{{ $t('claims.title') }}</h2>
-      <p class="lead">{{ $t('claims.lead') }}</p>
-
-      <div class="claims">
-        <article
-          v-for="c in CLAIMS"
-          :id="c.id"
-          :key="c.id"
-          class="claim card"
-          :class="`tone-${c.tone}`"
-        >
-          <p class="claim-text" v-html="$t(`claims.items.${c.key}.text`)" />
-          <div class="claim-foot">
-            <router-link :to="{ path: c.route, hash: `#${c.hash}` }" class="claim-link">
-              {{ $t(`claims.items.${c.key}.link`) }} <span aria-hidden="true">→</span>
-            </router-link>
-            <SourceTag v-if="c.source" :id="c.source" />
-          </div>
-        </article>
+  <div id="aussagen">
+    <section
+      v-for="c in CLAIMS"
+      :id="c.id"
+      :key="c.id"
+      class="claim-band"
+      :class="{ dark: c.dark }"
+      :style="vars(c.bg)"
+    >
+      <div class="wrap">
+        <div class="eyebrow">{{ $t(`claims.items.${c.key}.eyebrow`) }}</div>
+        <p class="band-text" v-html="$t(`claims.items.${c.key}.text`)" />
+        <div class="band-foot">
+          <router-link :to="{ path: c.route, hash: `#${c.hash}` }" class="band-link">
+            {{ $t(`claims.items.${c.key}.link`) }} <span aria-hidden="true">→</span>
+          </router-link>
+          <SourceTag v-if="c.source" :id="c.source" />
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
-
-<style scoped>
-.claims {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 18px;
-  margin-top: 34px;
-}
-
-.claim {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 30px 28px 24px;
-  position: relative;
-  overflow: hidden;
-  scroll-margin-top: 86px;
-  transition: border-color 0.15s ease, transform 0.15s ease;
-}
-.claim::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--tone); opacity: 0.9;
-}
-.tone-accent { --tone: var(--accent); }
-.tone-gold { --tone: var(--gold); }
-.tone-teal { --tone: var(--teal); }
-.tone-blue { --tone: var(--blue); }
-.tone-violet { --tone: var(--violet); }
-.claim:hover { transform: translateY(-3px); border-color: var(--tone); }
-
-.claim-text {
-  margin: 0;
-  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: var(--text);
-}
-.claim-text :deep(.hl) { color: var(--tone); }
-
-.claim-foot {
-  margin-top: auto;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 18px;
-}
-.claim-link {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-weight: 700; font-size: 0.92rem; color: var(--text);
-  text-decoration: none;
-}
-.claim-link span { color: var(--tone); transition: transform 0.15s ease; display: inline-block; }
-.claim-link:hover { text-decoration: none; }
-.claim-link:hover span { transform: translateX(4px); }
-</style>
