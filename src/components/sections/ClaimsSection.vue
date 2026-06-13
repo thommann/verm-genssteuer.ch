@@ -8,6 +8,10 @@ import SourceTag from '@/components/ui/SourceTag.vue';
 const CLAIMS = [
   { id: 'wirtschaft', key: 'wirtschaft', tone: 'accent', route: '/verteilung', hash: 'international' },
   { id: 'eigenheim', key: 'eigenheim', tone: 'gold', route: '/verteilung', hash: 'ubs-studie' },
+  { id: 'krankenkasse', key: 'krankenkasse', tone: 'teal', route: '/rechner', hash: 'verwendung' },
+  { id: 'oev', key: 'oev', tone: 'blue', route: '/rechner', hash: 'verwendung' },
+  { id: 'strassen', key: 'strassen', tone: 'violet', route: '/verteilung', hash: 'verteilung' },
+  { id: 'ende-monat', key: 'endeMonat', tone: 'accent', route: '/verteilung', hash: 'ubs-studie' },
   { id: 'standort', key: 'standort', tone: 'teal', route: '/rechner', hash: 'rechner' },
   { id: 'mittelstand', key: 'mittelstand', tone: 'gold', route: '/rechner', hash: 'verwendung' },
   { id: 'faire-steuern', key: 'faireSteuern', tone: 'violet', route: '/modelle', hash: 'zucman', source: 'zucman_g20' },

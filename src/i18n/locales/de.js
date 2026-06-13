@@ -124,6 +124,22 @@ export default {
         text: 'Der Grund, warum du dir wohl <span class="hl">nie ein eigenes Haus</span> leisten kannst, ist die wachsende Ungleichheit.',
         link: 'Der Graben zwischen Median und Durchschnitt',
       },
+      krankenkasse: {
+        text: 'Der Grund für die <span class="hl">steigenden Krankenkassenprämien</span> ist die wachsende Ungleichheit.',
+        link: 'Prämien aus der Steuer zahlen',
+      },
+      oev: {
+        text: 'Der Grund für die <span class="hl">überfüllten Züge und Busse</span> ist die wachsende Ungleichheit.',
+        link: 'öV günstiger machen',
+      },
+      strassen: {
+        text: 'Der Grund für die <span class="hl">verstopften Strassen</span> ist die wachsende Ungleichheit.',
+        link: 'Wie das Vermögen verteilt ist',
+      },
+      endeMonat: {
+        text: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
+        link: 'Median gegen Durchschnitt',
+      },
       standort: {
         text: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="hl">Superreichen</span> besteuern.',
         link: 'Was eine Vermögenssteuer bringt',
