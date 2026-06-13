@@ -89,6 +89,7 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
       <h3 class="block-h">{{ $t('zucman.medHeading') }}</h3>
       <div class="card medbox">
         <span class="calc-line">{{ $t('zucman.medLine') }}</span>
+        <div class="medtable-scroll">
         <table class="medtable">
           <thead>
             <tr>
@@ -113,6 +114,7 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
             </tr>
           </tbody>
         </table>
+        </div>
         <span class="days-sub" v-html="$t('zucman.medCaption')" />
       </div>
       <div class="srcrow">
@@ -166,8 +168,9 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
   display: flex; flex-direction: column; gap: 8px;
   border-left: 3px solid var(--accent);
 }
+.medtable-scroll { margin: 14px 0 4px; max-width: 100%; overflow-x: auto; }
 .medtable {
-  width: 100%; border-collapse: collapse; margin: 14px 0 4px;
+  width: 100%; border-collapse: collapse;
   font-variant-numeric: tabular-nums;
 }
 .medtable th, .medtable td { padding: 8px 6px; text-align: right; }
@@ -184,5 +187,14 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
 .medtable tbody td.mt-accent { color: var(--accent); }
 .medtable tbody tr + tr th, .medtable tbody tr + tr td {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 560px) {
+  .medbox { padding: 18px 16px; }
+  .medtable th, .medtable td { padding: 8px 5px; }
+  .medtable thead th { font-size: 0.72rem; }
+  .medtable tbody th { font-size: 0.82rem; }
+  .medtable tbody td { font-size: 1rem; }
+  .medtable tbody td.mt-income { font-size: 0.88rem; }
 }
 </style>
