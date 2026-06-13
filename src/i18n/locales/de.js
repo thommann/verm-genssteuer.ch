@@ -104,6 +104,8 @@ export default {
   hero: {
     eyebrow: 'Darum geht es',
     title: 'Der Grund für deinen <span class="hl">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.',
+    expand: 'Erklärung',
+    explainText: 'Wenn wenige immer mehr besitzen, steigen Mieten, Prämien und Preise schneller als die Löhne. Dein Lebensstandard sinkt, obwohl die Wirtschaft wächst.',
     explain: 'Wie ungleich die Schweiz ist',
   },
 
@@ -111,65 +113,78 @@ export default {
   // Verlauf wie die zugehörige Instagram-Slide). Je ein verlinkbarer Abschnitt (Anker-id)
   // mit Eyebrow, Aussage und internem Link zur Erklärung (Datenseite + Anker).
   claims: {
+    expand: 'Erklärung',
     items: {
       wirtschaft: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">schwächelnde Wirtschaft</span> ist die wachsende Ungleichheit.',
+        explainText: 'Sammelt sich das Vermögen bei wenigen, fehlt der Mehrheit die Kaufkraft, die eine Wirtschaft trägt. Statt in Innovation fliesst das Geld an der Spitze in Immobilien, Gold und Aktien.',
         link: 'Die Zahlen zur Ungleichheit',
       },
       eigenheim: {
         eyebrow: 'Das Problem',
         text: 'Der Grund, warum du dir wohl <span class="hl">nie ein eigenes Haus</span> leisten kannst, ist die wachsende Ungleichheit.',
+        explainText: 'Die Superreichen verdienen mehr, als sie ausgeben können, und stecken den Rest in Sachwerte wie Immobilien. Gegen diese Nachfrage kommt kein normaler Haushalt an.',
         link: 'Der Graben zwischen Median und Durchschnitt',
       },
       krankenkasse: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">steigenden Krankenkassenprämien</span> ist die wachsende Ungleichheit.',
+        explainText: 'Die Prämie ist für alle gleich hoch, egal wie viel jemand verdient oder besitzt. Eine Vermögenssteuer könnte diese Last für alle tragen.',
         link: 'Prämien aus der Steuer zahlen',
       },
       oev: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">überfüllten Züge und Busse</span> ist die wachsende Ungleichheit.',
+        explainText: 'Dem Staat fehlt das Geld, um vernünftig in die Infrastruktur zu investieren, etwa in mehr Züge und Busse. Eine Vermögenssteuer würde diesen Spielraum schaffen.',
         link: 'öV günstiger machen',
       },
       strassen: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">verstopften Strassen</span> ist die wachsende Ungleichheit.',
+        explainText: 'Dem Staat fehlt das Geld, um vernünftig in die Infrastruktur zu investieren, etwa in den Strassenausbau. Eine Vermögenssteuer würde diesen Spielraum schaffen.',
         link: 'Wie das Vermögen verteilt ist',
       },
       endeMonat: {
         eyebrow: 'Das Problem',
         text: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
+        explainText: 'Löhne wachsen langsamer als Mieten, Prämien und Preise. Während oben das Vermögen wächst, schrumpft unten der Spielraum.',
         link: 'Median gegen Durchschnitt',
       },
       standort: {
         eyebrow: 'Was funktioniert',
         text: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="hl">Superreichen</span> besteuern.',
+        explainText: 'Eine moderate Vermögenssteuer schadet dem Standort nicht, sie gehört seit je dazu. Sie bringt spürbare Einnahmen, ohne die breite Mehrheit zu belasten.',
         link: 'Was eine Vermögenssteuer bringt',
       },
       mittelstand: {
         eyebrow: 'Das Problem',
         text: 'Der Mittelstand trägt heute die <span class="hl">grösste Steuerlast</span>.',
+        explainText: 'Der Mittelstand zahlt vor allem Steuern auf den Lohn, während grosse Vermögen kaum belastet sind. Gemessen am Vermögen trägt die Mitte so die grösste Last.',
         link: 'Wer die Steuerlast trägt',
       },
       faireSteuern: {
         eyebrow: 'Die Ungerechtigkeit',
         text: 'Milliardäre zahlen nur <span class="hl">halb so viel</span> Steuern auf ihr Einkommen wie der Mittelstand.',
+        explainText: 'Grosse Vermögen sind so strukturiert, dass kaum steuerbares Einkommen anfällt. Deshalb zahlen Milliardäre gemessen an ihrem Vermögen fast keine Steuern, anteilig weniger als der Mittelstand.',
         link: 'Warum das stimmt',
       },
       mindeststeuer: {
         eyebrow: 'Die Lösung',
         text: 'Eine Mindeststeuer von nur <span class="hl">2&nbsp;%</span> sorgt dafür, dass Superreiche gleich viel zahlen wie der Durchschnitt.',
+        explainText: 'Eine Mindeststeuer von 2&nbsp;% greift nur, wo die heutige Last darunter liegt, und hebt sie auf das Niveau, das der Durchschnitt längst zahlt. Sie zielt nur auf die ganz grossen Vermögen.',
         link: 'Wie die Mindeststeuer wirkt',
       },
       keinWegzug: {
         eyebrow: 'Der Mythos',
         text: 'Wegen einer Mindeststeuer von <span class="hl">2&nbsp;%</span> wandert niemand aus der schönen Schweiz aus.',
+        explainText: 'Grosse Vermögen wachsen jährlich um ein Vielfaches der 2&nbsp;%, die Steuer ist allein aus der Rendite wieder verdient. Standortvorteile wie Sicherheit und Lebensqualität wiegen ohnehin schwerer als diese kleine Mindeststeuer.',
         link: 'Das Wegzug-Argument im Rechner',
       },
       schonFair: {
         eyebrow: 'Fair bleibt fair',
         text: 'Wer heute schon <span class="hl">fair besteuert</span> wird, zahlt mit einer Mindeststeuer keinen Franken mehr.',
+        explainText: 'Wer fair besteuert ist, merkt von der Mindeststeuer nichts. Sie schliesst nur die Lücke bei denen, die heute unter 2&nbsp;% liegen.',
         link: 'So funktioniert die Mindeststeuer',
       },
     },
