@@ -122,6 +122,7 @@ onUnmounted(() => {
         <div class="wrap">
           <div class="menu-top">
             <router-link to="/" @click="closeMenu">{{ $t('nav.items.start') }}</router-link>
+            <router-link :to="{ path: '/', hash: '#aussagen' }" @click="closeMenu">{{ $t('nav.items.aussagen') }}</router-link>
             <router-link :to="{ path: '/', hash: '#themen' }" @click="closeMenu">{{ $t('nav.items.themen') }}</router-link>
           </div>
           <div class="menu-groups">

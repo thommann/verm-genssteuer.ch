@@ -17,6 +17,7 @@
   --teal: #38d6c4;          /* Allgemeinheit / Nutzen */
   --blue: #5b8dff;
   --violet: #a78bfa;
+  --ink: #0b1020;           /* dunkle Schrift auf hellen Flächen (Aussage-Bänder) */
 
   --radius: 16px;
   --radius-sm: 10px;
@@ -132,6 +133,69 @@ button { font-family: inherit; cursor: pointer; }
 .rs-val { font-size: 1.5rem; font-weight: 800; }
 .rs-val.gold { color: var(--gold); }
 .rs-lab { color: var(--text-mute); font-size: 0.78rem; }
+
+/* Aussage-Bänder (Startseite): volle Breite, gleicher Verlauf wie die Instagram-Slides.
+   Die Verlaufsfarben kommen je Band über --g1..--g4 (inline gesetzt). */
+.claim-band {
+  position: relative;
+  color: #fff;
+  padding: clamp(72px, 12vh, 150px) 0;
+  background:
+    radial-gradient(120% 90% at 18% 8%, var(--g1, #ff2d6b), transparent 60%),
+    radial-gradient(120% 90% at 88% 96%, var(--g2, #ff7a33), transparent 62%),
+    linear-gradient(150deg, var(--g3, #d6249f), var(--g4, #ff2d6b));
+}
+/* Leichter Dunkel-Schleier für Textkontrast (nicht auf den hellen, dunkel beschrifteten Bändern). */
+.claim-band:not(.dark)::after {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: rgba(5, 7, 15, 0.12); pointer-events: none;
+}
+.claim-band > .wrap { position: relative; z-index: 1; }
+
+.claim-band .eyebrow { color: rgba(255, 255, 255, 0.92); }
+.claim-band .eyebrow::before { background: #fff; }
+
+.band-text {
+  margin: 14px 0 0;
+  font-size: clamp(2rem, 6vw, 4.1rem);
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+  color: #fff;
+}
+.claim-band .hl {
+  background: linear-gradient(180deg, transparent 58%, rgba(255, 255, 255, 0.92) 58%, rgba(255, 255, 255, 0.92) 92%, transparent 92%);
+  color: var(--ink); padding: 0 0.06em; border-radius: 4px;
+}
+
+/* Dunkle Variante (Gold-Hintergrund): dunkler Text, heller Marker. */
+.claim-band.dark { color: var(--ink); }
+.claim-band.dark .eyebrow { color: var(--ink); }
+.claim-band.dark .eyebrow::before { background: var(--ink); }
+.claim-band.dark .band-text { color: var(--ink); }
+.claim-band.dark .hl {
+  background: linear-gradient(180deg, transparent 58%, rgba(11, 16, 32, 0.9) 58%, rgba(11, 16, 32, 0.9) 92%, transparent 92%);
+  color: #fff;
+}
+
+.band-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 22px; margin-top: clamp(22px, 4vh, 38px); }
+.band-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px; border-radius: 999px; font-weight: 800; font-size: 1rem;
+  color: #fff; background: rgba(11, 16, 32, 0.28); border: 2px solid rgba(255, 255, 255, 0.55);
+  text-decoration: none; transition: transform 0.12s ease, background 0.12s ease;
+}
+.band-link span { transition: transform 0.15s ease; display: inline-block; }
+.band-link:hover { transform: translateY(-1px); background: rgba(11, 16, 32, 0.42); text-decoration: none; }
+.band-link:hover span { transform: translateX(4px); }
+.claim-band.dark .band-link { color: var(--ink); background: rgba(11, 16, 32, 0.12); border-color: rgba(11, 16, 32, 0.5); }
+.claim-band.dark .band-link:hover { background: rgba(11, 16, 32, 0.2); }
+
+.claim-band .source-tag { color: rgba(255, 255, 255, 0.85); }
+.claim-band .source-tag .dot { background: #fff; }
+.claim-band.dark .source-tag { color: rgba(11, 16, 32, 0.7); }
+.claim-band.dark .source-tag .dot { background: var(--ink); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
