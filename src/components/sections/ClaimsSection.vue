@@ -1,8 +1,10 @@
 <script setup>
 // Jede Aussage als volles Band über die ganze Breite, mit demselben Verlauf wie die
-// zugehörige Instagram-Slide. Eigene Anker-id je Aussage, darunter ein interner Link
-// zur Erklärung (Themenseite + Anker). Texte/Beschriftungen liegen in i18n
-// (claims.items.*), Hintergrund, Route und Anker bleiben hier (Struktur).
+// zugehörige Instagram-Slide. Eigene Anker-id je Aussage. Das Band ist aufklappbar:
+// im aufgeklappten Zustand erscheint ein kurzer Erklärungstext und darunter der interne
+// Link zur ausführlichen Erklärung (Themenseite + Anker). Texte/Beschriftungen liegen in
+// i18n (claims.items.*), Hintergrund, Route und Anker bleiben hier (Struktur).
+import { reactive } from 'vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const CLAIMS = [
@@ -21,6 +23,10 @@ const CLAIMS = [
 ];
 
 const vars = (bg) => ({ '--g1': bg[0], '--g2': bg[1], '--g3': bg[2], '--g4': bg[3] });
+
+// Aufklapp-Zustand je Aussage (mehrere gleichzeitig möglich).
+const open = reactive({});
+const toggle = (id) => { open[id] = !open[id]; };
 </script>
 
 <template>
@@ -36,11 +42,28 @@ const vars = (bg) => ({ '--g1': bg[0], '--g2': bg[1], '--g3': bg[2], '--g4': bg[
       <div class="wrap">
         <div class="eyebrow">{{ $t(`claims.items.${c.key}.eyebrow`) }}</div>
         <p class="band-text" v-html="$t(`claims.items.${c.key}.text`)" />
-        <div class="band-foot">
-          <router-link :to="{ path: c.route, hash: `#${c.hash}` }" class="band-link">
-            {{ $t(`claims.items.${c.key}.link`) }} <span aria-hidden="true">→</span>
-          </router-link>
-          <SourceTag v-if="c.source" :id="c.source" />
+        <button
+          type="button"
+          class="band-cue"
+          :aria-expanded="open[c.id] ? 'true' : 'false'"
+          :aria-controls="`expl-${c.id}`"
+          @click="toggle(c.id)"
+        >
+          <span class="band-cue-label">{{ $t('claims.expand') }}</span>
+          <span class="band-cue-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="band-collapse" :class="{ open: open[c.id] }">
+          <div class="band-collapse-inner">
+            <div :id="`expl-${c.id}`" :aria-hidden="open[c.id] ? 'false' : 'true'">
+              <p class="band-expl" v-html="$t(`claims.items.${c.key}.explainText`)" />
+              <div class="band-foot">
+                <router-link :to="{ path: c.route, hash: `#${c.hash}` }" class="band-link">
+                  {{ $t(`claims.items.${c.key}.link`) }} <span aria-hidden="true">→</span>
+                </router-link>
+                <SourceTag v-if="c.source" :id="c.source" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

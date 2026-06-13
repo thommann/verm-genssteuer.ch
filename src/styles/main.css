@@ -208,6 +208,45 @@ button { font-family: inherit; cursor: pointer; }
 .claim-band.dark .source-tag { color: rgba(11, 16, 32, 0.7); }
 .claim-band.dark .source-tag .dot { background: var(--ink); }
 
+/* Aufklappbare Aussage-Bänder: ein Button blendet Erklärungstext und Erklär-Link ein. */
+.band-cue {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-top: clamp(20px, 3.5vh, 34px);
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font: inherit; font-weight: 800; font-size: 1rem; letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.94);
+}
+.claim-band.dark .band-cue { color: var(--ink); }
+.band-cue-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 999px; line-height: 1;
+  font-size: 1.35rem; font-weight: 700;
+  border: 2px solid rgba(255, 255, 255, 0.55); background: rgba(11, 16, 32, 0.28);
+  transition: transform 0.22s ease, background 0.12s ease;
+}
+.claim-band.dark .band-cue-icon { border-color: rgba(11, 16, 32, 0.5); background: rgba(11, 16, 32, 0.12); }
+.band-cue:hover .band-cue-label { text-decoration: underline; text-underline-offset: 4px; }
+.band-cue:hover .band-cue-icon { background: rgba(11, 16, 32, 0.42); }
+.claim-band.dark .band-cue:hover .band-cue-icon { background: rgba(11, 16, 32, 0.2); }
+.band-cue[aria-expanded="true"] .band-cue-icon { transform: rotate(45deg); }
+
+/* Sanftes Auf- und Zuklappen über die grid-template-rows-Technik (0fr -> 1fr). */
+.band-collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+.band-collapse.open { grid-template-rows: 1fr; }
+.band-collapse > .band-collapse-inner { overflow: hidden; min-height: 0; }
+.band-expl {
+  margin: clamp(20px, 3.5vh, 34px) 0 0;
+  font-size: clamp(1.1rem, 2.4vw, 1.55rem);
+  font-weight: 600; line-height: 1.45; max-width: 44ch;
+  color: rgba(255, 255, 255, 0.97);
+}
+.claim-band.dark .band-expl { color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .band-collapse { transition: none; }
+  .band-cue-icon { transition: none; }
+}
+
 /* Kapitel-Köpfe als Aussage-Band: jede Themenseite öffnet im selben Look wie die
    Kernaussagen, je Thema mit eigenem Signatur-Verlauf (tone-*). */
 .chapter-band { padding: clamp(60px, 10vh, 116px) 0 clamp(46px, 7vh, 86px); }

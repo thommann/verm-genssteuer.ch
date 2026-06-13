@@ -104,6 +104,8 @@ export default {
   hero: {
     eyebrow: 'Darum geht es',
     title: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
+    expand: 'Erklärung',
+    explainText: 'Löhne wachsen langsamer als Mieten, Prämien und Preise, deshalb bleibt weniger übrig. Eine Vermögenssteuer könnte über tiefere Prämien oder Steuern direkt dein Monatsbudget entlasten.',
     explain: 'Wie ungleich die Schweiz ist',
   },
 
@@ -111,65 +113,78 @@ export default {
   // Verlauf wie die zugehörige Instagram-Slide). Je ein verlinkbarer Abschnitt (Anker-id)
   // mit Eyebrow, Aussage und internem Link zur Erklärung (Datenseite + Anker).
   claims: {
+    expand: 'Erklärung',
     items: {
       lebensstandard: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für deinen <span class="hl">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.',
+        explainText: 'Eine Vermögenssteuer auf die grössten Vermögen bringt Milliarden im Jahr. Damit könnten Prämien und Steuern sinken oder der öV günstiger werden, also konkret mehr Geld am Ende deines Monats.',
         link: 'Wie ungleich die Schweiz ist',
       },
       wirtschaft: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">schwächelnde Wirtschaft</span> ist die wachsende Ungleichheit.',
+        explainText: 'Sammelt sich das Vermögen bei wenigen, fehlt der Mehrheit die Kaufkraft, und an der Spitze fliesst das Geld in Immobilien, Gold und Aktien statt in Firmen und Innovation. Eine Vermögenssteuer lenkt einen Teil zurück in den Kreislauf.',
         link: 'Die Zahlen zur Ungleichheit',
       },
       eigenheim: {
         eyebrow: 'Das Problem',
         text: 'Der Grund, warum du dir wohl <span class="hl">nie ein eigenes Haus</span> leisten kannst, ist die wachsende Ungleichheit.',
+        explainText: 'Die Superreichen verdienen mehr, als sie ausgeben können, und stecken den Rest in Sachwerte wie Immobilien. Das treibt die Preise, und gegen diese Nachfrage kommt kein normaler Haushalt an.',
         link: 'Der Graben zwischen Median und Durchschnitt',
       },
       krankenkasse: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">steigenden Krankenkassenprämien</span> ist die wachsende Ungleichheit.',
+        explainText: 'Mit den Einnahmen einer Vermögenssteuer liessen sich die selbst getragenen Grundversicherungsprämien der ganzen Schweiz übernehmen. Für dich heisst das spürbar weniger oder gar keine Prämie pro Monat.',
         link: 'Prämien aus der Steuer zahlen',
       },
       oev: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">überfüllten Züge und Busse</span> ist die wachsende Ungleichheit.',
+        explainText: 'Dem Staat fehlt das Geld, um vernünftig in den öV zu investieren. Eine Vermögenssteuer schafft den Spielraum für mehr Züge und Busse und für günstigere Billette, im Extremfall gratis.',
         link: 'öV günstiger machen',
       },
       strassen: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">verstopften Strassen</span> ist die wachsende Ungleichheit.',
+        explainText: 'Dem Staat fehlt das Geld, um vernünftig in die Infrastruktur zu investieren, während sich an der Spitze Vermögen staut. Eine Vermögenssteuer schafft den Spielraum für Strassen, Unterhalt und Ausbau.',
         link: 'Wie das Vermögen verteilt ist',
       },
       standort: {
         eyebrow: 'Was funktioniert',
         text: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="hl">Superreichen</span> besteuern.',
+        explainText: 'Eine moderate Vermögenssteuer schadet dem Standort nicht, sie gehört seit je dazu. Sie bringt spürbare Einnahmen, die in tiefere Prämien, günstigeren öV oder tiefere Steuern für alle fliessen können.',
         link: 'Was eine Vermögenssteuer bringt',
       },
       mittelstand: {
         eyebrow: 'Das Problem',
         text: 'Der Mittelstand trägt heute die <span class="hl">grösste Steuerlast</span>.',
+        explainText: 'Der Mittelstand zahlt vor allem Steuern auf den Lohn, während grosse Vermögen kaum belastet sind. Holt man dort, wo heute am wenigsten anfällt, könnte deine Steuerlast sinken statt steigen.',
         link: 'Wer die Steuerlast trägt',
       },
       faireSteuern: {
         eyebrow: 'Die Ungerechtigkeit',
         text: 'Milliardäre zahlen nur <span class="hl">halb so viel</span> Steuern auf ihr Einkommen wie der Mittelstand.',
+        explainText: 'Grosse Vermögen sind so strukturiert, dass kaum steuerbares Einkommen anfällt, deshalb zahlen Milliardäre wenig. Das fehlende Geld bringst am Ende du über Lohnsteuer und Prämien auf.',
         link: 'Warum das stimmt',
       },
       mindeststeuer: {
         eyebrow: 'Die Lösung',
         text: 'Eine Mindeststeuer von nur <span class="hl">2&nbsp;%</span> sorgt dafür, dass Superreiche gleich viel zahlen wie der Durchschnitt.',
+        explainText: 'Eine Mindeststeuer von 2&nbsp;% greift nur bei den ganz grossen Vermögen und bringt der Schweiz Milliarden im Jahr. Genug, um Prämien zu senken, den öV zu verbilligen oder Steuern zu reduzieren.',
         link: 'Wie die Mindeststeuer wirkt',
       },
       keinWegzug: {
         eyebrow: 'Der Mythos',
         text: 'Wegen einer Mindeststeuer von <span class="hl">2&nbsp;%</span> wandert niemand aus der schönen Schweiz aus.',
+        explainText: 'Grosse Vermögen wachsen jährlich um ein Vielfaches der 2&nbsp;%, die Steuer ist allein aus der Rendite wieder verdient. Das Geld bleibt also hier und steht der Schweiz für Prämien, öV oder tiefere Steuern zur Verfügung.',
         link: 'Das Wegzug-Argument im Rechner',
       },
       schonFair: {
         eyebrow: 'Fair bleibt fair',
         text: 'Wer heute schon <span class="hl">fair besteuert</span> wird, zahlt mit einer Mindeststeuer keinen Franken mehr.',
+        explainText: 'Die Mindeststeuer ist ein Boden, kein Zuschlag: Wer heute schon auf 2&nbsp;% kommt, zahlt keinen Franken mehr. Sie trifft nur die wenigen ganz oben, nicht dich.',
         link: 'So funktioniert die Mindeststeuer',
       },
     },
