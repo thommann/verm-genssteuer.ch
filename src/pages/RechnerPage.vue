@@ -14,36 +14,38 @@ const { activeId } = useScrollSpy(['rechner', 'wegzug', 'dynamik', 'verwendung']
        Alle drei Abschnitte teilen denselben reaktiven Datensatz (useCalculator) und werden
        durch Rahmen, Akzentlinie und Schritt-Navigation als ein Block markiert. -->
   <div id="thema-rechner" class="calc-suite">
-    <div class="wrap calc-suite-head">
-      <div class="chapter-head-top">
-        <span class="chapter-num">{{ $t('chapters.rechnerNum') }}</span>
-        <span class="chapter-kicker">{{ $t('chapters.rechnerKicker') }}</span>
+    <header class="claim-band chapter-band tone-accent">
+      <div class="wrap calc-suite-head">
+        <div class="chapter-head-top">
+          <span class="chapter-num">{{ $t('chapters.rechnerNum') }}</span>
+          <span class="eyebrow chapter-kicker">{{ $t('chapters.rechnerKicker') }}</span>
+        </div>
+        <h2 class="band-text" v-html="$t('chapters.rechnerTitle')" />
+        <p class="chapter-band-lead" v-html="$t('chapters.rechnerLead')" />
+        <ol class="cs-steps">
+          <li>
+            <a href="#rechner" :class="{ active: activeId === 'rechner' }">
+              <span class="cs-num">1</span>{{ $t('calcSuite.step1') }}
+            </a>
+          </li>
+          <li>
+            <a href="#wegzug" :class="{ active: activeId === 'wegzug' }">
+              <span class="cs-num">2</span>{{ $t('calcSuite.step2') }}
+            </a>
+          </li>
+          <li>
+            <a href="#dynamik" :class="{ active: activeId === 'dynamik' }">
+              <span class="cs-num">3</span>{{ $t('calcSuite.step3') }}
+            </a>
+          </li>
+          <li>
+            <a href="#verwendung" :class="{ active: activeId === 'verwendung' }">
+              <span class="cs-num">4</span>{{ $t('calcSuite.step4') }}
+            </a>
+          </li>
+        </ol>
       </div>
-      <h2 class="chapter-title" v-html="$t('chapters.rechnerTitle')" />
-      <p class="chapter-lead lead" v-html="$t('chapters.rechnerLead')" />
-      <ol class="cs-steps">
-        <li>
-          <a href="#rechner" :class="{ active: activeId === 'rechner' }">
-            <span class="cs-num">1</span>{{ $t('calcSuite.step1') }}
-          </a>
-        </li>
-        <li>
-          <a href="#wegzug" :class="{ active: activeId === 'wegzug' }">
-            <span class="cs-num">2</span>{{ $t('calcSuite.step2') }}
-          </a>
-        </li>
-        <li>
-          <a href="#dynamik" :class="{ active: activeId === 'dynamik' }">
-            <span class="cs-num">3</span>{{ $t('calcSuite.step3') }}
-          </a>
-        </li>
-        <li>
-          <a href="#verwendung" :class="{ active: activeId === 'verwendung' }">
-            <span class="cs-num">4</span>{{ $t('calcSuite.step4') }}
-          </a>
-        </li>
-      </ol>
-    </div>
+    </header>
     <CalculatorSection />
     <WegzugSection />
     <ProjectionSection />
@@ -72,11 +74,18 @@ const { activeId } = useScrollSpy(['rechner', 'wegzug', 'dynamik', 'verwendung']
 .calc-suite > section { padding-top: clamp(40px, 5vw, 72px); padding-bottom: clamp(40px, 5vw, 72px); }
 .calc-suite > section:first-of-type { padding-top: clamp(20px, 3vw, 36px); }
 
-.calc-suite-head { padding-top: clamp(40px, 6vw, 80px); }
 .cs-steps {
-  list-style: none; margin: 22px 0 0; padding: 0;
+  list-style: none; margin: 24px 0 0; padding: 0;
   display: flex; flex-wrap: wrap; gap: 10px;
 }
+/* Stepper im hellen Kapitel-Band: helle Pillen mit dunklem Schleier, wie die Band-Links. */
+.chapter-band .cs-steps a {
+  color: #fff; background: rgba(11, 16, 32, 0.24); border-color: rgba(255, 255, 255, 0.45);
+}
+.chapter-band .cs-steps a:hover,
+.chapter-band .cs-steps a.active { color: #fff; background: rgba(11, 16, 32, 0.4); border-color: #fff; }
+.chapter-band .cs-num { background: rgba(255, 255, 255, 0.92); color: var(--ink); }
+.chapter-band .cs-steps li:not(:last-child)::after { color: rgba(255, 255, 255, 0.72); }
 .cs-steps a {
   display: inline-flex; align-items: center; gap: 9px;
   padding: 8px 15px 8px 8px; border-radius: 999px;

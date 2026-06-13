@@ -36,7 +36,7 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
   <section id="verteilung" class="section-alt">
     <div class="wrap">
       <div class="eyebrow">{{ $t('distribution.eyebrow') }}</div>
-      <h2>{{ $t('distribution.title') }}</h2>
+      <h2 v-html="$t('distribution.title')" />
       <p class="lead dist-lead" v-html="$t('distribution.lead', { share: pct(k.share_ge5M, 0), median: chf(k.median) })" />
       <p class="dist-lead-src"><SourceTag id="estv_vermoegen" :note="$t('distribution.leadSourceNote')" /></p>
       <div class="card chart-card">

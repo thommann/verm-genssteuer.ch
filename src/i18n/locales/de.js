@@ -48,7 +48,7 @@ export default {
   // Themen-Hub auf der Startseite (TopicsSection): erklärt die drei Themen kurz und verlinkt sie.
   topics: {
     eyebrow: 'Worum es geht',
-    title: 'Drei Themen, eine Seite',
+    title: 'Drei <span class="hl">Themen</span>, eine Seite',
     lead: 'Alles ist in drei Themen gegliedert. Spring direkt zu dem, was dich interessiert.',
     contains: 'Enthält',
     card1Num: '1',
@@ -72,15 +72,15 @@ export default {
   chapters: {
     verteilungNum: '01',
     verteilungKicker: 'Thema 1 · Die Verteilung',
-    verteilungTitle: 'Wie ungleich ist die Schweiz?',
+    verteilungTitle: 'Wie <span class="hl">ungleich</span> ist die Schweiz?',
     verteilungLead: 'Vier Blickwinkel auf dieselbe Konzentration: die ESTV-Steuerdaten, der internationale Trend, die UBS-Studie und die Pauschalbesteuerten, die in keiner Vermögensstatistik auftauchen.',
     rechnerNum: '02',
     rechnerKicker: 'Thema 2 · Der Rechner',
-    rechnerTitle: 'Was würde eine Vermögenssteuer bringen?',
+    rechnerTitle: 'Was würde eine <span class="hl">Vermögenssteuer</span> bringen?',
     rechnerLead: 'Stell ein Steuermodell auf das oberste Prozent ein und sieh in Echtzeit, was es einbringt, was davon dauerhaft tragbar ist und wofür das Geld reichen würde.',
     modelleNum: '03',
     modelleKicker: 'Thema 3 · Die Vorbilder',
-    modelleTitle: 'Welche Modelle schlägt die Forschung vor?',
+    modelleTitle: 'Welche Modelle schlägt die <span class="hl">Forschung</span> vor?',
     modelleLead: 'Woher die Modelle stammen: die progressive Staffel des World Inequality Report und die 2-Prozent-Mindeststeuer von Gabriel Zucman.',
   },
 
@@ -96,7 +96,7 @@ export default {
   // WegzugSection
   wegzug: {
     eyebrow: 'Das Wegzug-Argument',
-    title: 'Was kostet der Wegzug?',
+    title: 'Was kostet der <span class="hl">Wegzug</span>?',
     lead: 'Gegner einer Vermögenssteuer warnen, die Reichen ziehen weg. Simuliere hier, was das konkret bedeutet: wie viele Personen betroffen wären und was nach dem Steuerausfall netto für den Fiskus übrig bliebe.',
   },
 
@@ -178,7 +178,7 @@ export default {
   // DistributionSection
   distribution: {
     eyebrow: 'Die Verteilung',
-    title: 'Wenige besitzen fast alles',
+    title: 'Wenige besitzen <span class="hl gold">fast alles</span>',
     lead: 'Das reichste 1&nbsp;% besitzt <span class="hl gold">{share}</span> des steuerbaren Vermögens; das mittlere (Median-)Vermögen liegt bei nur <strong>{median}</strong>.',
     leadSourceNote: 'unbeschränkt Steuerpflichtige, 2022',
     legendPeople: 'Anteil an den Menschen',
@@ -195,7 +195,7 @@ export default {
   // CalculatorSection
   calculator: {
     eyebrow: 'Der Rechner',
-    title: 'Bau deine Vermögenssteuer',
+    title: 'Bau <span class="hl">deine</span> Vermögenssteuer',
     lead: 'Verschiebe die Regler und sieh sofort, wie viel eine progressive Vermögenssteuer auf das oberste Prozent einbringen würde. Das Modell rechnet auf den echten ESTV-Vermögensdaten.',
     presetNoteWir2022: 'Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), <strong>ab 1&nbsp;Mio.</strong> wie im Original, inklusive der rund 324\'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der 5-Mio-Freibetrag der eigenen Modelle).',
     presetNoteWir2022Source: 'Progressive Vermögenssteuer, Tabelle 7.2',
@@ -256,7 +256,7 @@ export default {
   // SpendSection
   spend: {
     eyebrow: 'Was tun mit dem Geld?',
-    title: '{revenue} pro Jahr: wofür?',
+    title: '{revenue} pro Jahr: <span class="hl">wofür?</span>',
     lead: 'Dieselben Einnahmen, fünf mögliche Verwendungen. Stell oben am Rechner ein Steuermodell ein und sieh hier in Echtzeit, was damit für alle möglich wäre.',
     toggleDauerhaft: 'Dauerhaft tragbar',
     toggleJahr1: 'Erstes Jahr ({year})',
@@ -303,7 +303,7 @@ export default {
   // ProjectionSection
   projection: {
     eyebrow: 'Ehrlich gerechnet',
-    title: 'Einmaliger Schock oder dauerhafte Quelle?',
+    title: 'Einmaliger Schock oder <span class="hl">dauerhafte Quelle</span>?',
     lead: 'Vermögen wächst (Rendite), die Steuer bremst. Diese mechanische Hochrechnung zeigt beide Fälle: <strong>steile</strong> Modelle besteuern die Spitze im ersten Jahr stark und pendeln sich danach auf ein tieferes, dauerhaft tragbares Niveau ein; <strong>milde</strong> Modelle bremsen kaum, dann wächst die Bemessungsgrundlage weiter und das Aufkommen steigt mit.',
     seriesName: 'Aufkommen',
     yLabel: 'Mrd. CHF / Jahr',
@@ -322,7 +322,7 @@ export default {
   // InternationalSection
   international: {
     eyebrow: 'Im internationalen Vergleich',
-    title: 'Die Konzentration steigt, auch in der Schweiz',
+    title: 'Die <span class="hl gold">Konzentration</span> steigt, auch in der Schweiz',
     lead: 'Anteil am gesamten Netto-Privatvermögen, 1995–2024. In der Schweiz hält das reichste Prozent heute spürbar mehr als noch in den 1990ern, ein weltweiter Trend.',
     metrics: {
       top1Label: 'Top 1 %',
@@ -344,7 +344,7 @@ export default {
   // WirSection
   wir: {
     eyebrow: 'World Inequality Report',
-    title: 'Woher die Steuermodelle stammen: WIR&nbsp;2022 &amp; 2026',
+    title: 'Woher die Steuermodelle stammen: <span class="hl violet">WIR&nbsp;2022 &amp; 2026</span>',
     lead: 'Das <strong>World Inequality Lab</strong> (u.&nbsp;a. Thomas Piketty, Lucas Chancel, Gabriel Zucman) führt die umfassendste Datenbank zur globalen Vermögens- und Einkommensverteilung. Zwei Ausgaben seines Flaggschiff-Reports schlagen <strong>zwei unterschiedliche Steuer-Designs</strong> vor: 2022 eine progressive Vermögenssteuer, 2026 eine flache Mindeststeuer. Die progressive Staffel von 2022 liegt als Preset im Rechner; das Mindeststeuer-Design von 2026 steht im Abschnitt «Zucman-Steuer».',
     card2022Badge: '2022',
     card2022Title: 'Progressive Staffel',
@@ -371,7 +371,7 @@ export default {
   // ZucmanSection
   zucman: {
     eyebrow: 'Zucmans Mindeststeuer',
-    title: 'Eine 2&nbsp;%-Mindeststeuer auf das Vermögen',
+    title: 'Eine <span class="hl violet">2&nbsp;%-Mindeststeuer</span> auf das Vermögen',
     lead: 'Drei Fragen: Was schlägt Gabriel Zucman vor? Was zahlen die Superreichen heute? Was bringt die Mindeststeuer der Schweiz?',
 
     wantHeading: 'Was Zucman vorschlägt',
@@ -415,7 +415,7 @@ export default {
   // UbsStudySection
   ubs: {
     eyebrow: 'Die UBS/CS-Studie',
-    title: 'Was der UBS&nbsp;Global&nbsp;Wealth&nbsp;Report über die Schweiz sagt',
+    title: 'Was der <span class="hl gold">UBS</span>&nbsp;Global&nbsp;Wealth&nbsp;Report über die Schweiz sagt',
     lead: 'Der <strong>Global Wealth Report</strong> ist die wohl bekannteste weltweite Vermögensstudie. Jahrzehntelang erschien sie unter dem Namen <strong>Credit Suisse</strong>. Seit der Übernahme 2023 trägt sie das Logo der <strong>UBS</strong>. Ausgerechnet die Bank, die den grössten Bankenkollaps der jüngeren Schweizer Geschichte aufgefangen hat, vermisst nun die Vermögen der Welt.',
     giniCardLabel: 'Vermögens-Gini der Schweiz<br />(0 = gleich, 1 = einer hat alles)',
     rankCardValue: 'Platz&nbsp;{rank}',
@@ -444,7 +444,7 @@ export default {
   // PauschalSection
   pauschal: {
     eyebrow: 'Der blinde Fleck',
-    title: 'Die {count} ohne Vermögensstatistik',
+    title: 'Die {count} ohne <span class="hl gold">Vermögensstatistik</span>',
     lead: 'Aufwandbesteuerte («Pauschalbesteuerte») werden nach ihren Lebenshaltungskosten veranlagt, ihr tatsächliches Vermögen wird gar nie erhoben. Sie fehlen deshalb in der ESTV-Vermögensstatistik, obwohl viele zu den Vermögendsten des Landes zählen. Im Rechner sind sie modellhaft im Tail über 10&nbsp;Mio. mitgedacht.',
     cardCountLabel: 'Personen mit Aufwandbesteuerung (2018)',
     cardRevenueLabel: 'Gesamter Steuerertrag (Bund + Kanton + Gemeinde)',
@@ -456,7 +456,7 @@ export default {
   // SourcesSection
   sources: {
     eyebrow: 'Transparenz',
-    title: 'Quellen &amp; Methodik',
+    title: 'Quellen &amp; <span class="hl teal">Methodik</span>',
     lead: 'Alle Kernzahlen stammen aus offiziellen, öffentlich zugänglichen Statistiken. Die Berechnungen sind nachvollziehbar und reproduzieren die zugrunde liegenden Workbooks exakt. Nichts ist erfunden, die Schlussfolgerung ist politisch, die Daten nicht.',
     methodTitle: 'Methodische Ehrlichkeit',
     methodLi1: '<strong>Steuerbares Vermögen ≠ Marktvermögen.</strong> Die ESTV-Daten enthalten keine 2./3. Säule und bewerten Liegenschaften zum Steuerwert, das reale Vermögen der Spitze ist eher noch höher.',

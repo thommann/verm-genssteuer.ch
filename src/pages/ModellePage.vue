@@ -7,6 +7,7 @@ import ZucmanSection from '@/components/sections/ZucmanSection.vue';
 <template>
   <ChapterHeader
     id="thema-modelle"
+    tone="violet"
     :num="$t('chapters.modelleNum')"
     :kicker="$t('chapters.modelleKicker')"
     :title="$t('chapters.modelleTitle')"

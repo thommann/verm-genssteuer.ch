@@ -134,6 +134,17 @@ button { font-family: inherit; cursor: pointer; }
 .rs-val.gold { color: var(--gold); }
 .rs-lab { color: var(--text-mute); font-size: 0.78rem; }
 
+/* Highlighter-Marker der Kernaussagen, auch ausserhalb der Bänder nutzbar (dunkle Sektionen).
+   Auf den hellen Aussage-Bändern überschreibt .claim-band .hl diesen Stil (weisser Streifen).
+   Der Streifen liegt im unteren Drittel der Zeile, die Schrift bleibt in der Sektionsfarbe. */
+.hl {
+  background: linear-gradient(180deg, transparent 58%, rgba(255, 84, 112, 0.85) 58%, rgba(255, 84, 112, 0.85) 92%, transparent 92%);
+  padding: 0 0.06em; border-radius: 4px;
+}
+.hl.gold { background: linear-gradient(180deg, transparent 58%, rgba(255, 206, 92, 0.9) 58%, rgba(255, 206, 92, 0.9) 92%, transparent 92%); }
+.hl.teal { background: linear-gradient(180deg, transparent 58%, rgba(56, 214, 196, 0.85) 58%, rgba(56, 214, 196, 0.85) 92%, transparent 92%); }
+.hl.violet { background: linear-gradient(180deg, transparent 58%, rgba(167, 139, 250, 0.85) 58%, rgba(167, 139, 250, 0.85) 92%, transparent 92%); }
+
 /* Aussage-Bänder (Startseite): volle Breite, gleicher Verlauf wie die Instagram-Slides.
    Die Verlaufsfarben kommen je Band über --g1..--g4 (inline gesetzt). */
 .claim-band {
@@ -196,6 +207,32 @@ button { font-family: inherit; cursor: pointer; }
 .claim-band .source-tag .dot { background: #fff; }
 .claim-band.dark .source-tag { color: rgba(11, 16, 32, 0.7); }
 .claim-band.dark .source-tag .dot { background: var(--ink); }
+
+/* Kapitel-Köpfe als Aussage-Band: jede Themenseite öffnet im selben Look wie die
+   Kernaussagen, je Thema mit eigenem Signatur-Verlauf (tone-*). */
+.chapter-band { padding: clamp(60px, 10vh, 116px) 0 clamp(46px, 7vh, 86px); }
+.chapter-band.tone-gold { --g1: #ffce5c; --g2: #ff7a33; --g3: #ffb13c; --g4: #ff7a33; }
+.chapter-band.tone-accent { --g1: #ff7a33; --g2: #ff2d6b; --g3: #ff7a33; --g4: #d6249f; }
+.chapter-band.tone-violet { --g1: #a78bfa; --g2: #ff2d6b; --g3: #7c3aed; --g4: #d6249f; }
+
+.chapter-band .chapter-head-top { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
+.chapter-band .eyebrow { margin-bottom: 0; }
+.chapter-band .chapter-num {
+  color: #fff; background: rgba(11, 16, 32, 0.26);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+.chapter-band.dark .chapter-num { color: var(--ink); background: rgba(11, 16, 32, 0.12); border-color: rgba(11, 16, 32, 0.4); }
+.chapter-band .band-text { font-size: clamp(1.9rem, 5vw, 3.4rem); max-width: 22ch; }
+.chapter-band-lead {
+  margin: 18px 0 0; max-width: 60ch;
+  font-size: clamp(1.04rem, 2.1vw, 1.3rem); font-weight: 600; line-height: 1.5;
+  color: rgba(255, 255, 255, 0.96);
+}
+.chapter-band.dark .chapter-band-lead { color: rgba(11, 16, 32, 0.84); }
+.chapter-band.dark .chapter-band-lead :deep(strong),
+.chapter-band.dark .chapter-band-lead strong { color: var(--ink); }
+/* Erster Abschnitt direkt nach einem Kapitel-Band rückt enger an das Band heran. */
+.chapter-band + section { padding-top: clamp(22px, 4vw, 44px); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
