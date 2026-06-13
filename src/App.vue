@@ -163,6 +163,18 @@ onUnmounted(() => {
   <main id="top" :class="themeClass">
     <router-view />
   </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer-inner">
+      <p class="site-footer-tag">{{ $t('siteFooter.tagline') }}</p>
+      <nav class="site-footer-links" :aria-label="$t('siteFooter.impressum')">
+        <router-link to="/">{{ $t('siteFooter.start') }}</router-link>
+        <router-link to="/quellen">{{ $t('siteFooter.quellen') }}</router-link>
+        <router-link to="/impressum">{{ $t('siteFooter.impressum') }}</router-link>
+        <router-link to="/datenschutz">{{ $t('siteFooter.datenschutz') }}</router-link>
+      </nav>
+    </div>
+  </footer>
 </template>
 
 <style scoped>
@@ -319,4 +331,23 @@ onUnmounted(() => {
 @media (max-width: 460px) {
   .nav-cta { display: none; }
 }
+
+/* Globale Fusszeile mit den rechtlichen Seiten. Erscheint auf jeder Route. */
+.site-footer {
+  margin-top: 64px;
+  border-top: 1px solid var(--border);
+  background: rgba(5, 7, 15, 0.4);
+}
+.site-footer-inner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 14px 24px; padding-top: 26px; padding-bottom: 26px;
+}
+.site-footer-tag { margin: 0; max-width: 52ch; font-size: 0.84rem; color: var(--text-mute); }
+.site-footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.site-footer-links a {
+  font-size: 0.84rem; font-weight: 700; color: var(--text-soft); text-decoration: none;
+  transition: color 0.15s ease;
+}
+.site-footer-links a:hover { color: var(--accent-soft); }
+.site-footer-links a.router-link-exact-active { color: var(--accent); }
 </style>
