@@ -162,7 +162,7 @@ export default {
       mindeststeuer: {
         eyebrow: 'Die Lösung',
         text: 'Eine Mindeststeuer von nur <span class="hl">2&nbsp;%</span> sorgt dafür, dass Superreiche gleich viel zahlen wie der Durchschnitt.',
-        explainText: 'Eine Mindeststeuer von 2&nbsp;% greift nur bei den ganz grossen Vermögen und bringt der Schweiz Milliarden im Jahr. Genug, um Prämien zu senken, den öV zu verbilligen oder Steuern zu reduzieren.',
+        explainText: 'Die Mindeststeuer von 2&nbsp;% gilt nur für Superreiche und sorgt nur dafür, dass sie gleich viele Steuern bezahlen wie du. Obwohl sie dadurch nicht mehr bezahlen müssen als du, bringt es der Schweiz Mehreinnahmen in Milliardenhöhe, um Prämien zu senken, in Infrastruktur und Schulen zu investieren oder deine Steuern zu senken.',
         link: 'Wie die Mindeststeuer wirkt',
       },
       keinWegzug: {
