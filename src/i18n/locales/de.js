@@ -144,7 +144,7 @@ export default {
       standort: {
         eyebrow: 'Was funktioniert',
         text: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="hl">Superreichen</span> besteuern.',
-        explainText: 'Eine moderate Vermögenssteuer schadet dem Standort nicht, sie gehört seit je dazu. Sie bringt spürbare Einnahmen, die in tiefere Prämien, günstigeren öV oder tiefere Steuern für alle fliessen können.',
+        explainText: 'Durch unsere bestehende Vermögenssteuer haben wir bereits ein Instrument, um auch Superreiche zu besteuern und das Geld in Bildung, Infrastruktur, Naturschutz und Sicherheit zu investieren. Genau diese Investitionen locken weitere wohlhabende Personen in unser schönes Land, die alle trotz Vermögenssteuer gerne kommen.',
         link: 'Was eine Vermögenssteuer bringt',
       },
       mittelstand: {
