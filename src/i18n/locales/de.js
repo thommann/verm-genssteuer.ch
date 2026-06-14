@@ -96,7 +96,7 @@ export default {
       lebensstandard: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für deinen <span class="hl">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.',
-        explainText: 'Eine Vermögenssteuer auf die grössten Vermögen bringt Milliarden im Jahr. Damit könnten Prämien und Steuern sinken oder der öV günstiger werden, also konkret mehr Geld am Ende deines Monats.',
+        explainText: 'Die Vermögen der Superreichen wachsen schneller an, als sie ausgegeben werden können. Ihnen bleibt nichts anderes übrig, als immer grössere Summen in Immobilien und Aktien zu investieren. Somit kaufen sie nach und nach das ganze Land und für dich bleibt nichts mehr übrig.',
         link: 'Wie ungleich die Schweiz ist',
       },
       wirtschaft: {
