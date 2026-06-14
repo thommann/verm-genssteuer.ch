@@ -385,7 +385,7 @@ export default {
   ubs: {
     eyebrow: 'Die UBS/CS-Studie',
     title: 'Was der UBS&nbsp;Global&nbsp;Wealth&nbsp;Report über die Schweiz sagt',
-    lead: 'Der <strong>Global Wealth Report</strong> ist die wohl bekannteste weltweite Vermögensstudie. Jahrzehntelang erschien sie unter dem Namen <strong>Credit Suisse</strong>. Seit der Übernahme 2023 trägt sie das Logo der <strong>UBS</strong>. Ausgerechnet die Bank, die den grössten Bankenkollaps der jüngeren Schweizer Geschichte aufgefangen hat, vermisst nun die Vermögen der Welt.',
+    lead: 'Der <strong>Global Wealth Report</strong> ist die wohl bekannteste weltweite Vermögensstudie. Jahrzehntelang erschien sie unter dem Namen <strong>Credit Suisse</strong>. Seit der Übernahme 2023 trägt sie das Logo der <strong>UBS</strong>.',
     giniCardLabel: 'Vermögens-Gini der Schweiz<br />(0 = gleich, 1 = einer hat alles)',
     rankCardValue: 'Platz&nbsp;{rank}',
     rankCardLabel: 'von {total} verglichenen Ländern, die Schweiz liegt im oberen Mittelfeld',
