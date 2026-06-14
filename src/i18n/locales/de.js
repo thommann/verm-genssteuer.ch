@@ -132,7 +132,7 @@ export default {
       bildung: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">sinkende Bildungsqualität</span> ist die wachsende Ungleichheit.',
-        explainText: 'Dem Staat fehlt das Geld, um in kleinere Klassen, gut bezahlte Lehrkräfte und gute Schulen zu investieren. Gleichzeitig zieht sich die Spitze in Privatschulen zurück, so entstehen Parallelgesellschaften statt gleicher Chancen für alle Kinder.',
+        explainText: 'Dem Staat fehlt das Geld, um in kleinere Klassen, gut bezahlte Lehrkräfte und gute Schulen zu investieren. Du bezahlst bereits hohe Steuern auf deinem Lohn, doch da der Staat die Superreichen nicht besteuern kann, muss er dich noch weiter ausquetschen oder unsere Schulen verlottern lassen.',
         link: 'Wie ungleich die Schweiz ist',
       },
       erfolgsmodell: {
