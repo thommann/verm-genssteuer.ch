@@ -102,7 +102,7 @@ export default {
       wirtschaft: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">schwächelnde Wirtschaft</span> ist die wachsende Ungleichheit.',
-        explainText: 'Sammelt sich das Vermögen bei wenigen, fehlt der Mehrheit die Kaufkraft, und an der Spitze fliesst das Geld in Immobilien, Gold und Aktien statt in Firmen und Innovation. Eine Vermögenssteuer lenkt einen Teil zurück in den Kreislauf.',
+        explainText: 'Weil sich das Vermögen bei den Superreichen sammelt, fehlt es bei dir und somit auch in der Wirtschaft. Deine Kaufkraft sinkt, du kannst dir immer weniger leisten und die Wirtschaft kommt immer mehr ins Stocken.',
         link: 'Die Zahlen zur Ungleichheit',
       },
       eigenheim: {
