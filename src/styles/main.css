@@ -30,6 +30,10 @@
 * { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
+/* Sicherheitsnetz: die Seite scrollt nie horizontal. «clip» (statt «hidden») erzeugt
+   keinen Scroll-Container und lässt damit die sticky-Navigation intakt. Inhalte, die
+   überlaufen könnten (lange Wörter, Tabellen), werden zusätzlich an der Quelle entschärft. */
+html { overflow-x: clip; }
 
 body {
   margin: 0;
@@ -110,24 +114,6 @@ section { padding: clamp(56px, 9vw, 120px) 0; position: relative; }
 .eyebrow::before { content: ''; width: 26px; height: 2px; background: rgba(255, 255, 255, 0.9); border-radius: 2px; }
 
 .lead { font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--text-soft); max-width: 60ch; }
-
-/* Kapitel-Kopf zwischen den Themen (ChapterHeader und Rechner-Einheit teilen diese Klassen). */
-.chapter-head { padding: clamp(54px, 9vw, 104px) 0 clamp(6px, 2vw, 18px); }
-.chapter-head-top { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
-.chapter-num {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-width: 42px; height: 42px; padding: 0 10px; border-radius: 12px;
-  font-size: 1.02rem; font-weight: 800; font-variant-numeric: tabular-nums;
-  color: var(--accent); background: rgba(255, 84, 112, 0.1); border: 1px solid var(--border);
-}
-.chapter-kicker {
-  text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; font-weight: 700;
-  color: var(--accent-soft);
-}
-.chapter-title { font-size: clamp(1.9rem, 4.6vw, 3rem); max-width: 20ch; margin-bottom: 0.45em; }
-.chapter-lead { margin-bottom: 0; }
-/* Erster Abschnitt direkt nach einem Kapitel-Kopf rückt enger an die Überschrift. */
-.chapter-head + section { padding-top: clamp(22px, 4vw, 44px); }
 
 .card {
   background: linear-gradient(160deg, var(--bg-card), var(--bg-card-2));
@@ -239,6 +225,10 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: -0.02em;
   max-width: 20ch;
   color: #fff;
+  /* Lange Komposita (z. B. «Krankenkassenprämien») auf schmalen Schirmen umbrechen bzw.
+     trennen, statt über den Rand zu laufen. */
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 /* Heller Marker auf den farbigen Aussage-Bändern: nur Farben setzen, Form kommt aus .hl. */
 .claim-band .hl { --hl-bg: rgba(255, 255, 255, 0.92); --hl-fg: var(--ink); }
@@ -280,15 +270,15 @@ button { font-family: inherit; cursor: pointer; }
 .band-cue-icon {
   display: inline-flex; align-items: center; justify-content: center;
   width: 32px; height: 32px; border-radius: 999px; line-height: 1;
-  font-size: 1.35rem; font-weight: 700;
   border: 2px solid rgba(255, 255, 255, 0.55); background: rgba(11, 16, 32, 0.28);
   transition: transform 0.22s ease, background 0.12s ease;
 }
+.band-cue-icon svg { width: 18px; height: 18px; display: block; }
 .claim-band.dark .band-cue-icon { border-color: rgba(11, 16, 32, 0.5); background: rgba(11, 16, 32, 0.12); }
 .band-cue:hover .band-cue-label { text-decoration: underline; text-underline-offset: 4px; }
 .band-cue:hover .band-cue-icon { background: rgba(11, 16, 32, 0.42); }
 .claim-band.dark .band-cue:hover .band-cue-icon { background: rgba(11, 16, 32, 0.2); }
-.band-cue[aria-expanded="true"] .band-cue-icon { transform: rotate(45deg); }
+.band-cue[aria-expanded="true"] .band-cue-icon { transform: rotate(180deg); }
 
 /* Sanftes Auf- und Zuklappen über die grid-template-rows-Technik (0fr -> 1fr). */
 .band-collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
@@ -306,32 +296,6 @@ button { font-family: inherit; cursor: pointer; }
   .band-collapse { transition: none; }
   .band-cue-icon { transition: none; }
 }
-
-/* Kapitel-Köpfe als Aussage-Band: jede Themenseite öffnet im selben Look wie die
-   Kernaussagen, je Thema mit eigenem Signatur-Verlauf (tone-*). */
-.chapter-band { padding: clamp(60px, 10vh, 116px) 0 clamp(46px, 7vh, 86px); }
-.chapter-band.tone-gold { --g1: #ffce5c; --g2: #ff7a33; --g3: #ffb13c; --g4: #ff7a33; }
-.chapter-band.tone-accent { --g1: #ff7a33; --g2: #ff2d6b; --g3: #ff7a33; --g4: #d6249f; }
-.chapter-band.tone-violet { --g1: #a78bfa; --g2: #ff2d6b; --g3: #7c3aed; --g4: #d6249f; }
-
-.chapter-band .chapter-head-top { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
-.chapter-band .eyebrow { margin-bottom: 0; }
-.chapter-band .chapter-num {
-  color: #fff; background: rgba(11, 16, 32, 0.26);
-  border-color: rgba(255, 255, 255, 0.42);
-}
-.chapter-band.dark .chapter-num { color: var(--ink); background: rgba(11, 16, 32, 0.12); border-color: rgba(11, 16, 32, 0.4); }
-.chapter-band .band-text { font-size: clamp(1.9rem, 5vw, 3.4rem); max-width: 22ch; }
-.chapter-band-lead {
-  margin: 18px 0 0; max-width: 60ch;
-  font-size: clamp(1.04rem, 2.1vw, 1.3rem); font-weight: 600; line-height: 1.5;
-  color: rgba(255, 255, 255, 0.96);
-}
-.chapter-band.dark .chapter-band-lead { color: rgba(11, 16, 32, 0.84); }
-.chapter-band.dark .chapter-band-lead :deep(strong),
-.chapter-band.dark .chapter-band-lead strong { color: var(--ink); }
-/* Erster Abschnitt direkt nach einem Kapitel-Band rückt enger an das Band heran. */
-.chapter-band + section { padding-top: clamp(22px, 4vw, 44px); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

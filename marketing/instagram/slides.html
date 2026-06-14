@@ -55,6 +55,8 @@
   }
   .eyebrow::before { content: ""; width: 54px; height: 5px; border-radius: 3px; background: var(--white); }
   .index { font-size: 30px; font-weight: 800; letter-spacing: 0.08em; color: rgba(255,255,255,0.78); }
+  .hashtag { font-size: 28px; font-weight: 800; letter-spacing: 0.01em; color: rgba(255,255,255,0.92); white-space: nowrap; }
+  .slide.dark .hashtag { color: rgba(11,16,32,0.8); }
 
   .body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 40px; padding: 40px 0; }
 
@@ -153,7 +155,7 @@
     <div class="cap${o.main ? ' main' : ''}"><b>${pad(n)}</b> · ${o.cap}</div>
     <section class="slide${o.dark ? ' dark' : ''}" id="s${pad(n)}" data-len="long" style="${bgCss(o.bg)}">
       ${glow(o.bg)}
-      <div class="top"><div class="eyebrow">${o.eyebrow}</div></div>
+      <div class="top"><div class="eyebrow">${o.eyebrow}</div>${o.slogan ? `<div class="hashtag">${o.slogan}</div>` : ''}</div>
       <div class="body"><h1${o.fs ? ` style="font-size:${o.fs}px;line-height:1.06;"` : ''}>${o.html}</h1></div>
       ${foot(o.source)}
     </section>`;
@@ -163,7 +165,7 @@
     <div class="cap"><b>${pad(n)}</b> · ${o.cap}</div>
     <section class="slide" id="s${pad(n)}" style="${bgCss(o.bg)}">
       ${glow(o.bg)}
-      <div class="top"><div class="eyebrow">${o.eyebrow}</div></div>
+      <div class="top"><div class="eyebrow">${o.eyebrow}</div>${o.slogan ? `<div class="hashtag">${o.slogan}</div>` : ''}</div>
       <div class="body">
         <div class="statrow" style="align-items:flex-start;">
           <div class="stat"><span class="num ink">${o.num}</span><span class="lab">${o.lab}</span></div>
@@ -209,6 +211,7 @@
     main: true,
     cap: '★ Hauptbotschaft',
     eyebrow: 'Darum geht es',
+    slogan: '#TaxWealthNotWork',
     html: 'Der Grund, dass am <span class="underline ink-underline">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
   };
   const MAIN_BG = [
@@ -229,36 +232,36 @@
 
   // Die übrigen Aussagen, je einmal. Reihenfolge = Inhaltsfluss.
   const OTHERS = [
-    { cap: 'Sinkender Lebensstandard', eyebrow: 'Das Problem', bg: ['#ff7a33', '#d6249f', '#ffb13c', '#ff2d6b'],
+    { cap: 'Sinkender Lebensstandard', eyebrow: 'Das Problem', slogan: '#ArbeitMussSichLohnen', bg: ['#ff7a33', '#d6249f', '#ffb13c', '#ff2d6b'],
       html: 'Der Grund für deinen <span class="underline ink-underline">sinkenden Lebensstandard</span> ist die wachsende Ungleichheit.' },
-    { cap: 'Schwächelnde Wirtschaft', eyebrow: 'Das Problem', bg: ['#ff7a33', '#ff2d6b', '#ff7a33', '#d6249f'],
+    { cap: 'Schwächelnde Wirtschaft', eyebrow: 'Das Problem', slogan: '#WachsendeUngleichheit', bg: ['#ff7a33', '#ff2d6b', '#ff7a33', '#d6249f'],
       html: 'Der Grund für die <span class="underline ink-underline">schwächelnde Wirtschaft</span> ist die wachsende Ungleichheit.' },
-    { cap: 'Nie ein Haus', eyebrow: 'Das Problem', bg: ['#ff2d6b', '#d6249f', '#c01651', '#ff2d6b'],
+    { cap: 'Nie ein Haus', eyebrow: 'Das Problem', slogan: '#MittelstandEntlasten', bg: ['#ff2d6b', '#d6249f', '#c01651', '#ff2d6b'],
       html: 'Der Grund, warum du dir wohl nie ein <span class="underline ink-underline">eigenes Haus</span> leisten kannst, ist die wachsende Ungleichheit.' },
-    { cap: 'Krankenkassenprämien', eyebrow: 'Das Problem', bg: ['#d6249f', '#ff2d6b', '#7c3aed', '#d6249f'], fs: 62,
+    { cap: 'Krankenkassenprämien', eyebrow: 'Das Problem', slogan: '#MittelstandEntlasten', bg: ['#d6249f', '#ff2d6b', '#7c3aed', '#d6249f'], fs: 62,
       html: 'Der Grund für die <span class="underline ink-underline">steigenden Krankenkassenprämien</span> ist die wachsende Ungleichheit.' },
-    { cap: 'Überfüllte Züge und Busse', eyebrow: 'Das Problem', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'],
+    { cap: 'Überfüllte Züge und Busse', eyebrow: 'Das Problem', slogan: '#WachsendeUngleichheit', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'],
       html: 'Der Grund für die <span class="underline ink-underline">überfüllten Züge und Busse</span> ist die wachsende Ungleichheit.' },
-    { cap: 'Verstopfte Strassen', eyebrow: 'Das Problem', bg: ['#4f8bff', '#a78bfa', '#3b6fe0', '#7c3aed'],
+    { cap: 'Verstopfte Strassen', eyebrow: 'Das Problem', slogan: '#WachsendeUngleichheit', bg: ['#4f8bff', '#a78bfa', '#3b6fe0', '#7c3aed'],
       html: 'Der Grund für die <span class="underline ink-underline">verstopften Strassen</span> ist die wachsende Ungleichheit.' },
-    { cap: 'Sinkende Bildungsqualität', eyebrow: 'Das Problem', bg: ['#25e3c8', '#7c3aed', '#14c98a', '#a78bfa'],
+    { cap: 'Sinkende Bildungsqualität', eyebrow: 'Das Problem', slogan: '#WachsendeUngleichheit', bg: ['#25e3c8', '#7c3aed', '#14c98a', '#a78bfa'],
       html: 'Der Grund für die <span class="underline ink-underline">sinkende Bildungsqualität</span> ist die wachsende Ungleichheit.' },
-    { cap: 'Erfolgsmodell Schweiz in Gefahr', eyebrow: 'Das Problem', bg: ['#ff2d6b', '#ff7a33', '#d6249f', '#ff7a33'],
+    { cap: 'Erfolgsmodell Schweiz in Gefahr', eyebrow: 'Das Problem', slogan: '#WachsendeUngleichheit', bg: ['#ff2d6b', '#ff7a33', '#d6249f', '#ff7a33'],
       html: 'Die wachsende Ungleichheit zerstört das <span class="underline ink-underline">Erfolgsmodell Schweiz</span>.' },
-    { cap: 'Mittelstand trägt die grösste Last', eyebrow: 'Das Problem', dark: true, bg: ['#ffce5c', '#ff7a33', '#ffb13c', '#ff7a33'],
+    { cap: 'Mittelstand trägt die grösste Last', eyebrow: 'Das Problem', slogan: '#MittelstandEntlasten', dark: true, bg: ['#ffce5c', '#ff7a33', '#ffb13c', '#ff7a33'],
       html: 'Der Mittelstand trägt heute die <span class="underline on-dark">grösste Steuerlast</span>.' },
-    { cap: 'Milliardäre zahlen halb so viel', eyebrow: 'Die Ungerechtigkeit', bg: ['#a78bfa', '#ff2d6b', '#7c3aed', '#d6249f'],
+    { cap: 'Milliardäre zahlen halb so viel', eyebrow: 'Die Ungerechtigkeit', slogan: '#ArbeitMussSichLohnen', bg: ['#a78bfa', '#ff2d6b', '#7c3aed', '#d6249f'],
       source: 'G. Zucman, G20-Report 2024',
       html: 'Milliardäre zahlen nur <span class="underline ink-underline">halb so viel</span> Steuern auf ihr Einkommen wie der Mittelstand.' },
-    { cap: 'Warum es der Schweiz gut geht', eyebrow: 'Was funktioniert', bg: ['#14c98a', '#25e3c8', '#14c98a', '#4f8bff'],
+    { cap: 'Warum es der Schweiz gut geht', eyebrow: 'Was funktioniert', slogan: '#SuperreicheBesteuern', bg: ['#14c98a', '#25e3c8', '#14c98a', '#4f8bff'],
       html: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="underline ink-underline">Superreichen</span> besteuern.' },
-    { type: 'stat', cap: '2 % Mindeststeuer', eyebrow: 'Die Lösung', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'],
+    { type: 'stat', cap: '2 % Mindeststeuer', eyebrow: 'Die Lösung', slogan: '#TaxTheSuperRich', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'],
       num: '2<span style="font-size:80px;">%</span>', lab: 'Mindeststeuer auf Vermögen über 100 Mio.',
       source: 'Modell: G. Zucman, G20-Report 2024',
       html: 'Schon <span class="mark">2 %</span> sorgen dafür, dass Superreiche <span class="underline ink-underline">gleich viel</span> zahlen wie der Durchschnitt.' },
-    { cap: 'Niemand wandert aus', eyebrow: 'Der Mythos', bg: ['#3b6fe0', '#a78bfa', '#4f8bff', '#7c3aed'],
+    { cap: 'Niemand wandert aus', eyebrow: 'Der Mythos', slogan: '#SuperreicheBesteuern', bg: ['#3b6fe0', '#a78bfa', '#4f8bff', '#7c3aed'],
       html: 'Wegen <span class="mark">2 %</span> Mindeststeuer wandert <span class="underline ink-underline">niemand</span> aus der schönen Schweiz aus.' },
-    { cap: 'Trifft fair Besteuerte nicht', eyebrow: 'Fair bleibt fair', bg: ['#a78bfa', '#25e3c8', '#7c3aed', '#14c98a'],
+    { cap: 'Trifft fair Besteuerte nicht', eyebrow: 'Fair bleibt fair', slogan: '#SuperreicheBesteuern', bg: ['#a78bfa', '#25e3c8', '#7c3aed', '#14c98a'],
       html: 'Wer heute schon <span class="underline ink-underline">fair besteuert</span> wird, zahlt mit der Mindeststeuer keinen Franken mehr.' },
   ];
 

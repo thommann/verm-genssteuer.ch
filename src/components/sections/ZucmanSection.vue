@@ -12,10 +12,10 @@ const K = spendRef.kennzahlen;
 // Vermoegenszuwachs wieder herein. ZUCMAN_RATE = ganze Mindeststeuer (2 %),
 // nicht nur die Mehrbelastung. PASSIVE_RETURN = realer Zuwachs grosser
 // Vermoegen p. a. (Zucman, G20-Report 2024: Top 0,0001 % rund 7,1 % real
-// 1987-2024). Recovery = 0,02 / 0,071 ~ 103 Tage.
+// 1987-2024). Recovery = 0,02 / 0,071 ~ 0,28 Jahre ~ 3 Monate (~103 Tage).
 const ZUCMAN_RATE = 0.02;
 const PASSIVE_RETURN = 0.071;
-const recoveryDays = Math.round((ZUCMAN_RATE / PASSIVE_RETURN) * 365);
+const recoveryMonths = Math.round((ZUCMAN_RATE / PASSIVE_RETURN) * 12);
 
 // Gegenstueck einkommensbasiert aus einer Quelle (BFS HABE, Tabelle nach
 // Einkommensklasse, Periode 2015-2017; reproduzierbar via
@@ -67,7 +67,7 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
 
       <div class="card daysbox">
         <span class="calc-line" v-html="$t('zucman.daysLine')" />
-        <span class="days-result">~{{ recoveryDays }}&nbsp;<span class="days-unit">{{ $t('zucman.daysUnit') }}</span></span>
+        <span class="days-result">~{{ recoveryMonths }}&nbsp;<span class="recovery-unit">{{ $t('zucman.recoveryUnit') }}</span></span>
         <span class="days-sub" v-html="$t('zucman.daysSub')" />
       </div>
       <div class="srcrow">
@@ -77,31 +77,15 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
       <h3 class="block-h">{{ $t('zucman.medHeading') }}</h3>
       <div class="card medbox">
         <span class="calc-line">{{ $t('zucman.medLine') }}</span>
-        <div class="medtable-scroll">
-        <table class="medtable">
-          <thead>
-            <tr>
-              <th></th>
-              <th>{{ $t('zucman.medColIncome') }}</th>
-              <th>{{ $t('zucman.medColPassive') }}</th>
-              <th>{{ $t('zucman.medColTotal') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>{{ $t('zucman.medRowArbeiter') }}</th>
-              <td class="mt-income" :data-label="$t('zucman.medColIncome')">{{ num(HH_WORKER.brutto, 0) }}</td>
-              <td class="mt-accent" :data-label="$t('zucman.medColPassive')">~{{ num(HH_WORKER.jahre, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
-              <td :data-label="$t('zucman.medColTotal')">~{{ num(HH_WORKER.tage, 0) }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
-            </tr>
-            <tr>
-              <th>{{ $t('zucman.medRowMittel') }}</th>
-              <td class="mt-income" :data-label="$t('zucman.medColIncome')">{{ num(HH_MIDDLE.brutto, 0) }}</td>
-              <td :data-label="$t('zucman.medColPassive')">~{{ num(HH_MIDDLE.jahre, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
-              <td :data-label="$t('zucman.medColTotal')">~{{ num(HH_MIDDLE.tage, 0) }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="med-figures">
+          <div class="med-fig">
+            <span class="med-val mt-accent">~{{ num(HH_WORKER.jahre, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</span>
+            <span class="med-lab">{{ $t('zucman.medRowArbeiter') }}</span>
+          </div>
+          <div class="med-fig">
+            <span class="med-val">~{{ num(HH_MIDDLE.jahre, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</span>
+            <span class="med-lab">{{ $t('zucman.medRowMittel') }}</span>
+          </div>
         </div>
         <span class="days-sub" v-html="$t('zucman.medCaption')" />
       </div>
@@ -149,7 +133,7 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
   font-size: 2.1rem; font-weight: 800; color: var(--gold);
   letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums;
 }
-.days-unit { font-size: 1.05rem; font-weight: 700; }
+.recovery-unit { font-size: 1.05rem; font-weight: 700; }
 .days-sub { color: var(--text-soft); font-size: 0.94rem; line-height: 1.55; }
 .days-sub :deep(strong) { color: var(--text); }
 
@@ -158,52 +142,15 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
   display: flex; flex-direction: column; gap: 8px;
   border-left: 3px solid var(--accent);
 }
-.medtable-scroll { margin: 14px 0 4px; max-width: 100%; overflow-x: auto; }
-.medtable {
-  width: 100%; border-collapse: collapse;
-  font-variant-numeric: tabular-nums;
+.med-figures {
+  margin: 14px 0 4px;
+  display: flex; flex-wrap: wrap; gap: 14px 40px;
 }
-.medtable th, .medtable td { padding: 8px 6px; text-align: right; }
-.medtable thead th {
-  color: var(--text-soft); font-weight: 600; font-size: 0.8rem;
-  line-height: 1.25; vertical-align: bottom;
+.med-fig { display: flex; flex-direction: column; gap: 2px; }
+.med-val {
+  font-size: 2.1rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1;
+  color: var(--text); font-variant-numeric: tabular-nums;
 }
-.medtable thead th:first-child { width: 1%; }
-.medtable tbody th {
-  text-align: left; color: var(--text-soft); font-weight: 600; font-size: 0.9rem;
-}
-.medtable tbody td { color: var(--text); font-weight: 800; font-size: 1.2rem; white-space: nowrap; }
-.medtable tbody td.mt-income { color: var(--text-soft); font-weight: 600; font-size: 1rem; }
-.medtable tbody td.mt-accent { color: var(--accent); }
-.medtable tbody tr + tr th, .medtable tbody tr + tr td {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-@media (max-width: 560px) {
-  .medbox { padding: 18px 16px; }
-  .medtable-scroll { overflow-x: visible; }
-  /* Tabelle als gestapelte Karten, damit die langen Spaltenkoepfe nicht ueberlaufen */
-  .medtable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .medtable, .medtable tbody, .medtable tr, .medtable tbody th, .medtable tbody td { display: block; }
-  .medtable tbody tr {
-    border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px;
-    padding: 12px 14px;
-  }
-  .medtable tbody tr + tr { margin-top: 12px; }
-  .medtable tbody tr + tr th, .medtable tbody tr + tr td { border-top: none; }
-  .medtable tbody th {
-    color: var(--text); font-size: 1rem; padding: 0 0 6px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 6px;
-  }
-  .medtable tbody td {
-    display: flex; flex-direction: column; align-items: flex-start;
-    gap: 1px; padding: 6px 0; text-align: left; white-space: normal;
-    font-size: 1.1rem; overflow-wrap: anywhere;
-  }
-  .medtable tbody td.mt-income { font-size: 1.1rem; }
-  .medtable tbody td::before {
-    content: attr(data-label); order: -1;
-    color: var(--text-soft); font-weight: 600; font-size: 0.78rem; line-height: 1.3;
-  }
-}
+.med-val.mt-accent { color: var(--accent); }
+.med-lab { color: var(--text-soft); font-weight: 600; font-size: 0.9rem; }
 </style>

@@ -30,7 +30,7 @@ export default {
       transparenz: 'Transparenz',
     },
     items: {
-      start: 'Start',
+      start: 'Aussagen',
       verteilung: 'Verteilung',
       rechner: 'Rechner',
       wegzug: 'Wegzug',
@@ -43,31 +43,6 @@ export default {
       pauschal: 'Pauschalbesteuerung',
       quellen: 'Quellen',
     },
-  },
-
-  // Kapitel-Überschriften zwischen den Themen (ChapterHeader / calc-suite).
-  chapters: {
-    verteilungNum: '01',
-    verteilungKicker: 'Thema 1 · Die Verteilung',
-    verteilungTitle: 'Wie <span class="hl">ungleich</span> ist die Schweiz?',
-    verteilungLead: 'Vier Blickwinkel auf dieselbe Konzentration: die ESTV-Steuerdaten, der internationale Trend, die UBS-Studie und die Pauschalbesteuerten, die in keiner Vermögensstatistik auftauchen.',
-    rechnerNum: '02',
-    rechnerKicker: 'Thema 2 · Der Rechner',
-    rechnerTitle: 'Was würde eine <span class="hl">Vermögenssteuer</span> bringen?',
-    rechnerLead: 'Stell ein Steuermodell auf das oberste Prozent ein und sieh in Echtzeit, was es einbringt, was davon dauerhaft tragbar ist und wofür das Geld reichen würde.',
-    modelleNum: '03',
-    modelleKicker: 'Thema 3 · Die Vorbilder',
-    modelleTitle: 'Welche Modelle schlägt die <span class="hl">Forschung</span> vor?',
-    modelleLead: 'Woher die Modelle stammen: die progressive Staffel des World Inequality Report und die 2-Prozent-Mindeststeuer von Gabriel Zucman.',
-  },
-
-  // Rechner-Einheit: Kopf der zusammengehörenden Abschnitte (Rechner, Wegzug, Rendite, Verwendung).
-  calcSuite: {
-    kicker: 'Interaktiver Rechner',
-    step1: 'Modell',
-    step2: 'Wegzug',
-    step3: 'Rendite',
-    step4: 'Verwendung',
   },
 
   // WegzugSection
@@ -168,7 +143,7 @@ export default {
       keinWegzug: {
         eyebrow: 'Der Mythos',
         text: 'Wegen einer Mindeststeuer von <span class="hl">2&nbsp;%</span> wandert niemand aus der schönen Schweiz aus.',
-        explainText: 'Die Vermögen der Superreichen wachsen jährlich um fast 10&nbsp;%. Eine Mindeststeuer von 2&nbsp;% werden sie kaum spüren und ihr Verhalten nicht massgeblich ändern. Die guten Gründe, wieso man in der Schweiz leben möchte, werden dadurch nicht verändert.',
+        explainText: 'Die Vermögen der Superreichen wachsen jährlich um fast 10&nbsp;%. Eine Mindeststeuer von 2&nbsp;% werden sie kaum spüren und ihr Verhalten nicht massgeblich ändern. Die guten Gründe, wieso man in der Schweiz leben möchte, werden durch die zusätzlichen Investitionen in Infrastruktur und Bildung noch attraktiver.',
         link: 'Das Wegzug-Argument im Rechner',
       },
       schonFair: {
@@ -202,7 +177,7 @@ export default {
     eyebrow: 'Der Rechner',
     title: 'Bau deine Vermögenssteuer',
     lead: 'Verschiebe die Regler und sieh sofort, wie viel eine progressive Vermögenssteuer auf das oberste Prozent einbringen würde. Das Modell rechnet auf den echten ESTV-Vermögensdaten.',
-    presetNoteWir2022: 'Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je Vermögensband nach Tabelle&nbsp;7.2 (Szenario moderat / hoch / sehr hoch), <strong>ab 1&nbsp;Mio.</strong> wie im Original, inklusive der rund 324\'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der 5-Mio-Freibetrag der eigenen Modelle).',
+    presetNoteWir2022: 'Exaktes Modell des <strong>World&nbsp;Inequality&nbsp;Report&nbsp;2022</strong>: die Grenzsätze je Vermögensband nach Tabelle&nbsp;7.2 (die Stufen Tief / Moderat / Hoch entsprechen den Report-Szenarien «moderate / high / very&nbsp;high»), <strong>ab 1&nbsp;Mio.</strong> wie im Original, inklusive der rund 324\'000 Pflichtigen mit 1–5&nbsp;Mio. (anders als der 5-Mio-Freibetrag der eigenen Modelle).',
     presetNoteWir2022Source: 'Progressive Vermögenssteuer, Tabelle 7.2',
     thresholdInfo: '<strong>Warum der Freibetrag bei 5 Mio. beginnt:</strong> Bei rund 5 Mio. Franken verläuft die Grenze zum reichsten 1 %. Nur <strong>{cnt}</strong> Steuerpflichtige liegen darüber, die übrigen <strong>{rest}</strong> bleiben komplett steuerfrei. Trotzdem erfasst dieses eine Prozent <strong>{share}</strong> des gesamten steuerbaren Vermögens. Du kannst die Schwelle unten höher ziehen, aber nicht tiefer als 5 Mio., damit die breite Mehrheit garantiert unbelastet bleibt.',
     controlsLock: '<strong>WIR-Referenzmodell aktiv.</strong> Diese Regler bauen ein eigenes Modell.',
@@ -391,20 +366,16 @@ export default {
     calcResult: '~10&nbsp;Mrd. pro Jahr für die Schweiz',
 
     daysLine: 'Grosse Vermögen wachsen passiv um <strong>~7,1&nbsp;% pro Jahr</strong> (real, nach Inflation): Dividenden, Zinsen und Vermögensgewinne zusammen. Selbst die <strong>ganze Mindeststeuer von 2&nbsp;%</strong>, nicht nur die Mehrbelastung, ist damit wieder verdient in:',
-    daysUnit: 'Tagen',
-    daysSub: 'Gut <strong>drei Monate</strong>, ohne einen Finger zu rühren. Den Rest des Jahres wächst das Vermögen weiter.',
+    recoveryUnit: 'Monate',
+    daysSub: 'Ohne einen Finger zu rühren, allein aus dem Vermögenszuwachs. Den Rest des Jahres wächst das Vermögen weiter.',
     daysSource: 'Vermögenszuwachs ~7,1 % p. a. (1987–2024)',
 
     medHeading: 'Und ein normaler Haushalt?',
     medLine: 'Wie lange dauert es, die ganze Jahressteuer wieder zu verdienen?',
-    medColIncome: 'Bruttoeinkommen (CHF/Monat)',
-    medColPassive: 'aus dem Vermögenseinkommen',
-    medColTotal: 'aus dem gesamten Einkommen',
-    medRowArbeiter: 'Arbeiterhaushalt (mittleres Fünftel)',
-    medRowMittel: 'Mittelständischer Haushalt (Durchschnitt)',
+    medRowArbeiter: 'Arbeiterhaushalt (Median)',
+    medRowMittel: 'Mittelstandshaushalt (Durchschnitt)',
     medUnit: 'Jahre',
-    medDaysUnit: 'Tage',
-    medCaption: '«Aus dem Vermögenseinkommen» heisst passiv, «aus dem gesamten Einkommen» vor allem Arbeit. Der <strong>Arbeiterhaushalt</strong> (mittleres Einkommensfünftel) lebt fast nur von Arbeit. Den <strong>Durchschnitt</strong> aller Haushalte zieht die Vermögensspitze nach oben, deshalb wirkt sein passives Einkommen grösser und die Steuer ist dort scheinbar schneller wieder verdient.',
+    medCaption: 'Gemessen am <strong>Vermögenseinkommen</strong> (passiv). Der <strong>Arbeiterhaushalt</strong> (mittleres Einkommensfünftel) lebt fast nur von Arbeit und hat kaum passives Einkommen. Den <strong>Durchschnitt</strong> aller Haushalte zieht die Vermögensspitze nach oben, sein passives Einkommen wirkt grösser und die Steuer scheinbar schneller verdient.',
     medSource: 'Arbeiterhaushalt (mittleres Fünftel) / Durchschnitt aller Haushalte: Steuern 10,1 % / 11,7 %, Vermögenseinkommen 2,6 % / 4,5 % des Bruttoeinkommens (HABE 2015–2017)',
 
     meaningHeading: 'Was ~10 Mrd. bedeuten',
@@ -467,13 +438,18 @@ export default {
 
   // Voreingestellte Steuermodelle (useCalculator.js)
   presets: {
+    groupProgressiv: 'Progressiv',
+    groupFlach: 'Flach',
     groupWir22: 'WIR 2022',
-    flach: 'Flach',
+    flach: 'Tief',
     moderat: 'Moderat',
-    steil: 'Stark progressiv',
-    wir2022_1: 'moderat',
-    wir2022_2: 'hoch',
-    wir2022_3: 'sehr hoch',
+    steil: 'Hoch',
+    flach2: '2 %',
+    flach3: '3 %',
+    flach5: '5 %',
+    wir2022_1: 'Tief',
+    wir2022_2: 'Moderat',
+    wir2022_3: 'Hoch',
   },
 
   // Gemeinsame UI-Bausteine
@@ -481,12 +457,19 @@ export default {
     sourcePrefix: 'Quelle:',
   },
 
+  // Slogan-Band der Startseite (ClaimsSection.vue). Die Hashtags selbst sind Marken-Tags
+  // und stehen als Konstanten in der Komponente.
+  slogans: {
+    eyebrow: 'Die Kampagne',
+    sub: 'Arbeit entlasten, Vermögen besteuern.',
+  },
+
   // Globale Fusszeile (App.vue) mit den rechtlichen Seiten.
   siteFooter: {
     impressum: 'Impressum',
     datenschutz: 'Datenschutz',
     quellen: 'Quellen',
-    start: 'Start',
+    start: 'Aussagen',
   },
 
   // Impressum (ImpressumSection.vue). Die Seite ist nicht kommerziell; die

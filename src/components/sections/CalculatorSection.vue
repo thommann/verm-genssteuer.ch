@@ -246,6 +246,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 .presets { display: flex; flex-direction: column; gap: 10px; margin: 26px 0 22px; }
 .preset-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .presets-label { color: var(--text-mute); font-size: 0.85rem; font-weight: 600; min-width: 76px; }
+.presets-label::after { content: ':'; }
 .preset {
   padding: 8px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-soft);
@@ -275,10 +276,13 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 
 .calc-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, 1fr) statt 1fr: verhindert das «grid blowout», bei dem die Spalten auf die
+     Mindestbreite ihres Inhalts (Diagramme) wachsen und die Karten über den Rand schieben. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 18px;
   align-items: start;
 }
+.calc-grid > .card { min-width: 0; }
 .controls { padding: 24px; }
 .controls-lock {
   font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
