@@ -229,12 +229,10 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
             :format-value="(v) => chfCompact(v, 1)"
             accent="var(--teal)"
           />
-          <p class="note muted" v-html="$t('calculator.bandNote')" />
         </div>
       </div>
 
       <p class="disclaimer">
-        <span v-html="$t('calculator.disclaimerOhneWegzug')" />
         <span class="srcs">
           <SourceTag id="estv_vermoegen" :note="$t('calculator.sourceNoteEstv')" />
           <SourceTag id="fdk" :note="$t('calculator.sourceNoteFdk')" />
