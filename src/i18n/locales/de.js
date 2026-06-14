@@ -486,7 +486,6 @@ export default {
 
   // Globale Fusszeile (App.vue) mit den rechtlichen Seiten.
   siteFooter: {
-    tagline: 'Ein unabhängiges, politisches Argument für eine Vermögenssteuer auf das reichste 1 %.',
     impressum: 'Impressum',
     datenschutz: 'Datenschutz',
     quellen: 'Quellen',

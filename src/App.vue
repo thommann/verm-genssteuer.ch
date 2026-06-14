@@ -166,7 +166,6 @@ onUnmounted(() => {
 
   <footer class="site-footer">
     <div class="wrap site-footer-inner">
-      <p class="site-footer-tag">{{ $t('siteFooter.tagline') }}</p>
       <nav class="site-footer-links" :aria-label="$t('siteFooter.impressum')">
         <router-link to="/">{{ $t('siteFooter.start') }}</router-link>
         <router-link to="/quellen">{{ $t('siteFooter.quellen') }}</router-link>
@@ -332,18 +331,27 @@ onUnmounted(() => {
   .nav-cta { display: none; }
 }
 
-/* Globale Fusszeile mit den rechtlichen Seiten. Erscheint auf jeder Route. */
+/* Globale Fusszeile mit den rechtlichen Seiten. Erscheint auf jeder Route.
+   position/z-index sind nötig, weil <main> als eigener Stacking-Context (isolation)
+   seinen fixierten Verlauf (main::before) sonst über die Fusszeile legt und deren
+   Text verdeckt. Ein eigener Stacking-Context hebt die Fusszeile darüber. */
 .site-footer {
-  margin-top: 64px;
+  position: relative;
+  z-index: 1;
+  margin-top: 40px;
   border-top: 1px solid var(--border);
   background: rgba(5, 7, 15, 0.4);
 }
 .site-footer-inner {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-  gap: 14px 24px; padding-top: 26px; padding-bottom: 26px;
+  gap: 12px 24px; padding-top: 18px; padding-bottom: 18px;
 }
-.site-footer-tag { margin: 0; max-width: 52ch; font-size: 0.84rem; color: var(--text-mute); }
 .site-footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+/* Auf schmalen Schirmen rechts Platz lassen, damit der fixierte
+   «nach oben»-Knopf (ReadingProgress) den letzten Link nicht verdeckt. */
+@media (max-width: 600px) {
+  .site-footer-inner { padding-right: calc(46px + clamp(16px, 4vw, 32px) + 12px); }
+}
 .site-footer-links a {
   font-size: 0.84rem; font-weight: 700; color: var(--text-soft); text-decoration: none;
   transition: color 0.15s ease;
