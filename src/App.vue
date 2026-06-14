@@ -8,12 +8,12 @@ const router = useRouter();
 
 // Drei Themen plus Transparenz. Jede Gruppe trägt eine Route und ihre Abschnitts-Anker
 // in DOM-Reihenfolge; die Beschriftungen liegen in nav.groups.<key> und nav.items.<id>.
-// tone und num geben den drei Themen je eine Signaturfarbe und Nummer im Menü.
+// num nummeriert die drei Themen im Menübaum.
 const GROUPS = [
-  { key: 'verteilung', route: '/verteilung', tone: 'gold', num: '1', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
-  { key: 'rechner', route: '/rechner', tone: 'accent', num: '2', items: ['rechner', 'wegzug', 'dynamik', 'verwendung'] },
-  { key: 'modelle', route: '/modelle', tone: 'violet', num: '3', items: ['wir-reports', 'zucman'] },
-  { key: 'transparenz', route: '/quellen', tone: 'teal', num: '·', items: ['quellen'] },
+  { key: 'verteilung', route: '/verteilung', num: '1', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
+  { key: 'rechner', route: '/rechner', num: '2', items: ['rechner', 'wegzug', 'dynamik', 'verwendung'] },
+  { key: 'modelle', route: '/modelle', num: '3', items: ['wir-reports', 'zucman'] },
+  { key: 'transparenz', route: '/quellen', num: '·', items: ['quellen'] },
 ];
 
 // Jede Seite trägt den Signaturverlauf ihres Themas (main::before in main.css).
@@ -120,30 +120,37 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <!-- Themen-Menü: nach den drei Themen (plus Transparenz) gruppiert. Jede Gruppe
-         verlinkt ihre Seite und Abschnitts-Anker; die aktive Gruppe ist markiert. -->
+    <!-- Themen-Menü als einfacher Menübaum: Start, dann die drei Themen (plus Transparenz)
+         mit ihren Abschnitts-Ankern als eingerückte Unterpunkte. Die aktive Seite/der aktive
+         Abschnitt ist markiert. -->
     <transition name="menu">
-      <div v-if="menuOpen" id="section-menu" class="section-menu" @click.self="closeMenu">
+      <nav v-if="menuOpen" id="section-menu" class="section-menu" :aria-label="$t('nav.menuAria')" @click.self="closeMenu">
         <div class="wrap">
-          <div class="menu-top">
-            <router-link to="/" @click="closeMenu">{{ $t('nav.items.start') }}</router-link>
-          </div>
-          <div class="menu-groups">
-            <div
-              v-for="g in GROUPS"
-              :key="g.key"
-              class="menu-group"
-              :class="[`tone-${g.tone}`, { active: isGroupActive(g.key) }]"
-            >
-              <router-link class="menu-group-title" :to="g.route" @click="closeMenu">
-                <span class="menu-group-num" aria-hidden="true">{{ g.num }}</span>
+          <ul class="menu-tree">
+            <li>
+              <router-link
+                class="mt-link mt-home"
+                :class="{ active: route.path === '/' }"
+                to="/"
+                @click="closeMenu"
+              >{{ $t('nav.items.start') }}</router-link>
+            </li>
+            <li v-for="g in GROUPS" :key="g.key" class="mt-group">
+              <router-link
+                class="mt-link mt-group-link"
+                :class="{ active: isGroupActive(g.key) }"
+                :to="g.route"
+                @click="closeMenu"
+              >
+                <span class="mt-num" aria-hidden="true">{{ g.num }}</span>
                 <span>{{ $t(`nav.groups.${g.key}`) }}</span>
               </router-link>
-              <ul class="menu-list">
+              <ul class="mt-items">
                 <li v-for="n in g.items" :key="n">
                   <router-link
-                    :to="{ path: g.route, hash: `#${n}` }"
+                    class="mt-link mt-item"
                     :class="{ active: isItemActive(g, n) }"
+                    :to="{ path: g.route, hash: `#${n}` }"
                     :aria-current="isItemActive(g, n) ? 'true' : undefined"
                     @click="closeMenu"
                   >
@@ -151,10 +158,10 @@ onUnmounted(() => {
                   </router-link>
                 </li>
               </ul>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
-      </div>
+      </nav>
     </transition>
   </nav>
 
@@ -256,74 +263,41 @@ onUnmounted(() => {
   -webkit-overflow-scrolling: touch;
   padding: 22px 0 30px;
 }
-.menu-top {
-  display: flex; flex-wrap: wrap; gap: 10px;
-  margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid var(--border);
-}
-.menu-top a {
-  display: inline-flex; align-items: center;
-  padding: 7px 15px; border-radius: 999px;
-  font-size: 0.84rem; font-weight: 700; color: var(--text-soft); text-decoration: none;
-  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
-  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-}
-.menu-top a:hover { color: var(--text); background: rgba(255, 255, 255, 0.08); border-color: var(--accent); text-decoration: none; }
+/* Menübaum: einfache, eingerückte Hierarchie statt Kacheln und Chips. */
+.menu-tree { list-style: none; margin: 0; padding: 0; max-width: 460px; }
+.menu-tree > li + li { margin-top: 2px; }
+.menu-tree > li.mt-group { margin-top: 8px; }
 
-.menu-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-
-/* Themengruppen als vivide Verlaufs-Kacheln im Look der Aussage-Bänder/Slides, je Thema
-   mit eigenem Signaturverlauf. Helle Gold-Kachel läuft mit dunkler Schrift. */
-.tone-gold   { --tone: var(--gold);   --tg1: #ffce5c; --tg2: #ff7a33; --tg3: #ffb13c; --tg4: #ff7a33; }
-.tone-accent { --tone: var(--accent); --tg1: #ff7a33; --tg2: #ff2d6b; --tg3: #ff7a33; --tg4: #d6249f; }
-.tone-violet { --tone: var(--violet); --tg1: #a78bfa; --tg2: #ff2d6b; --tg3: #7c3aed; --tg4: #d6249f; }
-.tone-teal   { --tone: var(--teal);   --tg1: #25e3c8; --tg2: #4f8bff; --tg3: #14c98a; --tg4: #3b6fe0; }
-
-.menu-group {
-  position: relative; overflow: hidden;
-  padding: 18px 18px 15px; border-radius: var(--radius);
-  color: #fff; border: 1px solid rgba(255, 255, 255, 0.22);
-  background:
-    radial-gradient(120% 100% at 14% 8%, var(--tg1), transparent 60%),
-    radial-gradient(120% 100% at 90% 96%, var(--tg2), transparent 62%),
-    linear-gradient(150deg, var(--tg3), var(--tg4));
-  box-shadow: 0 14px 36px -22px rgba(0, 0, 0, 0.75);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-/* Leichter Dunkelschleier für Textkontrast (nicht auf der hellen Gold-Kachel). */
-.menu-group:not(.tone-gold)::before {
-  content: ''; position: absolute; inset: 0; background: rgba(5, 7, 15, 0.16); pointer-events: none;
-}
-.menu-group > * { position: relative; z-index: 1; }
-.menu-group:hover { transform: translateY(-3px); box-shadow: 0 22px 46px -22px rgba(0, 0, 0, 0.8); }
-.menu-group.active { outline: 2px solid rgba(255, 255, 255, 0.75); outline-offset: 2px; }
-.menu-group.tone-gold { color: var(--ink); }
-
-.menu-group-title {
+.mt-link {
   display: flex; align-items: center; gap: 10px;
-  font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em;
-  color: inherit; margin: 0 0 13px; text-decoration: none;
+  padding: 8px 12px; border-radius: 8px;
+  color: var(--text-soft); text-decoration: none; font-weight: 600;
+  transition: color 0.12s ease, background 0.12s ease;
 }
-.menu-group-title:hover { color: inherit; opacity: 0.82; text-decoration: none; }
-.menu-group-num {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border-radius: 9px; flex: none;
-  font-size: 0.84rem; font-weight: 800; line-height: 1;
-  color: #fff; background: rgba(11, 16, 32, 0.3); border: 1px solid rgba(255, 255, 255, 0.5);
-}
-.menu-group.tone-gold .menu-group-num { color: var(--ink); background: rgba(11, 16, 32, 0.12); border-color: rgba(11, 16, 32, 0.42); }
+.mt-link:hover { color: var(--text); background: rgba(255, 255, 255, 0.05); text-decoration: none; }
+.mt-link.active { color: var(--accent); }
 
-.menu-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; }
-.menu-list a {
-  display: inline-flex; align-items: center; padding: 6px 13px; border-radius: 999px;
-  color: #fff; font-weight: 700; font-size: 0.84rem; text-decoration: none;
-  background: rgba(11, 16, 32, 0.22); border: 1px solid rgba(255, 255, 255, 0.32);
-  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+.mt-home, .mt-group-link {
+  font-size: 1.02rem; font-weight: 800; letter-spacing: -0.01em; color: var(--text);
 }
-.menu-list a:hover { background: rgba(11, 16, 32, 0.38); color: #fff; border-color: rgba(255, 255, 255, 0.6); text-decoration: none; }
-.menu-list a.active { background: rgba(255, 255, 255, 0.94); color: var(--ink); border-color: transparent; }
-.menu-group.tone-gold .menu-list a { color: var(--ink); background: rgba(11, 16, 32, 0.1); border-color: rgba(11, 16, 32, 0.34); }
-.menu-group.tone-gold .menu-list a:hover { background: rgba(11, 16, 32, 0.18); }
-.menu-group.tone-gold .menu-list a.active { background: var(--ink); color: #fff; }
+.mt-home { margin-bottom: 6px; }
+
+.mt-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 7px; flex: none;
+  font-size: 0.8rem; font-weight: 800; line-height: 1;
+  color: var(--text-soft); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border);
+}
+.mt-group-link.active { color: var(--accent); }
+.mt-group-link.active .mt-num { color: var(--accent); border-color: var(--accent); background: rgba(255, 84, 112, 0.12); }
+
+/* Unterpunkte eingerückt mit Führungslinie (Baum-Optik). */
+.mt-items {
+  list-style: none; margin: 2px 0 2px 23px; padding: 2px 0;
+  border-left: 1px solid var(--border);
+}
+.mt-item { font-size: 0.92rem; font-weight: 600; padding: 6px 12px; margin-left: 8px; }
+.mt-item.active { color: var(--accent); font-weight: 700; }
 
 .menu-enter-active, .menu-leave-active { transition: opacity 0.18s ease, transform 0.18s ease; }
 .menu-enter-from, .menu-leave-to { opacity: 0; transform: translateY(-6px); }

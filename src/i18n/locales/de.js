@@ -30,7 +30,7 @@ export default {
       transparenz: 'Transparenz',
     },
     items: {
-      start: 'Start',
+      start: 'Aussagen',
       verteilung: 'Verteilung',
       rechner: 'Rechner',
       wegzug: 'Wegzug',
@@ -43,31 +43,6 @@ export default {
       pauschal: 'Pauschalbesteuerung',
       quellen: 'Quellen',
     },
-  },
-
-  // Kapitel-Überschriften zwischen den Themen (ChapterHeader / calc-suite).
-  chapters: {
-    verteilungNum: '01',
-    verteilungKicker: 'Thema 1 · Die Verteilung',
-    verteilungTitle: 'Wie <span class="hl">ungleich</span> ist die Schweiz?',
-    verteilungLead: 'Vier Blickwinkel auf dieselbe Konzentration: die ESTV-Steuerdaten, der internationale Trend, die UBS-Studie und die Pauschalbesteuerten, die in keiner Vermögensstatistik auftauchen.',
-    rechnerNum: '02',
-    rechnerKicker: 'Thema 2 · Der Rechner',
-    rechnerTitle: 'Was würde eine <span class="hl">Vermögenssteuer</span> bringen?',
-    rechnerLead: 'Stell ein Steuermodell auf das oberste Prozent ein und sieh in Echtzeit, was es einbringt, was davon dauerhaft tragbar ist und wofür das Geld reichen würde.',
-    modelleNum: '03',
-    modelleKicker: 'Thema 3 · Die Vorbilder',
-    modelleTitle: 'Welche Modelle schlägt die <span class="hl">Forschung</span> vor?',
-    modelleLead: 'Woher die Modelle stammen: die progressive Staffel des World Inequality Report und die 2-Prozent-Mindeststeuer von Gabriel Zucman.',
-  },
-
-  // Rechner-Einheit: Kopf der zusammengehörenden Abschnitte (Rechner, Wegzug, Rendite, Verwendung).
-  calcSuite: {
-    kicker: 'Interaktiver Rechner',
-    step1: 'Modell',
-    step2: 'Wegzug',
-    step3: 'Rendite',
-    step4: 'Verwendung',
   },
 
   // WegzugSection
@@ -494,7 +469,7 @@ export default {
     impressum: 'Impressum',
     datenschutz: 'Datenschutz',
     quellen: 'Quellen',
-    start: 'Start',
+    start: 'Aussagen',
   },
 
   // Impressum (ImpressumSection.vue). Die Seite ist nicht kommerziell; die
