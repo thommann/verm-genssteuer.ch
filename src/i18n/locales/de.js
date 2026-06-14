@@ -150,7 +150,7 @@ export default {
       mittelstand: {
         eyebrow: 'Das Problem',
         text: 'Der Mittelstand trägt heute die <span class="hl">grösste Steuerlast</span>.',
-        explainText: 'Der Mittelstand zahlt vor allem Steuern auf den Lohn, während grosse Vermögen kaum belastet sind. Holt man dort, wo heute am wenigsten anfällt, könnte deine Steuerlast sinken statt steigen.',
+        explainText: 'Wenn du im Mittelstand bist, zahlst du am meisten Steuern und Abgaben auf dein Einkommen. Du zahlst doppelt so viel wie die Superreichen. Dennoch profitierst du nicht von Sozialleistungen wie Prämienverbilligungen oder Zusatzleistungen.',
         link: 'Wer die Steuerlast trägt',
       },
       faireSteuern: {
