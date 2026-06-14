@@ -90,11 +90,12 @@ Zwischen-Workbook, keine Handarbeit. Die Skripte liegen in `scripts/` (Bash + Py
 
 | Skript | Inhalt |
 | --- | --- |
-| `fetch_sources.sh` | Lädt **alle Rohquellen** (ESTV-XLSX ×11, WID-CSV ×14, FDK-PDF, UBS-PDF, BFS-PXWeb) nach `data/raw/` und schreibt SHA256-Prüfsummen |
+| `fetch_sources.sh` | Lädt **alle Rohquellen** (ESTV-XLSX ×11, WID-CSV ×14, FDK-PDF, UBS-PDF, BFS-PXWeb, BFS-HABE-XLSX) nach `data/raw/` und schreibt SHA256-Prüfsummen |
 | `01_extract_fdk.py` | FDK-Medienmitteilung → `pauschal.json` (Anzahl/Ertrag Pauschalbesteuerte) |
 | `02_extract_estv.py` | ESTV-Verteilung, Kennzahlen, Rechner-Parameter, 170 Bins, 30 Kohorten |
 | `03_extract_wid_ubs.py` | WID-Zeitreihen + Ranking, UBS-Gini, Ø/Median, Vermögenspyramide |
 | `04_extract_spend_reference.py` | BFS-Bevölkerung (live, PXWeb) + kuratierte EFV/BAG-Bezugsgrössen → `spend_reference.json` |
+| `05_extract_habe.py` | BFS-HABE nach Einkommensklasse (Tabelle T20.02.01.00.12) → `habe.json` (Arbeiter-/Mittelstandshaushalt, Jahre/Tage bis Jahressteuer verdient) |
 | `00_reproduce_statistics.py` | **Rechnet alle statistischen Verfahren unabhängig nach** und prüft sie (extern gegen den offiziellen ESTV-Gini, intern gegen die Skript-Ausgabe) |
 
 Ausführliche Dokumentation:
@@ -112,8 +113,15 @@ python3 scripts/01_extract_fdk.py
 python3 scripts/02_extract_estv.py
 python3 scripts/03_extract_wid_ubs.py
 python3 scripts/04_extract_spend_reference.py
+python3 scripts/05_extract_habe.py
 python3 scripts/00_reproduce_statistics.py   # erwartet: alle Prüfungen OK
 ```
+
+> **Pflicht:** Jeder Zugriff auf Quellendaten wird exakt und reproduzierbar dokumentiert.
+> Keine handgetippten Zahlen aus Quellen im Code. Eine Zahl, die aus einer Quelle stammt,
+> kommt über die Pipeline (`fetch_sources.sh` → `scripts/NN_extract_*.py` → `src/data/*.json`)
+> und ist in [`docs/QUELLEN.md`](docs/QUELLEN.md) mit Download-URL, Datei, Blatt sowie
+> Zeilen-/Spaltenposition belegt; die Rohdatei steht mit SHA256 in `data/CHECKSUMS.txt`.
 
 Die Rohdateien (`data/raw/`) sind bewusst **nicht eingecheckt** (Umfang); ihre Integrität
 ist über [`data/CHECKSUMS.txt`](data/CHECKSUMS.txt) belegt.
