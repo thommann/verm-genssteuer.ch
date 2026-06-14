@@ -4,12 +4,14 @@
 # Herausgeber-Servern in data/raw/ und schreibt die SHA256-Pruefsummen.
 #
 # Damit ist der Live-Bezug ein einziger, nachvollziehbarer Befehl. Anschliessend
-# erzeugen die Skripte 01-03 die JSON unter src/data/, 00 prueft alles nach.
+# erzeugen die Skripte 01-05 die JSON unter src/data/, 00 prueft alles nach.
 #
 #   bash scripts/fetch_sources.sh
 #   python3 scripts/01_extract_fdk.py
 #   python3 scripts/02_extract_estv.py
 #   python3 scripts/03_extract_wid_ubs.py
+#   python3 scripts/04_extract_spend_reference.py
+#   python3 scripts/05_extract_habe.py
 #   python3 scripts/00_reproduce_statistics.py
 #
 # Quellen und exakte Bedeutung: docs/QUELLEN.md. Rechenverfahren: docs/METHODIK.md.
@@ -55,7 +57,7 @@ echo "== 4/4  UBS Global Wealth Report 2025 (Vermoegens-Gini) =="
 # Inhalt (Integritaet via data/CHECKSUMS.txt verifizierbar):
 get "https://elements.visualcapitalist.com/wp-content/uploads/2025/08/global-wealth-report-09072025.pdf" "$RAW/ubs/ubs_gwr_2025.pdf"
 
-echo "== 5/5  BFS — Staendige Wohnbevoelkerung (PXWeb, Bestand 31.12.2024) =="
+echo "== 5/6  BFS — Staendige Wohnbevoelkerung (PXWeb, Bestand 31.12.2024) =="
 # Bundesamt fuer Statistik, Cube px-x-0102020000_101 «Demografische Bilanz nach Kanton».
 # Deterministische PXWeb-Abfrage: Schweiz-Total, Bestand am 31. Dezember 2024.
 echo "  -> $RAW/bfs/population.json"
@@ -70,8 +72,14 @@ curl -fsS --retry 4 --retry-delay 2 --max-time 60 -A "$ua" \
     {"code":"Demografische Komponente","selection":{"filter":"item","values":["14"]}}
   ],"response":{"format":"json-stat2"}}' -o "$RAW/bfs/population.json"
 
+echo "== 6/6  BFS — Haushaltsbudgeterhebung nach Einkommensklasse (HABE 2015-2017) =="
+# Bundesamt fuer Statistik, Tabelle T20.02.01.00.12 «Haushaltseinkommen und
+# -ausgaben nach Einkommensklasse» (Quintile der Bruttoeinkommensverteilung).
+# Direkt herunterladbares Excel (Asset 10867300), Blatt «2015-2017».
+get "https://dam-api.bfs.admin.ch/hub/api/dam/assets/10867300/master" "$RAW/bfs/habe-einkommensklasse.xlsx"
+
 echo
 echo "== Pruefsummen =="
-( cd "$RAW" && sha256sum estv/* wid/*.csv fdk/*.pdf ubs/*.pdf bfs/*.json )
+( cd "$RAW" && sha256sum estv/* wid/*.csv fdk/*.pdf ubs/*.pdf bfs/*.json bfs/*.xlsx )
 echo
 echo "Fertig. Vergleiche bei Bedarf mit data/CHECKSUMS.txt."

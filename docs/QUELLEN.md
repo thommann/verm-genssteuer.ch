@@ -21,7 +21,7 @@ den Eintrag in `src/data/sources.json` zeigt.
 | International | Anteils-Zeitreihen + WID-Gini | WID (`wid`) | `wid_timeseries.json` | `03_extract_wid_ubs.py` |
 | WIR 2022 | Vergleich der Steuermodelle (Rechner-Preset «WIR 2022») | World Inequality Lab (`wir2022`) | — (Texte + `sources.json`) | — |
 | WIR 2026 | Mindeststeuer-Modell (Texte, Abschnitt «Zucman-Steuer»; kein Rechner-Preset) | World Inequality Lab (`wir2026`) | — (Texte + `sources.json`) | — |
-| Zucman-Steuer | Vorschlag (2 % ab 100 Mio.), heutige Last, Mehraufkommen, Tage bis ganze 2 %-Steuer passiv verdient, Medianhaushalt (Jahre bis Steuer aus Vermögenseinkommen, Tage aus Gesamteinkommen verdient), Einordnungen | Zucman (`woz_zucman`, `zucman_g20`); Bilanz (`bilanz300`); NZZ (`nzz_vermoegenssteuer`); Oxfam/TJN/Momentum (`reichensteuer_studie`); Medianhaushalt: BFS HABE (`bfs_habe`); Einordnungen: BFS (`bfs`), EFV (`efv`), BAG (`bag`) | — (Texte + `sources.json`); Einordnungen `spend_reference.json` | — (Texte); `04` (Bezugsgrössen, §5) |
+| Zucman-Steuer | Vorschlag (2 % ab 100 Mio.), heutige Last, Mehraufkommen, Tage bis ganze 2 %-Steuer passiv verdient, Arbeiterhaushalt (mittleres Fünftel) und mittelständischer Haushalt (Durchschnitt): Jahre bis Steuer aus Vermögenseinkommen, Tage aus Gesamteinkommen verdient, Einordnungen | Zucman (`woz_zucman`, `zucman_g20`); Bilanz (`bilanz300`); NZZ (`nzz_vermoegenssteuer`); Oxfam/TJN/Momentum (`reichensteuer_studie`); Haushalte: BFS HABE (`bfs_habe`); Einordnungen: BFS (`bfs`), EFV (`efv`), BAG (`bag`) | `habe.json`; Texte + `sources.json`; Einordnungen `spend_reference.json` | `05` (HABE, §6); `04` (Bezugsgrössen, §5) |
 | UBS-Studie | Gini, Ø/Median, Pyramide | UBS (`ubs`) | `ubs_gini.json`, `ubs_wealth_levels.json`, `ubs_wealth_pyramid.json` | `03_extract_wid_ubs.py` |
 | Pauschalbesteuerung | Anzahl, Ertrag, Spannweite | FDK (`fdk`) | `pauschal.json` | `01_extract_fdk.py` |
 | Quellen & Methodik | Quellenliste | — | `sources.json` | kuratiert (Metadaten) |
@@ -45,7 +45,8 @@ python3 scripts/01_extract_fdk.py           # 2. FDK-PDF       -> pauschal.json
 python3 scripts/02_extract_estv.py          # 3. ESTV-XLSX     -> Verteilung, Kennzahlen, Rechner
 python3 scripts/03_extract_wid_ubs.py       # 4. WID-CSV+UBS   -> Zeitreihen, Ranking, Gini, Pyramide
 python3 scripts/04_extract_spend_reference.py  # 5. BFS-PXWeb + kuratierte EFV/BAG -> spend_reference.json
-python3 scripts/00_reproduce_statistics.py  # 6. statistische Verfahren unabhängig nachrechnen/prüfen
+python3 scripts/05_extract_habe.py          # 6. BFS-HABE-XLSX -> habe.json (Arbeiter-/Mittelstandshaushalt)
+python3 scripts/00_reproduce_statistics.py  # 7. statistische Verfahren unabhängig nachrechnen/prüfen
 ```
 
 **Voraussetzungen:** Python 3 mit `openpyxl` (`pip install openpyxl`) und das
@@ -278,6 +279,45 @@ Jeder Wert ist auf eine konkrete Tabelle/Zelle zurückgeführt und gegen die Que
 > **öV-Billette verbilligen:** Der Anteil rechnet `Aufkommen / Kundenertrag Personenverkehr öV`
 > (~7,48 Mrd., LITRA-Schätzung für den gesamten öV: Bahn, Bus, Tram); über 100 % hiesse, der
 > gesamte öffentliche Verkehr liesse sich aus dem Aufkommen gratis anbieten.
+
+---
+
+## 6. BFS — Haushaltsbudgeterhebung nach Einkommensklasse (HABE)
+
+**Was:** Bruttoeinkommen, Steuern und Vermögenseinkommen der Haushalte je Einkommensquintil.
+Liefert die zwei Bezugshaushalte der Karte «Und ein normaler Haushalt?» im Abschnitt
+«Zucman-Steuer»: **Arbeiterhaushalt** = mittleres Einkommensfünftel (enthält den Median),
+**mittelständischer Haushalt** = Durchschnitt aller Haushalte (Spalte «Sämtliche»).
+
+**Herausgeber:** Bundesamt für Statistik (BFS), Haushaltsbudgeterhebung (HABE).
+
+**Einstiegsseite (Tabelle):**
+<https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/einkommen-verbrauch-vermoegen/haushaltsbudget.assetdetail.10867300.html>
+
+**Direkte Download-URL** (identisch im Fetch-Skript, `data/raw/bfs/habe-einkommensklasse.xlsx`):
+`https://dam-api.bfs.admin.ch/hub/api/dam/assets/10867300/master`
+= Tabelle **T20.02.01.00.12** «Haushaltseinkommen und -ausgaben nach Einkommensklasse».
+
+**Wo genau im Workbook** (`scripts/05_extract_habe.py` liest exakt dies): Blatt
+**`2015–2017`** (neueste Querschnittsperiode). Die fünf Spalten-Einkommensklassen sind die
+Quintile der Bruttoeinkommensverteilung (Note 8 der Tabelle), je 20 % der Haushalte; die
+beschriftete Header-Zelle steht je eine Spalte rechts ihrer Wertspalte. Pro Spalte werden
+drei Zeilen gelesen (Beträge in **CHF/Monat pro Haushalt, Mittelwert**):
+
+- `Bruttoeinkommen`
+- `Einkommen aus Vermögen und Vermietung`
+- `Steuern` (Einkommens- und Vermögenssteuern; in der Tabelle negativ → Betrag)
+
+**Verwendete Spalten:** mittleres Quintil (3. Einkommensklasse, Bruttoband 7 265–9 990) →
+Arbeiterhaushalt; Spalte «Sämtliche» → mittelständischer Haushalt; oberstes Quintil nur für
+die Einordnung (Vermögenseinkommen 6,9 %).
+
+**Ableitung** (`habe.json`, das Bruttoeinkommen kürzt sich): `jahre = Steuern ÷
+Vermögenseinkommen` (ganze Jahressteuer allein aus dem passiven Vermögenseinkommen) und
+`tage = Steuern ÷ Bruttoeinkommen × 365` (aus dem gesamten Einkommen, v. a. Arbeit). Ergebnis:
+Arbeiterhaushalt 8 573 / 2,6 % / 10,1 % → **~4,0 Jahre / ~37 Tage**; Durchschnitt 9 951 /
+4,5 % / 11,7 % → **~2,6 Jahre / ~43 Tage**. Die Rechenformel steht in
+[`METHODIK.md`](METHODIK.md) («Direkter Vergleich — Spitze gegenüber normalem Haushalt»).
 
 ---
 

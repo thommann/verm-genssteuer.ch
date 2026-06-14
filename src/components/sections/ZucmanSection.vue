@@ -1,5 +1,6 @@
 <script setup>
 import spendRef from '@/data/spend_reference.json';
+import habe from '@/data/habe.json';
 import { num } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 import SpendGrid from '@/components/ui/SpendGrid.vue';
@@ -16,30 +17,17 @@ const ZUCMAN_RATE = 0.02;
 const PASSIVE_RETURN = 0.071;
 const recoveryDays = Math.round((ZUCMAN_RATE / PASSIVE_RETURN) * 365);
 
-// Gegenstueck fuer den Medianhaushalt, einkommensbasiert und aus einer Quelle
-// (BFS HABE, neueste Querschnittstabelle nach Einkommensklasse, Periode
-// 2015-2017). Jede Klasse umfasst 20 % der Haushalte; das mittlere Quintil
-// enthaelt den Median. Steuern 785 CHF/Monat (9,9 % des Bruttoeinkommens),
-// Einkommen aus Vermoegen und Vermietung 232 CHF/Monat (2,9 %). Recovery =
-// 785 / 232 ~ 3,4 Jahre, also rund zwoelfmal die ~103 Tage der Spitze.
-const HH_TAX_CHF = 784.6;
-const HH_PROPERTY_CHF = 231.7;
-const HH_GROSS_CHF = 7923.2; // Bruttoeinkommen mittleres Quintil (HABE 2015-2017)
-const hhRecoveryYears = HH_TAX_CHF / HH_PROPERTY_CHF;
-// Aus dem gesamten Einkommen (v. a. Arbeit) ist die Steuersumme in
-// 9,9 % eines Jahres ~ 36 Tagen verdient.
-const hhTaxIncomeDays = Math.round((HH_TAX_CHF / HH_GROSS_CHF) * 365);
-
-// Dieselbe Rechnung fuer den Durchschnitt aller Haushalte (Spalte «Saemtliche»
-// der gleichen HABE-Tabelle 2015-2017): Steuern 1083 CHF/Monat (11,6 %),
-// Vermoegenseinkommen 421 CHF/Monat (4,5 %), Bruttoeinkommen 9349 CHF/Monat.
-// Der Durchschnitt holt das Vermoegenseinkommen schneller herein, weil die
-// Spitze den Schnitt nach oben zieht.
-const AVG_TAX_CHF = 1083.0;
-const AVG_PROPERTY_CHF = 421.0;
-const AVG_GROSS_CHF = 9349.1;
-const avgRecoveryYears = AVG_TAX_CHF / AVG_PROPERTY_CHF;
-const avgTaxIncomeDays = Math.round((AVG_TAX_CHF / AVG_GROSS_CHF) * 365);
+// Gegenstueck einkommensbasiert aus einer Quelle (BFS HABE, Tabelle nach
+// Einkommensklasse, Periode 2015-2017; reproduzierbar via
+// scripts/05_extract_habe.py -> src/data/habe.json). Jede Klasse umfasst 20 %
+// der Haushalte.
+//   - Arbeiterhaushalt = mittleres Einkommensfuenftel (enthaelt den Median).
+//   - Mittelstaendischer Haushalt = Durchschnitt aller Haushalte («Saemtliche»),
+//     den die Vermoegensspitze nach oben zieht.
+// Die Karte zeigt je: Jahre = Steuern / Vermoegenseinkommen (passiv) und
+// Tage = Steuern / Bruttoeinkommen * 365 (aus dem gesamten Einkommen).
+const HH_WORKER = habe.arbeiter;
+const HH_MIDDLE = habe.mittelstand;
 
 const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
 </script>
@@ -101,16 +89,16 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
           </thead>
           <tbody>
             <tr>
-              <th>{{ $t('zucman.medRowMedian') }}</th>
-              <td class="mt-income" :data-label="$t('zucman.medColIncome')">{{ num(HH_GROSS_CHF, 0) }}</td>
-              <td class="mt-accent" :data-label="$t('zucman.medColPassive')">~{{ num(hhRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
-              <td :data-label="$t('zucman.medColTotal')">~{{ hhTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
+              <th>{{ $t('zucman.medRowArbeiter') }}</th>
+              <td class="mt-income" :data-label="$t('zucman.medColIncome')">{{ num(HH_WORKER.brutto, 0) }}</td>
+              <td class="mt-accent" :data-label="$t('zucman.medColPassive')">~{{ num(HH_WORKER.jahre, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
+              <td :data-label="$t('zucman.medColTotal')">~{{ num(HH_WORKER.tage, 0) }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
             </tr>
             <tr>
-              <th>{{ $t('zucman.medRowAvg') }}</th>
-              <td class="mt-income" :data-label="$t('zucman.medColIncome')">{{ num(AVG_GROSS_CHF, 0) }}</td>
-              <td :data-label="$t('zucman.medColPassive')">~{{ num(avgRecoveryYears, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
-              <td :data-label="$t('zucman.medColTotal')">~{{ avgTaxIncomeDays }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
+              <th>{{ $t('zucman.medRowMittel') }}</th>
+              <td class="mt-income" :data-label="$t('zucman.medColIncome')">{{ num(HH_MIDDLE.brutto, 0) }}</td>
+              <td :data-label="$t('zucman.medColPassive')">~{{ num(HH_MIDDLE.jahre, 1) }}&nbsp;{{ $t('zucman.medUnit') }}</td>
+              <td :data-label="$t('zucman.medColTotal')">~{{ num(HH_MIDDLE.tage, 0) }}&nbsp;{{ $t('zucman.medDaysUnit') }}</td>
             </tr>
           </tbody>
         </table>

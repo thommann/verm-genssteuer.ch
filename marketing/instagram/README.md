@@ -108,7 +108,7 @@ Einordnung für die Transparenz:
   Netzwerk Steuergerechtigkeit, 2024; Quellen `reichensteuer_studie` /
   `reichensteuer_studie_ch`) zeigt für die Schweiz beim *Vermögens*satz sogar eher das
   Gegenteil. Wer eine rein schweizbezogene Zahl will, nimmt die „Recovery"-Kennzahl der
-  Website (Superreiche verdienen die 2 % in ~103 Tagen wieder, Medianhaushalt ~3,4 Jahre;
+  Website (Superreiche verdienen die 2 % in ~103 Tagen wieder, Arbeiterhaushalt ~4,0 Jahre;
   Quellen `zucman_g20` + `bfs_habe`).
 
 ## Caption-Vorschläge

@@ -417,34 +417,37 @@ pro 1 Mrd.:    ~7–13 Mio./Jahr
 *Superreiche, passiv:* Bei ~7,1 % realem Vermögenszuwachs ist die ganze Mindeststeuer von
 2 % des Vermögens wieder verdient in `(0,02 ÷ 0,071) × 365 ≈ 103 Tagen` (`zucman_g20`).
 
-*Normaler Haushalt* (einkommensbasiert, Quelle `bfs_habe`, HABE-Querschnittstabelle «nach
-Einkommensklasse», neueste Periode 2015–2017). Die fünf Einkommensklassen sind gleich grosse
-Quintile (je 20 % der Haushalte, geprüft über die Zeile «Prozentuale Verteilung der
-Haushalte» = 0,20); das **mittlere Quintil enthält den Median**. Belegte Werte aus einer
-Quelle, das Bruttoeinkommen kürzt sich heraus:
+*Normaler Haushalt* (einkommensbasiert, Quelle `bfs_habe`, HABE-Tabelle «nach
+Einkommensklasse» T20.02.01.00.12, neueste Periode 2015–2017). Die fünf Einkommensklassen
+sind gleich grosse Quintile (je 20 % der Haushalte, Note 8 der Tabelle); das **mittlere
+Quintil enthält den Median**. Fetchbar und reproduzierbar: `scripts/fetch_sources.sh` lädt
+die Tabelle (Asset 10867300) nach `data/raw/bfs/habe-einkommensklasse.xlsx`,
+`scripts/05_extract_habe.py` liest je Spalte die Zeilen «Bruttoeinkommen», «Einkommen aus
+Vermögen und Vermietung» und «Steuern» und schreibt `src/data/habe.json`. Das Bruttoeinkommen
+kürzt sich heraus:
 ```
-Einkommen aus Vermögen und Vermietung   = 232 CHF/Monat =  2,9 % des Bruttoeinkommens
-Steuern (Einkommen und Vermögen)        = 785 CHF/Monat =  9,9 % des Bruttoeinkommens
+Arbeiterhaushalt = mittleres Fünftel (Median), Bruttoeinkommen 8573 CHF/Monat
+Einkommen aus Vermögen und Vermietung   = 219 CHF/Monat = 2,6 % des Bruttoeinkommens
+Steuern (Einkommen und Vermögen)        = 868 CHF/Monat = 10,1 % des Bruttoeinkommens
 
 Zeit, die ganze Jahressteuer allein aus dem Vermögenseinkommen zu verdienen:
-   9,9 % ÷ 2,9 % ≈ 3,4 Jahre
+   10,1 % ÷ 2,6 % ≈ 868 ÷ 219 ≈ 4,0 Jahre
 Zeit, dieselbe Steuersumme aus dem gesamten Einkommen (v. a. Arbeit) zu verdienen:
-   9,9 % × 365 ≈ 36 Tage
+   10,1 % × 365 ≈ 37 Tage
 
-Durchschnitt aller Haushalte (Spalte «Sämtliche»): Steuern 1083 CHF/Monat = 11,6 %,
-Vermögenseinkommen 421 CHF/Monat = 4,5 % des Bruttoeinkommens
-   aus dem Vermögenseinkommen:  11,6 % ÷ 4,5 % ≈ 2,6 Jahre
-   aus dem gesamten Einkommen:  11,6 % × 365   ≈ 42 Tage
+Mittelständischer Haushalt = Durchschnitt aller Haushalte (Spalte «Sämtliche»),
+Bruttoeinkommen 9951 CHF/Monat: Steuern 1166 CHF/Monat = 11,7 %,
+Vermögenseinkommen 444 CHF/Monat = 4,5 % des Bruttoeinkommens
+   aus dem Vermögenseinkommen:  11,7 % ÷ 4,5 % ≈ 2,6 Jahre
+   aus dem gesamten Einkommen:  11,7 % × 365   ≈ 43 Tage
 ```
-Der Durchschnitt holt das Vermögenseinkommen scheinbar schneller herein (2,6 statt 3,4 Jahre),
+Der Durchschnitt holt das Vermögenseinkommen scheinbar schneller herein (2,6 statt 4,0 Jahre),
 weil die Vermögensspitze den Schnitt nach oben zieht; der Median ist der typische Haushalt.
-Zum Vergleich: oberstes Quintil 6,5 % des Bruttoeinkommens (1250 CHF/Monat, rund fünfmal so
-viel in Franken wie das mittlere Quintil). Die HABE rechnet keinen Eigenmietwert als
-Einkommen ein, es ist also echtes Vermögens- und Vermietungseinkommen. Die Querschnittstabellen
-erscheinen nur als Mehrjahres-Pool; 2015–2017 ist die aktuellste, die Mittelwerte 2023
-(Vermögenseinkommen 4,5 %, Steuern 12,0 %) bestätigen die Stabilität. Kontrast: ganze
-2 %-Steuer der Spitze passiv in ~103 Tagen, Medianhaushalt ~3,4 Jahre, also rund zwölfmal so
-lange.
+Zum Vergleich: oberstes Quintil 6,9 % des Bruttoeinkommens. Die HABE rechnet keinen
+Eigenmietwert als Einkommen ein, es ist also echtes Vermögens- und Vermietungseinkommen. Die
+Querschnittstabellen erscheinen nur als Mehrjahres-Pool; 2015–2017 ist die aktuellste.
+Kontrast: ganze 2 %-Steuer der Spitze passiv in ~103 Tagen, Arbeiterhaushalt ~4,0 Jahre, also
+rund vierzehnmal so lange.
 
 **Deklaration und Grenzen:**
 

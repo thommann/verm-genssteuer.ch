@@ -1,0 +1,25 @@
+{
+  "quelle": "bfs_habe",
+  "tabelle": "T20.02.01.00.12",
+  "periode": "2015–2017",
+  "einheit": "CHF/Monat pro Haushalt (Mittelwert)",
+  "arbeiter": {
+    "brutto": 8573.1,
+    "vermoegen": 218.6,
+    "steuern": 868.2,
+    "vermoegen_pct": 2.55,
+    "steuern_pct": 10.13,
+    "jahre": 3.97,
+    "tage": 37.0
+  },
+  "mittelstand": {
+    "brutto": 9951.4,
+    "vermoegen": 443.9,
+    "steuern": 1165.6,
+    "vermoegen_pct": 4.46,
+    "steuern_pct": 11.71,
+    "jahre": 2.63,
+    "tage": 42.8
+  },
+  "oberstes_fuenftel_vermoegen_pct": 6.92
+}
