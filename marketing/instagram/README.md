@@ -79,6 +79,11 @@ Aussagen (`OTHERS`, je mit `bg: [g1,g2,g3,g4]`, optional `dark`, `source`, `fs`)
 neue Aussage: ein Eintrag in `OTHERS` ergänzen (und bei Bedarf eine `MAIN_BG`-Variante,
 damit die Alternierung aufgeht). Sehr lange Wörter bekommen `fs` (Schriftgrösse in px).
 
+Jede Slide trägt oben rechts den **jeweils am besten passenden Kampagnen-Slogan** als
+Hashtag (`slogan:` je Eintrag; die Hauptbotschaft `MAIN` trägt `#TaxWealthNotWork`). Die
+Slogans entsprechen denen auf der Startseite (Slogan-Band in `ClaimsSection.vue`); wer
+einen Slogan ändert, gleicht beide Orte ab.
+
 ## Quellen-Hinweis (wichtig)
 
 Die Aussage „Milliardäre zahlen nur halb so viel Steuern auf ihr Einkommen wie der
@@ -119,10 +124,14 @@ Einordnung für die Transparenz:
 > und eine faire Mindeststeuer auf die grössten Vermögen. Alle Zahlen und Quellen:
 > vermögenssteuer.ch
 >
-> #Vermögenssteuer #Steuergerechtigkeit #Schweiz #TaxTheRich #Ungleichheit #Mittelstand
+> #TaxWealthNotWork #ArbeitEntlastenVermögenBesteuern #TaxTheSuperRich #SuperreicheBesteuern
+> #ArbeitMussSichLohnen #WachsendeUngleichheit #MittelstandEntlasten #Vermögenssteuer
+> #Steuergerechtigkeit #Schweiz
 
 **Einzelpost Slide 07:**
 
 > Milliardäre zahlen nur halb so viel Steuern auf ihr Einkommen wie der Mittelstand. Das
 > ist keine Meinung, das ist gemessen. Quelle: G. Zucman, G20-Report 2024. Mehr:
 > vermögenssteuer.ch
+>
+> #ArbeitMussSichLohnen #TaxTheSuperRich #TaxWealthNotWork

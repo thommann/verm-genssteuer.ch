@@ -30,6 +30,10 @@
 * { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
+/* Sicherheitsnetz: die Seite scrollt nie horizontal. «clip» (statt «hidden») erzeugt
+   keinen Scroll-Container und lässt damit die sticky-Navigation intakt. Inhalte, die
+   überlaufen könnten (lange Wörter, Tabellen), werden zusätzlich an der Quelle entschärft. */
+html { overflow-x: clip; }
 
 body {
   margin: 0;
@@ -239,6 +243,10 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: -0.02em;
   max-width: 20ch;
   color: #fff;
+  /* Lange Komposita (z. B. «Krankenkassenprämien») auf schmalen Schirmen umbrechen bzw.
+     trennen, statt über den Rand zu laufen. */
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 /* Heller Marker auf den farbigen Aussage-Bändern: nur Farben setzen, Form kommt aus .hl. */
 .claim-band .hl { --hl-bg: rgba(255, 255, 255, 0.92); --hl-fg: var(--ink); }

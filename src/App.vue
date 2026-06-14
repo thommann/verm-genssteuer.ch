@@ -164,8 +164,9 @@ onUnmounted(() => {
     <router-view />
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" :class="{ flush: route.path === '/' }">
     <div class="wrap site-footer-inner">
+      <router-link to="/#slogan" class="site-footer-slogan">#TaxWealthNotWork</router-link>
       <nav class="site-footer-links" :aria-label="$t('siteFooter.impressum')">
         <router-link to="/">{{ $t('siteFooter.start') }}</router-link>
         <router-link to="/quellen">{{ $t('siteFooter.quellen') }}</router-link>
@@ -330,6 +331,12 @@ onUnmounted(() => {
 @media (max-width: 460px) {
   .nav-cta { display: none; }
 }
+/* Sehr schmale Schirme: Marke und Menü-Knopf etwas kompakter, damit die Leiste passt. */
+@media (max-width: 360px) {
+  .brand { font-size: 0.9rem; gap: 8px; }
+  .brand-flag { width: 22px; height: 22px; }
+  .menu-toggle { padding: 9px 13px; gap: 7px; }
+}
 
 /* Globale Fusszeile mit den rechtlichen Seiten. Erscheint auf jeder Route.
    position/z-index sind nötig, weil <main> als eigener Stacking-Context (isolation)
@@ -342,10 +349,20 @@ onUnmounted(() => {
   border-top: 1px solid var(--border);
   background: rgba(5, 7, 15, 0.4);
 }
+/* Startseite: das Slogan-Band ist vollflächig farbig; ein 40px-Abstand würde die dunkle
+   Grundfläche als Naht durchscheinen lassen. Daher Fusszeile bündig anschliessen. */
+.site-footer.flush { margin-top: 0; }
 .site-footer-inner {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
   gap: 12px 24px; padding-top: 18px; padding-bottom: 18px;
 }
+.site-footer-slogan {
+  font-size: 0.92rem; font-weight: 900; letter-spacing: -0.01em;
+  color: var(--text); text-decoration: none;
+  background: linear-gradient(90deg, var(--accent), var(--violet));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.site-footer-slogan:hover { filter: brightness(1.1); }
 .site-footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
 /* Auf schmalen Schirmen rechts Platz lassen, damit der fixierte
    «nach oben»-Knopf (ReadingProgress) den letzten Link nicht verdeckt. */

@@ -391,20 +391,16 @@ export default {
     calcResult: '~10&nbsp;Mrd. pro Jahr für die Schweiz',
 
     daysLine: 'Grosse Vermögen wachsen passiv um <strong>~7,1&nbsp;% pro Jahr</strong> (real, nach Inflation): Dividenden, Zinsen und Vermögensgewinne zusammen. Selbst die <strong>ganze Mindeststeuer von 2&nbsp;%</strong>, nicht nur die Mehrbelastung, ist damit wieder verdient in:',
-    daysUnit: 'Tagen',
-    daysSub: 'Gut <strong>drei Monate</strong>, ohne einen Finger zu rühren. Den Rest des Jahres wächst das Vermögen weiter.',
+    recoveryUnit: 'Monate',
+    daysSub: 'Ohne einen Finger zu rühren, allein aus dem Vermögenszuwachs. Den Rest des Jahres wächst das Vermögen weiter.',
     daysSource: 'Vermögenszuwachs ~7,1 % p. a. (1987–2024)',
 
     medHeading: 'Und ein normaler Haushalt?',
     medLine: 'Wie lange dauert es, die ganze Jahressteuer wieder zu verdienen?',
-    medColIncome: 'Bruttoeinkommen (CHF/Monat)',
-    medColPassive: 'aus dem Vermögenseinkommen',
-    medColTotal: 'aus dem gesamten Einkommen',
-    medRowArbeiter: 'Arbeiterhaushalt (mittleres Fünftel)',
-    medRowMittel: 'Mittelständischer Haushalt (Durchschnitt)',
+    medRowArbeiter: 'Arbeiterhaushalt (Median)',
+    medRowMittel: 'Mittelstandshaushalt (Durchschnitt)',
     medUnit: 'Jahre',
-    medDaysUnit: 'Tage',
-    medCaption: '«Aus dem Vermögenseinkommen» heisst passiv, «aus dem gesamten Einkommen» vor allem Arbeit. Der <strong>Arbeiterhaushalt</strong> (mittleres Einkommensfünftel) lebt fast nur von Arbeit. Den <strong>Durchschnitt</strong> aller Haushalte zieht die Vermögensspitze nach oben, deshalb wirkt sein passives Einkommen grösser und die Steuer ist dort scheinbar schneller wieder verdient.',
+    medCaption: 'Gemessen am <strong>Vermögenseinkommen</strong> (passiv). Der <strong>Arbeiterhaushalt</strong> (mittleres Einkommensfünftel) lebt fast nur von Arbeit und hat kaum passives Einkommen. Den <strong>Durchschnitt</strong> aller Haushalte zieht die Vermögensspitze nach oben, sein passives Einkommen wirkt grösser und die Steuer scheinbar schneller verdient.',
     medSource: 'Arbeiterhaushalt (mittleres Fünftel) / Durchschnitt aller Haushalte: Steuern 10,1 % / 11,7 %, Vermögenseinkommen 2,6 % / 4,5 % des Bruttoeinkommens (HABE 2015–2017)',
 
     meaningHeading: 'Was ~10 Mrd. bedeuten',
@@ -484,6 +480,13 @@ export default {
   // Gemeinsame UI-Bausteine
   ui: {
     sourcePrefix: 'Quelle:',
+  },
+
+  // Slogan-Band der Startseite (ClaimsSection.vue). Die Hashtags selbst sind Marken-Tags
+  // und stehen als Konstanten in der Komponente.
+  slogans: {
+    eyebrow: 'Die Kampagne',
+    sub: 'Arbeit entlasten, Vermögen besteuern.',
   },
 
   // Globale Fusszeile (App.vue) mit den rechtlichen Seiten.

@@ -32,9 +32,24 @@ const CLAIMS = [
 
 const vars = (bg) => ({ '--g1': bg[0], '--g2': bg[1], '--g3': bg[2], '--g4': bg[3] });
 
+// Slogan-Band zum Abschluss der Startseite: Haupt-Slogan gross, die übrigen Kampagnen-
+// Hashtags als Tag-Reihe darunter. Hashtags sind Marken-Tags und bleiben unübersetzt;
+// nur die Begleittexte (Eyebrow, Unterzeile) liegen in i18n (slogans.*).
+const HERO_SLOGAN = '#TaxWealthNotWork';
+const SLOGAN_TAGS = [
+  '#ArbeitEntlastenVermögenBesteuern',
+  '#TaxTheSuperRich',
+  '#SuperreicheBesteuern',
+  '#ArbeitMussSichLohnen',
+  '#WachsendeUngleichheit',
+  '#MittelstandEntlasten',
+];
+const SLOGAN_BG = ['#ff2d6b', '#7c3aed', '#d6249f', '#4f8bff'];
+
 // Beim Scrollen den Anker der gerade obenstehenden Aussage in die URL schreiben, damit
-// jede Aussage (Hauptaussage #start plus alle Bänder) verlink- und teilbar ist.
-useScrollSpy(['start', ...CLAIMS.map((c) => c.id)], { syncHash: true });
+// jede Aussage (Hauptaussage #start plus alle Bänder) und das Slogan-Band verlink- und
+// teilbar ist.
+useScrollSpy(['start', ...CLAIMS.map((c) => c.id), 'slogan'], { syncHash: true });
 
 // Aufklapp-Zustand je Aussage (mehrere gleichzeitig möglich).
 const open = reactive({});
@@ -113,9 +128,63 @@ const toggle = (id) => { open[id] = !open[id]; };
         </div>
       </div>
     </section>
+
+    <!-- Slogan-Band: Abschluss der Kampagne, Haupt-Slogan plus Hashtag-Reihe. Keine
+         Aussage im Sinne der Claims (kein Erklär-Link, keine Zahl/Quelle). -->
+    <section id="slogan" class="claim-band slogan-band" :style="vars(SLOGAN_BG)">
+      <div class="wrap">
+        <div class="eyebrow">{{ $t('slogans.eyebrow') }}</div>
+        <p class="slogan-main">{{ HERO_SLOGAN }}</p>
+        <p class="slogan-sub">{{ $t('slogans.sub') }}</p>
+        <ul class="slogan-tags">
+          <li v-for="h in SLOGAN_TAGS" :key="h">{{ h }}</li>
+        </ul>
+      </div>
+    </section>
   </div>
 </template>
 
 <style scoped>
 .hero-band { padding-top: clamp(104px, 17vh, 200px); }
+
+.slogan-main {
+  margin: 14px 0 0;
+  /* #TaxWealthNotWork ist ein einziges langes Wort: Schriftgrösse so wählen, dass es auf
+     schmalen Schirmen auf eine Zeile passt, statt mitten im Wort umzubrechen. */
+  font-size: clamp(1.7rem, 7.5vw, 5.6rem);
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: #fff;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+}
+.slogan-sub {
+  margin: clamp(14px, 2.5vh, 22px) 0 0;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.96);
+}
+.slogan-tags {
+  list-style: none;
+  margin: clamp(26px, 4vh, 40px) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.slogan-tags li {
+  padding: 10px 18px;
+  border-radius: 999px;
+  /* Auf schmalen Schirmen kleiner werden, damit der längste Hashtag in eine Pille passt
+     und die Zeile nicht über den Rand läuft; Umbruch als letzte Sicherung. */
+  font-size: clamp(0.82rem, 2vw, 1.15rem);
+  font-weight: 800;
+  color: #fff;
+  background: rgba(11, 16, 32, 0.28);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
 </style>

@@ -24,6 +24,11 @@ export function useScrollSpy(ids, { line = 90, syncHash = false } = {}) {
       const el = document.getElementById(id);
       if (el && el.getBoundingClientRect().top <= line) current = id;
     }
+    // Letzter Abschnitt: aktiv, sobald das Seitenende erreicht ist. Folgt darunter zu wenig
+    // Inhalt (z. B. nur die Fusszeile), erreicht seine Oberkante die Linie sonst nie.
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+      current = ids[ids.length - 1];
+    }
     if (current !== activeId.value) activeId.value = current;
   };
 
