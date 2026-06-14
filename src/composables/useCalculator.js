@@ -28,18 +28,35 @@ const d = paramsData.defaults;
 // «basis» je Preset = Grenzsatz, mit dem die Steuer direkt über dem Freibetrag einsetzt.
 // Voreingestellte Steuermodelle zum Durchprobieren. Die Beschriftungen liegen zentral
 // in der i18n-Locale (presets.<key>) und werden in der Komponente aufgelöst.
+// Progressive Szenarien: gleicher Freibetrag (5 Mio.), gleicher Grenzsatz an der Schwelle
+// (2 %) und gleicher Cap (100 %); variabel ist nur die Progression (exponent).
+// Flache Szenarien: dieselben Werte, aber Progression 0 (konstanter Grenzsatz) und der
+// Grenzsatz (basis) variabel (2 / 3 / 5 %). Eigene Probier-Presets, die Regler bleiben
+// verstellbar.
 export const PRESETS = {
   flach: {
     group: 'meine',
-    schwelle: 5e6, exponent: 0.3, cap: 0.5, basis: 0.0108,
+    schwelle: 5e6, exponent: 0.3, cap: 1, basis: 0.02,
   },
   moderat: {
     group: 'meine',
-    schwelle: 5e6, exponent: 0.5, cap: 0.5, basis: 0.006784,
+    schwelle: 5e6, exponent: 0.5, cap: 1, basis: 0.02,
   },
   steil: {
     group: 'meine',
-    schwelle: 5e6, exponent: 0.9, cap: 0.5, basis: 0.002572,
+    schwelle: 5e6, exponent: 0.9, cap: 1, basis: 0.02,
+  },
+  flach2: {
+    group: 'flat',
+    schwelle: 5e6, exponent: 0, cap: 1, basis: 0.02,
+  },
+  flach3: {
+    group: 'flat',
+    schwelle: 5e6, exponent: 0, cap: 1, basis: 0.03,
+  },
+  flach5: {
+    group: 'flat',
+    schwelle: 5e6, exponent: 0, cap: 1, basis: 0.05,
   },
   // WIR 2022: exakte Grenzsatz-Staffel je Vermögensband (Tabelle 7.2), ab 1 Mio. wie im
   // Original. Die ESTV-Klassen 1–5 Mio. sind im Populationsmodell enthalten (siehe Bins).
@@ -69,7 +86,8 @@ export const PRESETS = {
 // Anzeige-Gruppen der Preset-Leiste (in Reihenfolge der Zeilen). labelKey verweist auf
 // die i18n-Locale; die Gruppe «meine» wird ohne Beschriftung angezeigt.
 export const PRESET_GROUPS = [
-  { id: 'meine', labelKey: '' },
+  { id: 'meine', labelKey: 'presets.groupProgressiv' },
+  { id: 'flat', labelKey: 'presets.groupFlach' },
   { id: 'wir22', labelKey: 'presets.groupWir22' },
 ];
 

@@ -467,10 +467,15 @@ export default {
 
   // Voreingestellte Steuermodelle (useCalculator.js)
   presets: {
+    groupProgressiv: 'Progressiv',
+    groupFlach: 'Flach',
     groupWir22: 'WIR 2022',
     flach: 'Flach',
     moderat: 'Moderat',
     steil: 'Stark progressiv',
+    flach2: '2 %',
+    flach3: '3 %',
+    flach5: '5 %',
     wir2022_1: 'moderat',
     wir2022_2: 'hoch',
     wir2022_3: 'sehr hoch',
