@@ -168,7 +168,7 @@ export default {
       keinWegzug: {
         eyebrow: 'Der Mythos',
         text: 'Wegen einer Mindeststeuer von <span class="hl">2&nbsp;%</span> wandert niemand aus der schönen Schweiz aus.',
-        explainText: 'Grosse Vermögen wachsen jährlich um ein Vielfaches der 2&nbsp;%, die Steuer ist allein aus der Rendite wieder verdient. Das Geld bleibt also hier und steht der Schweiz für Prämien, öV oder tiefere Steuern zur Verfügung.',
+        explainText: 'Die Vermögen der Superreichen wachsen jährlich um fast 10&nbsp;%. Eine Mindeststeuer von 2&nbsp;% werden sie kaum spüren und ihr Verhalten nicht massgeblich ändern. Die guten Gründe, wieso man in der Schweiz leben möchte, werden dadurch nicht verändert.',
         link: 'Das Wegzug-Argument im Rechner',
       },
       schonFair: {
