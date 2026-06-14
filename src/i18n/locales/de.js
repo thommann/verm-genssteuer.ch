@@ -156,7 +156,7 @@ export default {
       faireSteuern: {
         eyebrow: 'Die Ungerechtigkeit',
         text: 'Milliardäre zahlen nur <span class="hl">halb so viel</span> Steuern auf ihr Einkommen wie der Mittelstand.',
-        explainText: 'Grosse Vermögen sind so strukturiert, dass kaum steuerbares Einkommen anfällt, deshalb zahlen Milliardäre wenig. Das fehlende Geld bringst am Ende du über Lohnsteuer und Prämien auf.',
+        explainText: 'Grosse Vermögen sind so strukturiert, dass kaum steuerbares Einkommen anfällt, deshalb zahlen Superreiche viel weniger als du. Das fehlende Geld bezahlst am Ende du über Steuern, Lohnabgaben und Prämien.',
         link: 'Warum das stimmt',
       },
       mindeststeuer: {
