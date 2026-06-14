@@ -280,15 +280,15 @@ button { font-family: inherit; cursor: pointer; }
 .band-cue-icon {
   display: inline-flex; align-items: center; justify-content: center;
   width: 32px; height: 32px; border-radius: 999px; line-height: 1;
-  font-size: 1.35rem; font-weight: 700;
   border: 2px solid rgba(255, 255, 255, 0.55); background: rgba(11, 16, 32, 0.28);
   transition: transform 0.22s ease, background 0.12s ease;
 }
+.band-cue-icon svg { width: 18px; height: 18px; display: block; }
 .claim-band.dark .band-cue-icon { border-color: rgba(11, 16, 32, 0.5); background: rgba(11, 16, 32, 0.12); }
 .band-cue:hover .band-cue-label { text-decoration: underline; text-underline-offset: 4px; }
 .band-cue:hover .band-cue-icon { background: rgba(11, 16, 32, 0.42); }
 .claim-band.dark .band-cue:hover .band-cue-icon { background: rgba(11, 16, 32, 0.2); }
-.band-cue[aria-expanded="true"] .band-cue-icon { transform: rotate(45deg); }
+.band-cue[aria-expanded="true"] .band-cue-icon { transform: rotate(180deg); }
 
 /* Sanftes Auf- und Zuklappen über die grid-template-rows-Technik (0fr -> 1fr). */
 .band-collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }

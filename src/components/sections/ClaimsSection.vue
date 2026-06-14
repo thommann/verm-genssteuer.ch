@@ -51,7 +51,9 @@ const toggle = (id) => { open[id] = !open[id]; };
           @click="toggle('start')"
         >
           <span class="band-cue-label">{{ $t('hero.expand') }}</span>
-          <span class="band-cue-icon" aria-hidden="true">+</span>
+          <span class="band-cue-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+          </span>
         </button>
         <div class="band-collapse" :class="{ open: open.start }">
           <div class="band-collapse-inner">
@@ -87,7 +89,9 @@ const toggle = (id) => { open[id] = !open[id]; };
           @click="toggle(c.id)"
         >
           <span class="band-cue-label">{{ $t('claims.expand') }}</span>
-          <span class="band-cue-icon" aria-hidden="true">+</span>
+          <span class="band-cue-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+          </span>
         </button>
         <div class="band-collapse" :class="{ open: open[c.id] }">
           <div class="band-collapse-inner">
