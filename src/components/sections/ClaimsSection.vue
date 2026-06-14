@@ -21,11 +21,11 @@ const CLAIMS = [
   { id: 'strassen', key: 'strassen', route: '/verteilung', hash: 'verteilung', bg: ['#4f8bff', '#a78bfa', '#3b6fe0', '#7c3aed'] },
   { id: 'bildung', key: 'bildung', route: '/verteilung', hash: 'verteilung', bg: ['#25e3c8', '#7c3aed', '#14c98a', '#a78bfa'] },
   { id: 'erfolgsmodell', key: 'erfolgsmodell', route: '/modelle', hash: 'zucman', bg: ['#ff2d6b', '#ff7a33', '#d6249f', '#ff7a33'] },
-  { id: 'mittelstand', key: 'mittelstand', route: '/modelle', hash: 'zucman', dark: true, bg: ['#ffce5c', '#ff7a33', '#ffb13c', '#ff7a33'] },
+  { id: 'mittelstand', key: 'mittelstand', route: '/modelle', hash: 'zucman', source: 'zucman_g20', dark: true, bg: ['#ffce5c', '#ff7a33', '#ffb13c', '#ff7a33'] },
   { id: 'faire-steuern', key: 'faireSteuern', route: '/modelle', hash: 'zucman', source: 'zucman_g20', bg: ['#a78bfa', '#ff2d6b', '#7c3aed', '#d6249f'] },
   { id: 'standort', key: 'standort', route: '/rechner', hash: 'rechner', bg: ['#14c98a', '#25e3c8', '#14c98a', '#4f8bff'] },
   { id: 'mindeststeuer', key: 'mindeststeuer', route: '/modelle', hash: 'zucman', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'] },
-  { id: 'kein-wegzug', key: 'keinWegzug', route: '/rechner', hash: 'wegzug', bg: ['#3b6fe0', '#a78bfa', '#4f8bff', '#7c3aed'] },
+  { id: 'kein-wegzug', key: 'keinWegzug', route: '/rechner', hash: 'wegzug', source: 'zucman_g20', bg: ['#3b6fe0', '#a78bfa', '#4f8bff', '#7c3aed'] },
   { id: 'schon-fair', key: 'schonFair', route: '/modelle', hash: 'zucman', bg: ['#a78bfa', '#25e3c8', '#7c3aed', '#14c98a'] },
 ];
 
