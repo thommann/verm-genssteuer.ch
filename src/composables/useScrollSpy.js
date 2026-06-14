@@ -1,11 +1,22 @@
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
 
 // Verfolgt, welcher der übergebenen Abschnitts-Anker gerade oben sichtbar ist.
 // Wird innerhalb einer Seite genutzt, etwa um den aktiven Schritt im Rechner-Stepper
 // zu markieren. Liefert eine reaktive activeId zurück.
-export function useScrollSpy(ids, { line = 90 } = {}) {
+//
+// Mit syncHash: true schreibt der Spy den aktiven Anker zusätzlich beim Scrollen in die
+// URL (per history.replaceState, also ohne Verlaufseintrag und ohne erneutes Springen).
+// Der erste Wert beim Laden wird übersprungen, damit eine ankerlose URL (z. B. «/»)
+// sauber bleibt, bis der Nutzer tatsächlich scrollt.
+export function useScrollSpy(ids, { line = 90, syncHash = false } = {}) {
   const activeId = ref(ids[0]);
   let ticking = false;
+
+  if (syncHash) {
+    watch(activeId, (id) => {
+      history.replaceState(history.state, '', `${location.pathname}${location.search}#${id}`);
+    });
+  }
 
   const update = () => {
     let current = ids[0];

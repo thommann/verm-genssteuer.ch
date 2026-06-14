@@ -5,8 +5,9 @@ import ProjectionSection from '@/components/sections/ProjectionSection.vue';
 import SpendSection from '@/components/sections/SpendSection.vue';
 import { useScrollSpy } from '@/composables/useScrollSpy.js';
 
-// Stepper-Hervorhebung: markiert den gerade sichtbaren Schritt (Modell, Wegzug, Rendite, Verwendung).
-const { activeId } = useScrollSpy(['rechner', 'wegzug', 'dynamik', 'verwendung']);
+// Stepper-Hervorhebung: markiert den gerade sichtbaren Schritt (Modell, Wegzug, Rendite, Verwendung)
+// und schreibt dessen Anker beim Scrollen in die URL.
+const { activeId } = useScrollSpy(['rechner', 'wegzug', 'dynamik', 'verwendung'], { syncHash: true });
 </script>
 
 <template>

@@ -8,6 +8,7 @@
 // claims.items.* für die übrigen); Hintergrund, Route und Anker bleiben hier (Struktur).
 import { reactive } from 'vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
+import { useScrollSpy } from '@/composables/useScrollSpy.js';
 
 // Hauptaussage: gleicher Verlauf wie die Hauptbotschaft-Slide (Variante A) im Deck.
 const HERO_BG = ['#ff2d6b', '#ff7a33', '#d6249f', '#ff2d6b'];
@@ -30,6 +31,10 @@ const CLAIMS = [
 ];
 
 const vars = (bg) => ({ '--g1': bg[0], '--g2': bg[1], '--g3': bg[2], '--g4': bg[3] });
+
+// Beim Scrollen den Anker der gerade obenstehenden Aussage in die URL schreiben, damit
+// jede Aussage (Hauptaussage #start plus alle Bänder) verlink- und teilbar ist.
+useScrollSpy(['start', ...CLAIMS.map((c) => c.id)], { syncHash: true });
 
 // Aufklapp-Zustand je Aussage (mehrere gleichzeitig möglich).
 const open = reactive({});
