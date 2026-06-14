@@ -114,7 +114,7 @@ export default {
       krankenkasse: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">steigenden Krankenkassenprämien</span> ist die wachsende Ungleichheit.',
-        explainText: 'Mit den Einnahmen einer Vermögenssteuer liessen sich die selbst getragenen Grundversicherungsprämien der ganzen Schweiz übernehmen. Für dich heisst das spürbar weniger oder gar keine Prämie pro Monat.',
+        explainText: 'Je mehr Geld du verdienst, desto weniger Krankenkassenprämien zahlst du im Verhältnis. Die Prämienverbilligungen finanzierst du aus deinen Steuern und bekommst wahrscheinlich nicht einmal welche. Deshalb zahlst du jedes Jahr noch mehr.',
         link: 'Prämien aus der Steuer zahlen',
       },
       oev: {
