@@ -83,7 +83,7 @@ export default {
     eyebrow: 'Darum geht es',
     title: 'Der Grund, dass am <span class="hl">Ende des Monats immer weniger übrig</span> bleibt, ist die wachsende Ungleichheit.',
     expand: 'Erklärung',
-    explainText: 'Löhne wachsen langsamer als Mieten, Prämien und Preise, deshalb bleibt weniger übrig. Eine Vermögenssteuer könnte über tiefere Prämien oder Steuern direkt dein Monatsbudget entlasten.',
+    explainText: 'Dein Lohn wächst langsamer als Mieten, Prämien und Preise und wird auch noch viel stärker besteuert. Mit deiner Arbeit und deinem Lohn finanzierst du nicht nur unsere Sozialwerke, Schulen und Infrastruktur, sondern auch die Investitionen der Superreichen in Immobilien, Aktien und Staatsanleihen.',
     explain: 'Wie ungleich die Schweiz ist',
   },
 
