@@ -218,14 +218,22 @@ seine Rendite abgibt — darüber schrumpft es, darunter wächst es.
 ### 6a. Voreingestellte Modelle (Presets)
 
 Die Presets in [`src/composables/useCalculator.js`](../src/composables/useCalculator.js)
-gliedern sich in zwei Zeilen:
+gliedern sich in drei Zeilen:
 
-- **«Unsere»** (Flach / Moderat / Stark progressiv): Startpunkte des Potenzkurven-Modells
-  aus Verfahren E, gesteuert durch die vier Regler.
-- **«WIR 2022»**: bildet das Steuermodell des World Inequality Report
-  **exakt** ab, über eine eigene Funktion in `taxModel.js` (`makeBracketModel`),
-  **nicht** über die Potenzkurve. Solange ein WIR-Preset aktiv ist,
-  steuern die Regler das angezeigte Modell nicht (im Rechner abgedunkelt).
+- **«Progressiv»** (Tief / Moderat / Hoch): Startpunkte des Potenzkurven-Modells aus
+  Verfahren E. Alle drei teilen Freibetrag (5 Mio.), Grenzsatz an der Schwelle (2 %) und
+  Cap (100 %); variabel ist nur die Progression (Exponent k = 0,3 / 0,5 / 0,9). Die Regler
+  bleiben verstellbar.
+- **«Flach»** (2 % / 3 % / 5 %): flache Vermögenssteuer auf das Vermögen über demselben
+  Freibetrag (5 Mio.). Im Potenzmodell entspricht das Exponent 0 (konstanter Grenzsatz),
+  also Steuer(W) = Satz · (W − 5 Mio.). Eigene Probier-Presets ohne Quellenbezug, die Regler
+  bleiben verstellbar. **Nicht** zu verwechseln mit der WIR-2026-Mindeststeuer (Aufstockung
+  ab 100 Mio., siehe unten).
+- **«WIR 2022»** (Tief / Moderat / Hoch): bildet das Steuermodell des World Inequality Report
+  **exakt** ab, über eine eigene Funktion in `taxModel.js` (`makeBracketModel`), **nicht**
+  über die Potenzkurve. Die Stufen Tief / Moderat / Hoch entsprechen den Report-Szenarien
+  «moderate / high / very high» (Tabelle 7.2). Solange ein WIR-Preset aktiv ist, steuern die
+  Regler das angezeigte Modell nicht (im Rechner abgedunkelt).
 
 Der WIR 2026 schlägt keine progressive Vermögenssteuer mehr vor, sondern eine flache
 **Mindeststeuer** auf Centi-Millionäre und Milliardäre (nach Zucman 2024 / G20). Weil dieser
@@ -239,7 +247,7 @@ Potenzkurve nur annähern, nicht exakt treffen, daher der dedizierte Modelltyp.
 
 **WIR 2022 — exakte Grenzsatz-Staffel** (`makeBracketModel`, Marginalsätze aus Tabelle 7.2):
 
-| Vermögensband        | moderat | hoch  | sehr hoch |
+| Vermögensband        | Tief (moderate) | Moderat (high) | Hoch (very high) |
 |----------------------|---------|-------|-----------|
 | 1–10 Mio.            | 1 %     | 1 %   | 1 %       |
 | 10–100 Mio.          | 1,5 %   | 1,5 % | 1,5 %     |
@@ -252,7 +260,8 @@ Die Steuer beginnt **ab 1 Mio.** wie im Original. Dafür ist das Populationsmode
 Rechners um die ESTV-Klassen 1–5 Mio. erweitert (drei zusätzliche Bins; `mid` = mittleres
 Klassenvermögen 2022). Diese Klassen liegen vollständig im 1-%-Band, daher ist der
 Klassenmittel-Punkt für die lineare Steuer exakt. WIR 2022 erfasst damit rund **324 000**
-Pflichtige mehr als die «Unsere»-Modelle (die beim 5-Mio-Freibetrag bleiben).
+Pflichtige mehr als die eigenen Modelle («Progressiv» / «Flach», die beim 5-Mio-Freibetrag
+bleiben).
 
 **Verbleibende Näherungen (explizit):**
 
