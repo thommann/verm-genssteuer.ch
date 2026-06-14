@@ -327,8 +327,10 @@ externen Zahl, sondern Schutz gegen Implementierungsfehler).
 
 - **Steuerbares Vermögen ≠ Marktvermögen.** ESTV ohne 2./3. Säule, Liegenschaften zum
   Steuerwert → reale Konzentration eher höher.
-- **Statisches Aufkommen** ignoriert Abwanderung/Verhalten — den grössten Realfaktor.
-  Es zeigt das *Potenzial der Bemessungsgrundlage*, keine Einnahmeprognose.
+- **Annahmen statt Prognose.** Wegzug (Wegzugs-Schwelle) und Vermögensdynamik (Rendite)
+  fliessen über den geteilten Rechner-Zustand in alle ausgewiesenen Zahlen ein, sind aber
+  gesetzte Annahmen, keine geschätzten Verhaltens-Elastizitäten. Der Rechner zeigt die
+  Empfindlichkeit des Aufkommens, keine Einnahmeprognose.
 - **Pareto-Extrapolation** im > 1-Mrd-Bereich beruht auf sehr wenigen, hochsensiblen
   Vermögen; `x_max` ist eine Schätzung.
 - **WID/UBS vs. ESTV** messen Verschiedenes (Gesamt- vs. steuerbares Vermögen);

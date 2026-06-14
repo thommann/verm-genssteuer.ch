@@ -26,7 +26,6 @@ import sources from '@/data/sources.json';
         <h3>{{ $t('sources.methodTitle') }}</h3>
         <ul>
           <li v-html="$t('sources.methodLi1')" />
-          <li v-html="$t('sources.methodLi2')" />
           <li v-html="$t('sources.methodLi3')" />
           <li v-html="$t('sources.methodLi4')" />
           <li v-html="$t('sources.methodLi5')" />

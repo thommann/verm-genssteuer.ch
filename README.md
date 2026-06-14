@@ -149,7 +149,9 @@ Vollständige Angaben und Hinweise in `src/data/sources.json` bzw. im Abschnitt
 
 ## Methodische Ehrlichkeit
 
-Das Modell ist **statisch**: keine Abwanderung, kein Verhalten, kein Vermögenszuwachs.
-Es zeigt das *Potenzial der Bemessungsgrundlage*, keine Einnahmeprognose. Steuerbares
-Vermögen (ESTV) ist nicht dasselbe wie Marktvermögen (WID/UBS) — Vergleiche sind
-indikativ. Diese Hinweise stehen bewusst direkt an den jeweiligen Zahlen.
+Wegzug und Rendite sind im Rechner einstellbar und fliessen über den geteilten Zustand
+in alle ausgewiesenen Zahlen ein, sie sind aber gesetzte Annahmen, keine geschätzten
+Verhaltens-Elastizitäten. Der Rechner zeigt, wie stark das Aufkommen davon abhängt, keine
+fertige Einnahmeprognose. Steuerbares Vermögen (ESTV) ist nicht dasselbe wie Marktvermögen
+(WID/UBS), Vergleiche sind indikativ. Diese Hinweise stehen bewusst direkt an den
+jeweiligen Zahlen.
