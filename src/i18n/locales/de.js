@@ -120,7 +120,7 @@ export default {
       oev: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">überfüllten Züge und Busse</span> ist die wachsende Ungleichheit.',
-        explainText: 'Dem Staat fehlt das Geld, um vernünftig in den öV zu investieren. Eine Vermögenssteuer schafft den Spielraum für mehr Züge und Busse und für günstigere Billette, im Extremfall gratis.',
+        explainText: 'Dem Staat fehlt das Geld, um vernünftig in Infrastruktur wie Züge, Trams, Busse, U-Bahnen und Strassen zu investieren. Du bezahlst bereits hohe Steuern auf deinem Lohn, doch da der Staat die Superreichen nicht besteuern kann, muss er dich noch weiter ausquetschen oder die Infrastruktur verlottern lassen.',
         link: 'öV günstiger machen',
       },
       strassen: {
