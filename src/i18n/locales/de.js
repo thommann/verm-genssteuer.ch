@@ -545,7 +545,7 @@ export default {
     linksBody: 'Die Seite verlinkt auf externe Quellen und Werkzeuge (etwa amtliche Statistiken oder den Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator). Für deren Inhalte und Datenbearbeitung gelten die jeweils dort veröffentlichten Datenschutzerklärungen.',
 
     rightsTitle: 'Deine Rechte',
-    rightsBody: 'Nach dem DSG hast du das Recht auf Auskunft über die zu deiner Person bearbeiteten Daten sowie auf deren Berichtigung oder Löschung. Da diese Website selbst keine Daten zu identifizierbaren Personen speichert, beziehen sich solche Anfragen in der Regel auf die Server-Protokolle des Hosting-Anbieters. Für eine Anfrage genügt eine E-Mail an <a href="mailto:thomas{\'@\'}mannhart.ai">thomas{\'@\'}mannhart.ai</a>. Zudem kannst du dich beim <a href="https://www.edoeb.admin.ch/de" target="_blank" rel="noopener">Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB)</a> beschweren.',
+    rightsBody: 'Nach dem DSG hast du das Recht auf Auskunft über die zu deiner Person bearbeiteten Daten sowie auf deren Berichtigung oder Löschung. Diese Website speichert selbst keine Daten zu identifizierbaren Personen. Personenbeziehbar sind allein die technischen Server-Protokolle, die GitHub als Hosting-Anbieter führt und auf die der Betreiber dieser Seite keinen Zugriff hat. Auskunfts-, Berichtigungs- oder Löschungsanfragen zu diesen Protokollen richtest du deshalb direkt an GitHub unter <a href="mailto:privacy{\'@\'}github.com">privacy{\'@\'}github.com</a> und nicht an den Betreiber dieser Seite.',
 
     changesTitle: 'Änderungen',
     changesBody: 'Diese Datenschutzerklärung kann angepasst werden, wenn sich die Website oder die rechtlichen Vorgaben ändern. Massgebend ist die jeweils hier veröffentlichte Fassung.',
