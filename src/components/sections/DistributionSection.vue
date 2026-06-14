@@ -84,7 +84,9 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
 <style scoped>
 .dist-lead { margin-bottom: 10px; max-width: 56ch; }
 .dist-lead-src { margin: 0 0 22px; }
-.dist-lead :deep(.hl.gold) { color: var(--gold); font-weight: 800; }
+/* Im Lead ist .hl nur farbige Hervorhebung, kein Marker: Markerflaeche entfernen,
+   sonst stuende goldene Schrift auf goldenem Marker (unleserlich). */
+.dist-lead :deep(.hl.gold) { background: none; padding: 0; border-radius: 0; color: var(--gold); font-weight: 800; }
 .dist-lead :deep(strong) { font-weight: 800; }
 .stat-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 32px 0; }
 .ministat { display: flex; flex-direction: column; gap: 4px; padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); }

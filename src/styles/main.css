@@ -189,7 +189,10 @@ button { font-family: inherit; cursor: pointer; }
    setzen ausschliesslich die zwei Variablen --hl-bg (Hintergrund) und --hl-fg (Schrift). */
 .hl {
   --hl-bg: rgba(255, 84, 112, 0.85);
-  --hl-fg: inherit;
+  /* Wie ein echter Textmarker: dunkle Schrift auf hellem Marker. Mit «inherit» stuende
+     auf den dunklen Sektionen weisse Schrift auf dem hellen Marker (Gold/Teal/Violett kaum
+     lesbar). Die B-Varianten (.claim-band) setzen --hl-fg bei Bedarf wieder auf Weiss. */
+  --hl-fg: var(--ink);
   /* Anteil, der oben und unten abgeschnitten wird: macht den Marker etwas niedriger,
      damit sich Marker bei mehrzeiligem Text nicht berühren oder überlappen. */
   --hl-trim: 14%;
