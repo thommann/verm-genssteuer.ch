@@ -119,7 +119,9 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
 .block-h { margin-top: 40px; }
 .body { font-size: 0.96rem; line-height: 1.65; color: var(--text-soft); max-width: 74ch; }
 .body :deep(strong) { color: var(--text); }
-.body :deep(.hl) { color: var(--accent); font-weight: 700; }
+/* Im Fliesstext ist .hl nur farbige Hervorhebung, kein Marker: Markerflaeche entfernen,
+   damit nicht farbige Schrift auf gleichfarbigem Marker steht (unleserlich). */
+.body :deep(.hl) { background: none; padding: 0; border-radius: 0; color: var(--accent); font-weight: 700; }
 .body :deep(.hl.gold) { color: var(--gold); }
 
 .calclist { margin: 14px 0 0; padding-left: 20px; color: var(--text-soft); max-width: 74ch; }
