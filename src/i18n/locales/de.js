@@ -545,7 +545,7 @@ export default {
     linksBody: 'Die Seite verlinkt auf externe Quellen und Werkzeuge (etwa amtliche Statistiken oder den Global&nbsp;Wealth&nbsp;Tax&nbsp;Simulator). Für deren Inhalte und Datenbearbeitung gelten die jeweils dort veröffentlichten Datenschutzerklärungen.',
 
     rightsTitle: 'Deine Rechte',
-    rightsBody: 'Nach dem DSG hast du das Recht auf Auskunft über die zu deiner Person bearbeiteten Daten sowie auf deren Berichtigung oder Löschung. Da diese Website selbst keine Daten zu identifizierbaren Personen speichert, beziehen sich solche Anfragen in der Regel auf die Server-Protokolle des Hosting-Anbieters. Für eine Anfrage genügt eine E-Mail an <a href="mailto:thomas{\'@\'}mannhart.ai">thomas{\'@\'}mannhart.ai</a>. Zudem kannst du dich beim <a href="https://www.edoeb.admin.ch/de" target="_blank" rel="noopener">Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB)</a> beschweren.',
+    rightsBody: 'Nach dem DSG hast du das Recht auf Auskunft über die zu deiner Person bearbeiteten Daten sowie auf deren Berichtigung oder Löschung. Diese Website sammelt selbst keine Daten zu identifizierbaren Personen, deshalb können wir auch keine Auskunft über gesammelte Daten geben.',
 
     changesTitle: 'Änderungen',
     changesBody: 'Diese Datenschutzerklärung kann angepasst werden, wenn sich die Website oder die rechtlichen Vorgaben ändern. Massgebend ist die jeweils hier veröffentlichte Fassung.',
