@@ -108,7 +108,7 @@ export default {
       eigenheim: {
         eyebrow: 'Das Problem',
         text: 'Der Grund, warum du dir wohl <span class="hl">nie ein eigenes Haus</span> leisten kannst, ist die wachsende Ungleichheit.',
-        explainText: 'Die Superreichen verdienen mehr, als sie ausgeben können, und stecken den Rest in Sachwerte wie Immobilien. Das treibt die Preise, und gegen diese Nachfrage kommt kein normaler Haushalt an.',
+        explainText: 'Die Vermögen der Superreichen wachsen schneller, als sie ausgegeben werden können. Ihnen bleibt nichts anderes übrig, als für immer höhere Preise Häuser zu kaufen. Deshalb hast du mit deinem Lohn keine Chance mehr, auf dem Häusermarkt zu konkurrieren.',
         link: 'Der Graben zwischen Median und Durchschnitt',
       },
       krankenkasse: {
