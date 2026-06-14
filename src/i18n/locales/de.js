@@ -174,7 +174,7 @@ export default {
       schonFair: {
         eyebrow: 'Fair bleibt fair',
         text: 'Wer heute schon <span class="hl">fair besteuert</span> wird, zahlt mit einer Mindeststeuer keinen Franken mehr.',
-        explainText: 'Die Mindeststeuer ist ein Boden, kein Zuschlag: Wer heute schon auf 2&nbsp;% kommt, zahlt keinen Franken mehr. Sie trifft nur die wenigen ganz oben, nicht dich.',
+        explainText: 'Die Mindeststeuer ist ein Boden, kein Zuschlag: Wer heute schon auf 2&nbsp;% kommt, zahlt keinen Franken mehr. Sie betrifft nur Superreiche mit Vermögen über 100&nbsp;Mio. CHF, und davon nur die, die heute fast keine Steuern zahlen.',
         link: 'So funktioniert die Mindeststeuer',
       },
     },
