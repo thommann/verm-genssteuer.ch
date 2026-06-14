@@ -126,7 +126,7 @@ export default {
       strassen: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">verstopften Strassen</span> ist die wachsende Ungleichheit.',
-        explainText: 'Dem Staat fehlt das Geld, um vernünftig in die Infrastruktur zu investieren, während sich an der Spitze Vermögen staut. Eine Vermögenssteuer schafft den Spielraum für Strassen, Unterhalt und Ausbau.',
+        explainText: 'Dem Staat fehlt das Geld, um vernünftig in Infrastruktur wie Strassen, Züge, Trams, Busse und U-Bahnen zu investieren. Du bezahlst bereits hohe Steuern auf deinem Lohn, doch da der Staat die Superreichen nicht besteuern kann, muss er dich noch weiter ausquetschen oder die Infrastruktur verlottern lassen.',
         link: 'Wie das Vermögen verteilt ist',
       },
       bildung: {
