@@ -347,6 +347,11 @@ onUnmounted(() => {
   gap: 12px 24px; padding-top: 18px; padding-bottom: 18px;
 }
 .site-footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+/* Auf schmalen Schirmen rechts Platz lassen, damit der fixierte
+   «nach oben»-Knopf (ReadingProgress) den letzten Link nicht verdeckt. */
+@media (max-width: 600px) {
+  .site-footer-inner { padding-right: calc(46px + clamp(16px, 4vw, 32px) + 12px); }
+}
 .site-footer-links a {
   font-size: 0.84rem; font-weight: 700; color: var(--text-soft); text-decoration: none;
   transition: color 0.15s ease;
