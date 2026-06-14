@@ -458,7 +458,6 @@ export default {
     lead: 'Alle Kernzahlen stammen aus offiziellen, öffentlich zugänglichen Statistiken. Die Berechnungen sind nachvollziehbar und reproduzieren die zugrunde liegenden Workbooks exakt. Nichts ist erfunden, die Schlussfolgerung ist politisch, die Daten nicht.',
     methodTitle: 'Methodische Ehrlichkeit',
     methodLi1: '<strong>Steuerbares Vermögen ≠ Marktvermögen.</strong> Die ESTV-Daten enthalten keine 2./3. Säule und bewerten Liegenschaften zum Steuerwert, das reale Vermögen der Spitze ist eher noch höher.',
-    methodLi2: '<strong>Statisches Aufkommen.</strong> Der Rechner ignoriert Abwanderung, Verhalten und Vermögensentstehung, die grössten realen Unsicherheiten. Er zeigt das Potenzial der Bemessungsgrundlage, keine Einnahmeprognose.',
     methodLi3: '<strong>Pareto-Tail.</strong> Vermögen über 10&nbsp;Mio. werden mit einem Pareto-Index aus den ESTV-Klassenmitteln extrapoliert; Pauschalbesteuerte sind modellhaft im selben Tail angenommen.',
     methodLi4: '<strong>Verschiedene Bezugsgrössen.</strong> WID/UBS messen das gesamte Netto-Privatvermögen, die ESTV nur das steuerbare. Vergleiche sind indikativ, nicht zellengenau.',
     methodLi6: '<strong>Zucman-Abschnitt ist eine Schätzung.</strong> Die heutige Effektivlast und das Zusatzaufkommen der 2&nbsp;%-Mindeststeuer sind eine eigene, statische Herleitung auf belegten Eingangsgrössen (Bilanz, Momentum, NZZ, WOZ), keine amtliche Zahl und nicht aus der ESTV-Pipeline reproduzierbar. Die Rechnung steht offen im Abschnitt «Zucman-Steuer» und in der Methodik-Dokumentation.',
