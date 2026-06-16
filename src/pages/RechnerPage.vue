@@ -1,12 +1,40 @@
 <script setup>
+import { watch, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import CalculatorSection from '@/components/sections/CalculatorSection.vue';
 import WegzugSection from '@/components/sections/WegzugSection.vue';
 import ProjectionSection from '@/components/sections/ProjectionSection.vue';
 import SpendSection from '@/components/sections/SpendSection.vue';
 import { useScrollSpy } from '@/composables/useScrollSpy.js';
+import { useCalculator, PRESETS } from '@/composables/useCalculator.js';
 
 // Beim Scrollen den Anker des sichtbaren Abschnitts in die URL schreiben.
 useScrollSpy(['rechner', 'wegzug', 'dynamik', 'verwendung'], { syncHash: true });
+
+// Voreinstellung verlinkbar machen: ?preset=<key> in der URL spiegelt die aktive Pille.
+// Der Hash ist vom Scrollspy belegt, daher liegt die Voreinstellung im Query-Teil.
+const route = useRoute();
+const calc = useCalculator();
+
+// Aktive Voreinstellung in die URL schreiben (eigenes Modell = kein Parameter). Wie der
+// Scrollspy per replaceState, also ohne Verlaufseintrag, ohne Scroll-Sprung und unter
+// Beibehaltung des Hashes.
+const writePresetToUrl = (key) => {
+  const url = new URL(window.location.href);
+  if (key) url.searchParams.set('preset', key);
+  else url.searchParams.delete('preset');
+  window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
+};
+
+onMounted(() => {
+  const key = route.query.preset;
+  // Gültige Voreinstellung aus der URL übernehmen, sonst den aktuellen Zustand in die URL
+  // spiegeln, damit die Adresse die gezeigte Voreinstellung immer abbildet.
+  if (typeof key === 'string' && PRESETS[key]) calc.applyPreset(key);
+  else writePresetToUrl(calc.state.activePreset);
+});
+
+watch(() => calc.state.activePreset, writePresetToUrl);
 </script>
 
 <template>

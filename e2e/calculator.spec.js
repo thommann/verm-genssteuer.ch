@@ -38,8 +38,8 @@ test.describe('Rechner', () => {
   // Grundzustand
   // -------------------------------------------------------------------------
 
-  test('Preset "Flach" ist beim Laden aktiv', async ({ page }) => {
-    await expect(page.locator('.preset.active')).toHaveText('Flach');
+  test('Preset "Tief" ist beim Laden aktiv', async ({ page }) => {
+    await expect(page.locator('.preset.active')).toHaveText('Tief');
   });
 
   test('Tarifkurven-Regler sind sichtbar', async ({ page }) => {
@@ -81,9 +81,11 @@ test.describe('Rechner', () => {
     await expect(page.locator('.result-value')).toBeVisible();
   });
 
-  test('Preset "Stark progressiv" wechselt korrekt', async ({ page }) => {
-    await page.locator('.preset', { hasText: 'Stark progressiv' }).click();
-    await expect(page.locator('.preset.active')).toHaveText('Stark progressiv');
+  test('Preset "Hoch" wechselt korrekt', async ({ page }) => {
+    // "Hoch" gibt es auch in der WIR-Zeile; daher auf die progressive Zeile einschränken.
+    const myRow = page.locator('.preset-row').first();
+    await myRow.locator('.preset', { hasText: 'Hoch' }).click();
+    await expect(page.locator('.preset.active')).toHaveText('Hoch');
   });
 
   test('WIR-2022-Preset sperrt die Tarifkurven-Regler', async ({ page }) => {
@@ -106,7 +108,7 @@ test.describe('Rechner', () => {
 
     await page.locator('.controls-lock-link').click();
     await expect(page.locator('.controls-lock')).not.toBeVisible();
-    await expect(page.locator('.preset.active')).toHaveText('Flach');
+    await expect(page.locator('.preset.active')).toHaveText('Tief');
   });
 
   // -------------------------------------------------------------------------
@@ -240,5 +242,40 @@ test.describe('Rechner', () => {
     const info = page.locator('.wegzug-info');
     await expect(info).toBeVisible();
     expect(parseCnt(await info.textContent())).toBeGreaterThan(0);
+  });
+
+  // -------------------------------------------------------------------------
+  // Voreinstellung in der URL (Deep-Link)
+  // -------------------------------------------------------------------------
+
+  test('Deep-Link ?preset=moderat aktiviert die Voreinstellung beim Laden', async ({ page }) => {
+    await page.goto('/rechner?preset=moderat');
+    await expect(page.locator('.preset.active')).toHaveText('Moderat');
+  });
+
+  test('Deep-Link auf ein WIR-Preset sperrt die Regler', async ({ page }) => {
+    await page.goto('/rechner?preset=wir2022_3');
+    await expect(page.locator('.controls-lock')).toBeVisible();
+  });
+
+  test('Preset-Klick schreibt die Voreinstellung in die URL', async ({ page }) => {
+    const myRow = page.locator('.preset-row').first();
+    await myRow.locator('.preset', { hasText: 'Hoch' }).click();
+    await expect(page).toHaveURL(/[?&]preset=steil/);
+  });
+
+  test('Schieber-Anpassung entfernt die Voreinstellung aus der URL', async ({ page }) => {
+    await page.goto('/rechner?preset=moderat');
+    await expect(page).toHaveURL(/[?&]preset=moderat/);
+
+    const slider = page.locator('#rechner .controls input[type="range"]').first();
+    await setSlider(slider, 50_000_000);
+    await expect(page).not.toHaveURL(/preset=/);
+  });
+
+  test('Unbekannte Voreinstellung in der URL fällt auf das Standardmodell zurück', async ({ page }) => {
+    await page.goto('/rechner?preset=gibtsnicht');
+    await expect(page.locator('.preset.active')).toHaveText('Tief');
+    await expect(page).not.toHaveURL(/gibtsnicht/);
   });
 });
