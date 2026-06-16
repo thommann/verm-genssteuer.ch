@@ -210,6 +210,9 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   align-items: start;
 }
 .calc-grid > .card { min-width: 0; }
+/* Regler links (über beide Reihen), Tarifkurve und «Woher das Geld kommt» rechts gestapelt. */
+.calc-grid > .controls { grid-column: 1; grid-row: 1 / span 2; }
+.calc-grid > .chartbox.band { grid-column: 2; }
 .controls { padding: 24px; }
 .controls-lock {
   font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
@@ -241,5 +244,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 
 @media (max-width: 820px) {
   .calc-grid { grid-template-columns: 1fr; }
+  .calc-grid > .controls { grid-column: auto; grid-row: auto; }
+  .calc-grid > .chartbox.band { grid-column: auto; }
 }
 </style>
