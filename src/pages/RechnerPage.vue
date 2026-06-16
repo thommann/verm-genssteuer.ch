@@ -2,9 +2,10 @@
 import { watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import CalculatorSection from '@/components/sections/CalculatorSection.vue';
+import SpendSection from '@/components/sections/SpendSection.vue';
+import ModellSection from '@/components/sections/ModellSection.vue';
 import WegzugSection from '@/components/sections/WegzugSection.vue';
 import ProjectionSection from '@/components/sections/ProjectionSection.vue';
-import SpendSection from '@/components/sections/SpendSection.vue';
 import { useScrollSpy } from '@/composables/useScrollSpy.js';
 import { useCalculator, PRESETS } from '@/composables/useCalculator.js';
 
@@ -42,9 +43,15 @@ watch(() => calc.state.activePreset, writePresetToUrl);
        Alle Abschnitte teilen denselben reaktiven Datensatz (useCalculator) und werden
        durch Rahmen und Akzentlinie als ein Block markiert. -->
   <div id="thema-rechner" class="calc-suite">
+    <!-- Hero: Steuermodell (Presets), langfristige Mehreinnahmen und die
+         Verwendungs-Übersicht. Darunter in gewohnter Reihenfolge: Modell selbst
+         einstellen, Wegzug, langfristige Entwicklung und die ausführliche Verwendung. -->
     <CalculatorSection />
-    <WegzugSection />
-    <ProjectionSection />
+    <ModellSection />
+    <div class="calc-duo">
+      <WegzugSection />
+      <ProjectionSection />
+    </div>
     <SpendSection />
   </div>
 </template>
@@ -67,5 +74,21 @@ watch(() => calc.state.activePreset, writePresetToUrl);
   background: linear-gradient(90deg, var(--accent), var(--violet), var(--teal));
 }
 /* Innenabstände der gebündelten Abschnitte, damit sie als Einheit lesen. */
-.calc-suite > section { padding-top: clamp(40px, 5vw, 72px); padding-bottom: clamp(40px, 5vw, 72px); }
+.calc-suite > section { padding-top: clamp(28px, 3.4vw, 48px); padding-bottom: clamp(28px, 3.4vw, 48px); }
+/* Hero (Presets, Ertrag, Verwendung) als ein Block: nur minimaler Abstand zwischen
+   Rechner und Verwendung, damit die drei Kernelemente eng zusammen liegen. */
+.calc-suite > #rechner { padding-bottom: clamp(12px, 1.4vw, 18px); }
+.calc-suite > #verwendung { padding-top: clamp(12px, 1.4vw, 18px); }
+
+/* Wegzug und Rendite auf Desktop nebeneinander, je eine Spalte. Der Block ist auf
+   die gleiche Breite wie die übrigen Abschnitte begrenzt, damit die Kanten fluchten. */
+.calc-duo {
+  width: 100%; max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+}
+.calc-duo > section { padding-top: clamp(28px, 3.4vw, 48px); padding-bottom: clamp(28px, 3.4vw, 48px); }
+@media (max-width: 820px) {
+  .calc-duo { grid-template-columns: 1fr; }
+}
 </style>

@@ -192,6 +192,12 @@ export default {
     capLabel: 'Höchst-Grenzsatz (Cap)',
     capHint: 'Deckel für den Grenzsatz der allergrössten Vermögen.',
     yearLabel: 'Datenjahr:',
+    tuningSummary: 'Modell selbst einstellen (Regler & Diagramme)',
+    modellEyebrow: 'Das Steuermodell',
+    modellTitle: 'Modell selbst einstellen',
+    longTermLabel: 'Langfristige Mehreinnahmen',
+    longTermHint: 'dauerhaft tragbares Niveau',
+    firstYearLabel: 'Erstes Jahr ({year})',
     resultLabel: 'Mehreinnahmen ({year})',
     nettoNeuLabel: 'Neue Steuer (Verbliebene)',
     nettoHeuteLabel: 'Heutige Steuern (Abgewanderte)',
@@ -206,6 +212,7 @@ export default {
     curveLegendMarginal: 'Grenzsatz (auf den nächsten Franken)',
     curveLegendAvg: 'Durchschnittssatz',
     bandTitle: 'Woher das Geld kommt',
+    bandRateLabel: 'Ø-Satz',
     // Beschriftungen der Vermögensbänder (Reihenfolge wie BANDS in taxModel.js).
     bands: {
       0: '1–5 Mio.',
@@ -231,6 +238,7 @@ export default {
     eyebrow: 'Was tun mit dem Geld?',
     title: '{revenue} pro Jahr: wofür?',
     lead: 'Dieselben Einnahmen, fünf mögliche Verwendungen. Stell oben am Rechner ein Steuermodell ein und sieh hier in Echtzeit, was damit für alle möglich wäre.',
+    interactiveSummary: 'Selbst rechnen: Jahr wählen und Budget aufteilen',
     modeCompare: 'Vergleich',
     modeAllocate: 'Selbst aufteilen',
     toggleDauerhaft: 'Dauerhaft tragbar',

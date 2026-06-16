@@ -118,7 +118,7 @@ export function revenueByBand(bins, model, year, wegzugSchwelle = Infinity) {
       if (b.mid >= wegzugSchwelle) continue;
       if (b.mid >= band.lo && b.mid < band.hi) sum += b[key] * model.tax(b.mid);
     }
-    return { label: band.label, value: sum };
+    return { label: band.label, value: sum, lo: band.lo, hi: band.hi };
   });
 }
 
