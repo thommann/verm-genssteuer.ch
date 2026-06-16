@@ -2,9 +2,10 @@
 import { watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import CalculatorSection from '@/components/sections/CalculatorSection.vue';
+import SpendSection from '@/components/sections/SpendSection.vue';
+import ModellSection from '@/components/sections/ModellSection.vue';
 import WegzugSection from '@/components/sections/WegzugSection.vue';
 import ProjectionSection from '@/components/sections/ProjectionSection.vue';
-import SpendSection from '@/components/sections/SpendSection.vue';
 import { useScrollSpy } from '@/composables/useScrollSpy.js';
 import { useCalculator, PRESETS } from '@/composables/useCalculator.js';
 
@@ -42,8 +43,12 @@ watch(() => calc.state.activePreset, writePresetToUrl);
        Alle Abschnitte teilen denselben reaktiven Datensatz (useCalculator) und werden
        durch Rahmen und Akzentlinie als ein Block markiert. -->
   <div id="thema-rechner" class="calc-suite">
+    <!-- Zuoberst auf einen Blick: Steuermodell (Presets) + langfristiger Ertrag,
+         dann die mögliche Verwendung. Erst danach alle Erklärungstexte und Details:
+         das Modell selbst einstellen, Wegzug und die langfristige Entwicklung. -->
     <CalculatorSection />
     <SpendSection />
+    <ModellSection />
     <WegzugSection />
     <ProjectionSection />
   </div>
