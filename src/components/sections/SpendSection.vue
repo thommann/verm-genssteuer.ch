@@ -4,11 +4,14 @@ import { useCalculator } from '@/composables/useCalculator.js';
 import { chfCompact } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 import SpendGrid from '@/components/ui/SpendGrid.vue';
+import SpendAllocator from '@/components/ui/SpendAllocator.vue';
 
 const { nettoStatisch, nettoDauerhaft, state, debtFreeYears } = useCalculator();
 
 const basis = ref('dauerhaft'); // 'dauerhaft' | 'jahr1'
 const revenue = computed(() => basis.value === 'jahr1' ? nettoStatisch.value : nettoDauerhaft.value);
+
+const mode = ref('vergleich'); // 'vergleich' | 'aufteilen'
 </script>
 
 <template>
@@ -17,6 +20,15 @@ const revenue = computed(() => basis.value === 'jahr1' ? nettoStatisch.value : n
       <div class="eyebrow">{{ $t('spend.eyebrow') }}</div>
       <h2 v-html="$t('spend.title', { revenue: chfCompact(revenue, 1) })" />
       <p class="lead">{{ $t('spend.lead') }}</p>
+
+      <div class="mode-toggle">
+        <button :class="{ active: mode === 'vergleich' }" @click="mode = 'vergleich'">
+          {{ $t('spend.modeCompare') }}
+        </button>
+        <button :class="{ active: mode === 'aufteilen' }" @click="mode = 'aufteilen'">
+          {{ $t('spend.modeAllocate') }}
+        </button>
+      </div>
 
       <div class="basis-toggle">
         <button :class="{ active: basis === 'dauerhaft' }" @click="basis = 'dauerhaft'">
@@ -30,7 +42,13 @@ const revenue = computed(() => basis.value === 'jahr1' ? nettoStatisch.value : n
         </span>
       </div>
 
-      <SpendGrid :revenue="revenue" :debt-free-years="debtFreeYears" :rendite="state.rendite" />
+      <SpendGrid
+        v-if="mode === 'vergleich'"
+        :revenue="revenue"
+        :debt-free-years="debtFreeYears"
+        :rendite="state.rendite"
+      />
+      <SpendAllocator v-else :revenue="revenue" />
 
       <p class="disclaimer muted" v-html="$t('spend.disclaimer')" />
       <div class="srcs">
@@ -43,7 +61,13 @@ const revenue = computed(() => basis.value === 'jahr1' ? nettoStatisch.value : n
 </template>
 
 <style scoped>
-.basis-toggle { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 22px 0 28px; }
+.mode-toggle { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); margin: 22px 0 6px; }
+.mode-toggle button {
+  padding: 8px 18px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
+  background: transparent; border: none; color: var(--text-soft);
+}
+.mode-toggle button.active { background: var(--teal); color: #04201c; }
+.basis-toggle { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 18px 0 28px; }
 .basis-toggle button {
   padding: 8px 16px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-soft);
