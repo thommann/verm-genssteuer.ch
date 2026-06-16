@@ -9,7 +9,7 @@ import { useScrollSpy } from '@/composables/useScrollSpy.js';
 import { useCalculator, PRESETS } from '@/composables/useCalculator.js';
 
 // Beim Scrollen den Anker des sichtbaren Abschnitts in die URL schreiben.
-useScrollSpy(['rechner', 'wegzug', 'dynamik', 'verwendung'], { syncHash: true });
+useScrollSpy(['rechner', 'verwendung', 'wegzug', 'dynamik'], { syncHash: true });
 
 // Voreinstellung verlinkbar machen: ?preset=<key> in der URL spiegelt die aktive Pille.
 // Der Hash ist vom Scrollspy belegt, daher liegt die Voreinstellung im Query-Teil.
@@ -43,9 +43,9 @@ watch(() => calc.state.activePreset, writePresetToUrl);
        durch Rahmen und Akzentlinie als ein Block markiert. -->
   <div id="thema-rechner" class="calc-suite">
     <CalculatorSection />
+    <SpendSection />
     <WegzugSection />
     <ProjectionSection />
-    <SpendSection />
   </div>
 </template>
 
