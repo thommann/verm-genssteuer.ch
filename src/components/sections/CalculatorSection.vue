@@ -26,6 +26,9 @@ const presetRows = computed(() =>
        langfristige Ertrag. Erklärungen und das Selbst-Einstellen folgen weiter unten. -->
   <section id="rechner">
     <div class="wrap">
+      <div class="eyebrow">{{ $t('calculator.eyebrow') }}</div>
+      <h2 v-html="$t('calculator.title')" />
+
       <div class="presets">
         <div v-for="g in presetRows" :key="g.id" class="preset-row">
           <span v-if="g.label" class="presets-label">{{ g.label }}</span>
@@ -54,7 +57,7 @@ const presetRows = computed(() =>
 </template>
 
 <style scoped>
-.presets { display: flex; flex-direction: column; gap: 8px; margin: 0 0 14px; }
+.presets { display: flex; flex-direction: column; gap: 8px; margin: 18px 0 14px; }
 .preset-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .presets-label { color: var(--text-mute); font-size: 0.85rem; font-weight: 600; min-width: 76px; }
 .presets-label::after { content: ':'; }

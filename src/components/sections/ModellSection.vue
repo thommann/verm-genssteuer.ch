@@ -8,7 +8,6 @@ import RangeControl from '@/components/ui/RangeControl.vue';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
-import DetailsPanel from '@/components/ui/DetailsPanel.vue';
 
 const k = kennzahlen.unbeschraenkt['2022'];
 
@@ -61,8 +60,8 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 <template>
   <section id="rechner-modell">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('calculator.eyebrow') }}</div>
-      <h2 v-html="$t('calculator.title')" />
+      <div class="eyebrow">{{ $t('calculator.modellEyebrow') }}</div>
+      <h2 v-html="$t('calculator.modellTitle')" />
       <p class="lead">{{ $t('calculator.lead') }}</p>
 
       <p v-if="isWir2022" class="preset-note">
@@ -70,19 +69,17 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
         <SourceTag id="wir2022" :note="$t('calculator.presetNoteWir2022Source')" />
       </p>
 
-      <!-- Eigenes Modell justieren und visualisieren. Standardmaessig eingeklappt. -->
-      <DetailsPanel :label="$t('calculator.tuningSummary')">
-        <p
-          v-if="!isWirActive"
-          class="threshold-info"
-          v-html="$t('calculator.thresholdInfo', {
-            cnt: num(k.cnt_ge5M),
-            rest: pct(1 - k.pct_ge5M, 0),
-            share: pct(k.share_ge5M, 0),
-          })"
-        />
+      <p
+        v-if="!isWirActive"
+        class="threshold-info"
+        v-html="$t('calculator.thresholdInfo', {
+          cnt: num(k.cnt_ge5M),
+          rest: pct(1 - k.pct_ge5M, 0),
+          share: pct(k.share_ge5M, 0),
+        })"
+      />
 
-        <div class="calc-grid">
+      <div class="calc-grid">
           <!-- Controls -->
           <div class="card controls">
             <p v-if="isWirActive" class="controls-lock">
@@ -173,7 +170,6 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
             />
           </div>
         </div>
-      </DetailsPanel>
 
       <p class="disclaimer">
         <span class="srcs">

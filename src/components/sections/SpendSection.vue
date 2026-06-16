@@ -5,7 +5,6 @@ import { chfCompact } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 import SpendGrid from '@/components/ui/SpendGrid.vue';
 import SpendAllocator from '@/components/ui/SpendAllocator.vue';
-import DetailsPanel from '@/components/ui/DetailsPanel.vue';
 
 const { nettoStatisch, nettoDauerhaft, state, debtFreeYears } = useCalculator();
 
@@ -35,37 +34,35 @@ const mode = ref('vergleich'); // 'vergleich' | 'aufteilen'
         <h2 v-html="$t('spend.title', { revenue: chfCompact(heroRevenue, 1) })" />
         <p class="lead">{{ $t('spend.lead') }}</p>
 
-        <DetailsPanel :label="$t('spend.interactiveSummary')">
-          <div class="spend-controls">
-            <div class="mode-toggle">
-              <button :class="{ active: mode === 'vergleich' }" @click="mode = 'vergleich'">
-                {{ $t('spend.modeCompare') }}
-              </button>
-              <button :class="{ active: mode === 'aufteilen' }" @click="mode = 'aufteilen'">
-                {{ $t('spend.modeAllocate') }}
-              </button>
-            </div>
-            <div class="basis-toggle">
-              <button :class="{ active: basis === 'dauerhaft' }" @click="basis = 'dauerhaft'">
-                {{ $t('spend.toggleDauerhaft') }}
-              </button>
-              <button :class="{ active: basis === 'jahr1' }" @click="basis = 'jahr1'">
-                {{ $t('spend.toggleJahr1', { year: state.year }) }}
-              </button>
-            </div>
+        <div class="spend-controls">
+          <div class="mode-toggle">
+            <button :class="{ active: mode === 'vergleich' }" @click="mode = 'vergleich'">
+              {{ $t('spend.modeCompare') }}
+            </button>
+            <button :class="{ active: mode === 'aufteilen' }" @click="mode = 'aufteilen'">
+              {{ $t('spend.modeAllocate') }}
+            </button>
           </div>
-          <p class="basis-hint muted">
-            {{ basis === 'dauerhaft' ? $t('spend.hintDauerhaft') : $t('spend.hintJahr1') }}
-          </p>
+          <div class="basis-toggle">
+            <button :class="{ active: basis === 'dauerhaft' }" @click="basis = 'dauerhaft'">
+              {{ $t('spend.toggleDauerhaft') }}
+            </button>
+            <button :class="{ active: basis === 'jahr1' }" @click="basis = 'jahr1'">
+              {{ $t('spend.toggleJahr1', { year: state.year }) }}
+            </button>
+          </div>
+        </div>
+        <p class="basis-hint muted">
+          {{ basis === 'dauerhaft' ? $t('spend.hintDauerhaft') : $t('spend.hintJahr1') }}
+        </p>
 
-          <SpendGrid
-            v-if="mode === 'vergleich'"
-            :revenue="panelRevenue"
-            :debt-free-years="debtFreeYears"
-            :rendite="state.rendite"
-          />
-          <SpendAllocator v-else :revenue="panelRevenue" />
-        </DetailsPanel>
+        <SpendGrid
+          v-if="mode === 'vergleich'"
+          :revenue="panelRevenue"
+          :debt-free-years="debtFreeYears"
+          :rendite="state.rendite"
+        />
+        <SpendAllocator v-else :revenue="panelRevenue" />
 
         <p class="disclaimer muted" v-html="$t('spend.disclaimer')" />
         <div class="srcs">
@@ -82,7 +79,7 @@ const mode = ref('vergleich'); // 'vergleich' | 'aufteilen'
 .spend-explain { margin-top: 22px; }
 .spend-explain .lead { margin-top: 6px; }
 
-.spend-controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 0 0 6px; }
+.spend-controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 16px 0 6px; }
 .mode-toggle { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); }
 .mode-toggle button {
   padding: 8px 18px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;

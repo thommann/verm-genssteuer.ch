@@ -193,6 +193,8 @@ export default {
     capHint: 'Deckel für den Grenzsatz der allergrössten Vermögen.',
     yearLabel: 'Datenjahr:',
     tuningSummary: 'Modell selbst einstellen (Regler & Diagramme)',
+    modellEyebrow: 'Das Steuermodell',
+    modellTitle: 'Modell selbst einstellen',
     longTermLabel: 'Langfristige Mehreinnahmen',
     longTermHint: 'dauerhaft tragbares Niveau',
     firstYearLabel: 'Erstes Jahr ({year})',

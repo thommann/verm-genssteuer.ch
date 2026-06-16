@@ -5,7 +5,6 @@ import { useCalculator, WEGZUG_MAX } from '@/composables/useCalculator.js';
 import { chfCompact, num } from '@/lib/format.js';
 import RangeControl from '@/components/ui/RangeControl.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
-import DetailsPanel from '@/components/ui/DetailsPanel.vue';
 
 const { t } = useI18n();
 const calc = useCalculator();
@@ -43,7 +42,8 @@ const wegzugDisplay = computed(() =>
 <template>
   <section id="wegzug">
     <div class="wrap">
-      <DetailsPanel :eyebrow="$t('wegzug.eyebrow')" :title="$t('wegzug.title')">
+      <div class="eyebrow">{{ $t('wegzug.eyebrow') }}</div>
+      <h2 v-html="$t('wegzug.title')" />
       <p class="lead" v-html="$t('wegzug.lead')" />
 
       <div class="card wegzug-card">
@@ -77,7 +77,6 @@ const wegzugDisplay = computed(() =>
         <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
         <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
       </div>
-      </DetailsPanel>
     </div>
   </section>
 </template>

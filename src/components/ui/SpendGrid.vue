@@ -51,8 +51,10 @@ const over = (v) => v > 1;
 <template>
   <div :class="['spend-grid', { mini, compact }]">
     <article class="card spend">
-      <div v-if="!mini" class="spend-icon">🧾</div>
-      <h3>{{ $t('spend.incomeTitle') }}</h3>
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">🧾</span>
+        <h3>{{ $t('spend.incomeTitle') }}</h3>
+      </div>
       <div class="spend-big teal">
         <span v-if="over(incomeCut)">{{ $t('spend.incomeOver') }}</span>
         <span v-else>−{{ pct(incomeCut, 0) }}</span>
@@ -70,8 +72,10 @@ const over = (v) => v > 1;
     </article>
 
     <article class="card spend">
-      <div v-if="!mini" class="spend-icon">🏥</div>
-      <h3>{{ $t('spend.premiumTitle') }}</h3>
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">🏥</span>
+        <h3>{{ $t('spend.premiumTitle') }}</h3>
+      </div>
       <div class="spend-big gold">
         <span v-if="over(premiumShare)">{{ $t('spend.premiumOver') }}</span>
         <span v-else>{{ pct(premiumShare, 0) }}</span>
@@ -88,8 +92,10 @@ const over = (v) => v > 1;
     </article>
 
     <article class="card spend">
-      <div v-if="!mini" class="spend-icon">💸</div>
-      <h3>{{ $t('spend.dividendTitle') }}</h3>
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">💸</span>
+        <h3>{{ $t('spend.dividendTitle') }}</h3>
+      </div>
       <div class="spend-big accent">{{ chf(dividendYear) }}</div>
       <p v-if="detail" class="spend-text" v-html="$t('spend.dividendText', { population: num(K.population.value) })" />
       <div v-if="!mini" class="spend-meter"><div class="fill accent" style="width: 100%" /></div>
@@ -102,8 +108,10 @@ const over = (v) => v > 1;
     </article>
 
     <article class="card spend">
-      <div v-if="!mini" class="spend-icon">🚆</div>
-      <h3>{{ $t('spend.oevTitle') }}</h3>
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">🚆</span>
+        <h3>{{ $t('spend.oevTitle') }}</h3>
+      </div>
       <div class="spend-big blue">
         <span v-if="over(oevCut)">{{ $t('spend.oevOver') }}</span>
         <span v-else>−{{ pct(oevCut, 0) }}</span>
@@ -120,8 +128,10 @@ const over = (v) => v > 1;
     </article>
 
     <article class="card spend">
-      <div v-if="!mini" class="spend-icon">✈️</div>
-      <h3>{{ $t('spend.f35Title') }}</h3>
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">✈️</span>
+        <h3>{{ $t('spend.f35Title') }}</h3>
+      </div>
       <div class="spend-big gold">
         {{ f35Count }}<span class="spend-unit">{{ $t('spend.f35Unit') }}</span>
       </div>
@@ -140,8 +150,10 @@ const over = (v) => v > 1;
     </article>
 
     <article class="card spend spend-accent">
-      <div v-if="!mini" class="spend-icon">🗓️</div>
-      <h3>{{ $t('spend.debtfreeTitle') }}</h3>
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">🗓️</span>
+        <h3>{{ $t('spend.debtfreeTitle') }}</h3>
+      </div>
       <div class="spend-big violet">
         {{ debtFreeYearsLabel }}<span class="spend-unit">{{ $t('spend.debtfreeUnit') }}</span>
       </div>
@@ -175,7 +187,8 @@ const over = (v) => v > 1;
 .compact .spend { padding: 22px 22px; gap: 6px; }
 .compact .spend-big { font-size: clamp(2rem, 4.5vw, 2.6rem); }
 .spend { padding: 26px 24px; display: flex; flex-direction: column; gap: 8px; }
-.spend-icon { font-size: 2rem; }
+.spend-head { display: flex; align-items: center; gap: 10px; }
+.spend-icon { font-size: 1.5rem; line-height: 1; flex: none; }
 .spend h3 { margin: 0; }
 .spend-big { font-size: clamp(2.4rem, 6vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin: 4px 0; }
 .spend-big.gold { color: var(--gold); }
@@ -199,4 +212,9 @@ const over = (v) => v > 1;
 .fill.violet { background: var(--violet); }
 .fill.blue { background: var(--blue); }
 .spend-foot { font-size: 0.8rem; margin: 2px 0 8px; }
+
+@media (max-width: 600px) {
+  .spend-icon { font-size: 1.2rem; }
+  .spend-head { gap: 8px; }
+}
 </style>

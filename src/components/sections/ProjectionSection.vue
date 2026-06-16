@@ -6,7 +6,6 @@ import RangeControl from '@/components/ui/RangeControl.vue';
 import LineChart from '@/components/charts/LineChart.vue';
 import { chfCompact, pct } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
-import DetailsPanel from '@/components/ui/DetailsPanel.vue';
 
 const { t } = useI18n();
 const calc = useCalculator();
@@ -55,7 +54,8 @@ const lastLabel = computed(() => ({
 <template>
   <section id="dynamik">
     <div class="wrap">
-      <DetailsPanel :eyebrow="$t('projection.eyebrow')" :title="$t('projection.title')">
+      <div class="eyebrow">{{ $t('projection.eyebrow') }}</div>
+      <h2 v-html="$t('projection.title')" />
       <p class="lead" v-html="$t('projection.lead')" />
 
       <div class="proj-grid">
@@ -100,7 +100,6 @@ const lastLabel = computed(() => ({
         <SourceTag id="fdk" :note="$t('projection.sourceNoteFdk')" />
         <SourceTag id="wir2022_wachstum" :note="$t('projection.sourceNoteRendite')" />
       </div>
-      </DetailsPanel>
     </div>
   </section>
 </template>
