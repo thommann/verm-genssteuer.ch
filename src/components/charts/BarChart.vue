@@ -49,7 +49,15 @@ const hasRange = computed(() => props.items.some((i) => i.range != null));
   align-items: center;
   gap: 14px;
 }
-.with-range .bar-row { grid-template-columns: minmax(96px, 160px) auto 1fr auto; }
+/* Mit Range-Spalte: ein gemeinsames Grid (Zeilen via display:contents), damit alle
+   vier Spalten zeilenübergreifend fluchten. */
+.bars.with-range {
+  display: grid;
+  grid-template-columns: minmax(96px, 160px) auto 1fr auto;
+  align-items: center;
+  gap: 12px 14px;
+}
+.with-range .bar-row { display: contents; }
 .bar-label { display: flex; flex-direction: column; font-weight: 600; font-size: 0.92rem; }
 .bar-sub { font-weight: 500; font-size: 0.76rem; color: var(--text-mute); }
 .bar-range { font-weight: 600; font-size: 0.84rem; color: var(--text-soft); white-space: nowrap; }
@@ -71,7 +79,9 @@ const hasRange = computed(() => props.items.some((i) => i.range != null));
 .bar-value { font-weight: 700; font-size: 0.92rem; min-width: 72px; text-align: right; }
 @media (max-width: 620px) {
   .bar-row { grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'track track'; }
-  .with-range .bar-row { grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'range range' 'track track'; }
+  /* Auf schmalen Screens wieder je Zeile ein eigenes Raster. */
+  .bars.with-range { display: flex; flex-direction: column; gap: 12px; }
+  .with-range .bar-row { display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'range range' 'track track'; }
   .bar-label { grid-area: label; }
   .bar-value { grid-area: value; }
   .bar-range { grid-area: range; }
