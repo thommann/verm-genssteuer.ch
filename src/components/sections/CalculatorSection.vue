@@ -54,7 +54,7 @@ const presetRows = computed(() =>
 </template>
 
 <style scoped>
-.presets { display: flex; flex-direction: column; gap: 10px; margin: 0 0 22px; }
+.presets { display: flex; flex-direction: column; gap: 8px; margin: 0 0 14px; }
 .preset-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .presets-label { color: var(--text-mute); font-size: 0.85rem; font-weight: 600; min-width: 76px; }
 .presets-label::after { content: ':'; }
@@ -68,7 +68,7 @@ const presetRows = computed(() =>
 
 .result {
   margin: 0;
-  padding: 28px 24px;
+  padding: 22px 24px;
   background: linear-gradient(160deg, rgba(255, 84, 112, 0.18), rgba(13, 18, 40, 0.42));
   border-color: rgba(255, 84, 112, 0.42);
 }

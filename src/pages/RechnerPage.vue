@@ -72,5 +72,9 @@ watch(() => calc.state.activePreset, writePresetToUrl);
   background: linear-gradient(90deg, var(--accent), var(--violet), var(--teal));
 }
 /* Innenabstände der gebündelten Abschnitte, damit sie als Einheit lesen. */
-.calc-suite > section { padding-top: clamp(40px, 5vw, 72px); padding-bottom: clamp(40px, 5vw, 72px); }
+.calc-suite > section { padding-top: clamp(28px, 3.4vw, 48px); padding-bottom: clamp(28px, 3.4vw, 48px); }
+/* Hero (Presets, Ertrag, Verwendung) als ein Block: nur minimaler Abstand zwischen
+   Rechner und Verwendung, damit die drei Kernelemente eng zusammen liegen. */
+.calc-suite > #rechner { padding-bottom: clamp(12px, 1.4vw, 18px); }
+.calc-suite > #verwendung { padding-top: clamp(12px, 1.4vw, 18px); }
 </style>

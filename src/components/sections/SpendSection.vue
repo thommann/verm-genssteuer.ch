@@ -79,7 +79,7 @@ const mode = ref('vergleich'); // 'vergleich' | 'aufteilen'
 </template>
 
 <style scoped>
-.spend-explain { margin-top: 28px; }
+.spend-explain { margin-top: 22px; }
 .spend-explain .lead { margin-top: 6px; }
 
 .spend-controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 0 0 6px; }
