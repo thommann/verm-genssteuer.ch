@@ -2,18 +2,11 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCalculator, PRESETS, PRESET_GROUPS } from '@/composables/useCalculator.js';
-import { chfCompact, pct } from '@/lib/format.js';
+import { chfCompact } from '@/lib/format.js';
 
 const { t } = useI18n();
 const calc = useCalculator();
-const {
-  state, model,
-  nettoStatisch, nettoDauerhaft,
-  equilibrium,
-} = calc;
-
-// Cap-Hinweis nur zeigen, wenn das Modell überhaupt einen (endlichen) Cap hat.
-const capBinds = computed(() => Number.isFinite(model.value.wcap));
+const { state, nettoDauerhaft } = calc;
 
 // Presets in Anzeige-Zeilen gruppieren (Unsere / WIR 2022).
 // Beschriftungen kommen aus der i18n-Locale, daher als Computed (reaktiv zur Sprache).
@@ -48,31 +41,13 @@ const presetRows = computed(() =>
         </div>
       </div>
 
-      <!-- Langfristiger Ertrag (dauerhaft tragbar), gross. -->
+      <!-- Langfristige Mehreinnahmen (dauerhaft tragbar), nur die grosse Zahl. -->
       <div class="card result">
-        <div class="result-main">
-          <div class="result-label">{{ $t('calculator.longTermLabel') }}</div>
-          <div class="result-value gold" :class="{ negative: nettoDauerhaft < 0 }">
-            {{ chfCompact(nettoDauerhaft, 1) }}
-          </div>
-          <div class="result-unit">{{ $t('calculator.resultUnit') }} · {{ $t('calculator.longTermHint') }}</div>
+        <div class="result-label">{{ $t('calculator.longTermLabel') }}</div>
+        <div class="result-value gold" :class="{ negative: nettoDauerhaft < 0 }">
+          {{ chfCompact(nettoDauerhaft, 1) }}
         </div>
-        <div class="result-sub">
-          <div>
-            <span class="rs-val">{{ chfCompact(nettoStatisch, 1) }}</span>
-            <span class="rs-lab">{{ $t('calculator.firstYearLabel', { year: state.year }) }}</span>
-          </div>
-          <div>
-            <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
-            <span class="rs-lab">{{ $t('calculator.avgRateLabel', { wealth: chfCompact(model.schwelle * 2, 0) }) }}</span>
-          </div>
-        </div>
-        <p class="readout muted">
-          <template v-if="capBinds">{{ $t('calculator.readoutCap', { wcap: chfCompact(model.wcap, 0) }) }}</template>
-          <template v-if="equilibrium">
-            {{ $t('calculator.readoutEquilibrium', { eq: chfCompact(equilibrium, 0) }) }}
-          </template>
-        </p>
+        <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
       </div>
     </div>
   </section>
