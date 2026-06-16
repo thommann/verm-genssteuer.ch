@@ -12,10 +12,15 @@ const props = defineProps({
   rendite: { type: Number, default: null },
   // Kompakte Darstellung: nur Zahl und Label, ohne Icon/Meter/Fussnote/Quelle
   mini: { type: Boolean, default: false },
+  // Mittlere Darstellung: Icon, Zahl, Label und Balken, aber ohne Fliesstext/Fussnote/Quelle
+  compact: { type: Boolean, default: false },
 });
 
 const K = spendRef.kennzahlen;
 const netPraemien = K.okp_praemien.value - K.praemienverbilligung.value;
+
+// Volle Detailtiefe (Fliesstext, Fussnote, Quelle) nur ausserhalb von mini/compact.
+const detail = computed(() => !props.mini && !props.compact);
 
 const incomeCut = computed(() => props.revenue / K.einkommenssteuer_np_alle_ebenen.value);
 const bundCut = computed(() => props.revenue / K.direkte_bundessteuer_np.value);
@@ -44,7 +49,7 @@ const over = (v) => v > 1;
 </script>
 
 <template>
-  <div :class="['spend-grid', { mini }]">
+  <div :class="['spend-grid', { mini, compact }]">
     <article class="card spend">
       <div v-if="!mini" class="spend-icon">🧾</div>
       <h3>{{ $t('spend.incomeTitle') }}</h3>
@@ -52,9 +57,9 @@ const over = (v) => v > 1;
         <span v-if="over(incomeCut)">{{ $t('spend.incomeOver') }}</span>
         <span v-else>−{{ pct(incomeCut, 0) }}</span>
       </div>
-      <template v-if="!mini">
-        <p class="spend-text" v-html="over(incomeCut) ? $t('spend.incomeTextOver') : $t('spend.incomeTextUnder')" />
-        <div class="spend-meter"><div class="fill teal" :style="{ width: `${capPct(incomeCut) * 100}%` }" /></div>
+      <p v-if="detail" class="spend-text" v-html="over(incomeCut) ? $t('spend.incomeTextOver') : $t('spend.incomeTextUnder')" />
+      <div v-if="!mini" class="spend-meter"><div class="fill teal" :style="{ width: `${capPct(incomeCut) * 100}%` }" /></div>
+      <template v-if="detail">
         <p class="spend-foot muted">
           <span v-if="over(incomeCut)">{{ $t('spend.leftover', { rest: chfCompact(incomeLeft, 1) }) }}</span>
           <span v-else-if="over(bundCut)">{{ $t('spend.incomeFootOver') }}</span>
@@ -71,9 +76,9 @@ const over = (v) => v > 1;
         <span v-if="over(premiumShare)">{{ $t('spend.premiumOver') }}</span>
         <span v-else>{{ pct(premiumShare, 0) }}</span>
       </div>
-      <template v-if="!mini">
-        <p class="spend-text" v-html="over(premiumShare) ? $t('spend.premiumTextOver') : $t('spend.premiumTextUnder')" />
-        <div class="spend-meter"><div class="fill gold" :style="{ width: `${capPct(premiumShare) * 100}%` }" /></div>
+      <p v-if="detail" class="spend-text" v-html="over(premiumShare) ? $t('spend.premiumTextOver') : $t('spend.premiumTextUnder')" />
+      <div v-if="!mini" class="spend-meter"><div class="fill gold" :style="{ width: `${capPct(premiumShare) * 100}%` }" /></div>
+      <template v-if="detail">
         <p class="spend-foot muted">
           <span v-if="over(premiumShare)">{{ $t('spend.leftover', { rest: chfCompact(premiumLeft, 1) }) }}</span>
           <span v-else>{{ $t('spend.premiumFoot', { amount: chf(premiumPerPersonMonth) }) }}</span>
@@ -86,9 +91,9 @@ const over = (v) => v > 1;
       <div v-if="!mini" class="spend-icon">💸</div>
       <h3>{{ $t('spend.dividendTitle') }}</h3>
       <div class="spend-big accent">{{ chf(dividendYear) }}</div>
-      <template v-if="!mini">
-        <p class="spend-text" v-html="$t('spend.dividendText', { population: num(K.population.value) })" />
-        <div class="spend-meter"><div class="fill accent" style="width: 100%" /></div>
+      <p v-if="detail" class="spend-text" v-html="$t('spend.dividendText', { population: num(K.population.value) })" />
+      <div v-if="!mini" class="spend-meter"><div class="fill accent" style="width: 100%" /></div>
+      <template v-if="detail">
         <p class="spend-foot muted">
           {{ $t('spend.dividendFoot', { month: chf(dividendYear / 12), family: chf(dividendYear * 4) }) }}
         </p>
@@ -103,9 +108,9 @@ const over = (v) => v > 1;
         <span v-if="over(oevCut)">{{ $t('spend.oevOver') }}</span>
         <span v-else>−{{ pct(oevCut, 0) }}</span>
       </div>
-      <template v-if="!mini">
-        <p class="spend-text" v-html="over(oevCut) ? $t('spend.oevTextOver') : $t('spend.oevTextUnder')" />
-        <div class="spend-meter"><div class="fill blue" :style="{ width: `${capPct(oevCut) * 100}%` }" /></div>
+      <p v-if="detail" class="spend-text" v-html="over(oevCut) ? $t('spend.oevTextOver') : $t('spend.oevTextUnder')" />
+      <div v-if="!mini" class="spend-meter"><div class="fill blue" :style="{ width: `${capPct(oevCut) * 100}%` }" /></div>
+      <template v-if="detail">
         <p class="spend-foot muted">
           <span v-if="over(oevCut)">{{ $t('spend.leftover', { rest: chfCompact(oevLeft, 1) }) }}</span>
           <span v-else>{{ $t('spend.oevFoot', { amount: chfCompact(K.oev_personenverkehrsertrag.value, 1) }) }}</span>
@@ -120,14 +125,15 @@ const over = (v) => v > 1;
       <div class="spend-big gold">
         {{ f35Count }}<span class="spend-unit">{{ $t('spend.f35Unit') }}</span>
       </div>
-      <template v-if="!mini">
-        <p
-          class="spend-text"
-          v-html="over(f35Ratio)
-            ? $t('spend.f35TextOver', { fleet: F35_FLEET, extra: f35Count - F35_FLEET })
-            : $t('spend.f35TextUnder', { fleet: F35_FLEET, price: f35Price })"
-        />
-        <div class="spend-meter"><div class="fill gold" :style="{ width: `${capPct(f35Ratio) * 100}%` }" /></div>
+      <p
+        v-if="detail"
+        class="spend-text"
+        v-html="over(f35Ratio)
+          ? $t('spend.f35TextOver', { fleet: F35_FLEET, extra: f35Count - F35_FLEET })
+          : $t('spend.f35TextUnder', { fleet: F35_FLEET, price: f35Price })"
+      />
+      <div v-if="!mini" class="spend-meter"><div class="fill gold" :style="{ width: `${capPct(f35Ratio) * 100}%` }" /></div>
+      <template v-if="detail">
         <p class="spend-foot muted">{{ $t('spend.f35Foot', { fleet: F35_FLEET }) }}</p>
         <SourceTag id="f35_beschaffung" />
       </template>
@@ -139,12 +145,13 @@ const over = (v) => v > 1;
       <div class="spend-big violet">
         {{ debtFreeYearsLabel }}<span class="spend-unit">{{ $t('spend.debtfreeUnit') }}</span>
       </div>
-      <template v-if="!mini">
-        <p
-          class="spend-text"
-          v-html="rendite != null ? $t('spend.debtfreeText') : $t('spend.debtfreeTextFlat')"
-        />
-        <div class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(debtShare) * 100}%` }" /></div>
+      <p
+        v-if="detail"
+        class="spend-text"
+        v-html="rendite != null ? $t('spend.debtfreeText') : $t('spend.debtfreeTextFlat')"
+      />
+      <div v-if="!mini" class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(debtShare) * 100}%` }" /></div>
+      <template v-if="detail">
         <p class="spend-foot muted">
           {{
             rendite != null
@@ -164,6 +171,9 @@ const over = (v) => v > 1;
 .mini .spend { padding: 18px 20px; }
 .mini .spend-big { font-size: clamp(1.6rem, 3.5vw, 2rem); }
 .mini .spend h3 { font-size: 0.9rem; }
+.spend-grid.compact { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.compact .spend { padding: 22px 22px; gap: 6px; }
+.compact .spend-big { font-size: clamp(2rem, 4.5vw, 2.6rem); }
 .spend { padding: 26px 24px; display: flex; flex-direction: column; gap: 8px; }
 .spend-icon { font-size: 2rem; }
 .spend h3 { margin: 0; }

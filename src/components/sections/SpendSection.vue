@@ -21,9 +21,9 @@ const mode = ref('vergleich'); // 'vergleich' | 'aufteilen'
 <template>
   <section id="verwendung" class="section-alt">
     <div class="wrap">
-      <!-- Mögliche Verwendung: nur die Zahlen, auf einen Blick. -->
+      <!-- Mögliche Verwendung auf einen Blick: Emoji, Zahl und Balken, ohne Fliesstext. -->
       <SpendGrid
-        mini
+        compact
         :revenue="heroRevenue"
         :debt-free-years="debtFreeYears"
         :rendite="state.rendite"
