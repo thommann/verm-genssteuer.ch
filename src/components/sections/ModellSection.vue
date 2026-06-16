@@ -210,8 +210,6 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   align-items: start;
 }
 .calc-grid > .card { min-width: 0; }
-/* Das Bänder-Diagramm läuft über die volle Breite unter Reglern und Tarifkurve. */
-.calc-grid > .chartbox.band { grid-column: 1 / -1; }
 .controls { padding: 24px; }
 .controls-lock {
   font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);

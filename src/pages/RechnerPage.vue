@@ -48,8 +48,10 @@ watch(() => calc.state.activePreset, writePresetToUrl);
          einstellen, Wegzug, langfristige Entwicklung und die ausführliche Verwendung. -->
     <CalculatorSection />
     <ModellSection />
-    <WegzugSection />
-    <ProjectionSection />
+    <div class="calc-duo">
+      <WegzugSection />
+      <ProjectionSection />
+    </div>
     <SpendSection />
   </div>
 </template>
@@ -77,4 +79,16 @@ watch(() => calc.state.activePreset, writePresetToUrl);
    Rechner und Verwendung, damit die drei Kernelemente eng zusammen liegen. */
 .calc-suite > #rechner { padding-bottom: clamp(12px, 1.4vw, 18px); }
 .calc-suite > #verwendung { padding-top: clamp(12px, 1.4vw, 18px); }
+
+/* Wegzug und Rendite auf Desktop nebeneinander, je eine Spalte. Der Block ist auf
+   die gleiche Breite wie die übrigen Abschnitte begrenzt, damit die Kanten fluchten. */
+.calc-duo {
+  width: 100%; max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+}
+.calc-duo > section { padding-top: clamp(28px, 3.4vw, 48px); padding-bottom: clamp(28px, 3.4vw, 48px); }
+@media (max-width: 820px) {
+  .calc-duo { grid-template-columns: 1fr; }
+}
 </style>
