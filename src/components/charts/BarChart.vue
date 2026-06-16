@@ -86,6 +86,8 @@ const hasRange = computed(() => props.items.some((i) => i.range != null));
   /* Mit Range-Spalte: gleiches einspaltiges Tabellen-Layout wie auf Desktop,
      nur mit schmaleren Spalten, damit der Balken auch auf kleinen Screens sichtbar bleibt. */
   .bars.with-range { grid-template-columns: minmax(56px, 88px) auto minmax(32px, 1fr) auto; gap: 12px 7px; }
+  /* Kopfzeile (Ø-Satz) auf Mobile ausblenden; höhere Spezifität als .with-range .bar-row. */
+  .bars.with-range .bar-head { display: none; }
   .bars.with-range .bar-label { font-size: 0.84rem; }
   .bars.with-range .bar-range { font-size: 0.8rem; }
   .bars.with-range .bar-value { min-width: 0; font-size: 0.84rem; }
