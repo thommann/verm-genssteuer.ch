@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCalculator, PRESETS } from '@/composables/useCalculator.js';
 import kennzahlen from '@/data/estv_kennzahlen.json';
+import bins from '@/data/calculator_bins.json';
 import { chfCompact, pct, num } from '@/lib/format.js';
 import RangeControl from '@/components/ui/RangeControl.vue';
 import BarChart from '@/components/charts/BarChart.vue';
@@ -41,14 +42,17 @@ const yTicks = computed(() => {
   return out;
 });
 
+// Grösstes in den Daten erfasstes Vermögen (oberstes Bin, rund 49 Mrd.). Damit wird die
+// Obergrenze des offenen Top-Bands (> 10 Mrd.) realistisch ausgewertet, statt bei einem
+// fiktiven Unendlich-Wert, wo der Ø-Satz künstlich gegen den Cap liefe.
+const MAX_WEALTH = Math.max(...bins.map((b) => b.mid));
+
 // Durchschnittssatz-Spanne je Band: vom Ø-Satz an der Untergrenze bis zur Obergrenze.
-// Das oberste Band (Obergrenze unendlich) wird bei einem sehr hohen Vermögen ausgewertet,
-// wo der Ø-Satz praktisch den Cap erreicht.
 const rateNum = (r) => num(r * 100, 0);
 const bandRange = (lo, hi) => {
   const m = model.value.avgRate;
   const a = m(lo);
-  const b = m(Number.isFinite(hi) ? hi : 1e13);
+  const b = m(Number.isFinite(hi) ? hi : MAX_WEALTH);
   return Math.abs(a - b) < 1e-9 ? `${rateNum(a)} %` : `${rateNum(a)}–${rateNum(b)} %`;
 };
 
