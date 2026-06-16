@@ -8,78 +8,60 @@ import SpendAllocator from '@/components/ui/SpendAllocator.vue';
 
 const { nettoStatisch, nettoDauerhaft, state, debtFreeYears } = useCalculator();
 
-// Hero: immer die langfristige (dauerhaft tragbare) Mehreinnahme, ohne Umschalten.
-const heroRevenue = computed(() => nettoDauerhaft.value);
-
-// Interaktiver Teil weiter unten: Jahr und Aufteilen lassen sich hier wählen.
 const basis = ref('dauerhaft'); // 'dauerhaft' | 'jahr1'
-const panelRevenue = computed(() => (basis.value === 'jahr1' ? nettoStatisch.value : nettoDauerhaft.value));
+const revenue = computed(() => (basis.value === 'jahr1' ? nettoStatisch.value : nettoDauerhaft.value));
 const mode = ref('vergleich'); // 'vergleich' | 'aufteilen'
 </script>
 
 <template>
   <section id="verwendung" class="section-alt">
     <div class="wrap">
-      <!-- Mögliche Verwendung auf einen Blick: Emoji, Zahl und Balken, ohne Fliesstext. -->
+      <div class="eyebrow">{{ $t('spend.eyebrow') }}</div>
+      <h2 v-html="$t('spend.title', { revenue: chfCompact(revenue, 1) })" />
+      <p class="lead">{{ $t('spend.lead') }}</p>
+
+      <div class="spend-controls">
+        <div class="mode-toggle">
+          <button :class="{ active: mode === 'vergleich' }" @click="mode = 'vergleich'">
+            {{ $t('spend.modeCompare') }}
+          </button>
+          <button :class="{ active: mode === 'aufteilen' }" @click="mode = 'aufteilen'">
+            {{ $t('spend.modeAllocate') }}
+          </button>
+        </div>
+        <div class="basis-toggle">
+          <button :class="{ active: basis === 'dauerhaft' }" @click="basis = 'dauerhaft'">
+            {{ $t('spend.toggleDauerhaft') }}
+          </button>
+          <button :class="{ active: basis === 'jahr1' }" @click="basis = 'jahr1'">
+            {{ $t('spend.toggleJahr1', { year: state.year }) }}
+          </button>
+        </div>
+      </div>
+      <p class="basis-hint muted">
+        {{ basis === 'dauerhaft' ? $t('spend.hintDauerhaft') : $t('spend.hintJahr1') }}
+      </p>
+
       <SpendGrid
-        compact
-        :revenue="heroRevenue"
+        v-if="mode === 'vergleich'"
+        :revenue="revenue"
         :debt-free-years="debtFreeYears"
         :rendite="state.rendite"
       />
+      <SpendAllocator v-else :revenue="revenue" />
 
-      <!-- Erklärungstexte und der interaktive Teil folgen darunter. -->
-      <div class="spend-explain">
-        <div class="eyebrow">{{ $t('spend.eyebrow') }}</div>
-        <h2 v-html="$t('spend.title', { revenue: chfCompact(heroRevenue, 1) })" />
-        <p class="lead">{{ $t('spend.lead') }}</p>
-
-        <div class="spend-controls">
-          <div class="mode-toggle">
-            <button :class="{ active: mode === 'vergleich' }" @click="mode = 'vergleich'">
-              {{ $t('spend.modeCompare') }}
-            </button>
-            <button :class="{ active: mode === 'aufteilen' }" @click="mode = 'aufteilen'">
-              {{ $t('spend.modeAllocate') }}
-            </button>
-          </div>
-          <div class="basis-toggle">
-            <button :class="{ active: basis === 'dauerhaft' }" @click="basis = 'dauerhaft'">
-              {{ $t('spend.toggleDauerhaft') }}
-            </button>
-            <button :class="{ active: basis === 'jahr1' }" @click="basis = 'jahr1'">
-              {{ $t('spend.toggleJahr1', { year: state.year }) }}
-            </button>
-          </div>
-        </div>
-        <p class="basis-hint muted">
-          {{ basis === 'dauerhaft' ? $t('spend.hintDauerhaft') : $t('spend.hintJahr1') }}
-        </p>
-
-        <SpendGrid
-          v-if="mode === 'vergleich'"
-          :revenue="panelRevenue"
-          :debt-free-years="debtFreeYears"
-          :rendite="state.rendite"
-        />
-        <SpendAllocator v-else :revenue="panelRevenue" />
-
-        <p class="disclaimer muted" v-html="$t('spend.disclaimer')" />
-        <div class="srcs">
-          <span class="srcs-lab">{{ $t('spend.srcsLabel') }}</span>
-          <SourceTag id="estv_vermoegen" :note="$t('spend.sourceNoteEstv')" />
-          <SourceTag id="fdk" :note="$t('spend.sourceNoteFdk')" />
-        </div>
+      <p class="disclaimer muted" v-html="$t('spend.disclaimer')" />
+      <div class="srcs">
+        <span class="srcs-lab">{{ $t('spend.srcsLabel') }}</span>
+        <SourceTag id="estv_vermoegen" :note="$t('spend.sourceNoteEstv')" />
+        <SourceTag id="fdk" :note="$t('spend.sourceNoteFdk')" />
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.spend-explain { margin-top: 22px; }
-.spend-explain .lead { margin-top: 6px; }
-
-.spend-controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 16px 0 6px; }
+.spend-controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 22px 0 6px; }
 .mode-toggle { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); }
 .mode-toggle button {
   padding: 8px 18px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;

@@ -3,10 +3,11 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useCalculator, PRESETS, PRESET_GROUPS } from '@/composables/useCalculator.js';
 import { chfCompact } from '@/lib/format.js';
+import SpendGrid from '@/components/ui/SpendGrid.vue';
 
 const { t } = useI18n();
 const calc = useCalculator();
-const { state, nettoDauerhaft } = calc;
+const { state, nettoDauerhaft, debtFreeYears } = calc;
 
 // Presets in Anzeige-Zeilen gruppieren (Unsere / WIR 2022).
 // Beschriftungen kommen aus der i18n-Locale, daher als Computed (reaktiv zur Sprache).
@@ -52,6 +53,15 @@ const presetRows = computed(() =>
         </div>
         <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
       </div>
+
+      <!-- Mögliche Verwendung auf einen Blick: Emoji, Zahl und Balken, ohne Fliesstext. -->
+      <SpendGrid
+        class="hero-spend"
+        compact
+        :revenue="nettoDauerhaft"
+        :debt-free-years="debtFreeYears"
+        :rendite="state.rendite"
+      />
     </div>
   </section>
 </template>
@@ -78,4 +88,5 @@ const presetRows = computed(() =>
 .result-value.gold { color: var(--gold); }
 .result-value.gold.negative { color: #f07; }
 .readout { font-size: 0.82rem; margin: 0; }
+.hero-spend { margin-top: 16px; }
 </style>

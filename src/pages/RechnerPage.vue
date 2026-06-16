@@ -10,7 +10,7 @@ import { useScrollSpy } from '@/composables/useScrollSpy.js';
 import { useCalculator, PRESETS } from '@/composables/useCalculator.js';
 
 // Beim Scrollen den Anker des sichtbaren Abschnitts in die URL schreiben.
-useScrollSpy(['rechner', 'verwendung', 'wegzug', 'dynamik'], { syncHash: true });
+useScrollSpy(['rechner', 'wegzug', 'dynamik', 'verwendung'], { syncHash: true });
 
 // Voreinstellung verlinkbar machen: ?preset=<key> in der URL spiegelt die aktive Pille.
 // Der Hash ist vom Scrollspy belegt, daher liegt die Voreinstellung im Query-Teil.
@@ -43,14 +43,14 @@ watch(() => calc.state.activePreset, writePresetToUrl);
        Alle Abschnitte teilen denselben reaktiven Datensatz (useCalculator) und werden
        durch Rahmen und Akzentlinie als ein Block markiert. -->
   <div id="thema-rechner" class="calc-suite">
-    <!-- Zuoberst auf einen Blick: Steuermodell (Presets) + langfristiger Ertrag,
-         dann die mögliche Verwendung. Erst danach alle Erklärungstexte und Details:
-         das Modell selbst einstellen, Wegzug und die langfristige Entwicklung. -->
+    <!-- Hero: Steuermodell (Presets), langfristige Mehreinnahmen und die
+         Verwendungs-Übersicht. Darunter in gewohnter Reihenfolge: Modell selbst
+         einstellen, Wegzug, langfristige Entwicklung und die ausführliche Verwendung. -->
     <CalculatorSection />
-    <SpendSection />
     <ModellSection />
     <WegzugSection />
     <ProjectionSection />
+    <SpendSection />
   </div>
 </template>
 
