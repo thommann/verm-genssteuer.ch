@@ -10,7 +10,7 @@ import RangeControl from '@/components/ui/RangeControl.vue';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
-import MobileDetails from '@/components/ui/MobileDetails.vue';
+import DetailsPanel from '@/components/ui/DetailsPanel.vue';
 
 const { t } = useI18n();
 const calc = useCalculator();
@@ -131,8 +131,8 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
         </p>
       </div>
 
-      <!-- Eigenes Modell justieren und visualisieren. Auf Mobile in die Details eingeklappt. -->
-      <MobileDetails :label="$t('calculator.tuningSummary')" :heading-on-desktop="false">
+      <!-- Eigenes Modell justieren und visualisieren. Standardmaessig eingeklappt. -->
+      <DetailsPanel :label="$t('calculator.tuningSummary')">
         <p
           v-if="!isWirActive"
           class="threshold-info"
@@ -234,7 +234,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
             />
           </div>
         </div>
-      </MobileDetails>
+      </DetailsPanel>
 
       <p class="disclaimer">
         <span class="srcs">
