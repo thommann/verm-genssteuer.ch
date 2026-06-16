@@ -212,6 +212,7 @@ export default {
     curveLegendMarginal: 'Grenzsatz (auf den nächsten Franken)',
     curveLegendAvg: 'Durchschnittssatz',
     bandTitle: 'Woher das Geld kommt',
+    bandRateLabel: 'Grenzsatz',
     // Beschriftungen der Vermögensbänder (Reihenfolge wie BANDS in taxModel.js).
     bands: {
       0: '1–5 Mio.',

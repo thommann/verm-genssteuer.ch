@@ -41,8 +41,24 @@ const yTicks = computed(() => {
   return out;
 });
 
+// Grenzsatz-Spanne je Band: vom Satz an der Untergrenze bis zur Obergrenze.
+// Das oberste Band (Obergrenze unendlich) wird bei einem sehr hohen Vermögen ausgewertet,
+// wo der Grenzsatz praktisch den Cap erreicht.
+const rateNum = (r) => num(r * 100, 0);
+const bandRange = (lo, hi) => {
+  const m = model.value.marginalRate;
+  const a = m(lo);
+  const b = m(Number.isFinite(hi) ? hi : 1e13);
+  return Math.abs(a - b) < 1e-9 ? `${rateNum(a)} %` : `${rateNum(a)}–${rateNum(b)} %`;
+};
+
 const bandItems = computed(() =>
-  bands.value.map((b, i) => ({ label: t(`calculator.bands.${i}`), value: b.value, color: 'var(--teal)' }))
+  bands.value.map((b, i) => ({
+    label: t(`calculator.bands.${i}`),
+    value: b.value,
+    color: 'var(--teal)',
+    range: bandRange(b.lo, b.hi),
+  }))
 );
 
 const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
@@ -166,6 +182,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
             <BarChart
               :items="bandItems"
               :format-value="(v) => chfCompact(v, 1)"
+              :range-label="$t('calculator.bandRateLabel')"
               accent="var(--teal)"
             />
           </div>
