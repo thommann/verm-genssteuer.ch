@@ -78,14 +78,22 @@ const hasRange = computed(() => props.items.some((i) => i.range != null));
 }
 .bar-value { font-weight: 700; font-size: 0.92rem; min-width: 72px; text-align: right; }
 @media (max-width: 620px) {
-  .bar-row { grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'track track'; }
-  /* Auf schmalen Screens wieder je Zeile ein eigenes Raster. */
-  .bars.with-range { display: flex; flex-direction: column; gap: 12px; }
-  .with-range .bar-row { display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'range range' 'track track'; }
+  .bar-row { grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'track track'; row-gap: 8px; }
+  /* Auf schmalen Screens je Band ein eigenes Raster: Label und Satz links gruppiert,
+     Wert rechts daneben, der Balken darunter über die volle Breite. */
+  .bars.with-range { display: flex; flex-direction: column; gap: 18px; }
+  .with-range .bar-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'label value' 'range value' 'track track';
+    column-gap: 12px;
+    row-gap: 6px;
+  }
+  /* Kopfzeile (Ø-Satz) auf Mobile ausblenden; höhere Spezifität als .with-range .bar-row. */
+  .with-range .bar-head { display: none; }
   .bar-label { grid-area: label; }
-  .bar-value { grid-area: value; }
+  .bar-value { grid-area: value; align-self: center; }
   .bar-range { grid-area: range; }
-  .bar-track { grid-area: track; }
-  .bar-head { display: none; }
+  .bar-track { grid-area: track; margin-top: 2px; }
 }
 </style>
