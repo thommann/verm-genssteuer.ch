@@ -76,26 +76,26 @@ const hasRange = computed(() => props.items.some((i) => i.range != null));
   transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   min-width: 2px;
 }
-.bar-value { font-weight: 700; font-size: 0.92rem; min-width: 72px; text-align: right; }
+.bar-value { font-weight: 700; font-size: 0.92rem; min-width: 72px; text-align: right; white-space: nowrap; }
 @media (max-width: 620px) {
-  .bar-row { grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'track track'; row-gap: 8px; }
-  /* Auf schmalen Screens je Band ein eigenes Raster: Label und Satz links gruppiert,
-     Wert rechts daneben, der Balken darunter über die volle Breite. */
-  /* align-items vom Desktop-Grid (center) zurücksetzen, sonst schrumpfen die Zeilen
-     im Flex-Layout auf Inhaltsbreite und wirken eingerückt statt linksbündig. */
-  .bars.with-range { display: flex; flex-direction: column; align-items: stretch; gap: 18px; }
-  .with-range .bar-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-areas: 'label value' 'range value' 'track track';
-    column-gap: 12px;
-    row-gap: 6px;
-  }
-  /* Kopfzeile (Ø-Satz) auf Mobile ausblenden; höhere Spezifität als .with-range .bar-row. */
-  .with-range .bar-head { display: none; }
-  .bar-label { grid-area: label; }
-  .bar-value { grid-area: value; align-self: center; }
-  .bar-range { grid-area: range; }
-  .bar-track { grid-area: track; margin-top: 2px; }
+  /* Diagramme ohne Range-Spalte: Label/Wert oben, Balken darunter. */
+  .bars:not(.with-range) .bar-row { grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'track track'; row-gap: 8px; }
+  .bars:not(.with-range) .bar-label { grid-area: label; }
+  .bars:not(.with-range) .bar-value { grid-area: value; }
+  .bars:not(.with-range) .bar-track { grid-area: track; }
+  /* Mit Range-Spalte: gleiches einspaltiges Tabellen-Layout wie auf Desktop,
+     nur mit schmaleren Spalten, damit der Balken auch auf kleinen Screens sichtbar bleibt. */
+  .bars.with-range { grid-template-columns: minmax(56px, 88px) auto minmax(32px, 1fr) auto; gap: 12px 7px; }
+  .bars.with-range .bar-label { font-size: 0.84rem; }
+  .bars.with-range .bar-range { font-size: 0.8rem; }
+  .bars.with-range .bar-value { min-width: 0; font-size: 0.84rem; }
+}
+@media (max-width: 340px) {
+  /* Sehr schmale Screens (z. B. 320 px): Spalten und Schrift weiter verkleinern,
+     damit die Werte rechts nicht abgeschnitten werden. */
+  .bars.with-range { grid-template-columns: minmax(48px, 80px) auto minmax(24px, 1fr) auto; gap: 11px 6px; }
+  .bars.with-range .bar-label,
+  .bars.with-range .bar-range,
+  .bars.with-range .bar-value { font-size: 0.78rem; }
 }
 </style>

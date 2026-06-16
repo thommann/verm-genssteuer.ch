@@ -268,4 +268,8 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   .calc-grid > .controls { grid-column: auto; grid-row: auto; }
   .calc-grid > .chartbox.band { grid-column: auto; }
 }
+@media (max-width: 620px) {
+  /* Mehr Platz für die Diagramme auf schmalen Screens. */
+  .chartbox { padding: 18px 16px; }
+}
 </style>
