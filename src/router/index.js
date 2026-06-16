@@ -11,8 +11,8 @@ import DatenschutzPage from '@/pages/DatenschutzPage.vue';
 // mit ihrer Menü-Überschrift (nav.groups.<group>) und der aktiven Hervorhebung.
 export const routes = [
   { path: '/', name: 'home', component: HomePage, meta: { titleKey: 'routes.home' } },
-  { path: '/verteilung', name: 'verteilung', component: VerteilungPage, meta: { group: 'verteilung', titleKey: 'routes.verteilung' } },
   { path: '/rechner', name: 'rechner', component: RechnerPage, meta: { group: 'rechner', titleKey: 'routes.rechner' } },
+  { path: '/verteilung', name: 'verteilung', component: VerteilungPage, meta: { group: 'verteilung', titleKey: 'routes.verteilung' } },
   { path: '/modelle', name: 'modelle', component: ModellePage, meta: { group: 'modelle', titleKey: 'routes.modelle' } },
   { path: '/quellen', name: 'quellen', component: QuellenPage, meta: { group: 'transparenz', titleKey: 'routes.quellen' } },
   // Rechtliche Seiten (ohne eigene Menügruppe, verlinkt aus der Fusszeile).
