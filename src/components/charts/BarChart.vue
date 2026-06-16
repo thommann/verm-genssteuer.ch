@@ -81,7 +81,9 @@ const hasRange = computed(() => props.items.some((i) => i.range != null));
   .bar-row { grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'track track'; row-gap: 8px; }
   /* Auf schmalen Screens je Band ein eigenes Raster: Label und Satz links gruppiert,
      Wert rechts daneben, der Balken darunter über die volle Breite. */
-  .bars.with-range { display: flex; flex-direction: column; gap: 18px; }
+  /* align-items vom Desktop-Grid (center) zurücksetzen, sonst schrumpfen die Zeilen
+     im Flex-Layout auf Inhaltsbreite und wirken eingerückt statt linksbündig. */
+  .bars.with-range { display: flex; flex-direction: column; align-items: stretch; gap: 18px; }
   .with-range .bar-row {
     display: grid;
     grid-template-columns: 1fr auto;
