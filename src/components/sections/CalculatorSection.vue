@@ -10,6 +10,7 @@ import RangeControl from '@/components/ui/RangeControl.vue';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
+import MobileDetails from '@/components/ui/MobileDetails.vue';
 
 const { t } = useI18n();
 const calc = useCalculator();
@@ -103,134 +104,137 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
         <SourceTag id="wir2022" :note="$t('calculator.presetNoteWir2022Source')" />
       </p>
 
-      <p
-        v-if="!isWirActive"
-        class="threshold-info"
-        v-html="$t('calculator.thresholdInfo', {
-          cnt: num(k.cnt_ge5M),
-          rest: pct(1 - k.pct_ge5M, 0),
-          share: pct(k.share_ge5M, 0),
-        })"
-      />
-
-      <div class="calc-grid">
-        <!-- Controls -->
-        <div class="card controls">
-          <p v-if="isWirActive" class="controls-lock">
-            <span v-html="$t('calculator.controlsLock')" />
-            <button type="button" class="controls-lock-link" @click="calc.applyPreset(firstOwnPreset)">{{ $t('calculator.controlsLockLink') }}</button>{{ $t('calculator.controlsLockAfter') }}
-          </p>
-          <div v-if="!isWirActive">
-            <RangeControl
-              v-model="state.schwelle"
-              :min="5e6"
-              :max="5e7"
-              :step="5e5"
-              :label="$t('calculator.schwelleLabel')"
-              :display="schwelleDisplay"
-              :hint="$t('calculator.schwelleHint')"
-              @update:modelValue="onSlider"
-            />
-            <RangeControl
-              v-model="state.basis"
-              :min="0.0005"
-              :max="0.05"
-              :step="0.0005"
-              :label="$t('calculator.basisLabel')"
-              :display="pct(state.basis, 2)"
-              :hint="$t('calculator.basisHint')"
-              @update:modelValue="onSlider"
-            />
-            <RangeControl
-              v-model="state.exponent"
-              :min="0"
-              :max="1.6"
-              :step="0.05"
-              :label="$t('calculator.exponentLabel')"
-              :display="num(state.exponent, 2)"
-              :hint="$t('calculator.exponentHint')"
-              @update:modelValue="onSlider"
-            />
-            <RangeControl
-              v-model="state.cap"
-              :min="0.05"
-              :max="1"
-              :step="0.05"
-              :label="$t('calculator.capLabel')"
-              :display="pct(state.cap, 0)"
-              :hint="$t('calculator.capHint')"
-              @update:modelValue="onSlider"
-            />
+      <!-- Hauptergebnis: langfristiger Ertrag (dauerhaft tragbar) zuoberst und gross. -->
+      <div class="card result">
+        <div class="result-main">
+          <div class="result-label">{{ $t('calculator.longTermLabel') }}</div>
+          <div class="result-value gold" :class="{ negative: nettoDauerhaft < 0 }">
+            {{ chfCompact(nettoDauerhaft, 1) }}
           </div>
-
-          <div class="year-pick">
-            <span>{{ $t('calculator.yearLabel') }}</span>
-            <button
-              v-for="y in calc.years"
-              :key="y"
-              class="ychip"
-              :class="{ active: state.year === y }"
-              @click="state.year = y"
-            >{{ y }}</button>
+          <div class="result-unit">{{ $t('calculator.resultUnit') }} · {{ $t('calculator.longTermHint') }}</div>
+        </div>
+        <div class="result-sub">
+          <div>
+            <span class="rs-val">{{ chfCompact(nettoStatisch, 1) }}</span>
+            <span class="rs-lab">{{ $t('calculator.firstYearLabel', { year: state.year }) }}</span>
+          </div>
+          <div>
+            <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
+            <span class="rs-lab">{{ $t('calculator.avgRateLabel', { wealth: chfCompact(model.schwelle * 2, 0) }) }}</span>
           </div>
         </div>
-
-        <!-- Headline result -->
-        <div class="card result">
-          <div class="result-main">
-            <div class="result-label">{{ $t('calculator.resultLabel', { year: state.year }) }}</div>
-            <div class="result-value" :class="{ negative: nettoStatisch < 0 }">
-              {{ chfCompact(nettoStatisch, 1) }}
-            </div>
-            <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
-          </div>
-          <div class="result-sub">
-            <div>
-              <span class="rs-val gold">{{ chfCompact(nettoDauerhaft, 1) }}</span>
-              <span class="rs-lab" v-html="$t('calculator.sustainableLabel')" />
-            </div>
-            <div>
-              <span class="rs-val">{{ pct(model.avgRate(model.schwelle * 2), 1) }}</span>
-              <span class="rs-lab">{{ $t('calculator.avgRateLabel', { wealth: chfCompact(model.schwelle * 2, 0) }) }}</span>
-            </div>
-          </div>
-          <p class="readout muted">
-            <template v-if="capBinds">{{ $t('calculator.readoutCap', { wcap: chfCompact(model.wcap, 0) }) }}</template>
-            <template v-if="equilibrium">
-              {{ $t('calculator.readoutEquilibrium', { eq: chfCompact(equilibrium, 0) }) }}
-            </template>
-          </p>
-        </div>
-
-        <!-- Tariff curve -->
-        <div class="card chartbox">
-          <h3>{{ $t('calculator.curveTitle') }}</h3>
-          <LineChart
-            :series="curveSeries"
-            :x-domain="[Math.log10(model.schwelle), Math.log10(2e10)]"
-            :y-domain="[0, yMax]"
-            :x-ticks="TICKS_W.map((w) => Math.log10(w))"
-            :y-ticks="yTicks"
-            :format-x="(lx) => chfCompact(Math.pow(10, lx), 0)"
-            :format-y="(v) => pct(v, 0)"
-            :height="300"
-          />
-          <div class="legend">
-            <span><i class="sw" style="background: var(--accent)" /> {{ $t('calculator.curveLegendMarginal') }}</span>
-            <span><i class="sw" style="background: var(--gold)" /> {{ $t('calculator.curveLegendAvg') }}</span>
-          </div>
-        </div>
-
-        <!-- Revenue by band -->
-        <div class="card chartbox">
-          <h3>{{ $t('calculator.bandTitle') }}</h3>
-          <BarChart
-            :items="bandItems"
-            :format-value="(v) => chfCompact(v, 1)"
-            accent="var(--teal)"
-          />
-        </div>
+        <p class="readout muted">
+          <template v-if="capBinds">{{ $t('calculator.readoutCap', { wcap: chfCompact(model.wcap, 0) }) }}</template>
+          <template v-if="equilibrium">
+            {{ $t('calculator.readoutEquilibrium', { eq: chfCompact(equilibrium, 0) }) }}
+          </template>
+        </p>
       </div>
+
+      <!-- Eigenes Modell justieren und visualisieren. Auf Mobile in die Details eingeklappt. -->
+      <MobileDetails :label="$t('calculator.tuningSummary')" :heading-on-desktop="false">
+        <p
+          v-if="!isWirActive"
+          class="threshold-info"
+          v-html="$t('calculator.thresholdInfo', {
+            cnt: num(k.cnt_ge5M),
+            rest: pct(1 - k.pct_ge5M, 0),
+            share: pct(k.share_ge5M, 0),
+          })"
+        />
+
+        <div class="calc-grid">
+          <!-- Controls -->
+          <div class="card controls">
+            <p v-if="isWirActive" class="controls-lock">
+              <span v-html="$t('calculator.controlsLock')" />
+              <button type="button" class="controls-lock-link" @click="calc.applyPreset(firstOwnPreset)">{{ $t('calculator.controlsLockLink') }}</button>{{ $t('calculator.controlsLockAfter') }}
+            </p>
+            <div v-if="!isWirActive">
+              <RangeControl
+                v-model="state.schwelle"
+                :min="5e6"
+                :max="5e7"
+                :step="5e5"
+                :label="$t('calculator.schwelleLabel')"
+                :display="schwelleDisplay"
+                :hint="$t('calculator.schwelleHint')"
+                @update:modelValue="onSlider"
+              />
+              <RangeControl
+                v-model="state.basis"
+                :min="0.0005"
+                :max="0.05"
+                :step="0.0005"
+                :label="$t('calculator.basisLabel')"
+                :display="pct(state.basis, 2)"
+                :hint="$t('calculator.basisHint')"
+                @update:modelValue="onSlider"
+              />
+              <RangeControl
+                v-model="state.exponent"
+                :min="0"
+                :max="1.6"
+                :step="0.05"
+                :label="$t('calculator.exponentLabel')"
+                :display="num(state.exponent, 2)"
+                :hint="$t('calculator.exponentHint')"
+                @update:modelValue="onSlider"
+              />
+              <RangeControl
+                v-model="state.cap"
+                :min="0.05"
+                :max="1"
+                :step="0.05"
+                :label="$t('calculator.capLabel')"
+                :display="pct(state.cap, 0)"
+                :hint="$t('calculator.capHint')"
+                @update:modelValue="onSlider"
+              />
+            </div>
+
+            <div class="year-pick">
+              <span>{{ $t('calculator.yearLabel') }}</span>
+              <button
+                v-for="y in calc.years"
+                :key="y"
+                class="ychip"
+                :class="{ active: state.year === y }"
+                @click="state.year = y"
+              >{{ y }}</button>
+            </div>
+          </div>
+
+          <!-- Tariff curve -->
+          <div class="card chartbox">
+            <h3>{{ $t('calculator.curveTitle') }}</h3>
+            <LineChart
+              :series="curveSeries"
+              :x-domain="[Math.log10(model.schwelle), Math.log10(2e10)]"
+              :y-domain="[0, yMax]"
+              :x-ticks="TICKS_W.map((w) => Math.log10(w))"
+              :y-ticks="yTicks"
+              :format-x="(lx) => chfCompact(Math.pow(10, lx), 0)"
+              :format-y="(v) => pct(v, 0)"
+              :height="300"
+            />
+            <div class="legend">
+              <span><i class="sw" style="background: var(--accent)" /> {{ $t('calculator.curveLegendMarginal') }}</span>
+              <span><i class="sw" style="background: var(--gold)" /> {{ $t('calculator.curveLegendAvg') }}</span>
+            </div>
+          </div>
+
+          <!-- Revenue by band -->
+          <div class="card chartbox band">
+            <h3>{{ $t('calculator.bandTitle') }}</h3>
+            <BarChart
+              :items="bandItems"
+              :format-value="(v) => chfCompact(v, 1)"
+              accent="var(--teal)"
+            />
+          </div>
+        </div>
+      </MobileDetails>
 
       <p class="disclaimer">
         <span class="srcs">
@@ -283,6 +287,8 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   align-items: start;
 }
 .calc-grid > .card { min-width: 0; }
+/* Das Bänder-Diagramm läuft über die volle Breite unter Reglern und Tarifkurve. */
+.calc-grid > .chartbox.band { grid-column: 1 / -1; }
 .controls { padding: 24px; }
 .controls-lock {
   font-size: 0.82rem; line-height: 1.5; color: var(--text-soft);
@@ -296,10 +302,13 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   color: var(--teal); text-decoration: underline; cursor: pointer;
 }
 .result {
+  margin: 26px 0 4px;
   padding: 28px 24px;
   background: linear-gradient(160deg, rgba(255, 84, 112, 0.18), rgba(13, 18, 40, 0.42));
   border-color: rgba(255, 84, 112, 0.42);
 }
+.result-value.gold { color: var(--gold); }
+.result-value.gold.negative { color: #f07; }
 .readout { font-size: 0.82rem; margin: 0; }
 
 .chartbox { padding: 22px 24px; }
