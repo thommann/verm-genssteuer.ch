@@ -41,12 +41,12 @@ const yTicks = computed(() => {
   return out;
 });
 
-// Grenzsatz-Spanne je Band: vom Satz an der Untergrenze bis zur Obergrenze.
+// Durchschnittssatz-Spanne je Band: vom Ø-Satz an der Untergrenze bis zur Obergrenze.
 // Das oberste Band (Obergrenze unendlich) wird bei einem sehr hohen Vermögen ausgewertet,
-// wo der Grenzsatz praktisch den Cap erreicht.
+// wo der Ø-Satz praktisch den Cap erreicht.
 const rateNum = (r) => num(r * 100, 0);
 const bandRange = (lo, hi) => {
-  const m = model.value.marginalRate;
+  const m = model.value.avgRate;
   const a = m(lo);
   const b = m(Number.isFinite(hi) ? hi : 1e13);
   return Math.abs(a - b) < 1e-9 ? `${rateNum(a)} %` : `${rateNum(a)}–${rateNum(b)} %`;
