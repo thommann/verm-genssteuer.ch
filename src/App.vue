@@ -221,7 +221,7 @@ onUnmounted(() => {
 
   <footer
     class="site-footer"
-    :class="{ flush: route.path === '/' }"
+    :class="{ flush: route.meta.bleedEnd }"
   >
     <div class="wrap site-footer-inner">
       <router-link
@@ -390,7 +390,8 @@ onUnmounted(() => {
   border-top: 1px solid var(--border);
   background: rgba(5, 7, 15, 0.4);
 }
-/* Startseite: das Slogan-Band ist vollflächig farbig; ein 40px-Abstand würde die dunkle
+/* Seiten, die mit einem vollflächigen Farbband enden (meta.bleedEnd: Startseite mit dem
+   Slogan-Band, Hintergrund mit dem letzten Artikel-Band): ein 40px-Abstand würde die dunkle
    Grundfläche als Naht durchscheinen lassen. Daher Fusszeile bündig anschliessen. */
 .site-footer.flush { margin-top: 0; }
 .site-footer-inner {
