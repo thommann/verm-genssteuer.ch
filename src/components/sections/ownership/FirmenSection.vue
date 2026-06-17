@@ -56,8 +56,12 @@ const firmenTrend = computed(() => [
           :series="firmenTrend"
           :x-domain="[2014, 2024]"
           :x-ticks="[2014, 2016, 2018, 2020, 2022, 2024]"
+          :y-domain="[0.24, 0.7]"
+          :y-ticks="[0.3, 0.4, 0.5, 0.6, 0.7]"
           :format-x="(v) => String(v)"
           :format-y="pct0"
+          :x-label="$t('ownership.axisYear')"
+          :y-label="$t('ownership.firmenTrendYAxis')"
           :height="300"
         />
         <div class="legend">

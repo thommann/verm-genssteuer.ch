@@ -150,8 +150,12 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           :series="waldTrend"
           :x-domain="[waldYears[0], waldYears[waldYears.length - 1]]"
           :x-ticks="[1975, 1985, 1995, 2005, 2015, 2024]"
+          :y-domain="[0.7, 0.74]"
+          :y-ticks="[0.7, 0.72, 0.74]"
           :format-x="(v) => String(v)"
           :format-y="pct0"
+          :x-label="$t('ownership.axisYear')"
+          :y-label="$t('ownership.waldTrendYAxis')"
           :height="300"
         />
         <SourceTag id="bfs_wald" :note="$t('ownership.waldTrendSource')" />
