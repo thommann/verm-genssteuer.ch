@@ -52,6 +52,7 @@ const firmenTrend = computed(() => [
         <h3>{{ $t('ownership.firmenTrendTitle') }}</h3>
         <p class="muted intro" v-html="$t('ownership.firmenTrendIntro')" />
         <LineChart
+          :aria-label="$t('ownership.firmenTrendTitle')"
           :series="firmenTrend"
           :x-domain="[2014, 2024]"
           :x-ticks="[2014, 2016, 2018, 2020, 2022, 2024]"

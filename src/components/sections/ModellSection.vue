@@ -163,6 +163,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
           <div class="card chartbox">
             <h3>{{ $t('calculator.curveTitle') }}</h3>
             <LineChart
+              :aria-label="$t('calculator.curveTitle')"
               :series="curveSeries"
               :x-domain="[Math.log10(model.schwelle), Math.log10(2e10)]"
               :y-domain="[0, yMax]"

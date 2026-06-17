@@ -110,6 +110,7 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           })"
         />
         <LineChart
+          :aria-label="$t('ownership.wohneigentumTitle')"
           :series="wohneigentumTrend"
           :x-domain="[woYears[0], woYears[woYears.length - 1]]"
           :x-ticks="woYears.filter((y) => y % 2 === 1)"
@@ -146,6 +147,7 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
         <h3>{{ $t('ownership.waldTrendTitle') }}</h3>
         <p class="muted intro" v-html="$t('ownership.waldTrendIntro')" />
         <LineChart
+          :aria-label="$t('ownership.waldTrendTitle')"
           :series="waldTrend"
           :x-domain="[waldYears[0], waldYears[waldYears.length - 1]]"
           :x-ticks="[1975, 1985, 1995, 2005, 2015, 2024]"
@@ -164,6 +166,7 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
         <h3>{{ $t('ownership.pachtTitle') }}</h3>
         <p class="muted intro" v-html="$t('ownership.pachtIntro')" />
         <LineChart
+          :aria-label="$t('ownership.pachtTitle')"
           :series="pachtTrend"
           :x-domain="[pachtYears[0], pachtYears[pachtYears.length - 1]]"
           :x-ticks="pachtYears"

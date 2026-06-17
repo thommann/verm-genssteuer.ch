@@ -98,6 +98,7 @@ const top300Bip = computed(() => {
         <h3>{{ $t('ownership.konzTrendTitle') }}</h3>
         <p class="muted intro" v-html="$t('ownership.konzTrendIntro')" />
         <LineChart
+          :aria-label="$t('ownership.konzTrendTitle')"
           :series="top1Trend"
           :x-domain="[1995, 2024]"
           :x-ticks="[1995, 2000, 2005, 2010, 2015, 2020, 2024]"
@@ -116,6 +117,7 @@ const top300Bip = computed(() => {
         <h3>{{ $t('ownership.bipTrendTitle') }}</h3>
         <p class="muted intro" v-html="$t('ownership.bipTrendIntro')" />
         <LineChart
+          :aria-label="$t('ownership.bipTrendTitle')"
           :series="vermoegenBipTrend"
           :x-domain="[bipYears[0], bipYears[bipYears.length - 1]]"
           :x-ticks="[2000, 2005, 2010, 2015, 2020, 2024]"

@@ -96,6 +96,7 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
 
       <div class="card chartbox">
         <LineChart
+          :aria-label="metrics[metric].label"
           :series="series"
           :x-domain="[1995, 2024]"
           :y-domain="yDomain"

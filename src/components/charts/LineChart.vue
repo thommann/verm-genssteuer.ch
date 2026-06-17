@@ -14,6 +14,9 @@ const props = defineProps({
   width: { type: Number, default: 820 },
   yLabel: { type: String, default: '' },
   xLabel: { type: String, default: '' },
+  // Zugaenglicher Name fuer Screenreader. Leer = dekoratives Diagramm (aria-hidden),
+  // weil Titel, Legende und Quellenzeile daneben den Inhalt bereits beschreiben.
+  ariaLabel: { type: String, default: '' },
 });
 
 // Mehr Platz unten/links, sobald eine Achse beschriftet ist, damit die
@@ -48,7 +51,13 @@ const lastPt = (s) => { const f = finitePts(s.points); return f[f.length - 1]; }
 </script>
 
 <template>
-  <svg :viewBox="`0 0 ${width} ${height}`" class="line-chart" role="img">
+  <svg
+    :viewBox="`0 0 ${width} ${height}`"
+    class="line-chart"
+    :role="ariaLabel ? 'img' : undefined"
+    :aria-label="ariaLabel || undefined"
+    :aria-hidden="ariaLabel ? undefined : 'true'"
+  >
     <!-- y grid + ticks -->
     <g class="grid">
       <g v-for="t in yTicks" :key="`y${t}`">

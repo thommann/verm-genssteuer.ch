@@ -58,6 +58,7 @@ const lastLabel = computed(() => ({
       <div class="proj-grid">
         <div class="card chartbox">
           <LineChart
+            :aria-label="$t('projection.title')"
             :series="series"
             :x-domain="[2022, 2032]"
             :y-domain="[0, yMax]"
@@ -115,6 +116,7 @@ const lastLabel = computed(() => ({
 .sl { color: var(--text-soft); font-size: 0.85rem; }
 .arrow { font-size: 1.4rem; color: var(--text-mute); margin: 2px 0; }
 .small { font-size: 0.78rem; margin-top: 10px; }
-code { background: rgba(255, 255, 255, 0.06); padding: 1px 6px; border-radius: 6px; font-size: 0.78rem; }
-@media (max-width: 760px) { .proj-grid { grid-template-columns: 1fr; } }
+/* Die Formel kommt per v-html (projection.formula) und traegt kein scope-Attribut,
+   daher den code-Chip ueber :deep ansprechen. */
+.small :deep(code) { background: rgba(255, 255, 255, 0.06); padding: 1px 6px; border-radius: 6px; font-size: 0.78rem; }
 </style>

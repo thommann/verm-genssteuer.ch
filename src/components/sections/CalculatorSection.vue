@@ -87,6 +87,5 @@ const presetRows = computed(() =>
 }
 .result-value.gold { color: var(--gold); }
 .result-value.gold.negative { color: #f07; }
-.readout { font-size: 0.82rem; margin: 0; }
 .hero-spend { margin-top: 16px; }
 </style>
