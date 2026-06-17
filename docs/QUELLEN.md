@@ -464,11 +464,12 @@ STAGRE-Auslandskontroll-Anteil (Feld `firmen.<kennzahl>.serie`, 2014–2024) und
 öffentliche Waldanteil (Feld `wald.serie`, 1975–2024, alle Jahre des Cubes) stammen direkt
 aus denselben fetchbaren Quellen. Die Vermögenskonzentration im Zeitverlauf nutzt den bereits
 dokumentierten WID-Top-1-%-Anteil der Schweiz (`wid`, `wid_timeseries.json`, Quelle 2). Zwei
-weitere Verläufe setzen Vermögen ins Verhältnis zum BIP (Nenner: Weltbank `worldbank_gdp`,
+weitere Reihen setzen Vermögen ins Verhältnis zum BIP (Nenner: Weltbank `worldbank_gdp`,
 NY.GDP.MKTP.CN): gesamtes Privatvermögen ÷ BIP (`reichste.vermoegen_bip_serie`, SNB-RVM ÷ BIP,
-2000–2024) und die 300 Reichsten ÷ BIP (`reichste.top300_bip_serie`, kuratierte Bilanz-
-Gesamtwerte 2022 = 821, 2023 = 795, 2024 = 833,5 ÷ BIP). Die ältere Bilanz-Reihe ist nicht frei
-verfügbar, daher beginnt die 300/BIP-Kurve erst 2022.
+2000–2024, als Verlauf) und die 300 Reichsten ÷ BIP (`reichste.top300_bip_serie`, kuratierte
+Bilanz-Gesamtwerte 2022 = 821, 2023 = 795, 2024 = 833,5 ÷ BIP). Vom 300/BIP-Verhältnis wird im
+UI der jüngste Wert als prominente Kennzahl gezeigt (Listenjahr 2024 ≈ 101 % des BIP); die
+ältere Bilanz-Reihe ist nicht frei verfügbar, daher liegen Werte erst ab 2022 vor.
 
 **7a. Nationalität der 300 Reichsten (`bilanz300`, kuratiert).**
 «Bilanz – Die 300 Reichsten der Schweiz» weist je Liste aus, wie viele der 300 Ausländer mit

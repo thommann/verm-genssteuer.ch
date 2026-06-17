@@ -36,12 +36,12 @@ const vermoegenBipTrend = computed(() => [{
 const bipYears = computed(() => reichste.vermoegen_bip_serie.map((p) => p.jahr));
 const bipX = (v) => `${num(v, 1)}×`;
 
-// Die 300 Reichsten als Anteil am BIP (Bilanz / Weltbank), je Listenjahr.
-const top300BipTrend = computed(() => [{
-  name: t('ownership.top300BipLine'), color: 'var(--gold)',
-  points: reichste.top300_bip_serie.map((p) => ({ x: p.jahr, y: p.anteil })),
-}]);
-const top300Years = computed(() => reichste.top300_bip_serie.map((p) => p.jahr));
+// Die 300 Reichsten als Anteil am BIP (Bilanz / Weltbank), neuestes Listenjahr:
+// als prominente Kennzahl statt als kurze Zeitreihe.
+const top300Bip = computed(() => {
+  const s = reichste.top300_bip_serie;
+  return s[s.length - 1];
+});
 </script>
 
 <template>
@@ -58,21 +58,6 @@ const top300Years = computed(() => reichste.top300_bip_serie.map((p) => p.jahr))
           schweizer: num(reichste.schweizer, 0),
         })"
       />
-
-      <div class="grid sgrid">
-        <div class="scard card">
-          <span class="sv gold">{{ num(reichste.schweizer, 0) }}</span>
-          <span class="sl" v-html="$t('ownership.reichsteSwissLabel', { total: num(reichste.total, 0) })" />
-        </div>
-        <div class="scard card">
-          <span class="sv accent">{{ num(reichste.auslaender, 0) }}</span>
-          <span class="sl" v-html="$t('ownership.reichsteForeignLabel', { total: num(reichste.total, 0) })" />
-        </div>
-        <div class="scard card">
-          <span class="sv">{{ pct(reichste.auslaender_share, 0) }}</span>
-          <span class="sl">{{ $t('ownership.reichsteShareLabel') }}</span>
-        </div>
-      </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.reichsteChartTitle') }}</h3>
@@ -98,6 +83,18 @@ const top300Years = computed(() => reichste.top300_bip_serie.map((p) => p.jahr))
         </div>
       </div>
 
+      <div class="card chartbox conc">
+        <span class="sv gold big">{{ pct(top300Bip.anteil, 0) }}</span>
+        <p
+          class="conc-text"
+          v-html="$t('ownership.top300BipStat', { jahr: top300Bip.jahr })"
+        />
+        <div class="srcrow">
+          <SourceTag id="bilanz300" :note="$t('ownership.top300BipSourceBilanz', { jahr: top300Bip.jahr })" />
+          <SourceTag id="worldbank_gdp" :note="$t('ownership.bipTrendSourceGdp')" />
+        </div>
+      </div>
+
       <div class="card chartbox">
         <h3>{{ $t('ownership.konzTrendTitle') }}</h3>
         <p class="muted intro" v-html="$t('ownership.konzTrendIntro')" />
@@ -105,8 +102,12 @@ const top300Years = computed(() => reichste.top300_bip_serie.map((p) => p.jahr))
           :series="top1Trend"
           :x-domain="[1995, 2024]"
           :x-ticks="[1995, 2000, 2005, 2010, 2015, 2020, 2024]"
+          :y-domain="[0.24, 0.32]"
+          :y-ticks="[0.24, 0.26, 0.28, 0.30, 0.32]"
           :format-x="(v) => String(v)"
           :format-y="pct0"
+          :x-label="$t('ownership.axisYear')"
+          :y-label="$t('ownership.konzTrendYAxis')"
           :height="300"
         />
         <SourceTag id="wid" :note="$t('ownership.konzTrendSource')" />
@@ -119,30 +120,16 @@ const top300Years = computed(() => reichste.top300_bip_serie.map((p) => p.jahr))
           :series="vermoegenBipTrend"
           :x-domain="[bipYears[0], bipYears[bipYears.length - 1]]"
           :x-ticks="[2000, 2005, 2010, 2015, 2020, 2024]"
+          :y-domain="[3.8, 6.2]"
+          :y-ticks="[4, 4.5, 5, 5.5, 6]"
           :format-x="(v) => String(v)"
           :format-y="bipX"
+          :x-label="$t('ownership.axisYear')"
+          :y-label="$t('ownership.bipTrendYAxis')"
           :height="300"
         />
         <div class="srcrow">
           <SourceTag id="snb_haushalte" :note="$t('ownership.bipTrendSourceSnb')" />
-          <SourceTag id="worldbank_gdp" :note="$t('ownership.bipTrendSourceGdp')" />
-        </div>
-      </div>
-
-      <div class="card chartbox">
-        <h3>{{ $t('ownership.top300BipTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.top300BipIntro')" />
-        <LineChart
-          :series="top300BipTrend"
-          :x-domain="[top300Years[0], top300Years[top300Years.length - 1]]"
-          :x-ticks="top300Years"
-          :y-domain="[0, 1.2]"
-          :format-x="(v) => String(v)"
-          :format-y="pct0"
-          :height="280"
-        />
-        <div class="srcrow">
-          <SourceTag id="bilanz300" :note="$t('ownership.top300BipSourceBilanz')" />
           <SourceTag id="worldbank_gdp" :note="$t('ownership.bipTrendSourceGdp')" />
         </div>
       </div>
@@ -151,16 +138,14 @@ const top300Years = computed(() => reichste.top300_bip_serie.map((p) => p.jahr))
 </template>
 
 <style scoped>
-.sgrid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 24px 0 14px; }
-.scard { padding: 22px; display: flex; flex-direction: column; gap: 6px; }
 .sv { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
 .sv.accent { color: var(--accent); }
 .sv.gold { color: var(--gold); }
-.sl { color: var(--text-soft); font-size: 0.88rem; }
-.chartbox { padding: 24px 26px; }
+/* Einheitlicher Abstand zwischen allen Karten der Sektion. */
+.chartbox { padding: 24px 26px; margin-top: 24px; }
 .chartbox h3 { margin-bottom: 8px; }
 .intro { font-size: 0.92rem; max-width: 70ch; margin-bottom: 20px; }
-.conc { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+.conc { display: flex; flex-direction: column; gap: 10px; }
 .conc .big { font-size: 2.6rem; }
 .conc-text { font-size: 0.95rem; max-width: 70ch; margin: 0; }
 .srcrow { display: flex; flex-wrap: wrap; gap: 16px; }
