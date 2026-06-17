@@ -186,7 +186,9 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
             <BarChart
               :items="bandItems"
               :format-value="(v) => chfCompact(v, 1)"
+              :label-header="$t('calculator.bandWealthLabel')"
               :range-label="$t('calculator.bandRateLabel')"
+              :value-header="$t('calculator.bandRevenueLabel')"
               accent="var(--teal)"
             />
           </div>
