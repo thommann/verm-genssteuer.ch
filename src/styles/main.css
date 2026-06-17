@@ -22,6 +22,9 @@
 
   --radius: 16px;
   --radius-sm: 10px;
+  /* Einheitlicher Abstand zwischen Karten, eine Quelle der Wahrheit fuer alle
+     Karten-Layouts (gestapelt und im Grid). */
+  --card-gap: 18px;
   --shadow: 0 18px 50px -20px rgba(0, 0, 0, 0.7);
   --maxw: 1080px;
   --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -137,11 +140,12 @@ section { padding: clamp(56px, 9vw, 120px) 0; position: relative; }
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
-/* Direkt gestapelte Karten (ausserhalb eines Grids) brauchen Abstand zueinander; im
-   Grid übernimmt das «gap», dort liegen die Karten nicht direkt unter dem .wrap. */
-.wrap > .card + .card { margin-top: 18px; }
+/* Direkt gestapelte Karten (ausserhalb eines Grids) brauchen denselben Abstand wie
+   Karten im Grid; im Grid übernimmt das «gap», dort liegen die Karten nicht direkt
+   unter dem .wrap. Beide Wege teilen sich das Token --card-gap. */
+.wrap > .card + .card { margin-top: var(--card-gap); }
 
-.grid { display: grid; gap: 18px; }
+.grid { display: grid; gap: var(--card-gap); }
 
 .muted { color: var(--text-mute); }
 .pill {
@@ -192,7 +196,7 @@ button { font-family: inherit; cursor: pointer; }
    spezifische Elemente (Grid, Cards, Listen, Label-Breiten) bleiben lokal. */
 .legal { padding: clamp(40px, 7vw, 88px) 0; }
 .legal h2 { margin-bottom: 6px; }
-.legal-block { padding: 24px; margin-top: 16px; }
+.legal-block { padding: 24px; margin-top: var(--card-gap); }
 .legal-block h3 { font-size: 0.95rem; color: var(--text-soft); margin: 0 0 10px; }
 .legal-block p { max-width: 75ch; color: var(--text-soft); font-size: 0.94rem; line-height: 1.7; }
 .legal-label { display: inline-block; color: var(--text-mute); font-size: 0.85rem; }

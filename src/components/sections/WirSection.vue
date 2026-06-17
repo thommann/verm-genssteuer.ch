@@ -106,7 +106,7 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 </template>
 
 <style scoped>
-.cmp { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin: 28px 0 24px; }
+.cmp { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--card-gap); margin: 28px 0 24px; }
 .wir { padding: 24px 26px; display: flex; flex-direction: column; gap: 10px; }
 .wir-head { display: flex; align-items: center; gap: 12px; }
 .wir-head h3 { margin: 0; }

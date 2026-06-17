@@ -14,7 +14,7 @@
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px;
+  gap: var(--card-gap);
   margin: 24px 0 16px;
 }
 </style>

@@ -61,7 +61,7 @@ import sources from '@/data/sources.json';
 </template>
 
 <style scoped>
-.src-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 28px 0; }
+.src-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--card-gap); margin: 28px 0; }
 .src { padding: 20px; text-decoration: none; color: inherit; transition: border-color 0.15s ease, transform 0.15s ease; display: block; }
 .src:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
 .src-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }

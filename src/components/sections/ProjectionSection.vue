@@ -125,7 +125,7 @@ const lastLabel = computed(() => ({
 
 <style scoped>
 .srcs { margin-top: 14px; }
-.proj-grid { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: stretch; }
+.proj-grid { display: grid; grid-template-columns: 1fr; gap: var(--card-gap); align-items: stretch; }
 .side { padding: 24px; display: flex; flex-direction: column; gap: 6px; justify-content: center; }
 .sidestat { display: flex; flex-direction: column; }
 .sv { font-size: 1.7rem; font-weight: 800; }

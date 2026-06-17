@@ -261,7 +261,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   /* minmax(0, 1fr) statt 1fr: verhindert das «grid blowout», bei dem die Spalten auf die
      Mindestbreite ihres Inhalts (Diagramme) wachsen und die Karten über den Rand schieben. */
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 18px;
+  gap: var(--card-gap);
   align-items: start;
 }
 .calc-grid > .card { min-width: 0; }
