@@ -96,7 +96,7 @@
     "herausgeber": "Gabriel Zucman; im Auftrag der brasilianischen G20-Präsidentschaft",
     "url": "https://gabriel-zucman.eu/files/report-g20.pdf",
     "stand": "Juni 2024",
-    "hinweis": "Begründung der 2-%-Mindeststeuer. Das Vermögen der Milliardäre (Top 0,0001 %) wuchs 1987–2024 real um rund 7,1 % pro Jahr, das Durchschnittsvermögen pro Erwachsenem nur um 1,8 %. Der reale Zuwachs bündelt Dividenden, Zinsen und Vermögensgewinne. Der World Inequality Report 2022 nennt für die Reichsten 6 bis 9 % real seit 1995. Bei ~7,1 % Rendite ist die ganze Mindeststeuer von 2 % des Vermögens in rund 103 Tagen wieder verdient: (0,02 ÷ 0,071) × 365; die blosse Mehrbelastung von ~1,2 % bereits in rund 62 Tagen."
+    "hinweis": "Begründung der 2-%-Mindeststeuer. Das Vermögen der Milliardäre (Top 0,0001 %) wuchs 1987–2024 real um rund 7,1 % pro Jahr, das Durchschnittsvermögen pro Erwachsenem nur um 1,8 %. Der reale Zuwachs bündelt Dividenden, Zinsen und Vermögensgewinne. Der World Inequality Report 2022 nennt für die Reichsten 6 bis 9 % real seit 1995. Bei ~7,1 % Rendite ist die ganze Mindeststeuer von 2 % des Vermögens in rund 103 Tagen wieder verdient: (0,02 ÷ 0,071) × 365; die blosse Mehrbelastung von ~1,2 % bereits in rund 62 Tagen. Globale Schätzung des Reports: eine koordinierte Mindeststeuer von 2 % auf die rund 3000 Dollar-Milliardäre der Welt brächte rund 200 bis 250 Mrd. US-Dollar pro Jahr; heute zahlen diese Milliardäre effektiv nur rund 0,3 % ihres Vermögens an Steuern. Das Modell ist als Mindeststeuer (Aufstockung bis zur Schwelle) konstruiert, koordiniert nach dem Vorbild der globalen Mindeststeuer für Konzerne (15 %), womit Wegzug ins Leere läuft."
   },
   {
     "id": "workzeitung_reiche",
@@ -132,7 +132,16 @@
     "herausgeber": "Eidgenössische Finanzverwaltung (EFV) / ESTV",
     "url": "https://www.efv.admin.ch/de/fs-daten",
     "stand": "Daten 2023",
-    "hinweis": "Einkommenssteuern natürlicher Personen über alle Staatsebenen rund CHF 62,7 Mrd. (2023; EFV-Finanzstatistik, Einnahmen nach Arten Bund/Kantone/Gemeinden, Artencode 4000 = 62 717 546 Tsd.). Direkte Bundessteuer natürlicher Personen rund CHF 13,5 Mrd. (ESTV «Fiskaleinnahmen des Bundes», Blatt «DBST neu ab 2023», Fiskalertrag NP). Staatsschuld nach Maastricht rund CHF 214,2 Mrd. (2023; EFV «Öffentliche Finanzen der Schweiz», Maastricht-Schuldenquote 26,9 %, konsolidierte Bruttoschuld des Gesamtstaats inkl. Sozialversicherungen). Nominal, gerundet, nur Einordnungsgrösse."
+    "hinweis": "Einkommenssteuern natürlicher Personen über alle Staatsebenen rund CHF 62,7 Mrd. (2023; EFV-Finanzstatistik, Einnahmen nach Arten Bund/Kantone/Gemeinden, Artencode 4000 = 62 717 546 Tsd.). Direkte Bundessteuer natürlicher Personen rund CHF 13,5 Mrd. (ESTV «Fiskaleinnahmen des Bundes», Blatt «DBST neu ab 2023», Fiskalertrag NP). Staatsschuld nach Maastricht rund CHF 214,2 Mrd. (2023; EFV «Öffentliche Finanzen der Schweiz», Maastricht-Schuldenquote 26,9 %, konsolidierte Bruttoschuld des Gesamtstaats inkl. Sozialversicherungen). Nominal, gerundet, nur Einordnungsgrösse. Verkehrs- und Infrastrukturausgaben: aus derselben Finanzstatistik (FS-Modell, Bulk-Datei fir_art_funk.csv, konsolidierter Sektor «staat»), Ausgaben = Sachgruppe 3 + 5, brutto, je HRM2-Funktion. 2023: Strassenverkehr (funk 61) 9,363 Mrd., öffentlicher Verkehr (funk 62) 9,600 Mrd., Verkehr gesamt (Gruppe 6) 19,58 Mrd. = 7,8 % der Gesamtausgaben des Staates (252,1 Mrd., Kontrollzeile funk «V1»). Reproduzierbar via scripts/06_extract_infrastruktur.py → src/data/infrastruktur.json (Beschaffung in docs/QUELLEN.md §8)."
+  },
+  {
+    "id": "efv_staatsrechnung",
+    "kurz": "EFV Staatsrechnung 2024",
+    "titel": "Staatsrechnung 2024 des Bundes: Sonderrechnungen NAF und BIF",
+    "herausgeber": "Eidgenössische Finanzverwaltung (EFV)",
+    "url": "https://www.efv.admin.ch/de/staatsrechnung",
+    "stand": "Rechnung 2024",
+    "hinweis": "NAF (Nationalstrassen- und Agglomerationsverkehrsfonds), Sonderrechnung Ziff. 322, Erfolgsrechnung 2024 (Spalte Rechnung): Gesamtaufwand 2'646 Mio., Nationalstrassen 2'454 Mio. (davon Betrieb 454 Mio., reservierte Mittel Nationalstrassenbau 1'839 Mio.), Agglomerationsverkehr 191 Mio. BIF (Bahninfrastrukturfonds), Erfolgsrechnung 2024 (Rechnung): Gesamtaufwand 4'808 Mio., Investitionsausgaben 4'138 Mio. (Substanzerhalt 3'247 Mio., Ausbau 874 Mio.). Quelle: EFV Staatsrechnung 2024, Band «Spezialfinanzierungen» (SPEZ-F) bzw. Band 1A. Als kuratierte Konstanten in scripts/06_extract_infrastruktur.py gepflegt (docs/QUELLEN.md §8)."
   },
   {
     "id": "bag",
@@ -178,5 +187,41 @@
     "url": "https://litra.ch/media/article_images/2024/08/Verkehrszahlen_2024_DE.pdf",
     "stand": "Ausgabe 2024 (PDF), Grafik «Finanzierung öffentlicher Verkehr»",
     "hinweis": "Schätzung der LITRA: Kundenertrag Personenverkehr des gesamten öV (alle Transportunternehmen, Bahn, Bus, Tram zusammen) rund CHF 7'482 Mio. pro Jahr. Einordnungsgrösse für das «Was tun mit dem Geld?»-Modul: der Anteil «öV-Billette verbilligen» rechnet Aufkommen ÷ 7'482 Mio. Nominal, gerundet."
+  },
+  {
+    "id": "gary_wiki",
+    "kurz": "Gary Stevenson (Werdegang & These)",
+    "titel": "Gary Stevenson: Werdegang und Ungleichheitsthese, Masterarbeit «The Impact of Inequality on Asset Prices When Households Care About Wealth»",
+    "herausgeber": "Wikipedia (englischsprachig)",
+    "url": "https://en.wikipedia.org/wiki/Gary_Stevenson_(economist)",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Belegt qualitativ die Argumente des früheren Citibank-Händlers Gary Stevenson (Gary's Economics), nicht einzelne Zahlen. Werdegang: Studium an der LSE, ab 2008 Zinshändler bei Citibank, 2011 profitabelster Händler der Bank; er verdiente, indem er gegen eine Zinserhöhung wettete, weil die Ungleichheit die Nachfrage drückt. Masterarbeit (Oxford, 2019): «The Impact of Inequality on Asset Prices When Households Care About Wealth». Kernthese: Reiche sparen, statt zu konsumieren, und kaufen Vermögenswerte (vor allem Immobilien); das drückt die Nachfrage und treibt zugleich die Preise von Vermögenswerten über die Löhne; gewöhnliche Haushalte müssen Vermögen verkaufen und es von den Besitzenden zurückmieten; das Verhältnis von Vermögenspreisen zu Löhnen verschlechtert sich, bis Wohneigentum für arbeitende Menschen unerreichbar wird und vor allem ererbtem Vermögen vorbehalten bleibt. Lösung laut Stevenson: eine Vermögenssteuer."
+  },
+  {
+    "id": "gary_equals",
+    "kurz": "Gary Stevenson (Interview, equals)",
+    "titel": "Gary Stevenson on how wealth inequality is destroying the world economy",
+    "herausgeber": "equals (equals.ink)",
+    "url": "https://www.equals.ink/p/gary-stevenson-on-wealth-inequality",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Belegt qualitativ Stevensons Mechanismus, nicht einzelne Zahlen. Er beschreibt einen langfristigen, systemischen Vermögenstransfer weg von Mittelschicht und Staat hin zu einer kleinen superreichen Elite: Die Reichen häufen Vermögenswerte an, statt für Güter und Dienstleistungen auszugeben, das senkt die Gesamtnachfrage; gewöhnliche Haushalte müssen Vermögen verkaufen und steigende Mieten zahlen, während die Löhne mit den Vermögenspreisen nicht Schritt halten. Die tiefen Zinsen nach 2008 begünstigten Vermögensbesitzer statt arbeitende Menschen. Stevenson plädiert für eine Vermögenssteuer als zentrale Lösung."
+  },
+  {
+    "id": "social_europe_demokratie",
+    "kurz": "Social Europe (Ungleichheit & Demokratie)",
+    "titel": "How the Billionaire Boom Is Fueling Inequality and Threatening Democracy",
+    "herausgeber": "Social Europe",
+    "url": "https://www.socialeurope.eu/how-the-billionaire-boom-is-fueling-inequality-and-threatening-democracy",
+    "stand": "2025, Abruf Juni 2026",
+    "hinweis": "Belegt qualitativ den Zusammenhang von extremer Vermögenskonzentration und Gefährdung der Demokratie, nicht einzelne Zahlen (die im Artikel zitierten Sekundärzahlen werden auf der Seite nicht als Datenpunkte ausgewiesen). Mechanismen: konzentriertes Vermögen verschafft überproportionalen Einfluss auf Politik (Lobbying), Medien (Eigentum, z. B. Washington Post) und öffentliche Debatte (Plattformen); wo wirtschaftliche Systeme die Mehrheit im Stich lassen, erodiert Vertrauen und der Weg zum Autoritarismus öffnet sich. Der Artikel verweist auf Forschung, wonach steigende Einkommensungleichheit mit wachsender Zustimmung zu populistischen Parteien einhergeht."
+  },
+  {
+    "id": "gary_youtube",
+    "kurz": "Gary’s Economics (YouTube)",
+    "titel": "Garys Economics: YouTube-Kanal von Gary Stevenson",
+    "herausgeber": "Gary Stevenson (Gary’s Economics)",
+    "url": "https://www.youtube.com/@garyseconomics",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Primaerquelle von Gary Stevensons Argumenten in Videoform. Die je Hintergrund-Artikel verlinkten Videos sind ueber die YouTube-oEmbed-API geprueft (author_name «Garys Economics», Titel und Erreichbarkeit bestaetigt): Aufkauf «The rich will fuel a huge asset price rally» (clwnPPhqK2A); Geldfluss «How COVID-19 MAKES the Rich Richer - Gary EXPLAINS the theory» (EiblHqbpXHs); Demokratie «UK Budget – The End of Democracy?» (g0lEbH2kEw8); Steuerluecke «How the rich make taxes unpopular» (rQg24dralYY); Wirtschaft «COVID-19 & INEQUALITY: Why the rich are getting richer but the economy will NOT recover» (1YrDt8z0dKE); Loesung «Is a wealth tax actually possible?» (gHrxoKEnvEs). Die Videos belegen qualitativ die zugeordneten Argumente, keine einzelnen Zahlen."
   }
 ]

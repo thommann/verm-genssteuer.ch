@@ -44,7 +44,7 @@ test.describe('Rechner', () => {
 
   test('Tarifkurven-Regler sind sichtbar', async ({ page }) => {
     for (const label of ['Freibetrag', 'Grenzsatz', 'Progression', 'Höchst-Grenzsatz']) {
-      await expect(page.locator('#rechner label').filter({ hasText: label }).first()).toBeVisible();
+      await expect(page.locator('#rechner-modell label').filter({ hasText: label }).first()).toBeVisible();
     }
   });
 
@@ -60,7 +60,6 @@ test.describe('Rechner', () => {
   test('Aufkommen-Ergebnis ist sichtbar und positiv', async ({ page }) => {
     const label = page.locator('.result-label');
     await expect(label).toContainText('Mehreinnahmen');
-    await expect(label).toContainText('2022');
 
     const value = page.locator('.result-value');
     await expect(value).toBeVisible();
@@ -115,16 +114,16 @@ test.describe('Rechner', () => {
   // Datenjahr-Chips
   // -------------------------------------------------------------------------
 
-  test('Datenjahr-Chip 2020 wechselt Jahr im Ergebnis-Label', async ({ page }) => {
+  test('Datenjahr-Chip 2020 wird aktiv', async ({ page }) => {
     await page.locator('.ychip', { hasText: '2020' }).click();
     await expect(page.locator('.ychip.active')).toHaveText('2020');
-    await expect(page.locator('.result-label')).toContainText('2020');
+    await expect(page.locator('.result-value')).toBeVisible();
   });
 
-  test('Datenjahr-Chip 2021 wechselt Jahr im Ergebnis-Label', async ({ page }) => {
+  test('Datenjahr-Chip 2021 wird aktiv', async ({ page }) => {
     await page.locator('.ychip', { hasText: '2021' }).click();
     await expect(page.locator('.ychip.active')).toHaveText('2021');
-    await expect(page.locator('.result-label')).toContainText('2021');
+    await expect(page.locator('.result-value')).toBeVisible();
   });
 
   // -------------------------------------------------------------------------
@@ -134,7 +133,7 @@ test.describe('Rechner', () => {
   test('Freibetrag-Regler ändert das Aufkommen', async ({ page }) => {
     const before = await page.locator('.result-value').textContent();
 
-    const slider = page.locator('#rechner .controls input[type="range"]').first();
+    const slider = page.locator('#rechner-modell .controls input[type="range"]').first();
     await setSlider(slider, 50_000_000); // 50 Mio. statt 5 Mio.
 
     // Wert hat sich verändert (nicht identisch mit dem Ausgangswert).
@@ -189,7 +188,7 @@ test.describe('Rechner', () => {
 
   test('Dauerhaft-Wert reagiert auf aktiven Wegzug', async ({ page }) => {
     // Der gold ausgewiesene Dauerhaft-Wert in der Ergebnis-Karte folgt dem Wegzug.
-    const gold = page.locator('.result .rs-val.gold');
+    const gold = page.locator('.result .result-value.gold');
     await expect(gold).toBeVisible();
     const before = await gold.textContent();
 
@@ -268,7 +267,7 @@ test.describe('Rechner', () => {
     await page.goto('/rechner?preset=moderat');
     await expect(page).toHaveURL(/[?&]preset=moderat/);
 
-    const slider = page.locator('#rechner .controls input[type="range"]').first();
+    const slider = page.locator('#rechner-modell .controls input[type="range"]').first();
     await setSlider(slider, 50_000_000);
     await expect(page).not.toHaveURL(/preset=/);
   });

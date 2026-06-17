@@ -1,0 +1,164 @@
+{
+  "hinweis": "Ausgaben der oeffentlichen Hand nach Funktion. verkehr und bildung: EFV-Finanzstatistik (FS-Modell), konsolidierter Sektor Staat (Bund + Kantone + Gemeinden + Sozialversicherungen), Ausgaben = Sachgruppe 3 + 5, brutto, je HRM2-Funktion (skriptbasiert aus fir_art_funk.csv; Verkehr = Gruppe 6, Bildung = Gruppe 2). naf/bif: EFV-Staatsrechnung 2024, belegte Konstanten (kuratiert). Beträge nominal in CHF/Jahr. Details: docs/QUELLEN.md.",
+  "verkehr": {
+    "einheit": "CHF/Jahr",
+    "bezug": "skript",
+    "source": "efv",
+    "jahre": {
+      "2015": {
+        "strasse": 8123905366,
+        "oev": 8373368594,
+        "uebrige": 302837851,
+        "nachrichten": 55678126,
+        "fe": 51979934,
+        "verkehr_total": 16907769871,
+        "staat_total": 214736552583,
+        "verkehr_anteil": 0.0787
+      },
+      "2016": {
+        "strasse": 7829275097,
+        "oev": 8446536019,
+        "uebrige": 316917557,
+        "nachrichten": 54898970,
+        "fe": 45568969,
+        "verkehr_total": 16693196612,
+        "staat_total": 214733161720,
+        "verkehr_anteil": 0.0777
+      },
+      "2017": {
+        "strasse": 7863620386,
+        "oev": 8283337118,
+        "uebrige": 314931099,
+        "nachrichten": 57354416,
+        "fe": 73730197,
+        "verkehr_total": 16592973215,
+        "staat_total": 217956168405,
+        "verkehr_anteil": 0.0761
+      },
+      "2018": {
+        "strasse": 8037330840,
+        "oev": 8330423310,
+        "uebrige": 278963628,
+        "nachrichten": 56762157,
+        "fe": 79660874,
+        "verkehr_total": 16783140807,
+        "staat_total": 220774267378,
+        "verkehr_anteil": 0.076
+      },
+      "2019": {
+        "strasse": 8321279130,
+        "oev": 8331663991,
+        "uebrige": 328666348,
+        "nachrichten": 79812644,
+        "fe": 86332604,
+        "verkehr_total": 17147754717,
+        "staat_total": 225197794123,
+        "verkehr_anteil": 0.0761
+      },
+      "2020": {
+        "strasse": 8554058886,
+        "oev": 9020117787,
+        "uebrige": 452109659,
+        "nachrichten": 72552571,
+        "fe": 86944511,
+        "verkehr_total": 18185783414,
+        "staat_total": 252229481914,
+        "verkehr_anteil": 0.0721
+      },
+      "2021": {
+        "strasse": 8797612056,
+        "oev": 9306215061,
+        "uebrige": 598380764,
+        "nachrichten": 75059409,
+        "fe": 25982303,
+        "verkehr_total": 18803249593,
+        "staat_total": 250626999088,
+        "verkehr_anteil": 0.075
+      },
+      "2022": {
+        "strasse": 8738873529,
+        "oev": 9571900927,
+        "uebrige": 335714786,
+        "nachrichten": 71335057,
+        "fe": 52783944,
+        "verkehr_total": 18770608244,
+        "staat_total": 245365397368,
+        "verkehr_anteil": 0.0765
+      },
+      "2023": {
+        "strasse": 9362913828,
+        "oev": 9600305615,
+        "uebrige": 484129717,
+        "nachrichten": 69758524,
+        "fe": 64477175,
+        "verkehr_total": 19581584859,
+        "staat_total": 252066880698,
+        "verkehr_anteil": 0.0777
+      }
+    }
+  },
+  "bildung": {
+    "einheit": "CHF/Jahr",
+    "bezug": "skript",
+    "source": "efv",
+    "jahre": {
+      "2015": {
+        "total": 36799855198,
+        "anteil": 0.1714
+      },
+      "2016": {
+        "total": 37169209575,
+        "anteil": 0.1731
+      },
+      "2017": {
+        "total": 38122110361,
+        "anteil": 0.1749
+      },
+      "2018": {
+        "total": 38919423324,
+        "anteil": 0.1763
+      },
+      "2019": {
+        "total": 39979372210,
+        "anteil": 0.1775
+      },
+      "2020": {
+        "total": 40854148087,
+        "anteil": 0.162
+      },
+      "2021": {
+        "total": 41361509786,
+        "anteil": 0.165
+      },
+      "2022": {
+        "total": 42739962618,
+        "anteil": 0.1742
+      },
+      "2023": {
+        "total": 45492541256,
+        "anteil": 0.1805
+      }
+    }
+  },
+  "naf_2024": {
+    "total": 2646000000,
+    "nationalstrassen": 2454000000,
+    "betrieb": 454000000,
+    "reservierte_mittel_bau": 1839000000,
+    "agglomerationsverkehr": 191000000,
+    "jahr": 2024,
+    "einheit": "CHF/Jahr",
+    "source": "efv_staatsrechnung",
+    "bezug": "kuratiert"
+  },
+  "bif_2024": {
+    "aufwand_total": 4808000000,
+    "investitionen": 4138000000,
+    "substanzerhalt": 3247000000,
+    "ausbau": 874000000,
+    "jahr": 2024,
+    "einheit": "CHF/Jahr",
+    "source": "efv_staatsrechnung",
+    "bezug": "kuratiert"
+  }
+}

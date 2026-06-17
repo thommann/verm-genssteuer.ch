@@ -563,10 +563,39 @@ sind keine Tabellenwerte, sondern belegte Näherungskonstanten aus externen Stud
 
 ---
 
+## 14. Verkehrs-/Infrastrukturausgaben (EFV-Finanzstatistik)
+
+Quelle und Beschaffung: [`docs/QUELLEN.md`](./QUELLEN.md) §8. Skript:
+`06_extract_infrastruktur.py`. Datengrundlage: EFV-Finanzstatistik (FS-Modell), Datei
+`fir_art_funk.csv`, konsolidierter Sektor Staat (`hh = staat`, `model = fs`).
+
+Ausgaben je Funktion und Jahr (brutto):
+
+```
+A(funk, jahr) = Σ value  über alle arten mit erster Ziffer ∈ {3, 5}
+                (Sachgruppe 3 = laufende Ausgaben, 5 = Investitionsausgaben)
+
+Strassenverkehr      = A(61)                              = 9,363 Mrd. (2023)
+Öffentlicher Verkehr = A(62)                              = 9,600 Mrd.
+Verkehr gesamt       = A(61)+A(62)+A(63)+A(64)+A(68)      = 19,58 Mrd. (HRM2-Gruppe 6)
+Bildung gesamt       = Σ A(2x) (21,22,23,25,26,27,28,29)  = 45,49 Mrd. (HRM2-Gruppe 2)
+Staat total          = A(V1)                              = 252,07 Mrd. (amtliche Total-Zeile)
+Verkehrsanteil       = Verkehr gesamt / Staat total       = 7,8 %
+Bildungsanteil       = Bildung gesamt / Staat total       = 18,0 %
+```
+
+Konsistenzprüfungen im Skript: Summe der zweistelligen Funktions-Leaves = `V1`
+(Toleranz 0,1 %); Total ∈ [240; 265] Mrd.; Verkehr ∈ [18; 21] Mrd. Kontrollgruppen (2023)
+reproduzieren die EFV-Publikation: Bildung (funk 2x) 18,0 %, Soziale Sicherheit (funk 5x)
+39,6 %. NAF/BIF sind kuratiert aus der EFV-Staatsrechnung 2024 (QUELLEN.md §8b) und nicht
+mit der Funktion 61 (alle Staatsebenen) zu addieren.
+
+---
+
 ## 13. Reproduktion
 
 ```bash
-# 1. Rohdaten direkt von ESTV/WID/FDK/UBS laden (benötigt curl):
+# 1. Rohdaten direkt von ESTV/WID/FDK/UBS/BFS/EFV laden (benötigt curl):
 bash scripts/fetch_sources.sh
 
 # 2. Aus den Rohdaten alle JSON erzeugen (benötigt openpyxl + pdftotext/poppler-utils):
@@ -574,6 +603,8 @@ python3 scripts/01_extract_fdk.py        # -> pauschal.json
 python3 scripts/02_extract_estv.py       # -> Verteilung, Kennzahlen, Rechner-Parameter/Bins/Kohorten
 python3 scripts/03_extract_wid_ubs.py    # -> WID-Zeitreihen, Ranking, UBS-Gini/Ø-Median/Pyramide
 python3 scripts/04_extract_spend_reference.py  # -> spend_reference.json (BFS live + EFV/BAG kuratiert)
+python3 scripts/05_extract_habe.py       # -> habe.json (Arbeiter-/Mittelstandshaushalt)
+python3 scripts/06_extract_infrastruktur.py    # -> infrastruktur.json (EFV-Verkehr skript + NAF/BIF kuratiert)
 
 # 3. Alle Verfahren unabhängig nachrechnen und prüfen:
 python3 scripts/00_reproduce_statistics.py   # erwartet: alle Prüfungen OK

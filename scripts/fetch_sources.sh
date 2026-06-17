@@ -19,7 +19,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 RAW="$ROOT/data/raw"
-mkdir -p "$RAW/estv" "$RAW/wid" "$RAW/fdk" "$RAW/ubs" "$RAW/bfs"
+mkdir -p "$RAW/estv" "$RAW/wid" "$RAW/fdk" "$RAW/ubs" "$RAW/bfs" "$RAW/efv"
 
 ua='Mozilla/5.0 (compatible; verm-genssteuer-fetch/1.0)'
 get() { # get <url> <zielpfad>
@@ -78,8 +78,21 @@ echo "== 6/6  BFS — Haushaltsbudgeterhebung nach Einkommensklasse (HABE 2015-2
 # Direkt herunterladbares Excel (Asset 10867300), Blatt «2015-2017».
 get "https://dam-api.bfs.admin.ch/hub/api/dam/assets/10867300/master" "$RAW/bfs/habe-einkommensklasse.xlsx"
 
+echo "== 7/7  EFV — Finanzstatistik (FS-Modell): Verkehr/Infrastruktur, Sektor Staat =="
+# EFV, Finanzierungsrechnung nach Sachgruppen und Funktionen (fir_art_funk.csv, ~1,2 GB).
+# Der konsolidierte Sektor «staat» liegt am Dateianfang; wir laden nur diesen Anfang per
+# Byte-Range und filtern die staat-Zeilen heraus -> kleine, pruefbare Rohdatei. HRM2-
+# Funktionen: 61 Strassenverkehr, 62 oeffentlicher Verkehr, 63 uebriger Verkehr,
+# 64 Nachrichten, 68 F&E Verkehr; «V1» = Gesamttotal (Kontrollwert). Ausgaben = Sachgruppe
+# 3 + 5 (siehe scripts/06_extract_infrastruktur.py, docs/QUELLEN.md §8, docs/METHODIK.md).
+echo "  -> $RAW/efv/efv_funk_verkehr_staat.csv"
+curl -fsSL --retry 4 --retry-delay 2 --max-time 600 -A "$ua" \
+  -r 0-95000000 \
+  "https://www.data.finance.admin.ch/static/assets/datasets/fs_dashboard/fir_art_funk.csv" \
+  | grep ',"staat",' > "$RAW/efv/efv_funk_verkehr_staat.csv"
+
 echo
 echo "== Pruefsummen =="
-( cd "$RAW" && sha256sum estv/* wid/*.csv fdk/*.pdf ubs/*.pdf bfs/*.json bfs/*.xlsx )
+( cd "$RAW" && sha256sum estv/* wid/*.csv fdk/*.pdf ubs/*.pdf bfs/*.json bfs/*.xlsx efv/*.csv )
 echo
 echo "Fertig. Vergleiche bei Bedarf mit data/CHECKSUMS.txt."

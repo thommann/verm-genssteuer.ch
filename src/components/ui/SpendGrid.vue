@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import spendRef from '@/data/spend_reference.json';
+import infra from '@/data/infrastruktur.json';
 import { chf, chfCompact, pct, num } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
@@ -31,6 +32,26 @@ const oevCut = computed(() => props.revenue / K.oev_personenverkehrsertrag.value
 const incomeLeft = computed(() => props.revenue - K.einkommenssteuer_np_alle_ebenen.value);
 const premiumLeft = computed(() => props.revenue - netPraemien);
 const oevLeft = computed(() => props.revenue - K.oev_personenverkehrsertrag.value);
+
+// Gesamte jaehrliche Ausgaben der oeffentlichen Hand vervielfachen:
+// Faktor = (heutige Gesamtausgaben + Mehreinnahmen) / heutige Gesamtausgaben.
+// Basis aus infrastruktur.json (EFV-Finanzstatistik, Sektor Staat = alle Staatsebenen,
+// brutto inkl. Betrieb): funk 61 = Strassenverkehr, funk 62 = oeffentlicher Verkehr,
+// Gruppe 2 = Bildung. Quelle: efv. Aktuellstes Jahr.
+const VJ = infra.verkehr.jahre;
+const VJAHR = Object.keys(VJ).sort().at(-1);
+const OEV_TOTAL = VJ[VJAHR].oev;
+const STRASSE_TOTAL = VJ[VJAHR].strasse;
+const oevFactor = computed(() => (OEV_TOTAL + props.revenue) / OEV_TOTAL);
+const strasseFactor = computed(() => (STRASSE_TOTAL + props.revenue) / STRASSE_TOTAL);
+const oevSpendShare = computed(() => props.revenue / OEV_TOTAL);
+const strasseShare = computed(() => props.revenue / STRASSE_TOTAL);
+
+const BJ = infra.bildung.jahre;
+const BJAHR = Object.keys(BJ).sort().at(-1);
+const BILDUNG_TOTAL = BJ[BJAHR].total;
+const bildungFactor = computed(() => (BILDUNG_TOTAL + props.revenue) / BILDUNG_TOTAL);
+const bildungShare = computed(() => props.revenue / BILDUNG_TOTAL);
 
 const debtShare = computed(() => (props.debtFreeYears != null ? 1 / props.debtFreeYears : 0));
 const debtFreeYearsLabel = computed(() => {
@@ -129,6 +150,48 @@ const over = (v) => v > 1;
 
     <article class="card spend">
       <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">🚊</span>
+        <h3>{{ $t('spend.oevSpendTitle') }}</h3>
+      </div>
+      <div class="spend-big blue">×{{ num(oevFactor, 1, 1) }}</div>
+      <p v-if="detail" class="spend-text" v-html="$t('spend.oevSpendText')" />
+      <div v-if="!mini" class="spend-meter"><div class="fill blue" :style="{ width: `${capPct(oevSpendShare) * 100}%` }" /></div>
+      <template v-if="detail">
+        <p class="spend-foot muted">{{ $t('spend.oevSpendFoot', { amount: chfCompact(OEV_TOTAL, 1), jahr: VJAHR }) }}</p>
+        <SourceTag id="efv" />
+      </template>
+    </article>
+
+    <article class="card spend">
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">🛣️</span>
+        <h3>{{ $t('spend.strasseSpendTitle') }}</h3>
+      </div>
+      <div class="spend-big accent">×{{ num(strasseFactor, 1, 1) }}</div>
+      <p v-if="detail" class="spend-text" v-html="$t('spend.strasseSpendText')" />
+      <div v-if="!mini" class="spend-meter"><div class="fill accent" :style="{ width: `${capPct(strasseShare) * 100}%` }" /></div>
+      <template v-if="detail">
+        <p class="spend-foot muted">{{ $t('spend.strasseSpendFoot', { amount: chfCompact(STRASSE_TOTAL, 1), jahr: VJAHR }) }}</p>
+        <SourceTag id="efv" />
+      </template>
+    </article>
+
+    <article class="card spend">
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">🎓</span>
+        <h3>{{ $t('spend.bildungSpendTitle') }}</h3>
+      </div>
+      <div class="spend-big teal">×{{ num(bildungFactor, 1, 1) }}</div>
+      <p v-if="detail" class="spend-text" v-html="$t('spend.bildungSpendText')" />
+      <div v-if="!mini" class="spend-meter"><div class="fill teal" :style="{ width: `${capPct(bildungShare) * 100}%` }" /></div>
+      <template v-if="detail">
+        <p class="spend-foot muted">{{ $t('spend.bildungSpendFoot', { amount: chfCompact(BILDUNG_TOTAL, 1), jahr: BJAHR }) }}</p>
+        <SourceTag id="efv" />
+      </template>
+    </article>
+
+    <article class="card spend">
+      <div class="spend-head">
         <span v-if="!mini" class="spend-icon">✈️</span>
         <h3>{{ $t('spend.f35Title') }}</h3>
       </div>
@@ -182,18 +245,29 @@ const over = (v) => v > 1;
 .spend-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
 @media (min-width: 560px) { .spend-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 900px) { .spend-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Jede Kachel ist selbst ein Grid und teilt ihre Zeilen ueber subgrid mit den Nachbarn
+   derselben Reihe: Kopf (Icon+Titel), Zahl, Infotext, Balken, Zusatzinfo, Quelle liegen so
+   auf gleicher Hoehe. Feste Zeilenzahl je Detailgrad: voll = 6, compact = 3 (Kopf/Zahl/
+   Balken), mini = 2 (Kopf/Zahl). */
+.spend {
+  grid-row: span 6;
+  display: grid;
+  grid-template-rows: subgrid;
+  gap: 8px;
+  padding: 26px 24px;
+  min-width: 0;
+}
+.spend-grid.compact { gap: 16px; }
+.spend-grid.compact .spend { grid-row: span 3; gap: 6px; padding: 22px 22px; }
+.compact .spend-big { font-size: clamp(2rem, 4.5vw, 2.6rem); }
 .spend-grid.mini { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
-.mini .spend { padding: 18px 20px; }
+.spend-grid.mini .spend { grid-row: span 2; gap: 6px; padding: 18px 20px; }
 .mini .spend-big { font-size: clamp(1.6rem, 3.5vw, 2rem); }
 .mini .spend h3 { font-size: 0.9rem; }
-.spend-grid.compact { gap: 16px; }
-.compact .spend { padding: 22px 22px; gap: 6px; }
-.compact .spend-big { font-size: clamp(2rem, 4.5vw, 2.6rem); }
-.spend { padding: 26px 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .spend-head { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .spend-icon { font-size: 2rem; line-height: 1; flex: none; }
 .spend h3 { margin: 0; min-width: 0; overflow-wrap: break-word; hyphens: auto; }
-.spend-big { font-size: clamp(2.4rem, 6vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin: 4px 0; }
+.spend-big { font-size: clamp(2.4rem, 6vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; align-self: end; }
 .spend-big.gold { color: var(--gold); }
 .spend-big.accent { color: var(--accent); }
 .spend-big.teal { color: var(--teal); }
@@ -206,15 +280,15 @@ const over = (v) => v > 1;
     linear-gradient(160deg, color-mix(in srgb, var(--violet) 7%, transparent), transparent 60%),
     linear-gradient(160deg, var(--bg-card), var(--bg-card-2));
 }
-.spend-text { font-size: 0.92rem; color: var(--text-soft); margin: 0; min-height: 3.4em; overflow-wrap: break-word; }
-.spend-meter { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); overflow: hidden; border: 1px solid var(--border); margin: 6px 0; }
+.spend-text { font-size: 0.92rem; color: var(--text-soft); margin: 0; overflow-wrap: break-word; }
+.spend-meter { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); overflow: hidden; border: 1px solid var(--border); align-self: start; }
 .fill { height: 100%; border-radius: 999px; transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 .fill.teal { background: var(--teal); }
 .fill.gold { background: var(--gold); }
 .fill.accent { background: var(--accent); }
 .fill.violet { background: var(--violet); }
 .fill.blue { background: var(--blue); }
-.spend-foot { font-size: 0.8rem; margin: 2px 0 8px; }
+.spend-foot { font-size: 0.8rem; margin: 0; }
 
 @media (max-width: 600px) {
   .spend-icon { font-size: 1.7rem; }

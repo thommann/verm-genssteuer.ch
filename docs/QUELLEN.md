@@ -14,10 +14,11 @@ den Eintrag in `src/data/sources.json` zeigt.
 |---|---|---|---|---|
 | Hero | Anteil ≥ 5 Mio., Anzahl, Median, Ø/Median | ESTV (`estv_vermoegen`) | `estv_kennzahlen.json` | `02_extract_estv.py` |
 | Aussagen (Startseite) | Kampagnen-Aussagen mit konkreten Zahlen: Milliardäre zahlen halb so viel / Mittelstand doppelt so viel (Einkommensteuerlast); reales Vermögenswachstum «fast 10 %» p. a. (Wegzug-Argument; obere Lesart der belegten 6 bis 9 % WIR 2022 / 7,1 % Zucman) | Zucman (`zucman_g20`) | — (Texte + `sources.json`) | — |
+| Hintergrund (7 Artikel) | Erklärende Texte zu Aufkauf, Geldfluss, Demokratie, Steuerlücke, Wirtschaft, Lösung, Überblick. Belegte Zahlen: reales Vermögenswachstum 7,1 %/1,8 % bzw. 6–9 %/3,2 %; effektiver Steuersatz Milliardäre ~0,5 % bzw. ~0,3 %; ~103 Tage bzw. ~4 Jahre; 2 % Mindeststeuer; 200–250 Mrd. USD weltweit; Schweizer Vermögenseinkommen 6,9 %/2,6 %; 32 %/19 %. Argumente von Gary Stevenson und Zucman qualitativ zugeordnet. | Zucman (`zucman_g20`, `woz_zucman`, `wir2026`); WIR 2022 (`wir2022_wachstum`); Oxfam/TJN/Momentum (`reichensteuer_studie`, `reichensteuer_studie_ch`); BFS HABE (`bfs_habe`); EFV (`efv`); Gary Stevenson (`gary_wiki`, `gary_equals`); Demokratie (`social_europe_demokratie`); Schweiz-Zahl (`workzeitung_reiche`) | — (Texte in `de.js` unter `hintergrund.*` + `sources.json`); Zahlen aus `habe.json` bzw. belegt in `sources.json` | — (keine neuen Rohzahlen; wiederverwendete, bereits dokumentierte Werte) |
 | Verteilung | Anteile/Anzahl je Klasse, Median, Mittel | ESTV (`estv_vermoegen`) | `estv_distribution.json`, `estv_kennzahlen.json` | `02_extract_estv.py` |
 | Rechner | Aufkommen, Tarifkurve, Bänder, Gleichgewicht | ESTV (`estv_vermoegen`) + FDK (`fdk`, M im Tail) | `calculator_bins.json`, `calculator_params.json` | `02_extract_estv.py` (M aus `01`) |
 | Rechner (Wegzug-Szenario) | Netto-Fiskalgewinn: neue Steuer der Verbliebenen minus heutige Steuern der Abgewanderten. Heutige Last aufgeteilt in Vermögenssteuer (VST_RATE = 0,28 %, NZZ, auf steuerbares Vermögen) und Einkommenssteuer auf Kapital (EST_RATE = 0,9 %, Mittelwert aus Duschmalé-Beispiel, Martínez/KOF, Bandbreite 0,7–1,2 %). Pauschalbesteuerte im Pareto-Tail der Bins eingerechnet (kein separater Term). Herleitung, Bandbreiten und Deklaration: METHODIK §12. | NZZ (`nzz_vermoegenssteuer`); Martínez/KOF (`reichensteuer_studie_ch`) | Konstanten `VST_RATE = 0,0028`, `EST_RATE = 0,009` in `src/composables/useCalculator.js` | Schätzung, als solche deklariert; Mittelwert der Bandbreite |
-| Was tun? | Aufkommen (Zähler); Vergleichsgrössen (Nenner) | ESTV+FDK; BFS (`bfs`), EFV (`efv`), BAG (`bag`), LITRA (`litra`) | (Rechner) + `spend_reference.json` | `02`/`01`; `04` (BFS live, EFV/BAG/LITRA kuratiert, §5) |
+| Was tun? | Aufkommen (Zähler); Vergleichsgrössen (Nenner), inkl. öV-, Strassen- und Bildungs-Gesamtausgaben vervielfachen (alle Staatsebenen, inkl. Betrieb) | ESTV+FDK; BFS (`bfs`), EFV (`efv`), BAG (`bag`), LITRA (`litra`) | (Rechner) + `spend_reference.json` + `infrastruktur.json` | `02`/`01`; `04` (BFS live, EFV/BAG/LITRA kuratiert, §5); `06` (Total funk 61/62/2, §8) |
 | Dynamik | dynamisches Aufkommen je Jahr, voreingestellte Rendite 7 % | ESTV (`estv_vermoegen`) + FDK (`fdk`) + WIR 2022 (`wir2022_wachstum`, Default-Rendite) | `projektion_cohorts.json`, `calculator_params.json` | `02_extract_estv.py` |
 | International | Anteils-Zeitreihen + WID-Gini | WID (`wid`) | `wid_timeseries.json` | `03_extract_wid_ubs.py` |
 | WIR 2022 | Vergleich der Steuermodelle (Rechner-Preset «WIR 2022») | World Inequality Lab (`wir2022`) | — (Texte + `sources.json`) | — |
@@ -25,6 +26,7 @@ den Eintrag in `src/data/sources.json` zeigt.
 | Zucman-Steuer | Vorschlag (2 % ab 100 Mio.), heutige Last, Mehraufkommen, Tage bis ganze 2 %-Steuer passiv verdient, Arbeiterhaushalt (mittleres Fünftel) und mittelständischer Haushalt (Durchschnitt): Jahre bis Steuer aus Vermögenseinkommen, Tage aus Gesamteinkommen verdient, Einordnungen | Zucman (`woz_zucman`, `zucman_g20`); Bilanz (`bilanz300`); NZZ (`nzz_vermoegenssteuer`); Oxfam/TJN/Momentum (`reichensteuer_studie`); Haushalte: BFS HABE (`bfs_habe`); Einordnungen: BFS (`bfs`), EFV (`efv`), BAG (`bag`) | `habe.json`; Texte + `sources.json`; Einordnungen `spend_reference.json` | `05` (HABE, §6); `04` (Bezugsgrössen, §5) |
 | UBS-Studie | Gini, Ø/Median, Pyramide | UBS (`ubs`) | `ubs_gini.json`, `ubs_wealth_levels.json`, `ubs_wealth_pyramid.json` | `03_extract_wid_ubs.py` |
 | Pauschalbesteuerung | Anzahl, Ertrag, Spannweite | FDK (`fdk`) | `pauschal.json` | `01_extract_fdk.py` |
+| Infrastruktur (Datensatz) | Verkehrsausgaben Staat (Strasse 9,36 / öV 9,60 / Verkehr total 19,58 Mrd, 7,8 %); Bildung 45,49 Mrd (18,0 %); Zeitreihe 2015–2023; NAF 2024 (2,65 Mrd) und BIF 2024 (4,81 Mrd) | EFV Finanzstatistik (`efv`); EFV Staatsrechnung (`efv_staatsrechnung`) | `infrastruktur.json` | `06_extract_infrastruktur.py` (Verkehr/Bildung skript; NAF/BIF kuratiert) |
 | Quellen & Methodik | Quellenliste | — | `sources.json` | kuratiert (Metadaten) |
 
 **Lesart der Reproduzierbarkeit:** alle Datendateien werden **skriptbasiert** erzeugt
@@ -47,7 +49,8 @@ python3 scripts/02_extract_estv.py          # 3. ESTV-XLSX     -> Verteilung, Ke
 python3 scripts/03_extract_wid_ubs.py       # 4. WID-CSV+UBS   -> Zeitreihen, Ranking, Gini, Pyramide
 python3 scripts/04_extract_spend_reference.py  # 5. BFS-PXWeb + kuratierte EFV/BAG -> spend_reference.json
 python3 scripts/05_extract_habe.py          # 6. BFS-HABE-XLSX -> habe.json (Arbeiter-/Mittelstandshaushalt)
-python3 scripts/00_reproduce_statistics.py  # 7. statistische Verfahren unabhängig nachrechnen/prüfen
+python3 scripts/06_extract_infrastruktur.py # 7. EFV-CSV (Verkehr) + NAF/BIF -> infrastruktur.json
+python3 scripts/00_reproduce_statistics.py  # 8. statistische Verfahren unabhängig nachrechnen/prüfen
 ```
 
 **Voraussetzungen:** Python 3 mit `openpyxl` (`pip install openpyxl`) und das
@@ -319,6 +322,132 @@ Vermögenseinkommen` (ganze Jahressteuer allein aus dem passiven Vermögenseinko
 Arbeiterhaushalt 8 573 / 2,6 % / 10,1 % → **~4,0 Jahre / ~37 Tage**; Durchschnitt 9 951 /
 4,5 % / 11,7 % → **~2,6 Jahre / ~43 Tage**. Die Rechenformel steht in
 [`METHODIK.md`](METHODIK.md) («Direkter Vergleich — Spitze gegenüber normalem Haushalt»).
+
+---
+
+## 7. Hintergrund-Artikel — Gary Stevenson & Gabriel Zucman
+
+**Was:** Die sieben erklärenden Artikel der Seite `/hintergrund` (Komponente
+`ArtikelSection.vue`, Texte in `src/i18n/locales/de.js` unter `hintergrund.*`). Sie führen
+**keine neuen Rohzahlen** ein. Alle gezeigten Kennzahlen sind bereits an anderer Stelle
+dokumentiert und werden hier nur wiederverwendet:
+
+| Kennzahl im Artikel | Quelle (`id`) | dokumentiert in |
+|---|---|---|
+| reales Vermögenswachstum 7,1 % (Milliardäre) / 1,8 % (Ø) | `zucman_g20` | Abschnitt unten + `sources.json` |
+| reales Vermögenswachstum 6–9 % / 3,2 % seit 1995 | `wir2022_wachstum` | `sources.json` |
+| effektiver Steuersatz Milliardäre ~0,5 % (Welt), 0,005 % (FR 2016) | `woz_zucman` | `sources.json` |
+| effektiver Steuersatz Milliardäre ~0,3 %, 2 %-Satz, 200–250 Mrd. USD, ~3000 Milliardäre | `zucman_g20` | `sources.json` (Hinweis ergänzt) |
+| ~103 Tage (ganze 2 %-Steuer passiv verdient) | `zucman_g20` | METHODIK §12 |
+| ~4 Jahre / ~37 Tage (Arbeiterhaushalt), 6,9 %/2,6 % Vermögenseinkommen | `bfs_habe` | §6 oben + `habe.json` |
+| 32 % (Milliardäre, inkl. Gewinnsteuer) / 19 % (Multimillionäre) | `reichensteuer_studie`, `reichensteuer_studie_ch` | `sources.json` |
+| Schweizer Zusatzaufkommen (bis 20 Mrd., Brutto-Szenario) | `workzeitung_reiche` | `sources.json` |
+
+**Argument-Quellen (qualitativ, keine Zahlen):** Die Artikel ordnen die ökonomischen
+Argumente ihren Urhebern zu und belegen sie mit verlinkten Quellen.
+
+- **`gary_wiki`** — <https://en.wikipedia.org/wiki/Gary_Stevenson_(economist)>. Werdegang
+  (LSE, Citibank), Masterarbeit «The Impact of Inequality on Asset Prices When Households
+  Care About Wealth» und die Kernthese (Reiche sparen statt konsumieren, kaufen
+  Vermögenswerte, drücken Nachfrage und treiben Vermögenspreise über die Löhne). Abruf
+  Juni 2026, HTTP 200.
+- **`gary_equals`** — <https://www.equals.ink/p/gary-stevenson-on-wealth-inequality>.
+  Stevensons Mechanismus des systemischen Vermögenstransfers (Nachfrageausfall, Mieten,
+  tiefe Zinsen nach 2008). Abruf Juni 2026, HTTP 200.
+- **`social_europe_demokratie`** —
+  <https://www.socialeurope.eu/how-the-billionaire-boom-is-fueling-inequality-and-threatening-democracy>.
+  Zusammenhang von Vermögenskonzentration und Demokratiegefährdung (Lobbying, Medien,
+  Plattformen, Vertrauensverlust). Im Artikel zitierte Sekundärzahlen werden auf der Seite
+  **nicht** als Datenpunkte ausgewiesen. Abruf Juni 2026, HTTP 200.
+
+Diese Quellen liefern keine reproduzierbare Datendatei; sie belegen die Zuordnung der
+Argumente. Sie sind in `src/data/sources.json` mit allen Pflichtfeldern deklariert.
+
+**Videos von Gary’s Economics (`gary_youtube`):** Jeder Artikel verlinkt ein passendes Video
+von Gary Stevensons YouTube-Kanal. Uploader und Titel sind je Video über die
+**YouTube-oEmbed-API** geprüft (`https://www.youtube.com/oembed?format=json&url=…`); zurück
+kommt `author_name` = «Garys Economics» samt exaktem Titel, womit Erreichbarkeit und Urheber
+belegt sind. Keine erfundenen Links.
+
+| Artikel | Videotitel | Watch-URL |
+|---|---|---|
+| Der Aufkauf | The rich will fuel a huge asset price rally | <https://www.youtube.com/watch?v=clwnPPhqK2A> |
+| Der Geldfluss | How COVID-19 MAKES the Rich Richer - Gary EXPLAINS the theory | <https://www.youtube.com/watch?v=EiblHqbpXHs> |
+| Demokratie | UK Budget – The End of Democracy? | <https://www.youtube.com/watch?v=g0lEbH2kEw8> |
+| Steuerlücke | How the rich make taxes unpopular | <https://www.youtube.com/watch?v=rQg24dralYY> |
+| Wirtschaft | COVID-19 & INEQUALITY: Why the rich are getting richer but the economy will NOT recover | <https://www.youtube.com/watch?v=1YrDt8z0dKE> |
+| Die Lösung | Is a wealth tax actually possible? | <https://www.youtube.com/watch?v=gHrxoKEnvEs> |
+| Gary & Zucman | Kanal (alle Videos) | <https://www.youtube.com/@garyseconomics> |
+
+---
+
+## 8. EFV — Verkehrs- und Infrastrukturausgaben (Finanzstatistik + Staatsrechnung)
+
+**Was:** Jährliche Ausgaben der öffentlichen Hand für Verkehr (Strasse, öffentlicher
+Verkehr/Schiene, übriger Verkehr) sowie die Sonderrechnungen NAF und BIF des Bundes.
+
+### 8a. Verkehrsausgaben Gesamtstaat (skriptbasiert)
+
+**Herausgeber:** Eidg. Finanzverwaltung (EFV), Finanzstatistik (FS-Modell).
+
+**Quelle:** Bulk-Datei `fir_art_funk.csv` (Finanzierungsrechnung nach Sachgruppen und
+Funktionen), konsolidierter Sektor Staat (Bund + Kantone + Gemeinden +
+Sozialversicherungen).
+
+**Download-URL:**
+<https://www.data.finance.admin.ch/static/assets/datasets/fs_dashboard/fir_art_funk.csv>
+(rund 1,2 GB; Einstieg/Dashboard: <https://www.efv.admin.ch/de/fs-daten>).
+
+**Beschaffung:** Der Sektor `staat` liegt am Dateianfang. `fetch_sources.sh` lädt nur die
+ersten ~95 MB per HTTP-Byte-Range und filtert die `staat`-Zeilen heraus
+(`grep ',"staat",'`) → `data/raw/efv/efv_funk_verkehr_staat.csv` (klein, prüfbar).
+
+**Spalten:** `arten, funk, jahr, value, hh, unit, model`. Relevant: `hh = staat`,
+`model = fs`, `value` in CHF.
+
+**Extraktion (`06_extract_infrastruktur.py`):** Ausgaben = Summe der Sachgruppen-Klasse 3
+(laufende Ausgaben) + Klasse 5 (Investitionsausgaben), also `arten` mit erster Ziffer 3
+oder 5, je HRM2-Funktion (`funk`) und Jahr.
+
+| `funk` | Bedeutung |
+|---|---|
+| 61 | Strassenverkehr |
+| 62 | Öffentlicher Verkehr (Schiene/öV) |
+| 63 | Übriger Verkehr |
+| 64 | Nachrichtenübermittlung |
+| 68 | Forschung & Entwicklung Verkehr |
+| 2x | Bildung (Gruppe 2: 21 obligatorische Schule, 22 Sonderschulen, 23 berufliche Grundbildung, 25 allgemeinbildende Schulen, 26 höhere Berufsbildung, 27 Hochschulen, 28 Forschung, 29 übriges) |
+| **V1** | **Gesamttotal aller Funktionen (amtlicher Kontrollwert)** |
+
+Verkehr gesamt = HRM2-Gruppe 6 (61+62+63+64+68). Wichtig: Die Datei enthält neben den
+zweistelligen Funktions-Leaves auch die Total-Zeile `V1`; diese ist **nicht** mitzusummieren
+(sonst doppelt). Das Skript prüft: Summe der Leaves = `V1` (Toleranz 0,1 %) und plausibilisiert
+das Total (240–265 Mrd.) sowie den Verkehr (18–21 Mrd.).
+
+**Validierung (2023):** Total Staat = 252,07 Mrd. (= `V1`); Kontrollgruppen Bildung
+(funk 2x) 45,49 Mrd. = 18,0 %, Soziale Sicherheit (funk 5x) 99,75 Mrd. = 39,6 % — exakt wie
+die EFV-Hauptpublikation «Öffentliche Finanzen der Schweiz 2023–2024»
+(<https://www.efv.admin.ch/dam/de/sd-web/eN3o9LnwCuBV/2025-hauptpublikation-d.pdf>).
+Ergebnis 2023: Strassenverkehr 9,363 Mrd., öffentlicher Verkehr 9,600 Mrd., Verkehr gesamt
+19,58 Mrd. = 7,8 % der Staatsausgaben; Bildung (Gruppe 2) 45,49 Mrd. = 18,0 %. Das Skript
+extrahiert sowohl Verkehr (Gruppe 6) als auch Bildung (Gruppe 2).
+
+### 8b. NAF und BIF (kuratiert)
+
+**Quelle:** EFV Staatsrechnung 2024 (`efv_staatsrechnung`), Band «Spezialfinanzierungen»
+(SPEZ-F) bzw. Band 1A, Einstieg <https://www.efv.admin.ch/de/staatsrechnung>.
+
+Als belegte Konstanten in `06_extract_infrastruktur.py` gepflegt (Erfolgsrechnung 2024,
+Spalte «Rechnung»):
+
+- **NAF**, Ziff. 322: Gesamtaufwand **2'646** Mio.; Nationalstrassen **2'454** Mio. (Betrieb
+  **454**, reservierte Mittel Nationalstrassenbau **1'839**); Agglomerationsverkehr **191** Mio.
+- **BIF**: Gesamtaufwand **4'808** Mio.; Investitionsausgaben **4'138** Mio. (Substanzerhalt
+  **3'247**, Ausbau **874**).
+
+Hinweis Doppelzählung: BIF-Bahninfrastruktur und die Leistungsvereinbarung Bund–SBB sind
+weitgehend dasselbe Geld; NAF (nur Bund) ist nicht mit der EFV-Funktion 61 (alle
+Staatsebenen) oder der BFS-Strasseninfrastrukturrechnung (engeres Konzept) zu addieren.
 
 ---
 
