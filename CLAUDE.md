@@ -1,5 +1,14 @@
 # CLAUDE.md
 
+## Tests, Linter und Build
+
+Alle folgenden Befehle müssen grün sein, bevor eine Änderung committet, gepusht oder ein PR aktualisiert wird:
+
+- **Linter:** `npm run lint` (ESLint mit `eslint-plugin-vue`, reines JavaScript-Projekt). Auto-Fix: `npm run lint:fix`. Ziel sind 0 Fehler und 0 Warnungen; **keine** `eslint-disable`-Kommentare oder File-Ignores zur Unterdrückung einsetzen, stattdessen den Code beheben oder eine begründete Regel-Konfiguration in `eslint.config.js` setzen.
+- **E2E-Tests:** `npm test` (Playwright, Specs unter `e2e/`). Browser einmalig installieren mit `npx playwright install chromium`.
+- **Build:** `npm run build` (Vite; entspricht dem Build-Schritt der CI in `.github/workflows/deploy.yml`).
+- **Statistik-Validierung:** `python3 scripts/00_reproduce_statistics.py` (rechnet alle Kennzahlen allein aus `src/data/*.json` nach; erwartete Ausgabe: «Alle Prüfungen bestanden»). Wird ein Modell-Default (z. B. `rendite` in `calculator_params.json`) oder eine Eingabedatei geändert, müssen die Referenzwerte **synchron** mitgezogen werden: im Skript selbst, in der Tabelle von `docs/METHODIK.md` und im Doc-Kommentar von `src/lib/taxModel.js`.
+
 ## Commit- und PR-Konventionen
 
 - **Keine** `Co-Authored-By`-Zeilen (z. B. `Co-Authored-By: Claude`) in Commit-Messages.

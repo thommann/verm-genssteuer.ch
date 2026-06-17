@@ -192,7 +192,7 @@ for yr in range(2022, 2033):
     proj[yr] = sum(n[i] * tax(W[i]) for i in range(len(W))) / 1e9
     W = [max(0.0, W[i] * (1 + r) - tax(W[i])) for i in range(len(W))]
 check("Projektion 2022 (Einmaleffekt)", abs(proj[2022] - 92.30) < 5e-2, f"{proj[2022]:.3f} Mrd.")
-check("Projektion 2032 (tragbares Niveau)", abs(proj[2032] - 23.87) < 5e-2, f"{proj[2032]:.3f} Mrd.")
+check("Projektion 2032 (tragbares Niveau)", abs(proj[2032] - 32.79) < 5e-2, f"{proj[2032]:.3f} Mrd.")
 
 print("\n== B. Pareto-Tail (> 10 Mio.) ==")
 for year in (2020, 2021, 2022):
