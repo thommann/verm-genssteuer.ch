@@ -186,7 +186,9 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
             <BarChart
               :items="bandItems"
               :format-value="(v) => chfCompact(v, 1)"
+              :label-header="$t('calculator.bandWealthLabel')"
               :range-label="$t('calculator.bandRateLabel')"
+              :value-header="$t('calculator.bandRevenueLabel')"
               accent="var(--teal)"
             />
           </div>
@@ -267,5 +269,9 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   .calc-grid { grid-template-columns: 1fr; }
   .calc-grid > .controls { grid-column: auto; grid-row: auto; }
   .calc-grid > .chartbox.band { grid-column: auto; }
+}
+@media (max-width: 620px) {
+  /* Mehr Platz für die Diagramme auf schmalen Screens. */
+  .chartbox { padding: 18px 16px; }
 }
 </style>

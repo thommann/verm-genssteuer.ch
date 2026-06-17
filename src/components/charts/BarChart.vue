@@ -7,22 +7,24 @@ const props = defineProps({
   formatValue: { type: Function, default: (v) => v },
   max: { type: Number, default: null },
   accent: { type: String, default: 'var(--accent)' },
-  // Überschrift der optionalen Range-Spalte (z. B. Steuersatz)
+  // Kurze Spaltenüberschriften (nur mit Range-Spalte sichtbar)
+  labelHeader: { type: String, default: '' },
   rangeLabel: { type: String, default: '' },
+  valueHeader: { type: String, default: '' },
 });
 
 const maxVal = computed(() => props.max ?? Math.max(...props.items.map((i) => i.value), 1));
 const widthPct = (v) => `${Math.max(0, (v / maxVal.value) * 100)}%`;
 const hasRange = computed(() => props.items.some((i) => i.range != null));
+const hasHead = computed(() => !!(props.labelHeader || props.rangeLabel || props.valueHeader));
 </script>
 
 <template>
   <div :class="['bars', { 'with-range': hasRange }]">
-    <div v-if="hasRange && rangeLabel" class="bar-row bar-head">
-      <div class="bar-label" />
-      <div class="bar-range head">{{ rangeLabel }}</div>
-      <div />
-      <div />
+    <div v-if="hasRange && hasHead" class="bar-row bar-head">
+      <div class="bar-label col-head">{{ labelHeader }}</div>
+      <div class="bar-range col-head">{{ rangeLabel }}</div>
+      <div class="bar-value-head col-head">{{ valueHeader }}</div>
     </div>
     <div v-for="it in items" :key="it.label" class="bar-row">
       <div class="bar-label">
@@ -61,7 +63,10 @@ const hasRange = computed(() => props.items.some((i) => i.range != null));
 .bar-label { display: flex; flex-direction: column; font-weight: 600; font-size: 0.92rem; }
 .bar-sub { font-weight: 500; font-size: 0.76rem; color: var(--text-mute); }
 .bar-range { font-weight: 600; font-size: 0.84rem; color: var(--text-soft); white-space: nowrap; }
-.bar-range.head { color: var(--text-mute); font-weight: 600; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.03em; }
+/* Kurze Spaltenüberschriften: gedämpft, klein, in Grossbuchstaben. */
+.col-head { color: var(--text-mute); font-weight: 600; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; }
+/* «Ertrag» überschreibt Balken und Zahl gemeinsam, rechtsbündig über der Zahl. */
+.bar-value-head { grid-column: span 2; text-align: right; }
 .bar-head { align-items: end; }
 .bar-track {
   background: rgba(255, 255, 255, 0.05);
@@ -76,16 +81,27 @@ const hasRange = computed(() => props.items.some((i) => i.range != null));
   transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   min-width: 2px;
 }
-.bar-value { font-weight: 700; font-size: 0.92rem; min-width: 72px; text-align: right; }
+.bar-value { font-weight: 700; font-size: 0.92rem; min-width: 72px; text-align: right; white-space: nowrap; }
 @media (max-width: 620px) {
-  .bar-row { grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'track track'; }
-  /* Auf schmalen Screens wieder je Zeile ein eigenes Raster. */
-  .bars.with-range { display: flex; flex-direction: column; gap: 12px; }
-  .with-range .bar-row { display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'range range' 'track track'; }
-  .bar-label { grid-area: label; }
-  .bar-value { grid-area: value; }
-  .bar-range { grid-area: range; }
-  .bar-track { grid-area: track; }
-  .bar-head { display: none; }
+  /* Diagramme ohne Range-Spalte: Label/Wert oben, Balken darunter. */
+  .bars:not(.with-range) .bar-row { grid-template-columns: 1fr auto; grid-template-areas: 'label value' 'track track'; row-gap: 8px; }
+  .bars:not(.with-range) .bar-label { grid-area: label; }
+  .bars:not(.with-range) .bar-value { grid-area: value; }
+  .bars:not(.with-range) .bar-track { grid-area: track; }
+  /* Mit Range-Spalte: gleiches einspaltiges Tabellen-Layout wie auf Desktop,
+     nur mit schmaleren Spalten, damit der Balken auch auf kleinen Screens sichtbar bleibt. */
+  .bars.with-range { grid-template-columns: minmax(56px, 88px) auto minmax(32px, 1fr) auto; gap: 12px 7px; }
+  .bars.with-range .bar-label { font-size: 0.84rem; }
+  .bars.with-range .bar-range { font-size: 0.8rem; }
+  .bars.with-range .col-head { font-size: 0.66rem; letter-spacing: 0.02em; }
+  .bars.with-range .bar-value { min-width: 0; font-size: 0.84rem; }
+}
+@media (max-width: 340px) {
+  /* Sehr schmale Screens (z. B. 320 px): Spalten und Schrift weiter verkleinern,
+     damit die Werte rechts nicht abgeschnitten werden. */
+  .bars.with-range { grid-template-columns: minmax(48px, 80px) auto minmax(24px, 1fr) auto; gap: 11px 6px; }
+  .bars.with-range .bar-label,
+  .bars.with-range .bar-range,
+  .bars.with-range .bar-value { font-size: 0.78rem; }
 }
 </style>
