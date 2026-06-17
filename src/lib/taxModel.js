@@ -13,7 +13,7 @@
  * Validierung (scripts/00_reproduce_statistics.py): mit den Default-Parametern und der
  * ESTV-/FDK-Population (calculator_bins.json) ergibt dieses Modell das Referenz-Aufkommen
  * 76,0512 / 91,1598 / 91,5437 Mrd. CHF (2020/21/22) sowie die dynamische Projektion
- * (92,30 → 23,87 Mrd.), beides exakt reproduzierbar.
+ * (92,30 → 32,79 Mrd., bei Default-Rendite 7 %), beides exakt reproduzierbar.
  */
 
 /** Kalibrierter Basis-Satz (Grenzsatz bei der Schwelle). */
@@ -152,16 +152,4 @@ export function dynamicProjection(cohorts, model, rendite, startYear = 2022, nYe
     }
   }
   return series;
-}
-
-/** Gleichgewichts-Vermögen W*, bei dem der Ø-Satz gerade die Rendite r erreicht. */
-export function equilibriumWealth(model, rendite, hi = 1e12) {
-  let lo = model.schwelle;
-  if (model.avgRate(hi) < rendite) return null; // Cap zu tief: kein Gleichgewicht
-  for (let i = 0; i < 80; i += 1) {
-    const mid = Math.sqrt(lo * hi);
-    if (model.avgRate(mid) < rendite) lo = mid;
-    else hi = mid;
-  }
-  return Math.sqrt(lo * hi);
 }

@@ -2,10 +2,12 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ownership from '@/data/ownership.json';
-import { num, pct } from '@/lib/format.js';
+import { num, pct, pct0 } from '@/lib/format.js';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
+import StatGrid from '@/components/ui/StatGrid.vue';
+import StatCard from '@/components/ui/StatCard.vue';
 
 const { t } = useI18n();
 const gebaeude = ownership.gebaeude;
@@ -15,9 +17,8 @@ const wohneigentum = ownership.wohneigentum;
 const wald = ownership.wald;
 const boden = ownership.boden;
 const groesste = boden.groesste;
-const pct0 = (v) => pct(v, 0);
 
-// Privatanteil an den Mietwohnungen nach Bauperiode (BFS) – Neubauten gehören seltener Privaten.
+// Privatanteil an den Mietwohnungen nach Bauperiode (BFS): Neubauten gehören seltener Privaten.
 const baujahrItems = computed(() => [
   { label: t('ownership.baujahrVor'), value: wohnBfs.baujahr.vor_1946, color: 'var(--gold)' },
   { label: t('ownership.baujahrNach'), value: wohnBfs.baujahr.nach_2000, color: 'var(--accent)' },
@@ -68,7 +69,9 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
 <template>
   <section id="boden">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('ownership.bodenEyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('ownership.bodenEyebrow') }}
+      </div>
       <h2>{{ $t('ownership.bodenHeading') }}</h2>
       <p
         class="lead"
@@ -77,27 +80,66 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           oeffentlich: pct(wald.oeffentlich_share, 0),
         })"
       />
-      <p class="muted small note" v-html="$t('ownership.registerNote')" />
-      <span class="srcrow"><SourceTag id="wav_zuerich" :note="$t('ownership.registerSource')" /></span>
+      <p
+        class="muted small note"
+        v-html="$t('ownership.registerNote')"
+      />
+      <span class="srcrow"><SourceTag
+        id="wav_zuerich"
+        :note="$t('ownership.registerSource')"
+      /></span>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.gebChartTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.gebChartIntro')" />
-        <BarChart :items="gebaeudeItems" :max="1" :format-value="(v) => pct(v, 1)" accent="var(--gold)" />
-        <SourceTag id="bfs_gebaeude" :note="$t('ownership.gebChartSource', { jahr: gebaeude.jahr })" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.gebChartIntro')"
+        />
+        <BarChart
+          :items="gebaeudeItems"
+          :max="1"
+          :format-value="(v) => pct(v, 1)"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="bfs_gebaeude"
+          :note="$t('ownership.gebChartSource', { jahr: gebaeude.jahr })"
+        />
       </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.mietChartTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.mietChartIntro', { institutionell: pct(mietwohnungen.institutionell, 0) })" />
-        <BarChart :items="mietItems" :max="1" :format-value="pct0" accent="var(--gold)" />
-        <SourceTag id="raiffeisen_immo" :note="$t('ownership.mietChartSource', { jahr: mietwohnungen.jahr })" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.mietChartIntro', { institutionell: pct(mietwohnungen.institutionell, 0) })"
+        />
+        <BarChart
+          :items="mietItems"
+          :max="1"
+          :format-value="pct0"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="raiffeisen_immo"
+          :note="$t('ownership.mietChartSource', { jahr: mietwohnungen.jahr })"
+        />
       </div>
       <div class="card chartbox">
         <h3>{{ $t('ownership.baujahrTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.baujahrIntro', { privat: pct(wohnBfs.privat, 0) })" />
-        <BarChart :items="baujahrItems" :max="1" :format-value="pct0" accent="var(--gold)" />
-        <SourceTag id="bfs_wohnungen" :note="$t('ownership.baujahrSource', { jahr: wohnBfs.jahr })" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.baujahrIntro', { privat: pct(wohnBfs.privat, 0) })"
+        />
+        <BarChart
+          :items="baujahrItems"
+          :max="1"
+          :format-value="pct0"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="bfs_wohnungen"
+          :note="$t('ownership.baujahrSource', { jahr: wohnBfs.jahr })"
+        />
       </div>
       <div class="card chartbox">
         <h3>{{ $t('ownership.wohneigentumTitle') }}</h3>
@@ -111,6 +153,7 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           })"
         />
         <LineChart
+          :aria-label="$t('ownership.wohneigentumTitle')"
           :series="wohneigentumTrend"
           :x-domain="[woYears[0], woYears[woYears.length - 1]]"
           :x-ticks="woYears.filter((y) => y % 2 === 1)"
@@ -122,7 +165,10 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           :y-label="$t('ownership.wohneigentumLine')"
           :height="280"
         />
-        <SourceTag id="bfs_wohneigentum" :note="$t('ownership.wohneigentumSource')" />
+        <SourceTag
+          id="bfs_wohneigentum"
+          :note="$t('ownership.wohneigentumSource')"
+        />
       </div>
 
       <div class="card chartbox">
@@ -136,17 +182,32 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
             schnitt: num(wald.privat_ha_avg, 1),
           })"
         />
-        <BarChart :items="waldItems" :max="1" :format-value="(v) => pct(v, 1)" accent="var(--gold)" />
+        <BarChart
+          :items="waldItems"
+          :max="1"
+          :format-value="(v) => pct(v, 1)"
+          accent="var(--gold)"
+        />
         <span class="srcrow">
-          <SourceTag id="bfs_wald" :note="$t('ownership.waldChartSource', { jahr: wald.jahr })" />
-          <SourceTag id="bfs_areal" :note="$t('ownership.arealSource')" />
+          <SourceTag
+            id="bfs_wald"
+            :note="$t('ownership.waldChartSource', { jahr: wald.jahr })"
+          />
+          <SourceTag
+            id="bfs_areal"
+            :note="$t('ownership.arealSource')"
+          />
         </span>
       </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.waldTrendTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.waldTrendIntro')" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.waldTrendIntro')"
+        />
         <LineChart
+          :aria-label="$t('ownership.waldTrendTitle')"
           :series="waldTrend"
           :x-domain="[waldYears[0], waldYears[waldYears.length - 1]]"
           :x-ticks="[1975, 1985, 1995, 2005, 2015, 2024]"
@@ -158,13 +219,20 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           :y-label="$t('ownership.waldTrendYAxis')"
           :height="300"
         />
-        <SourceTag id="bfs_wald" :note="$t('ownership.waldTrendSource')" />
+        <SourceTag
+          id="bfs_wald"
+          :note="$t('ownership.waldTrendSource')"
+        />
       </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.pachtTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.pachtIntro')" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.pachtIntro')"
+        />
         <LineChart
+          :aria-label="$t('ownership.pachtTitle')"
           :series="pachtTrend"
           :x-domain="[pachtYears[0], pachtYears[pachtYears.length - 1]]"
           :x-ticks="pachtYears"
@@ -176,43 +244,82 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           :y-label="$t('ownership.pachtLine')"
           :height="280"
         />
-        <SourceTag id="bfs_pacht" :note="$t('ownership.pachtSource')" />
+        <SourceTag
+          id="bfs_pacht"
+          :note="$t('ownership.pachtSource')"
+        />
       </div>
 
-      <h3 class="block-h">{{ $t('ownership.groessteHeading') }}</h3>
-      <p class="muted small intro2">{{ $t('ownership.groessteIntro') }}</p>
-      <div class="grid sgrid">
-        <div v-for="g in groesste" :key="g.id" class="scard card">
-          <span class="sv accent">{{ num(g.menge, 1) }}<span class="unit"> {{ g.einheit }}</span></span>
-          <span class="sl">{{ $t('ownership.groesste_' + g.id) }}</span>
+      <h3 class="block-h">
+        {{ $t('ownership.groessteHeading') }}
+      </h3>
+      <p class="muted small intro2">
+        {{ $t('ownership.groessteIntro') }}
+      </p>
+      <StatGrid :style="{ margin: '8px 0 14px' }">
+        <StatCard
+          v-for="g in groesste"
+          :key="g.id"
+          tone="accent"
+        >
+          <template #value>
+            {{ num(g.menge, 1) }}<span class="unit"> {{ g.einheit }}</span>
+          </template>
+          <template #label>
+            {{ $t('ownership.groesste_' + g.id) }}
+          </template>
           <SourceTag :id="g.quelle" />
-        </div>
-      </div>
+        </StatCard>
+      </StatGrid>
 
-      <h3 class="block-h">{{ $t('ownership.auslandHeading') }}</h3>
-      <p class="muted small intro2" v-html="$t('ownership.auslandIntro')" />
-      <div class="grid sgrid">
-        <div class="scard card">
-          <span class="sv accent">{{ num(boden.lex_koller.bewilligungen, 0) }}</span>
-          <span class="sl" v-html="$t('ownership.auslandBewilligungenLabel', {
-            jahr: boden.lex_koller.jahr,
-            kontingent: num(boden.lex_koller.kontingent, 0),
-            ausschoepfung: pct(boden.lex_koller.ausschoepfung, 0),
-          })" />
-        </div>
-        <div class="scard card">
-          <span class="sv gold">{{ pct(boden.lex_koller.zweitwohnsitze_ch_min, 0) }}+</span>
-          <span class="sl">{{ $t('ownership.auslandZweitLabel') }}</span>
-        </div>
-        <div class="scard card">
-          <span class="sv">{{ pct(boden.blackrock.anteil, 0) }}</span>
-          <span class="sl" v-html="$t('ownership.auslandBlackrockLabel', {
-            wert: num(boden.blackrock.wert_mrd, 0),
-            firmen: num(boden.blackrock.firmen, 0),
-          })" />
-        </div>
-      </div>
-      <p class="muted small note" v-html="$t('ownership.auslandAusnahmen')" />
+      <h3 class="block-h">
+        {{ $t('ownership.auslandHeading') }}
+      </h3>
+      <p
+        class="muted small intro2"
+        v-html="$t('ownership.auslandIntro')"
+      />
+      <StatGrid :style="{ margin: '8px 0 14px' }">
+        <StatCard tone="accent">
+          <template #value>
+            {{ num(boden.lex_koller.bewilligungen, 0) }}
+          </template>
+          <template #label>
+            <span
+              v-html="$t('ownership.auslandBewilligungenLabel', {
+                jahr: boden.lex_koller.jahr,
+                kontingent: num(boden.lex_koller.kontingent, 0),
+                ausschoepfung: pct(boden.lex_koller.ausschoepfung, 0),
+              })"
+            />
+          </template>
+        </StatCard>
+        <StatCard tone="gold">
+          <template #value>
+            {{ pct(boden.lex_koller.zweitwohnsitze_ch_min, 0) }}+
+          </template>
+          <template #label>
+            {{ $t('ownership.auslandZweitLabel') }}
+          </template>
+        </StatCard>
+        <StatCard>
+          <template #value>
+            {{ pct(boden.blackrock.anteil, 0) }}
+          </template>
+          <template #label>
+            <span
+              v-html="$t('ownership.auslandBlackrockLabel', {
+                wert: num(boden.blackrock.wert_mrd, 0),
+                firmen: num(boden.blackrock.firmen, 0),
+              })"
+            />
+          </template>
+        </StatCard>
+      </StatGrid>
+      <p
+        class="muted small note"
+        v-html="$t('ownership.auslandAusnahmen')"
+      />
       <p
         class="muted small note"
         v-html="$t('ownership.auslandNote', {
@@ -220,31 +327,36 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           sps: pct(boden.blackrock.sps_anteil, 0),
         })"
       />
-      <p class="muted small note" v-html="$t('ownership.auslandReform')" />
+      <p
+        class="muted small note"
+        v-html="$t('ownership.auslandReform')"
+      />
       <span class="srcrow">
-        <SourceTag id="lex_koller" :note="$t('ownership.lexKollerSource', { jahr: boden.lex_koller.jahr })" />
-        <SourceTag id="lex_koller_ausnahmen" :note="$t('ownership.ausnahmenSource')" />
-        <SourceTag id="blackrock_immo" :note="$t('ownership.blackrockSource')" />
-        <SourceTag id="lex_koller_reform" :note="$t('ownership.reformSource')" />
+        <SourceTag
+          id="lex_koller"
+          :note="$t('ownership.lexKollerSource', { jahr: boden.lex_koller.jahr })"
+        />
+        <SourceTag
+          id="lex_koller_ausnahmen"
+          :note="$t('ownership.ausnahmenSource')"
+        />
+        <SourceTag
+          id="blackrock_immo"
+          :note="$t('ownership.blackrockSource')"
+        />
+        <SourceTag
+          id="lex_koller_reform"
+          :note="$t('ownership.reformSource')"
+        />
       </span>
     </div>
   </section>
 </template>
 
 <style scoped>
-.chartbox { padding: 24px 26px; }
-.chartbox h3 { margin-bottom: 8px; }
-.intro { font-size: 0.92rem; max-width: 70ch; margin-bottom: 20px; }
 .small { font-size: 0.85rem; max-width: 75ch; }
 .note { margin-top: 16px; color: var(--text-mute); }
 .block-h { margin-top: 40px; }
 .intro2 { margin-top: 8px; margin-bottom: 18px; }
-.sgrid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 8px 0 14px; }
-.scard { padding: 22px; display: flex; flex-direction: column; gap: 6px; }
-.sv { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
-.sv.accent { color: var(--accent); }
-.sv.gold { color: var(--gold); }
-.sl { color: var(--text-soft); font-size: 0.88rem; }
-.sv .unit { font-size: 1rem; font-weight: 700; color: var(--text-soft); }
-.srcrow { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 8px; }
+.srcrow { margin-top: 8px; }
 </style>

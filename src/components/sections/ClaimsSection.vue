@@ -9,6 +9,7 @@
 import { reactive } from 'vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 import { useScrollSpy } from '@/composables/useScrollSpy.js';
+import { bandVars } from '@/lib/gradient.js';
 
 // Hauptaussage: gleicher Verlauf wie die Hauptbotschaft-Slide (Variante A) im Deck.
 const HERO_BG = ['#ff2d6b', '#ff7a33', '#d6249f', '#ff2d6b'];
@@ -30,8 +31,6 @@ const CLAIMS = [
   { id: 'kein-wegzug', key: 'keinWegzug', route: '/hintergrund', hash: 'loesung', source: 'zucman_g20', bg: ['#3b6fe0', '#a78bfa', '#4f8bff', '#7c3aed'] },
   { id: 'schon-fair', key: 'schonFair', route: '/hintergrund', hash: 'loesung', bg: ['#a78bfa', '#25e3c8', '#7c3aed', '#14c98a'] },
 ];
-
-const vars = (bg) => ({ '--g1': bg[0], '--g2': bg[1], '--g3': bg[2], '--g4': bg[3] });
 
 // Slogan-Band zum Abschluss der Startseite: Haupt-Slogan gross, die übrigen Kampagnen-
 // Hashtags als Tag-Reihe darunter. Hashtags sind Marken-Tags und bleiben unübersetzt;
@@ -60,10 +59,19 @@ const toggle = (id) => { open[id] = !open[id]; };
 <template>
   <div id="aussagen">
     <!-- Hauptaussage zuoberst, volle Breite, verlinkbar (#start). -->
-    <header id="start" class="claim-band hero-band" :style="vars(HERO_BG)">
+    <header
+      id="start"
+      class="claim-band hero-band"
+      :style="bandVars(HERO_BG)"
+    >
       <div class="wrap">
-        <div class="eyebrow">{{ $t('hero.eyebrow') }}</div>
-        <h1 class="band-text" v-html="$t('hero.title')" />
+        <div class="eyebrow">
+          {{ $t('hero.eyebrow') }}
+        </div>
+        <h1
+          class="band-text"
+          v-html="$t('hero.title')"
+        />
         <button
           type="button"
           class="band-cue"
@@ -72,16 +80,38 @@ const toggle = (id) => { open[id] = !open[id]; };
           @click="toggle('start')"
         >
           <span class="band-cue-label">{{ $t('hero.expand') }}</span>
-          <span class="band-cue-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+          <span
+            class="band-cue-icon"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ><path d="M6 9l6 6 6-6" /></svg>
           </span>
         </button>
-        <div class="band-collapse" :class="{ open: open.start }">
+        <div
+          class="band-collapse"
+          :class="{ open: open.start }"
+        >
           <div class="band-collapse-inner">
-            <div id="expl-start" :aria-hidden="open.start ? 'false' : 'true'">
-              <p class="band-expl" v-html="$t('hero.explainText')" />
+            <div
+              id="expl-start"
+              :aria-hidden="open.start ? 'false' : 'true'"
+            >
+              <p
+                class="band-expl"
+                v-html="$t('hero.explainText')"
+              />
               <div class="band-foot">
-                <router-link :to="{ path: '/hintergrund', hash: '#geldfluss' }" class="band-link">
+                <router-link
+                  :to="{ path: '/hintergrund', hash: '#geldfluss' }"
+                  class="band-link"
+                >
                   {{ $t('hero.explain') }} <span aria-hidden="true">→</span>
                 </router-link>
               </div>
@@ -97,11 +127,16 @@ const toggle = (id) => { open[id] = !open[id]; };
       :key="c.id"
       class="claim-band"
       :class="{ dark: c.dark }"
-      :style="vars(c.bg)"
+      :style="bandVars(c.bg)"
     >
       <div class="wrap">
-        <div class="eyebrow">{{ $t(`claims.items.${c.key}.eyebrow`) }}</div>
-        <p class="band-text" v-html="$t(`claims.items.${c.key}.text`)" />
+        <div class="eyebrow">
+          {{ $t(`claims.items.${c.key}.eyebrow`) }}
+        </div>
+        <p
+          class="band-text"
+          v-html="$t(`claims.items.${c.key}.text`)"
+        />
         <button
           type="button"
           class="band-cue"
@@ -110,19 +145,44 @@ const toggle = (id) => { open[id] = !open[id]; };
           @click="toggle(c.id)"
         >
           <span class="band-cue-label">{{ $t('claims.expand') }}</span>
-          <span class="band-cue-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+          <span
+            class="band-cue-icon"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ><path d="M6 9l6 6 6-6" /></svg>
           </span>
         </button>
-        <div class="band-collapse" :class="{ open: open[c.id] }">
+        <div
+          class="band-collapse"
+          :class="{ open: open[c.id] }"
+        >
           <div class="band-collapse-inner">
-            <div :id="`expl-${c.id}`" :aria-hidden="open[c.id] ? 'false' : 'true'">
-              <p class="band-expl" v-html="$t(`claims.items.${c.key}.explainText`)" />
+            <div
+              :id="`expl-${c.id}`"
+              :aria-hidden="open[c.id] ? 'false' : 'true'"
+            >
+              <p
+                class="band-expl"
+                v-html="$t(`claims.items.${c.key}.explainText`)"
+              />
               <div class="band-foot">
-                <router-link :to="{ path: c.route, hash: `#${c.hash}` }" class="band-link">
+                <router-link
+                  :to="{ path: c.route, hash: `#${c.hash}` }"
+                  class="band-link"
+                >
                   {{ $t(`claims.items.${c.key}.link`) }} <span aria-hidden="true">→</span>
                 </router-link>
-                <SourceTag v-if="c.source" :id="c.source" />
+                <SourceTag
+                  v-if="c.source"
+                  :id="c.source"
+                />
               </div>
             </div>
           </div>
@@ -132,13 +192,28 @@ const toggle = (id) => { open[id] = !open[id]; };
 
     <!-- Slogan-Band: Abschluss der Kampagne, Haupt-Slogan plus Hashtag-Reihe. Keine
          Aussage im Sinne der Claims (kein Erklär-Link, keine Zahl/Quelle). -->
-    <section id="slogan" class="claim-band slogan-band" :style="vars(SLOGAN_BG)">
+    <section
+      id="slogan"
+      class="claim-band slogan-band"
+      :style="bandVars(SLOGAN_BG)"
+    >
       <div class="wrap">
-        <div class="eyebrow">{{ $t('slogans.eyebrow') }}</div>
-        <p class="slogan-main">{{ HERO_SLOGAN }}</p>
-        <p class="slogan-sub">{{ $t('slogans.sub') }}</p>
+        <div class="eyebrow">
+          {{ $t('slogans.eyebrow') }}
+        </div>
+        <p class="slogan-main">
+          {{ HERO_SLOGAN }}
+        </p>
+        <p class="slogan-sub">
+          {{ $t('slogans.sub') }}
+        </p>
         <ul class="slogan-tags">
-          <li v-for="h in SLOGAN_TAGS" :key="h">{{ h }}</li>
+          <li
+            v-for="h in SLOGAN_TAGS"
+            :key="h"
+          >
+            {{ h }}
+          </li>
         </ul>
       </div>
     </section>

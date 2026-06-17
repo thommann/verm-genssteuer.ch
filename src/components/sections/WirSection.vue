@@ -10,9 +10,14 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 <template>
   <section id="wir-reports">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('wir.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('wir.eyebrow') }}
+      </div>
       <h2 v-html="$t('wir.title')" />
-      <p class="lead" v-html="$t('wir.lead')" />
+      <p
+        class="lead"
+        v-html="$t('wir.lead')"
+      />
 
       <div class="grid cmp">
         <div class="card wir">
@@ -20,13 +25,21 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
             <span class="badge gold">{{ $t('wir.card2022Badge') }}</span>
             <h3>{{ $t('wir.card2022Title') }}</h3>
           </div>
-          <p class="wir-sub" v-html="$t('wir.card2022Sub')" />
+          <p
+            class="wir-sub"
+            v-html="$t('wir.card2022Sub')"
+          />
           <ul>
             <li v-html="$t('wir.card2022Li1')" />
             <li v-html="$t('wir.card2022Li2')" />
             <li v-html="$t('wir.card2022Li3')" />
           </ul>
-          <a class="btn btn-ghost" :href="'https://wir2022.wid.world'" target="_blank" rel="noopener">
+          <a
+            class="btn btn-ghost"
+            href="https://wir2022.wid.world"
+            target="_blank"
+            rel="noopener"
+          >
             {{ $t('wir.card2022Link') }}
           </a>
         </div>
@@ -36,22 +49,41 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
             <span class="badge teal">{{ $t('wir.card2026Badge') }}</span>
             <h3>{{ $t('wir.card2026Title') }}</h3>
           </div>
-          <p class="wir-sub" v-html="$t('wir.card2026Sub')" />
+          <p
+            class="wir-sub"
+            v-html="$t('wir.card2026Sub')"
+          />
           <ul>
             <li v-html="$t('wir.card2026Li1')" />
             <li v-html="$t('wir.card2026Li2')" />
             <li v-html="$t('wir.card2026Li3')" />
           </ul>
-          <a class="btn btn-ghost" :href="'https://wir2026.wid.world'" target="_blank" rel="noopener">
+          <a
+            class="btn btn-ghost"
+            href="https://wir2026.wid.world"
+            target="_blank"
+            rel="noopener"
+          >
             {{ $t('wir.card2026Link') }}
           </a>
         </div>
       </div>
 
-      <p class="shift" v-html="$t('wir.shift')" />
+      <p
+        class="shift"
+        v-html="$t('wir.shift')"
+      />
 
-      <a class="videocard card" :href="VIDEO_URL" target="_blank" rel="noopener">
-        <span class="play" aria-hidden="true">▶</span>
+      <a
+        class="videocard card"
+        :href="VIDEO_URL"
+        target="_blank"
+        rel="noopener"
+      >
+        <span
+          class="play"
+          aria-hidden="true"
+        >▶</span>
         <span class="vtext">
           <span class="vlabel">{{ $t('wir.videoLabel') }}</span>
           <span class="vtitle">{{ $t('wir.videoTitle') }}</span>
@@ -60,8 +92,14 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
       </a>
 
       <div class="srcs">
-        <SourceTag id="wir2022" :note="$t('wir.sourceNote2022')" />
-        <SourceTag id="wir2026" :note="$t('wir.sourceNote2026')" />
+        <SourceTag
+          id="wir2022"
+          :note="$t('wir.sourceNote2022')"
+        />
+        <SourceTag
+          id="wir2026"
+          :note="$t('wir.sourceNote2026')"
+        />
       </div>
     </div>
   </section>
@@ -112,5 +150,5 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 .vtitle { color: var(--text); font-weight: 700; font-size: 1rem; }
 .vhint { color: var(--text-mute); font-size: 0.78rem; }
 
-.srcs { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 18px; }
+.srcs { margin-top: 18px; }
 </style>

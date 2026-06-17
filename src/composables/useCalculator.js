@@ -10,7 +10,6 @@ import {
   revenueByBand,
   tariffCurve,
   dynamicProjection,
-  equilibriumWealth,
 } from '@/lib/taxModel.js';
 
 // Sentinel-Wert für «kein Wegzug»: Schwelle oberhalb aller bekannten Bins.
@@ -124,7 +123,6 @@ const effectiveWegzug = computed(() =>
 const wegzugAktiv = computed(() => effectiveWegzug.value < Infinity);
 
 const staticRevenue = computed(() => revenueForYear(bins, model.value, state.year, effectiveWegzug.value));
-const staticRevenueVoll = computed(() => revenueForYear(bins, model.value, state.year));
 const bands = computed(() => revenueByBand(bins, model.value, state.year, effectiveWegzug.value));
 const curve = computed(() => tariffCurve(model.value, model.value.schwelle, 2e10, 64));
 const projection = computed(() =>
@@ -134,7 +132,6 @@ const sustainableRevenue = computed(() => {
   const p = projection.value;
   return p[p.length - 1].revenue;
 });
-const equilibrium = computed(() => equilibriumWealth(model.value, state.rendite));
 
 // Anzahl Steuerpflichtige und heutige Steuerleistung der wegziehenden Gruppe.
 const wegzugPersonen = computed(() => {
@@ -167,12 +164,6 @@ const wegzugEstVerlust = computed(() => {
   return sum;
 });
 const wegzugAktuelleSteuern = computed(() => wegzugVstVerlust.value + wegzugEstVerlust.value);
-
-// Ausfall der neuen Steuer durch Wegzug.
-const wegzugNeuVerlust = computed(() => staticRevenueVoll.value - staticRevenue.value);
-
-// Gesamtausfall: neue Steuer + heutige Steuern.
-const wegzugGesamtverlust = computed(() => wegzugNeuVerlust.value + wegzugAktuelleSteuern.value);
 
 // Netto-Fiskalgewinn: was der Staat netto mehr hat als heute.
 // = neue Steuer von den Verbliebenen − heutige Steuern der Abgewanderten.
@@ -221,29 +212,15 @@ export function useCalculator() {
     state,
     model,
     staticRevenue,
-    staticRevenueVoll,
-    sustainableRevenue,
     bands,
     curve,
-    projection,
-    equilibrium,
-    wegzugAktiv,
     wegzugPersonen,
-    wegzugVstVerlust,
-    wegzugEstVerlust,
     wegzugAktuelleSteuern,
-    wegzugNeuVerlust,
-    wegzugGesamtverlust,
-    effectiveWegzug,
     nettoStatisch,
     nettoDauerhaft,
     nettoProjection,
     debtFreeYears,
-    WEGZUG_MAX,
-    VST_RATE,
-    EST_RATE,
     years: Object.keys(paramsData.years).map(Number),
-    publishedRevenue: paramsData.published_revenue,
     applyPreset,
     markCustom,
   };

@@ -3,11 +3,16 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import dist from '@/data/estv_distribution.json';
 import kennzahlen from '@/data/estv_kennzahlen.json';
-import { chf, pct, num, chfCompact } from '@/lib/format.js';
+import { chf, pct, num } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
+import ChartLegend from '@/components/charts/ChartLegend.vue';
 
 const { t } = useI18n();
 const YEAR = 2022;
+const legendItems = computed(() => [
+  { color: 'var(--blue)', label: t('distribution.legendPeople') },
+  { color: 'var(--gold)', label: t('distribution.legendMoney') },
+]);
 const k = kennzahlen.unbeschraenkt['2022'];
 
 const rows = computed(() => {
@@ -33,48 +38,88 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
 </script>
 
 <template>
-  <section id="verteilung" class="section-alt">
+  <section
+    id="verteilung"
+    class="section-alt"
+  >
     <div class="wrap">
-      <div class="eyebrow">{{ $t('distribution.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('distribution.eyebrow') }}
+      </div>
       <h2 v-html="$t('distribution.title')" />
-      <p class="lead dist-lead" v-html="$t('distribution.lead', { share: pct(k.share_ge5M, 0), median: chf(k.median) })" />
-      <p class="dist-lead-src"><SourceTag id="estv_vermoegen" :note="$t('distribution.leadSourceNote')" /></p>
+      <p
+        class="lead dist-lead"
+        v-html="$t('distribution.lead', { share: pct(k.share_ge5M, 0), median: chf(k.median) })"
+      />
+      <p class="dist-lead-src">
+        <SourceTag
+          id="estv_vermoegen"
+          :note="$t('distribution.leadSourceNote')"
+        />
+      </p>
       <div class="card chart-card">
-        <div class="legend">
-          <span><i class="sw" style="background: var(--blue)" /> {{ $t('distribution.legendPeople') }}</span>
-          <span><i class="sw" style="background: var(--gold)" /> {{ $t('distribution.legendMoney') }}</span>
-        </div>
+        <ChartLegend
+          :items="legendItems"
+          :style="{ marginBottom: '16px' }"
+        />
         <div class="dist">
-          <div v-for="r in rows" :key="r.label" class="drow">
-            <div class="dlabel">{{ r.label }}</div>
+          <div
+            v-for="r in rows"
+            :key="r.label"
+            class="drow"
+          >
+            <div class="dlabel">
+              {{ r.label }}
+            </div>
             <div class="dbars">
               <div class="dbar">
-                <div class="dfill people" :style="{ width: `${(r.shareCount / maxShare) * 100}%` }" />
+                <div
+                  class="dfill people"
+                  :style="{ width: `${(r.shareCount / maxShare) * 100}%` }"
+                />
                 <span class="dval">{{ pct(r.shareCount, 1) }}</span>
               </div>
               <div class="dbar">
-                <div class="dfill money" :style="{ width: `${(r.shareWealth / maxShare) * 100}%` }" />
+                <div
+                  class="dfill money"
+                  :style="{ width: `${(r.shareWealth / maxShare) * 100}%` }"
+                />
                 <span class="dval">{{ pct(r.shareWealth, 1) }}</span>
               </div>
             </div>
           </div>
         </div>
-        <p class="note muted" v-html="$t('distribution.note', { year: YEAR })" />
-        <SourceTag id="estv_vermoegen" :note="$t('distribution.sourceNote', { year: YEAR })" />
+        <p
+          class="note muted"
+          v-html="$t('distribution.note', { year: YEAR })"
+        />
+        <SourceTag
+          id="estv_vermoegen"
+          :note="$t('distribution.sourceNote', { year: YEAR })"
+        />
       </div>
 
       <div class="grid stat-grid">
         <div class="ministat">
           <span class="mv gold">{{ pct(k.share_ge1M, 0) }}</span>
-          <span class="ml" v-html="$t('distribution.ministat1', { pct: pct(k.pct_ge1M, 0) })" />
+          <span
+            class="ml"
+            v-html="$t('distribution.ministat1', { pct: pct(k.pct_ge1M, 0) })"
+          />
         </div>
         <div class="ministat">
           <span class="mv accent">{{ num(k.cnt_ge10M) }}</span>
-          <span class="ml" v-html="$t('distribution.ministat2', { pct: pct(k.pct_ge10M, 1), share: pct(k.share_ge10M, 0) })" />
+          <span
+            class="ml"
+            v-html="$t('distribution.ministat2', { pct: pct(k.pct_ge10M, 1), share: pct(k.share_ge10M, 0) })"
+          />
         </div>
         <div class="ministat">
           <span class="mv">{{ chf(k.median) }}</span>
-          <span class="ml" v-html="$t('distribution.ministat3', { mean: chf(k.mean) })" />
+          <span
+            class="ml"
+            v-html="$t('distribution.ministat3', { mean: chf(k.mean) })"
+          />
         </div>
       </div>
     </div>
@@ -96,8 +141,6 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
 .ml { color: var(--text-soft); font-size: 0.88rem; }
 
 .chart-card { padding: 24px; }
-.legend { display: flex; gap: 20px; font-size: 0.84rem; color: var(--text-soft); margin-bottom: 16px; flex-wrap: wrap; }
-.legend .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
 
 .dist { display: flex; flex-direction: column; gap: 9px; }
 .drow { display: grid; grid-template-columns: 110px 1fr; align-items: center; gap: 14px; }

@@ -4,38 +4,58 @@
 // Fliesstext in einer Karte), nicht als farbiges Vollband. Text und Belege
 // liegen in i18n unter boden.eigentum (Block-Liste: 'p' Absatz, 'h' Zwischentitel,
 // 'q' Zitat), die Quellen als Tags am Fuss.
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useProseBlocks } from '@/composables/useProseBlocks.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
-const { tm, rt } = useI18n();
-const r = (v) => (v == null ? '' : rt(v));
-
-const blocks = computed(() =>
-  (tm('boden.eigentum.blocks') || []).map((b) => ({ t: r(b.t), x: r(b.x), by: r(b.by) })),
-);
-const sources = computed(() => (tm('boden.eigentum.sources') || []).map(r));
+const { blocks, sources } = useProseBlocks('boden.eigentum');
 </script>
 
 <template>
-  <section id="bodeneigentum" class="section-alt">
+  <section
+    id="bodeneigentum"
+    class="section-alt"
+  >
     <div class="wrap">
-      <div class="eyebrow">{{ $t('boden.eigentum.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('boden.eigentum.eyebrow') }}
+      </div>
       <h2 v-html="$t('boden.eigentum.title')" />
-      <p class="lead" v-html="$t('boden.eigentum.lead')" />
+      <p
+        class="lead"
+        v-html="$t('boden.eigentum.lead')"
+      />
 
       <div class="card artbox">
-        <template v-for="(b, i) in blocks" :key="i">
-          <h3 v-if="b.t === 'h'" class="block-h">{{ b.x }}</h3>
-          <blockquote v-else-if="b.t === 'q'" class="pullquote">
+        <template
+          v-for="(b, i) in blocks"
+          :key="i"
+        >
+          <h3
+            v-if="b.t === 'h'"
+            class="block-h"
+          >
+            {{ b.x }}
+          </h3>
+          <blockquote
+            v-else-if="b.t === 'q'"
+            class="pullquote"
+          >
             <p v-html="b.x" />
             <cite v-if="b.by">{{ b.by }}</cite>
           </blockquote>
-          <p v-else class="body" v-html="b.x" />
+          <p
+            v-else
+            class="body"
+            v-html="b.x"
+          />
         </template>
 
         <div class="srcrow">
-          <SourceTag v-for="(s, i) in sources" :key="i" :id="s" />
+          <SourceTag
+            v-for="(s, i) in sources"
+            :id="s"
+            :key="i"
+          />
         </div>
       </div>
     </div>
@@ -77,5 +97,5 @@ h2 :deep(.hl) { color: var(--accent); }
   display: block; margin-top: 10px; font-style: normal;
   font-size: 0.86rem; font-weight: 700; color: var(--text-mute);
 }
-.srcrow { display: flex; flex-wrap: wrap; gap: 12px 18px; margin-top: 26px; }
+.srcrow { margin-top: 26px; }
 </style>

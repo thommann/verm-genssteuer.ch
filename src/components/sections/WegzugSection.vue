@@ -42,9 +42,14 @@ const wegzugDisplay = computed(() =>
 <template>
   <section id="wegzug">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('wegzug.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('wegzug.eyebrow') }}
+      </div>
       <h2 v-html="$t('wegzug.title')" />
-      <p class="lead" v-html="$t('wegzug.lead')" />
+      <p
+        class="lead"
+        v-html="$t('wegzug.lead')"
+      />
 
       <div class="card wegzug-card">
         <RangeControl
@@ -56,11 +61,14 @@ const wegzugDisplay = computed(() =>
           :display="wegzugDisplay"
           :hint="$t('calculator.wegzugHint')"
         />
-        <p class="wegzug-info" v-html="$t('calculator.wegzugInfo', {
-          cnt: num(wegzugPersonen),
-          year: state.year,
-          schwelle: chfCompact(state.wegzugSchwelle, 0),
-        })" />
+        <p
+          class="wegzug-info"
+          v-html="$t('calculator.wegzugInfo', {
+            cnt: num(wegzugPersonen),
+            year: state.year,
+            schwelle: chfCompact(state.wegzugSchwelle, 0),
+          })"
+        />
         <div class="rb-rows">
           <div class="rb-row">
             <span class="rb-lab">{{ $t('calculator.nettoNeuLabel') }}</span>
@@ -74,8 +82,14 @@ const wegzugDisplay = computed(() =>
       </div>
 
       <div class="srcs">
-        <SourceTag id="nzz_vermoegenssteuer" :note="$t('calculator.wegzugSourceVst')" />
-        <SourceTag id="reichensteuer_studie_ch" :note="$t('calculator.wegzugSourceEst')" />
+        <SourceTag
+          id="nzz_vermoegenssteuer"
+          :note="$t('calculator.wegzugSourceVst')"
+        />
+        <SourceTag
+          id="reichensteuer_studie_ch"
+          :note="$t('calculator.wegzugSourceEst')"
+        />
       </div>
     </div>
   </section>
@@ -92,7 +106,7 @@ const wegzugDisplay = computed(() =>
 }
 .wegzug-info :deep(strong) { color: var(--text); }
 .rb-rows { display: flex; flex-direction: column; gap: 6px; }
-.srcs { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; }
+.srcs { margin-top: 12px; }
 
 @media (max-width: 820px) { .wegzug-card { padding: 18px; } }
 </style>

@@ -22,7 +22,6 @@ export default {
     cta: 'Ausprobieren',
     menu: 'Menü',
     menuAria: 'Abschnitts-Menü',
-    menuTitle: 'Themen & Abschnitte',
     toTop: 'Nach oben',
     // Überschriften der Themengruppen im Menü.
     groups: {
@@ -214,20 +213,12 @@ export default {
     capLabel: 'Höchst-Grenzsatz (Cap)',
     capHint: 'Deckel für den Grenzsatz der allergrössten Vermögen.',
     yearLabel: 'Datenjahr:',
-    tuningSummary: 'Modell selbst einstellen (Regler & Diagramme)',
     modellEyebrow: 'Das Steuermodell',
     modellTitle: 'Modell selbst einstellen',
     longTermLabel: 'Langfristige Mehreinnahmen',
-    longTermHint: 'dauerhaft tragbares Niveau',
-    firstYearLabel: 'Erstes Jahr ({year})',
-    resultLabel: 'Mehreinnahmen ({year})',
     nettoNeuLabel: 'Neue Steuer (Verbliebene)',
     nettoHeuteLabel: 'Heutige Steuern (Abgewanderte)',
     resultUnit: 'CHF pro Jahr',
-    sustainableLabel: 'dauerhaft tragbar<br />(dynamisch, siehe unten)',
-    avgRateLabel: 'Ø-Satz bei {wealth}',
-    readoutCap: 'Grenzsatz erreicht den Cap bei ~{wcap}.',
-    readoutEquilibrium: 'Vermögen über ~{eq} zahlen mehr als ihre Rendite, sie schrumpfen, statt zu wachsen.',
     curveTitle: 'Steuersatz nach Vermögen',
     curveSeriesMarginal: 'Grenzsatz',
     curveSeriesAvg: 'Ø-Satz',
@@ -252,7 +243,6 @@ export default {
     wegzugInfo: '<strong>{cnt}</strong> Steuerpflichtige ({year}) mit Vermögen über {schwelle} verlassen im Szenario die Schweiz.',
     wegzugSourceVst: 'Heutige Steuersätze: Vermögenssteuer Ø 0,28 % (NZZ)',
     wegzugSourceEst: 'Einkommenssteuer auf Kapital ~0,9 % des steuerbaren Vermögens (Martínez/KOF)',
-    disclaimer: 'Statisches Modell: kein Vermögenszuwachs, kein Verhalten. Der Wegzug-Schieber simuliert ein vereinfachtes Szenario (vollständiger Abgang aller Personen über der Schwelle, ohne Teilwegzug oder Reaktion). Die Zahlen zeigen das <em>Potenzial</em> der Bemessungsgrundlage, nicht eine politische Prognose.',
     sourceNoteEstv: 'Vermögensverteilung + Pareto-Tail >10 Mio.',
     sourceNoteFdk: 'Pauschalbesteuerte im Tail (M)',
   },
@@ -262,7 +252,6 @@ export default {
     eyebrow: 'Was tun mit dem Geld?',
     title: '{revenue} pro Jahr: wofür?',
     lead: 'Dieselben Einnahmen, viele mögliche Verwendungen. Stell oben am Rechner ein Steuermodell ein und sieh hier in Echtzeit, was damit für alle möglich wäre.',
-    interactiveSummary: 'Selbst rechnen: Jahr wählen und Budget aufteilen',
     modeCompare: 'Vergleich',
     modeAllocate: 'Selbst aufteilen',
     toggleDauerhaft: 'Dauerhaft tragbar',
@@ -487,10 +476,6 @@ export default {
 
   // Ownership-Sektionen: «Wem gehört die Schweiz?» (eigene Seite /wem-gehoert-die-schweiz).
   ownership: {
-    eyebrow: 'Der Besitz',
-    title: 'Wem gehört die Schweiz?',
-    lead: 'Drei Blickwinkel: Die 300 reichsten Personen besitzen rund einen Sechstel des gesamten Privatvermögens, und fast die Hälfte von ihnen hat keinen Schweizer Pass. Bei den Firmen liegt die Schlagkraft bei wenigen grossen, oft ausländischen Konzernen. Und beim Boden zeigt sich, dass immer weniger einfachen Privatpersonen gehört.',
-
     reichsteEyebrow: 'Wem gehört die Schweiz? · Die Vermögen',
     reichsteHeading: 'Die Reichsten',
     reichsteIntro: 'Auch zuoberst ist die Schweiz international: Von den {total} reichsten Menschen mit Wohnsitz in der Schweiz sind {auslaender} ({auslaenderPct}) Ausländer, nur rund {schweizer} haben einen Schweizer oder Liechtensteiner Pass. Die Schweiz ist ein Magnet für grosse Vermögen aus aller Welt.',
@@ -583,7 +568,6 @@ export default {
     waldTrendYAxis: 'Öffentlicher Waldanteil',
     waldOeffentlich: 'Öffentlich',
     waldPrivat: 'Privat',
-    bodenNote: 'Ausländischer Erwerb von Wohn- und Bauland ist über die Lex Koller bewilligungspflichtig und kontingentiert, Landwirtschaftsland ist über das bäuerliche Bodenrecht faktisch inländischen Käuferinnen und Käufern vorbehalten. Eine amtliche Gesamtzahl, wie viel des Schweizer Bodens Personen im Ausland gehört, gibt es trotzdem nicht.',
     auslandHeading: 'Ausländischer Erwerb: eng begrenzt, indirekt offen',
     auslandIntro: 'Der direkte Kauf von Wohneigentum durch Personen im Ausland ist über die Lex Koller bewilligungspflichtig und kontingentiert; Landwirtschaftsland ist über das bäuerliche Bodenrecht faktisch inländischen Käuferinnen und Käufern vorbehalten. Über Aktien börsenkotierter Immobilienfirmen fliesst ausländisches Kapital aber sehr wohl ein.',
     auslandBewilligungenLabel: 'Lex-Koller-Bewilligungen für Ferienwohnungen {jahr}, von einem Kontingent von {kontingent} (rund {ausschoepfung} ausgeschöpft)',

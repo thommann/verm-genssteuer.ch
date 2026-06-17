@@ -73,15 +73,30 @@ const over = (v) => v > 1;
   <div :class="['spend-grid', { mini, compact }]">
     <article class="card spend">
       <div class="spend-head">
-        <span v-if="!mini" class="spend-icon">🧾</span>
+        <span
+          v-if="!mini"
+          class="spend-icon"
+        >🧾</span>
         <h3>{{ $t('spend.incomeTitle') }}</h3>
       </div>
       <div class="spend-big teal">
         <span v-if="over(incomeCut)">{{ $t('spend.incomeOver') }}</span>
         <span v-else>−{{ pct(incomeCut, 0) }}</span>
       </div>
-      <p v-if="detail" class="spend-text" v-html="over(incomeCut) ? $t('spend.incomeTextOver') : $t('spend.incomeTextUnder')" />
-      <div v-if="!mini" class="spend-meter"><div class="fill teal" :style="{ width: `${capPct(incomeCut) * 100}%` }" /></div>
+      <p
+        v-if="detail"
+        class="spend-text"
+        v-html="over(incomeCut) ? $t('spend.incomeTextOver') : $t('spend.incomeTextUnder')"
+      />
+      <div
+        v-if="!mini"
+        class="spend-meter"
+      >
+        <div
+          class="fill teal"
+          :style="{ width: `${capPct(incomeCut) * 100}%` }"
+        />
+      </div>
       <template v-if="detail">
         <p class="spend-foot muted">
           <span v-if="over(incomeCut)">{{ $t('spend.leftover', { rest: chfCompact(incomeLeft, 1) }) }}</span>
@@ -94,15 +109,30 @@ const over = (v) => v > 1;
 
     <article class="card spend">
       <div class="spend-head">
-        <span v-if="!mini" class="spend-icon">🏥</span>
+        <span
+          v-if="!mini"
+          class="spend-icon"
+        >🏥</span>
         <h3>{{ $t('spend.premiumTitle') }}</h3>
       </div>
       <div class="spend-big gold">
         <span v-if="over(premiumShare)">{{ $t('spend.premiumOver') }}</span>
         <span v-else>{{ pct(premiumShare, 0) }}</span>
       </div>
-      <p v-if="detail" class="spend-text" v-html="over(premiumShare) ? $t('spend.premiumTextOver') : $t('spend.premiumTextUnder')" />
-      <div v-if="!mini" class="spend-meter"><div class="fill gold" :style="{ width: `${capPct(premiumShare) * 100}%` }" /></div>
+      <p
+        v-if="detail"
+        class="spend-text"
+        v-html="over(premiumShare) ? $t('spend.premiumTextOver') : $t('spend.premiumTextUnder')"
+      />
+      <div
+        v-if="!mini"
+        class="spend-meter"
+      >
+        <div
+          class="fill gold"
+          :style="{ width: `${capPct(premiumShare) * 100}%` }"
+        />
+      </div>
       <template v-if="detail">
         <p class="spend-foot muted">
           <span v-if="over(premiumShare)">{{ $t('spend.leftover', { rest: chfCompact(premiumLeft, 1) }) }}</span>
@@ -114,12 +144,29 @@ const over = (v) => v > 1;
 
     <article class="card spend">
       <div class="spend-head">
-        <span v-if="!mini" class="spend-icon">💸</span>
+        <span
+          v-if="!mini"
+          class="spend-icon"
+        >💸</span>
         <h3>{{ $t('spend.dividendTitle') }}</h3>
       </div>
-      <div class="spend-big accent">{{ chf(dividendYear) }}</div>
-      <p v-if="detail" class="spend-text" v-html="$t('spend.dividendText', { population: num(K.population.value) })" />
-      <div v-if="!mini" class="spend-meter"><div class="fill accent" style="width: 100%" /></div>
+      <div class="spend-big accent">
+        {{ chf(dividendYear) }}
+      </div>
+      <p
+        v-if="detail"
+        class="spend-text"
+        v-html="$t('spend.dividendText', { population: num(K.population.value) })"
+      />
+      <div
+        v-if="!mini"
+        class="spend-meter"
+      >
+        <div
+          class="fill accent"
+          style="width: 100%"
+        />
+      </div>
       <template v-if="detail">
         <p class="spend-foot muted">
           {{ $t('spend.dividendFoot', { month: chf(dividendYear / 12), family: chf(dividendYear * 4) }) }}
@@ -130,69 +177,147 @@ const over = (v) => v > 1;
 
     <article class="card spend">
       <div class="spend-head">
-        <span v-if="!mini" class="spend-icon">🚆</span>
+        <span
+          v-if="!mini"
+          class="spend-icon"
+        >🚆</span>
         <h3>{{ $t('spend.oevTitle') }}</h3>
       </div>
       <div class="spend-big blue">
         <span v-if="over(oevCut)">{{ $t('spend.oevOver') }}</span>
         <span v-else>−{{ pct(oevCut, 0) }}</span>
       </div>
-      <p v-if="detail" class="spend-text" v-html="over(oevCut) ? $t('spend.oevTextOver') : $t('spend.oevTextUnder')" />
-      <div v-if="!mini" class="spend-meter"><div class="fill blue" :style="{ width: `${capPct(oevCut) * 100}%` }" /></div>
+      <p
+        v-if="detail"
+        class="spend-text"
+        v-html="over(oevCut) ? $t('spend.oevTextOver') : $t('spend.oevTextUnder')"
+      />
+      <div
+        v-if="!mini"
+        class="spend-meter"
+      >
+        <div
+          class="fill blue"
+          :style="{ width: `${capPct(oevCut) * 100}%` }"
+        />
+      </div>
       <template v-if="detail">
         <p class="spend-foot muted">
           <span v-if="over(oevCut)">{{ $t('spend.leftover', { rest: chfCompact(oevLeft, 1) }) }}</span>
           <span v-else>{{ $t('spend.oevFoot', { amount: chfCompact(K.oev_personenverkehrsertrag.value, 1) }) }}</span>
         </p>
-        <SourceTag id="litra" :note="$t('spend.oevSourceNote')" />
+        <SourceTag
+          id="litra"
+          :note="$t('spend.oevSourceNote')"
+        />
       </template>
     </article>
 
     <article class="card spend">
       <div class="spend-head">
-        <span v-if="!mini" class="spend-icon">🚊</span>
+        <span
+          v-if="!mini"
+          class="spend-icon"
+        >🚊</span>
         <h3>{{ $t('spend.oevSpendTitle') }}</h3>
       </div>
-      <div class="spend-big blue">×{{ num(oevFactor, 1, 1) }}</div>
-      <p v-if="detail" class="spend-text" v-html="$t('spend.oevSpendText')" />
-      <div v-if="!mini" class="spend-meter"><div class="fill blue" :style="{ width: `${capPct(oevSpendShare) * 100}%` }" /></div>
+      <div class="spend-big blue">
+        ×{{ num(oevFactor, 1, 1) }}
+      </div>
+      <p
+        v-if="detail"
+        class="spend-text"
+        v-html="$t('spend.oevSpendText')"
+      />
+      <div
+        v-if="!mini"
+        class="spend-meter"
+      >
+        <div
+          class="fill blue"
+          :style="{ width: `${capPct(oevSpendShare) * 100}%` }"
+        />
+      </div>
       <template v-if="detail">
-        <p class="spend-foot muted">{{ $t('spend.oevSpendFoot', { amount: chfCompact(OEV_TOTAL, 1), jahr: VJAHR }) }}</p>
+        <p class="spend-foot muted">
+          {{ $t('spend.oevSpendFoot', { amount: chfCompact(OEV_TOTAL, 1), jahr: VJAHR }) }}
+        </p>
         <SourceTag id="efv" />
       </template>
     </article>
 
     <article class="card spend">
       <div class="spend-head">
-        <span v-if="!mini" class="spend-icon">🛣️</span>
+        <span
+          v-if="!mini"
+          class="spend-icon"
+        >🛣️</span>
         <h3>{{ $t('spend.strasseSpendTitle') }}</h3>
       </div>
-      <div class="spend-big accent">×{{ num(strasseFactor, 1, 1) }}</div>
-      <p v-if="detail" class="spend-text" v-html="$t('spend.strasseSpendText')" />
-      <div v-if="!mini" class="spend-meter"><div class="fill accent" :style="{ width: `${capPct(strasseShare) * 100}%` }" /></div>
+      <div class="spend-big accent">
+        ×{{ num(strasseFactor, 1, 1) }}
+      </div>
+      <p
+        v-if="detail"
+        class="spend-text"
+        v-html="$t('spend.strasseSpendText')"
+      />
+      <div
+        v-if="!mini"
+        class="spend-meter"
+      >
+        <div
+          class="fill accent"
+          :style="{ width: `${capPct(strasseShare) * 100}%` }"
+        />
+      </div>
       <template v-if="detail">
-        <p class="spend-foot muted">{{ $t('spend.strasseSpendFoot', { amount: chfCompact(STRASSE_TOTAL, 1), jahr: VJAHR }) }}</p>
+        <p class="spend-foot muted">
+          {{ $t('spend.strasseSpendFoot', { amount: chfCompact(STRASSE_TOTAL, 1), jahr: VJAHR }) }}
+        </p>
         <SourceTag id="efv" />
       </template>
     </article>
 
     <article class="card spend">
       <div class="spend-head">
-        <span v-if="!mini" class="spend-icon">🎓</span>
+        <span
+          v-if="!mini"
+          class="spend-icon"
+        >🎓</span>
         <h3>{{ $t('spend.bildungSpendTitle') }}</h3>
       </div>
-      <div class="spend-big teal">×{{ num(bildungFactor, 1, 1) }}</div>
-      <p v-if="detail" class="spend-text" v-html="$t('spend.bildungSpendText')" />
-      <div v-if="!mini" class="spend-meter"><div class="fill teal" :style="{ width: `${capPct(bildungShare) * 100}%` }" /></div>
+      <div class="spend-big teal">
+        ×{{ num(bildungFactor, 1, 1) }}
+      </div>
+      <p
+        v-if="detail"
+        class="spend-text"
+        v-html="$t('spend.bildungSpendText')"
+      />
+      <div
+        v-if="!mini"
+        class="spend-meter"
+      >
+        <div
+          class="fill teal"
+          :style="{ width: `${capPct(bildungShare) * 100}%` }"
+        />
+      </div>
       <template v-if="detail">
-        <p class="spend-foot muted">{{ $t('spend.bildungSpendFoot', { amount: chfCompact(BILDUNG_TOTAL, 1), jahr: BJAHR }) }}</p>
+        <p class="spend-foot muted">
+          {{ $t('spend.bildungSpendFoot', { amount: chfCompact(BILDUNG_TOTAL, 1), jahr: BJAHR }) }}
+        </p>
         <SourceTag id="efv" />
       </template>
     </article>
 
     <article class="card spend">
       <div class="spend-head">
-        <span v-if="!mini" class="spend-icon">✈️</span>
+        <span
+          v-if="!mini"
+          class="spend-icon"
+        >✈️</span>
         <h3>{{ $t('spend.f35Title') }}</h3>
       </div>
       <div class="spend-big gold">
@@ -205,16 +330,29 @@ const over = (v) => v > 1;
           ? $t('spend.f35TextOver', { fleet: F35_FLEET, extra: f35Count - F35_FLEET })
           : $t('spend.f35TextUnder', { fleet: F35_FLEET, price: f35Price })"
       />
-      <div v-if="!mini" class="spend-meter"><div class="fill gold" :style="{ width: `${capPct(f35Ratio) * 100}%` }" /></div>
+      <div
+        v-if="!mini"
+        class="spend-meter"
+      >
+        <div
+          class="fill gold"
+          :style="{ width: `${capPct(f35Ratio) * 100}%` }"
+        />
+      </div>
       <template v-if="detail">
-        <p class="spend-foot muted">{{ $t('spend.f35Foot', { fleet: F35_FLEET }) }}</p>
+        <p class="spend-foot muted">
+          {{ $t('spend.f35Foot', { fleet: F35_FLEET }) }}
+        </p>
         <SourceTag id="f35_beschaffung" />
       </template>
     </article>
 
     <article class="card spend spend-accent">
       <div class="spend-head">
-        <span v-if="!mini" class="spend-icon">🗓️</span>
+        <span
+          v-if="!mini"
+          class="spend-icon"
+        >🗓️</span>
         <h3>{{ $t('spend.debtfreeTitle') }}</h3>
       </div>
       <div class="spend-big violet">
@@ -225,7 +363,15 @@ const over = (v) => v > 1;
         class="spend-text"
         v-html="rendite != null ? $t('spend.debtfreeText') : $t('spend.debtfreeTextFlat')"
       />
-      <div v-if="!mini" class="spend-meter"><div class="fill violet" :style="{ width: `${capPct(debtShare) * 100}%` }" /></div>
+      <div
+        v-if="!mini"
+        class="spend-meter"
+      >
+        <div
+          class="fill violet"
+          :style="{ width: `${capPct(debtShare) * 100}%` }"
+        />
+      </div>
       <template v-if="detail">
         <p class="spend-foot muted">
           {{

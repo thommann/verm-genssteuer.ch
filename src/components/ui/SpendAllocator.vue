@@ -141,14 +141,27 @@ const remainingPct = computed(() => (props.revenue ? (remaining.value / props.re
 
 <template>
   <div class="alloc">
-    <p class="alloc-intro muted">{{ $t('spend.alloc.intro') }}</p>
+    <p class="alloc-intro muted">
+      {{ $t('spend.alloc.intro') }}
+    </p>
 
     <div class="alloc-presets">
       <span class="alloc-presets-lab">{{ $t('spend.alloc.presetsLabel') }}</span>
-      <button @click="applyPreset('premiumOev')">{{ $t('spend.alloc.presetPremiumOev') }}</button>
-      <button @click="applyPreset('income30')">{{ $t('spend.alloc.presetIncome30') }}</button>
-      <button @click="applyPreset('kopf')">{{ $t('spend.alloc.presetKopf') }}</button>
-      <button class="ghost" @click="reset">{{ $t('spend.alloc.reset') }}</button>
+      <button @click="applyPreset('premiumOev')">
+        {{ $t('spend.alloc.presetPremiumOev') }}
+      </button>
+      <button @click="applyPreset('income30')">
+        {{ $t('spend.alloc.presetIncome30') }}
+      </button>
+      <button @click="applyPreset('kopf')">
+        {{ $t('spend.alloc.presetKopf') }}
+      </button>
+      <button
+        class="ghost"
+        @click="reset"
+      >
+        {{ $t('spend.alloc.reset') }}
+      </button>
     </div>
 
     <div class="alloc-summary card">
@@ -163,7 +176,10 @@ const remainingPct = computed(() => (props.revenue ? (remaining.value / props.re
         </div>
         <div class="an">
           <span class="an-lab">{{ remaining > 0 ? $t('spend.alloc.remaining') : $t('spend.alloc.fullyDistributed') }}</span>
-          <span class="an-val" :class="{ teal: remaining <= 0 }">{{ remaining > 0 ? chfCompact(remaining, 1) : '✓' }}</span>
+          <span
+            class="an-val"
+            :class="{ teal: remaining <= 0 }"
+          >{{ remaining > 0 ? chfCompact(remaining, 1) : '✓' }}</span>
         </div>
       </div>
       <div class="alloc-bar">
@@ -174,24 +190,41 @@ const remainingPct = computed(() => (props.revenue ? (remaining.value / props.re
           :class="s.color"
           :style="{ width: `${s.w}%` }"
         />
-        <div class="seg rest" :style="{ width: `${remainingPct}%` }" />
+        <div
+          class="seg rest"
+          :style="{ width: `${remainingPct}%` }"
+        />
       </div>
     </div>
 
     <div class="alloc-rows">
-      <div v-for="r in rows" :key="r.id" class="alloc-row card">
+      <div
+        v-for="r in rows"
+        :key="r.id"
+        class="alloc-row card"
+      >
         <div class="alloc-head">
           <span class="alloc-icon">{{ r.icon }}</span>
           <div class="alloc-titles">
             <h4>{{ $t(`spend.alloc.${r.id}Title`) }}</h4>
             <p class="alloc-result">
-              <span class="alloc-main" :class="[r.color, { muted: r.empty }]">{{ r.main }}</span>
-              <span v-if="r.detail && !r.empty" class="alloc-detail muted">· {{ r.detail }}</span>
+              <span
+                class="alloc-main"
+                :class="[r.color, { muted: r.empty }]"
+              >{{ r.main }}</span>
+              <span
+                v-if="r.detail && !r.empty"
+                class="alloc-detail muted"
+              >· {{ r.detail }}</span>
             </p>
           </div>
           <div class="alloc-amount">
             <span class="alloc-chf">{{ chfCompact(r.amount, 1) }}</span>
-            <button class="rest-btn" :disabled="remaining <= 0" @click="putRest(r.id)">
+            <button
+              class="rest-btn"
+              :disabled="remaining <= 0"
+              @click="putRest(r.id)"
+            >
               {{ $t('spend.alloc.restBtn') }}
             </button>
           </div>
@@ -204,8 +237,14 @@ const remainingPct = computed(() => (props.revenue ? (remaining.value / props.re
           :step="step"
           :value="r.amount"
           @input="setAlloc(r.id, +$event.target.value)"
-        />
-        <div class="alloc-meter"><div class="fill" :class="r.color" :style="{ width: `${r.fill * 100}%` }" /></div>
+        >
+        <div class="alloc-meter">
+          <div
+            class="fill"
+            :class="r.color"
+            :style="{ width: `${r.fill * 100}%` }"
+          />
+        </div>
       </div>
     </div>
 
@@ -214,7 +253,10 @@ const remainingPct = computed(() => (props.revenue ? (remaining.value / props.re
       <SourceTag id="efv" />
       <SourceTag id="bag" />
       <SourceTag id="bfs" />
-      <SourceTag id="litra" :note="$t('spend.oevSourceNote')" />
+      <SourceTag
+        id="litra"
+        :note="$t('spend.oevSourceNote')"
+      />
       <SourceTag id="f35_beschaffung" />
     </div>
   </div>
@@ -276,7 +318,4 @@ const remainingPct = computed(() => (props.revenue ? (remaining.value / props.re
 .fill.teal, .seg.teal { background: var(--teal); }
 .fill.violet, .seg.violet { background: var(--violet); }
 .fill.blue, .seg.blue { background: var(--blue); }
-
-.srcs { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
-.srcs-lab { font-size: 0.74rem; font-weight: 600; color: var(--text-mute); }
 </style>

@@ -14,6 +14,9 @@ const props = defineProps({
   width: { type: Number, default: 820 },
   yLabel: { type: String, default: '' },
   xLabel: { type: String, default: '' },
+  // Zugaenglicher Name fuer Screenreader. Leer = dekoratives Diagramm (aria-hidden),
+  // weil Titel, Legende und Quellenzeile daneben den Inhalt bereits beschreiben.
+  ariaLabel: { type: String, default: '' },
 });
 
 // Mehr Platz unten/links, sobald eine Achse beschriftet ist, damit die
@@ -48,12 +51,31 @@ const lastPt = (s) => { const f = finitePts(s.points); return f[f.length - 1]; }
 </script>
 
 <template>
-  <svg :viewBox="`0 0 ${width} ${height}`" class="line-chart" role="img">
+  <svg
+    :viewBox="`0 0 ${width} ${height}`"
+    class="line-chart"
+    :role="ariaLabel ? 'img' : undefined"
+    :aria-label="ariaLabel || undefined"
+    :aria-hidden="ariaLabel ? undefined : 'true'"
+  >
     <!-- y grid + ticks -->
     <g class="grid">
-      <g v-for="t in yTicks" :key="`y${t}`">
-        <line :x1="pad.l" :x2="width - pad.r" :y1="sy(t)" :y2="sy(t)" />
-        <text :x="pad.l - 8" :y="sy(t)" text-anchor="end" dominant-baseline="middle">{{ formatY(t) }}</text>
+      <g
+        v-for="t in yTicks"
+        :key="`y${t}`"
+      >
+        <line
+          :x1="pad.l"
+          :x2="width - pad.r"
+          :y1="sy(t)"
+          :y2="sy(t)"
+        />
+        <text
+          :x="pad.l - 8"
+          :y="sy(t)"
+          text-anchor="end"
+          dominant-baseline="middle"
+        >{{ formatY(t) }}</text>
       </g>
     </g>
     <!-- x ticks -->
@@ -76,7 +98,10 @@ const lastPt = (s) => { const f = finitePts(s.points); return f[f.length - 1]; }
       :y2="sy(0)"
     />
     <!-- series -->
-    <g v-for="s in series" :key="s.name">
+    <g
+      v-for="s in series"
+      :key="s.name"
+    >
       <path
         :d="linePath(s.points)"
         fill="none"
@@ -94,7 +119,13 @@ const lastPt = (s) => { const f = finitePts(s.points); return f[f.length - 1]; }
         :fill="s.color"
       />
     </g>
-    <text v-if="yLabel" class="ylabel" :x="14" :y="pad.t + 4" text-anchor="start">{{ yLabel }}</text>
+    <text
+      v-if="yLabel"
+      class="ylabel"
+      :x="14"
+      :y="pad.t + 4"
+      text-anchor="start"
+    >{{ yLabel }}</text>
     <text
       v-if="xLabel"
       class="xlabel"

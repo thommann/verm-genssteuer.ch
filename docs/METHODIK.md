@@ -324,7 +324,7 @@ externen Zahl, sondern Schutz gegen Implementierungsfehler).
 | Aufkommen statisch 2020 | 76,0512 Mrd. | 76,0512 Mrd. | Modell-Referenz (Skript) |
 | Aufkommen statisch 2021 | 91,1598 Mrd. | 91,1598 Mrd. | Modell-Referenz (Skript) |
 | Aufkommen statisch 2022 | 91,5437 Mrd. | 91,5437 Mrd. | Modell-Referenz (Skript) |
-| Projektion 2022 → 2032 | 92,30 → 23,87 Mrd. | 92,30 → 23,87 Mrd. | Modell-Referenz (Skript) |
+| Projektion 2022 → 2032 | 92,30 → 32,79 Mrd. | 92,30 → 32,79 Mrd. | Modell-Referenz (Skript, Default-Rendite 7 %) |
 | Bin-Besetzung (alle Jahre) | Abw. < 1e-6 Personen | `calculator_bins.json` | interne Konsistenz |
 | α Klassenmittel 2022 | 1,32352 | 1,32352 | `calculator_params.json` |
 | Median unbeschränkt 2022 | CHF 45 078 | — | eigene Rechnung |

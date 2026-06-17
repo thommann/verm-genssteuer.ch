@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n';
 import wid from '@/data/wid_timeseries.json';
 import { pct } from '@/lib/format.js';
 import LineChart from '@/components/charts/LineChart.vue';
+import ChartLegend from '@/components/charts/ChartLegend.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const { t } = useI18n();
@@ -31,6 +32,8 @@ const SHOWN = [
   { name: 'Deutschland', color: 'var(--blue)', width: 2 },
   { name: 'Welt', color: 'var(--violet)', width: 2, dashed: true },
 ];
+
+const legendItems = SHOWN.map((s) => ({ color: s.color, label: s.name }));
 
 const years = computed(() => Object.keys(wid.top1.Schweiz).map(Number).sort((a, b) => a - b));
 
@@ -78,11 +81,18 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
 </script>
 
 <template>
-  <section id="international" class="section-alt">
+  <section
+    id="international"
+    class="section-alt"
+  >
     <div class="wrap">
-      <div class="eyebrow">{{ $t('international.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('international.eyebrow') }}
+      </div>
       <h2 v-html="$t('international.title')" />
-      <p class="lead">{{ $t('international.lead') }}</p>
+      <p class="lead">
+        {{ $t('international.lead') }}
+      </p>
 
       <div class="metric-toggle">
         <button
@@ -90,12 +100,15 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
           :key="m.key"
           :class="{ active: metric === m.key }"
           @click="metric = m.key"
-        >{{ m.label }}</button>
+        >
+          {{ m.label }}
+        </button>
         <span class="muted desc">{{ metrics[metric].desc }}</span>
       </div>
 
       <div class="card chartbox">
         <LineChart
+          :aria-label="metrics[metric].label"
           :series="series"
           :x-domain="[1995, 2024]"
           :y-domain="yDomain"
@@ -105,12 +118,14 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
           :format-y="formatY"
           :height="340"
         />
-        <div class="legend">
-          <span v-for="s in SHOWN" :key="s.name">
-            <i class="sw" :style="{ background: s.color }" /> {{ s.name }}
-          </span>
-        </div>
-        <SourceTag id="wid" :note="widNote" />
+        <ChartLegend
+          :items="legendItems"
+          :style="{ margin: '12px 0 6px' }"
+        />
+        <SourceTag
+          id="wid"
+          :note="widNote"
+        />
       </div>
 
       <div class="compare">
@@ -122,17 +137,29 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
             class="rrow"
             :class="{ ch: c.land === 'Schweiz' }"
           >
-            <div class="rland">{{ c.land }}</div>
-            <div class="rtrack">
-              <div class="rfill" :style="{ width: `${Math.max(0, (c.val / maxVal) * 100)}%` }" />
+            <div class="rland">
+              {{ c.land }}
             </div>
-            <div class="rval tnum">{{ formatVal(c.val) }}</div>
+            <div class="rtrack">
+              <div
+                class="rfill"
+                :style="{ width: `${Math.max(0, (c.val / maxVal) * 100)}%` }"
+              />
+            </div>
+            <div class="rval tnum">
+              {{ formatVal(c.val) }}
+            </div>
           </div>
         </div>
         <div class="legend2">
-          <SourceTag id="wid" :note="$t('international.sourceNoteShares')" />
+          <SourceTag
+            id="wid"
+            :note="$t('international.sourceNoteShares')"
+          />
         </div>
-        <p class="muted small">{{ $t('international.note') }}</p>
+        <p class="muted small">
+          {{ $t('international.note') }}
+        </p>
       </div>
     </div>
   </section>
@@ -146,10 +173,6 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
 }
 .metric-toggle button.active { background: var(--accent); border-color: var(--accent); color: #1a0008; }
 .metric-toggle .desc { font-size: 0.82rem; }
-
-.chartbox { padding: 22px 24px; }
-.legend { display: flex; gap: 16px; font-size: 0.8rem; color: var(--text-soft); margin: 12px 0 6px; flex-wrap: wrap; }
-.legend .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
 
 .compare { margin-top: 40px; }
 .rank { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }

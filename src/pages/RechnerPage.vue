@@ -42,7 +42,7 @@ watch(() => calc.state.activePreset, writePresetToUrl);
   <!-- Zusammenhängende Rechner-Einheit: Modell wählen, Rendite einstellen, Wirkung sehen.
        Alle Abschnitte teilen denselben reaktiven Datensatz (useCalculator) und werden
        durch Rahmen und Akzentlinie als ein Block markiert. -->
-  <div id="thema-rechner" class="calc-suite">
+  <div class="calc-suite">
     <!-- Hero: Steuermodell (Presets), langfristige Mehreinnahmen und die
          Verwendungs-Übersicht. Darunter in gewohnter Reihenfolge: Modell selbst
          einstellen, Wegzug, langfristige Entwicklung und die ausführliche Verwendung. -->

@@ -2,14 +2,14 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ownership from '@/data/ownership.json';
-import { pct } from '@/lib/format.js';
+import { pct, pct0 } from '@/lib/format.js';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
+import ChartLegend from '@/components/charts/ChartLegend.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const { t } = useI18n();
 const firmen = ownership.firmen;
-const pct0 = (v) => pct(v, 0);
 
 // Anteil der ausländisch kontrollierten Gruppen je Kennzahl (wenige Firmen/Jobs,
 // viel Umsatz).
@@ -26,12 +26,15 @@ const firmenTrend = computed(() => [
   { name: t('ownership.firmenJobs'), color: 'var(--gold)',
     points: firmen.beschaeftigte.serie.map((p) => ({ x: p.jahr, y: p.ausland_share })) },
 ]);
+const firmenLegend = computed(() => firmenTrend.value.map((s) => ({ color: s.color, label: s.name })));
 </script>
 
 <template>
   <section id="firmen">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('ownership.firmenEyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('ownership.firmenEyebrow') }}
+      </div>
       <h2>{{ $t('ownership.firmenHeading') }}</h2>
       <p
         class="lead"
@@ -44,15 +47,30 @@ const firmenTrend = computed(() => [
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.firmenChartTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.firmenChartIntro')" />
-        <BarChart :items="firmenItems" :max="1" :format-value="pct0" accent="var(--gold)" />
-        <SourceTag id="bfs_stagre" :note="$t('ownership.firmenChartSource')" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.firmenChartIntro')"
+        />
+        <BarChart
+          :items="firmenItems"
+          :max="1"
+          :format-value="pct0"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="bfs_stagre"
+          :note="$t('ownership.firmenChartSource')"
+        />
       </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.firmenTrendTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.firmenTrendIntro')" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.firmenTrendIntro')"
+        />
         <LineChart
+          :aria-label="$t('ownership.firmenTrendTitle')"
           :series="firmenTrend"
           :x-domain="[2014, 2024]"
           :x-ticks="[2014, 2016, 2018, 2020, 2022, 2024]"
@@ -64,19 +82,15 @@ const firmenTrend = computed(() => [
           :y-label="$t('ownership.firmenTrendYAxis')"
           :height="300"
         />
-        <div class="legend">
-          <span v-for="s in firmenTrend" :key="s.name"><i class="sw" :style="{ background: s.color }" /> {{ s.name }}</span>
-        </div>
-        <SourceTag id="bfs_stagre" :note="$t('ownership.firmenTrendSource')" />
+        <ChartLegend
+          :items="firmenLegend"
+          :style="{ marginTop: '12px' }"
+        />
+        <SourceTag
+          id="bfs_stagre"
+          :note="$t('ownership.firmenTrendSource')"
+        />
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.chartbox { padding: 24px 26px; }
-.chartbox h3 { margin-bottom: 8px; }
-.intro { font-size: 0.92rem; max-width: 70ch; margin-bottom: 20px; }
-.legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 12px; font-size: 0.85rem; color: var(--text-soft); }
-.legend .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 7px; vertical-align: middle; }
-</style>

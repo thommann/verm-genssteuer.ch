@@ -41,9 +41,6 @@ const trend = computed(() => {
   if (Math.abs(delta) < first.value * 0.02) return 'flat';
   return delta < 0 ? 'down' : 'up';
 });
-// Der Pfeil zeigt die Leserichtung von oben (erstes Jahr) nach unten (2032)
-// und steht daher unabhängig vom Trend immer nach unten.
-const trendArrow = '↓';
 const lastLabel = computed(() => ({
   down: t('projection.lastLabelDown'),
   up: t('projection.lastLabelUp'),
@@ -54,13 +51,19 @@ const lastLabel = computed(() => ({
 <template>
   <section id="dynamik">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('projection.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('projection.eyebrow') }}
+      </div>
       <h2 v-html="$t('projection.title')" />
-      <p class="lead" v-html="$t('projection.lead')" />
+      <p
+        class="lead"
+        v-html="$t('projection.lead')"
+      />
 
       <div class="proj-grid">
         <div class="card chartbox">
           <LineChart
+            :aria-label="$t('projection.title')"
             :series="series"
             :x-domain="[2022, 2032]"
             :y-domain="[0, yMax]"
@@ -77,7 +80,11 @@ const lastLabel = computed(() => ({
             <span class="sv accent">{{ chfCompact(first, 1) }}</span>
             <span class="sl">{{ $t('projection.firstLabel') }}</span>
           </div>
-          <div class="arrow">{{ trendArrow }}</div>
+          <!-- Pfeil zeigt die Leserichtung von oben (erstes Jahr) nach unten (2032),
+               unabhängig vom Trend. -->
+          <div class="arrow">
+            ↓
+          </div>
           <div class="sidestat">
             <span class="sv gold">{{ chfCompact(last, 1) }}</span>
             <span class="sl">{{ lastLabel }}</span>
@@ -92,22 +99,33 @@ const lastLabel = computed(() => ({
             :display="pct(state.rendite, 1)"
             :hint="$t('projection.renditeHint')"
           />
-          <p class="muted small" v-html="$t('projection.formula')" />
+          <p
+            class="muted small"
+            v-html="$t('projection.formula')"
+          />
         </div>
       </div>
       <div class="srcs">
-        <SourceTag id="estv_vermoegen" :note="$t('projection.sourceNoteEstv')" />
-        <SourceTag id="fdk" :note="$t('projection.sourceNoteFdk')" />
-        <SourceTag id="wir2022_wachstum" :note="$t('projection.sourceNoteRendite')" />
+        <SourceTag
+          id="estv_vermoegen"
+          :note="$t('projection.sourceNoteEstv')"
+        />
+        <SourceTag
+          id="fdk"
+          :note="$t('projection.sourceNoteFdk')"
+        />
+        <SourceTag
+          id="wir2022_wachstum"
+          :note="$t('projection.sourceNoteRendite')"
+        />
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.srcs { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; }
+.srcs { margin-top: 14px; }
 .proj-grid { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: stretch; }
-.chartbox { padding: 22px 24px; }
 .side { padding: 24px; display: flex; flex-direction: column; gap: 6px; justify-content: center; }
 .sidestat { display: flex; flex-direction: column; }
 .sv { font-size: 1.7rem; font-weight: 800; }
@@ -116,6 +134,7 @@ const lastLabel = computed(() => ({
 .sl { color: var(--text-soft); font-size: 0.85rem; }
 .arrow { font-size: 1.4rem; color: var(--text-mute); margin: 2px 0; }
 .small { font-size: 0.78rem; margin-top: 10px; }
-code { background: rgba(255, 255, 255, 0.06); padding: 1px 6px; border-radius: 6px; font-size: 0.78rem; }
-@media (max-width: 760px) { .proj-grid { grid-template-columns: 1fr; } }
+/* Die Formel kommt per v-html (projection.formula) und traegt kein scope-Attribut,
+   daher den code-Chip ueber :deep ansprechen. */
+.small :deep(code) { background: rgba(255, 255, 255, 0.06); padding: 1px 6px; border-radius: 6px; font-size: 0.78rem; }
 </style>

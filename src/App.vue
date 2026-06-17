@@ -99,15 +99,33 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <nav class="nav" :class="{ solid: scrolled || menuOpen }">
+  <nav
+    class="nav"
+    :class="{ solid: scrolled || menuOpen }"
+  >
     <div class="wrap nav-inner">
-      <router-link to="/" class="brand" @click="closeMenu">
-        <img class="brand-flag" src="/logo.svg" alt="" aria-hidden="true" />
+      <router-link
+        to="/"
+        class="brand"
+        @click="closeMenu"
+      >
+        <img
+          class="brand-flag"
+          src="/logo.svg"
+          alt=""
+          aria-hidden="true"
+        >
         {{ $t('nav.brand') }}
       </router-link>
 
       <div class="nav-actions">
-        <router-link to="/rechner" class="btn btn-primary nav-cta" @click="closeMenu">{{ $t('nav.cta') }}</router-link>
+        <router-link
+          to="/rechner"
+          class="btn btn-primary nav-cta"
+          @click="closeMenu"
+        >
+          {{ $t('nav.cta') }}
+        </router-link>
         <button
           type="button"
           class="menu-toggle"
@@ -116,7 +134,10 @@ onUnmounted(() => {
           :aria-label="$t('nav.menuAria')"
           @click="toggleMenu"
         >
-          <span class="menu-icon" :class="{ open: menuOpen }"><span></span><span></span><span></span></span>
+          <span
+            class="menu-icon"
+            :class="{ open: menuOpen }"
+          ><span /><span /><span /></span>
           {{ $t('nav.menu') }}
         </button>
       </div>
@@ -126,7 +147,13 @@ onUnmounted(() => {
          mit ihren Abschnitts-Ankern als eingerückte Unterpunkte. Die aktive Seite/der aktive
          Abschnitt ist markiert. -->
     <transition name="menu">
-      <nav v-if="menuOpen" id="section-menu" class="section-menu" :aria-label="$t('nav.menuAria')" @click.self="closeMenu">
+      <nav
+        v-if="menuOpen"
+        id="section-menu"
+        class="section-menu"
+        :aria-label="$t('nav.menuAria')"
+        @click.self="closeMenu"
+      >
         <div class="wrap">
           <ul class="menu-tree">
             <li>
@@ -136,22 +163,35 @@ onUnmounted(() => {
                 to="/"
                 @click="closeMenu"
               >
-                <span class="mt-num" aria-hidden="true">1</span>
+                <span
+                  class="mt-num"
+                  aria-hidden="true"
+                >1</span>
                 <span>{{ $t('nav.items.start') }}</span>
               </router-link>
             </li>
-            <li v-for="g in GROUPS" :key="g.key" class="mt-group">
+            <li
+              v-for="g in GROUPS"
+              :key="g.key"
+              class="mt-group"
+            >
               <router-link
                 class="mt-link mt-group-link"
                 :class="{ active: isGroupActive(g.key) }"
                 :to="g.route"
                 @click="closeMenu"
               >
-                <span class="mt-num" aria-hidden="true">{{ g.num }}</span>
+                <span
+                  class="mt-num"
+                  aria-hidden="true"
+                >{{ g.num }}</span>
                 <span>{{ $t(`nav.groups.${g.key}`) }}</span>
               </router-link>
               <ul class="mt-items">
-                <li v-for="n in g.items" :key="n">
+                <li
+                  v-for="n in g.items"
+                  :key="n"
+                >
                   <router-link
                     class="mt-link mt-item"
                     :class="{ active: isItemActive(g, n) }"
@@ -172,18 +212,40 @@ onUnmounted(() => {
 
   <ReadingProgress />
 
-  <main id="top" :class="themeClass">
+  <main
+    id="top"
+    :class="themeClass"
+  >
     <router-view />
   </main>
 
-  <footer class="site-footer" :class="{ flush: route.path === '/' }">
+  <footer
+    class="site-footer"
+    :class="{ flush: route.path === '/' }"
+  >
     <div class="wrap site-footer-inner">
-      <router-link to="/#slogan" class="site-footer-slogan">#TaxWealthNotWork</router-link>
-      <nav class="site-footer-links" :aria-label="$t('siteFooter.impressum')">
-        <router-link to="/">{{ $t('siteFooter.start') }}</router-link>
-        <router-link to="/quellen">{{ $t('siteFooter.quellen') }}</router-link>
-        <router-link to="/impressum">{{ $t('siteFooter.impressum') }}</router-link>
-        <router-link to="/datenschutz">{{ $t('siteFooter.datenschutz') }}</router-link>
+      <router-link
+        to="/#slogan"
+        class="site-footer-slogan"
+      >
+        #TaxWealthNotWork
+      </router-link>
+      <nav
+        class="site-footer-links"
+        :aria-label="$t('siteFooter.impressum')"
+      >
+        <router-link to="/">
+          {{ $t('siteFooter.start') }}
+        </router-link>
+        <router-link to="/quellen">
+          {{ $t('siteFooter.quellen') }}
+        </router-link>
+        <router-link to="/impressum">
+          {{ $t('siteFooter.impressum') }}
+        </router-link>
+        <router-link to="/datenschutz">
+          {{ $t('siteFooter.datenschutz') }}
+        </router-link>
       </nav>
     </div>
   </footer>
