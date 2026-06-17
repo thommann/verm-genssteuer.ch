@@ -19,16 +19,8 @@ Drei Bausteine fuer die Sektion «Besitz» auf der Verteilungs-Seite:
                Zeile «Schweiz» = inlaendisch kontrolliert, Auslandskontrolle =
                «Total» minus «Schweiz». Je Blatt das neueste Jahr mit beiden Werten.
 
-  3) wald      Oeffentliches vs. privates Waldeigentum (einzige amtliche, hektar-
-               genaue Bodeneigentums-Statistik der Schweiz). BFS-Cube
-               px-x-0703010000_101, Eigentuemertyp Total/Privat/Oeffentlich,
-               Beobachtungseinheit «Gesamte Waldflaechen» (ha), Schweiz, neuestes
-               Jahr. Es gibt keine amtliche Statistik des Bodeneigentums nach
-               Nationalitaet; der Waldanteil ist der belegbare Eigentums-Datenpunkt.
-
 Quellen (live, ein Befehl ueber scripts/fetch_sources.sh):
   data/raw/bfs/stagre-sitzland.xlsx   (firmen)
-  data/raw/bfs/wald-eigentum.json     (wald)
 Der reichste-Block ist ein belegter, kuratierter Publikationswert (bezug=kuratiert),
 analog zu den EFV/BAG/LITRA-Konstanten in 04_extract_spend_reference.py.
 
@@ -49,8 +41,6 @@ import openpyxl
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, "data", "raw")
 STAGRE = os.path.join(RAW, "bfs", "stagre-sitzland.xlsx")
-WALD = os.path.join(RAW, "bfs", "wald-eigentum.json")
-WALD_OWNERS = os.path.join(RAW, "bfs", "wald-eigentuemer.json")
 GEBAEUDE = os.path.join(RAW, "bfs", "gebaeude-eigentuemertyp.xlsx")
 WOHNEIGENTUM = os.path.join(RAW, "bfs", "wohneigentumsquote.xlsx")
 SNB = os.path.join(RAW, "snb", "haushalte-vermoegen.csv")
@@ -82,9 +72,6 @@ MIETWOHNUNGEN = {
     "privat": 0.49, "institutionell": 0.33,
     "genossenschaften": 0.08, "immobilienfirmen": 0.07, "oeffentlich": 0.04,
 }
-# Bodennutzung der Schweiz (BFS-Arealstatistik, Erhebung 2013/18), kuratiert. Anteile an
-# der Landesflaeche. Quelle `bfs_areal`.
-AREAL = {"landwirtschaft": 0.35, "wald": 0.32, "siedlung": 0.08}
 # Lex Koller: Ferienwohnungserwerb durch Personen im Ausland (BJ, via dievolkswirtschaft.ch),
 # kuratiert. Quelle `lex_koller`.
 LEX_KOLLER = {
@@ -275,76 +262,8 @@ def parse_firmen():
     return out
 
 
-# ---------------------------------------------------------------------------
-# 3) Wald: BFS-Cube px-x-0703010000_101 (json-stat2), Eigentuemertyp.
-# ---------------------------------------------------------------------------
-def parse_wald():
-    if not os.path.exists(WALD):
-        fail(f"Wald-Datei fehlt: {WALD}; zuerst `bash scripts/fetch_sources.sh`.")
-    with open(WALD, encoding="utf-8") as fh:
-        d = json.load(fh)
-    # json-stat2: dichtes, zeilen-major-Array ueber die Dimensionen d['id'] mit d['size'].
-    dim_ids, sizes = d["id"], d["size"]
-    strides = [1] * len(sizes)
-    for i in range(len(sizes) - 2, -1, -1):
-        strides[i] = strides[i + 1] * sizes[i + 1]
-    stride = {dim_ids[i]: strides[i] for i in range(len(dim_ids))}
-    vals = d["value"]
-
-    jc = d["dimension"]["Jahr"]["category"]
-    jahr_index, jahr_label = jc["index"], jc["label"]
-    et = d["dimension"]["Eigentümertyp"]["category"]["index"]
-
-    def cell(jahr_code, et_code):
-        pos = jahr_index[jahr_code] * stride["Jahr"] + et[et_code] * stride["Eigentümertyp"]
-        return vals[pos]
-
-    et_total = next(k for k, v in et.items() if v == 0)  # Code "0" = Total
-    et_privat = "100"
-    et_oeff = "200"
-
-    serie, snapshot = [], None
-    for code in sorted(jahr_index, key=lambda k: jahr_index[k]):
-        jahr = int(jahr_label[code])
-        total, privat, oeff = cell(code, et_total), cell(code, et_privat), cell(code, et_oeff)
-        if not all(isinstance(x, (int, float)) and x for x in (total, privat, oeff)):
-            continue
-        if abs((privat + oeff) - total) / total > 0.02:
-            fail(f"Wald-Cube {jahr}: Privat + Oeffentlich weicht zu stark vom Total ab.")
-        serie.append({"jahr": jahr, "oeffentlich_share": round(oeff / total, 4)})
-        snapshot = {
-            "jahr": jahr,
-            "total_ha": round(total),
-            "privat_ha": round(privat),
-            "oeffentlich_ha": round(oeff),
-            "privat_share": round(privat / total, 4),
-            "oeffentlich_share": round(oeff / total, 4),
-        }  # ueberschrieben bis zum letzten (neuesten) Jahr
-    if snapshot is None or len(serie) < 10:
-        fail(f"Wald-Cube: zu wenige Jahre mit Daten ({len(serie)}).")
-    if not (0.6 <= snapshot["oeffentlich_share"] <= 0.8):
-        fail(f"Wald-Cube: oeffentlicher Anteil unplausibel ({snapshot['oeffentlich_share']}).")
-
-    # Anzahl Waldeigentuemer (e007, neuestes Jahr) aus der Zusatzdatei.
-    if not os.path.exists(WALD_OWNERS):
-        fail(f"Wald-Eigentuemer-Datei fehlt: {WALD_OWNERS}; zuerst `bash scripts/fetch_sources.sh`.")
-    with open(WALD_OWNERS, encoding="utf-8") as fh:
-        do = json.load(fh)
-    cat = do["dimension"]["Eigentümertyp"]["category"]
-    inv = {v: k for k, v in cat["index"].items()}
-    ovals = do["value"]
-    eig_total, eig_privat, eig_oeff = ovals[0], ovals[1], ovals[2]
-    if not (isinstance(eig_privat, (int, float)) and eig_privat > 100000):
-        fail(f"Wald-Eigentuemer: Privatzahl unplausibel ({eig_privat}).")
-    snapshot["eigentuemer_total"] = round(eig_total)
-    snapshot["privat_eigentuemer"] = round(eig_privat)
-    snapshot["oeff_eigentuemer"] = round(eig_oeff)
-    snapshot["privat_ha_avg"] = round(snapshot["privat_ha"] / eig_privat, 2)
-    return {"quelle": "bfs_wald", **snapshot, "serie": serie}
-
-
 def build_boden_kuratiert():
-    """Kuratierte Boden-Zusatzwerte: Bodennutzung (BFS-Arealstatistik), Lex Koller (BJ),
+    """Kuratierte Boden-Zusatzwerte: Lex Koller (BJ),
     indirekter Auslandsbesitz BlackRock (REFLEKT)."""
     lk = dict(LEX_KOLLER)
     lk["quelle"] = "lex_koller"
@@ -353,7 +272,6 @@ def build_boden_kuratiert():
     if not GROESSTE or any(g["menge"] <= 0 for g in GROESSTE):
         fail("Groesste-Eigentuemer-Liste unplausibel.")
     return {
-        "nutzung": {"quelle": "bfs_areal", "bezug": "kuratiert", **AREAL},
         "lex_koller": lk,
         "blackrock": {"quelle": "blackrock_immo", "bezug": "kuratiert", **BLACKROCK},
         "pacht": {"quelle": "bfs_pacht", "bezug": "kuratiert", "serie": PACHT_SERIE},
@@ -470,14 +388,13 @@ def main():
         "mietwohnungen": build_mietwohnungen(),
         "wohnungen_bfs": build_wohnungen_bfs(),
         "wohneigentum": parse_wohneigentum(),
-        "wald": parse_wald(),
         "boden": build_boden_kuratiert(),
     }
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
-    re_, fi, ge, wa = data["reichste"], data["firmen"], data["gebaeude"], data["wald"]
+    re_, fi, ge = data["reichste"], data["firmen"], data["gebaeude"]
     print(f"  [OK] {os.path.relpath(OUT, ROOT)}")
     print(f"       Reichste ({re_['jahr']}): {re_['auslaender']} von {re_['total']} sind "
           f"Auslaender ({re_['auslaender_share']*100:.1f} %), {re_['schweizer']} Schweizer/"
@@ -493,8 +410,6 @@ def main():
     mw = data["mietwohnungen"]
     print(f"       Mietwohnungen ({mw['jahr']}): privat {mw['privat']*100:.0f} %, "
           f"institutionell {mw['institutionell']*100:.0f} %, Genossenschaften {mw['genossenschaften']*100:.0f} %")
-    print(f"       Wald ({wa['jahr']}): {wa['oeffentlich_share']*100:.1f} % oeffentlich, "
-          f"{wa['privat_share']*100:.1f} % privat ({wa['total_ha']:,} ha)")
 
 
 if __name__ == "__main__":

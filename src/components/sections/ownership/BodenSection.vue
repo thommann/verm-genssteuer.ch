@@ -14,7 +14,6 @@ const gebaeude = ownership.gebaeude;
 const mietwohnungen = ownership.mietwohnungen;
 const wohnBfs = ownership.wohnungen_bfs;
 const wohneigentum = ownership.wohneigentum;
-const wald = ownership.wald;
 const boden = ownership.boden;
 const groesste = boden.groesste;
 
@@ -53,17 +52,6 @@ const mietItems = computed(() => [
   { label: t('ownership.mietOeffentlich'), value: mietwohnungen.oeffentlich, color: 'var(--gold)' },
 ]);
 
-const waldItems = computed(() => [
-  { label: t('ownership.waldOeffentlich'), value: wald.oeffentlich_share, color: 'var(--accent)' },
-  { label: t('ownership.waldPrivat'), value: wald.privat_share, color: 'var(--gold)' },
-]);
-
-// Öffentlicher Anteil an der Waldfläche über die Jahrzehnte (1975–2024).
-const waldTrend = computed(() => [
-  { name: t('ownership.waldOeffentlich'), color: 'var(--accent)',
-    points: wald.serie.map((p) => ({ x: p.jahr, y: p.oeffentlich_share })) },
-]);
-const waldYears = computed(() => wald.serie.map((p) => p.jahr));
 </script>
 
 <template>
@@ -77,7 +65,6 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
         class="lead"
         v-html="$t('ownership.bodenIntro', {
           natuerliche: pct(gebaeude.natuerliche_share, 0),
-          oeffentlich: pct(wald.oeffentlich_share, 0),
         })"
       />
       <p
@@ -168,60 +155,6 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
         <SourceTag
           id="bfs_wohneigentum"
           :note="$t('ownership.wohneigentumSource')"
-        />
-      </div>
-
-      <div class="card chartbox">
-        <h3>{{ $t('ownership.waldChartTitle') }}</h3>
-        <p
-          class="muted intro"
-          v-html="$t('ownership.waldChartIntro', {
-            flaeche: num(wald.total_ha, 0),
-            landanteil: pct(boden.nutzung.wald, 0),
-            eigentuemer: num(wald.eigentuemer_total, 0),
-            schnitt: num(wald.privat_ha_avg, 1),
-          })"
-        />
-        <BarChart
-          :items="waldItems"
-          :max="1"
-          :format-value="(v) => pct(v, 1)"
-          accent="var(--gold)"
-        />
-        <span class="srcrow">
-          <SourceTag
-            id="bfs_wald"
-            :note="$t('ownership.waldChartSource', { jahr: wald.jahr })"
-          />
-          <SourceTag
-            id="bfs_areal"
-            :note="$t('ownership.arealSource')"
-          />
-        </span>
-      </div>
-
-      <div class="card chartbox">
-        <h3>{{ $t('ownership.waldTrendTitle') }}</h3>
-        <p
-          class="muted intro"
-          v-html="$t('ownership.waldTrendIntro')"
-        />
-        <LineChart
-          :aria-label="$t('ownership.waldTrendTitle')"
-          :series="waldTrend"
-          :x-domain="[waldYears[0], waldYears[waldYears.length - 1]]"
-          :x-ticks="[1975, 1985, 1995, 2005, 2015, 2024]"
-          :y-domain="[0.7, 0.74]"
-          :y-ticks="[0.7, 0.72, 0.74]"
-          :format-x="(v) => String(v)"
-          :format-y="pct0"
-          :x-label="$t('ownership.axisYear')"
-          :y-label="$t('ownership.waldTrendYAxis')"
-          :height="300"
-        />
-        <SourceTag
-          id="bfs_wald"
-          :note="$t('ownership.waldTrendSource')"
         />
       </div>
 

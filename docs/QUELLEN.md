@@ -26,7 +26,7 @@ den Eintrag in `src/data/sources.json` zeigt.
 | WIR 2026 | Mindeststeuer-Modell (Texte, Abschnitt «Zucman-Steuer»; kein Rechner-Preset) | World Inequality Lab (`wir2026`) | — (Texte + `sources.json`) | — |
 | Zucman-Steuer | Vorschlag (2 % ab 100 Mio.), heutige Last, Mehraufkommen, Tage bis ganze 2 %-Steuer passiv verdient, Arbeiterhaushalt (mittleres Fünftel) und mittelständischer Haushalt (Durchschnitt): Jahre bis Steuer aus Vermögenseinkommen, Tage aus Gesamteinkommen verdient, Einordnungen | Zucman (`woz_zucman`, `zucman_g20`); Bilanz (`bilanz300`); NZZ (`nzz_vermoegenssteuer`); Oxfam/TJN/Momentum (`reichensteuer_studie`); Haushalte: BFS HABE (`bfs_habe`); Einordnungen: BFS (`bfs`), EFV (`efv`), BAG (`bag`) | `habe.json`; Texte + `sources.json`; Einordnungen `spend_reference.json` | `05` (HABE, §6); `04` (Bezugsgrössen, §5) |
 | UBS-Studie | Gini, Ø/Median, Pyramide | UBS (`ubs`) | `ubs_gini.json`, `ubs_wealth_levels.json`, `ubs_wealth_pyramid.json` | `03_extract_wid_ubs.py` |
-| Wem gehört die Schweiz? | Nationalität und Vermögensanteil der 300 Reichsten; Firmen-/Job-/Umsatzanteil nach Kontrolle; Gebäude-, Mietwohnungs- und Waldeigentum. Zusätzlich Verläufe: Top-1-%-Vermögensanteil 1995–2024, Privatvermögen/BIP 2000–2024, 300/BIP 2022–2024, Auslandskontrolle 2014–2024, Waldeigentum 1975–2024 | Bilanz (`bilanz300`, kuratiert), SNB (`snb_haushalte`), Weltbank (`worldbank_gdp`), BFS STAGRE (`bfs_stagre`), BFS Gebäude (`bfs_gebaeude`), Raiffeisen (`raiffeisen_immo`, kuratiert), BFS Wald (`bfs_wald`, inkl. Eigentümerzahl), BFS Arealstatistik (`bfs_areal`, kuratiert), BFS Wohnungsstatistik (`bfs_wohnungen`, kuratiert), BFS Wohneigentumsquote (`bfs_wohneigentum`), BFS Landwirtschaft (`bfs_pacht`, kuratiert), Lex Koller/BJ (`lex_koller`, kuratiert), Lex-Koller-Ausnahmen (`lex_koller_ausnahmen`), Lex-Koller-Reform (`lex_koller_reform`), BlackRock/REFLEKT (`blackrock_immo`, kuratiert), grösste Eigentümer (`vbs_grundbesitz`, `sbb_immo`, `ubs_wohnungen`, `bilanz_immo`, `einsiedeln`, `hiag`, Medien), WAV Zürich (`wav_zuerich`), WID (`wid`, Trend) | `ownership.json`, `wid_timeseries.json` | `07_extract_ownership.py`, `03_extract_wid_ubs.py` |
+| Wem gehört die Schweiz? | Nationalität und Vermögensanteil der 300 Reichsten; Firmen-/Job-/Umsatzanteil nach Kontrolle; Gebäude- und Mietwohnungseigentum. Zusätzlich Verläufe: Top-1-%-Vermögensanteil 1995–2024, Privatvermögen/BIP 2000–2024, 300/BIP 2022–2024, Auslandskontrolle 2014–2024 | Bilanz (`bilanz300`, kuratiert), SNB (`snb_haushalte`), Weltbank (`worldbank_gdp`), BFS STAGRE (`bfs_stagre`), BFS Gebäude (`bfs_gebaeude`), Raiffeisen (`raiffeisen_immo`, kuratiert), BFS Wohnungsstatistik (`bfs_wohnungen`, kuratiert), BFS Wohneigentumsquote (`bfs_wohneigentum`), BFS Landwirtschaft (`bfs_pacht`, kuratiert), Lex Koller/BJ (`lex_koller`, kuratiert), Lex-Koller-Ausnahmen (`lex_koller_ausnahmen`), Lex-Koller-Reform (`lex_koller_reform`), BlackRock/REFLEKT (`blackrock_immo`, kuratiert), grösste Eigentümer (`vbs_grundbesitz`, `sbb_immo`, `ubs_wohnungen`, `bilanz_immo`, `einsiedeln`, `hiag`, Medien), WAV Zürich (`wav_zuerich`), WID (`wid`, Trend) | `ownership.json`, `wid_timeseries.json` | `07_extract_ownership.py`, `03_extract_wid_ubs.py` |
 | Pauschalbesteuerung | Anzahl, Ertrag, Spannweite | FDK (`fdk`) | `pauschal.json` | `01_extract_fdk.py` |
 | Infrastruktur (Datensatz) | Verkehrsausgaben Staat (Strasse 9,36 / öV 9,60 / Verkehr total 19,58 Mrd, 7,8 %); Bildung 45,49 Mrd (18,0 %); Zeitreihe 2015–2023; NAF 2024 (2,65 Mrd) und BIF 2024 (4,81 Mrd) | EFV Finanzstatistik (`efv`); EFV Staatsrechnung (`efv_staatsrechnung`) | `infrastruktur.json` | `06_extract_infrastruktur.py` (Verkehr/Bildung skript; NAF/BIF kuratiert) |
 | Quellen & Methodik | Quellenliste | — | `sources.json` | kuratiert (Metadaten) |
@@ -52,7 +52,7 @@ python3 scripts/03_extract_wid_ubs.py       # 4. WID-CSV+UBS   -> Zeitreihen, Ra
 python3 scripts/04_extract_spend_reference.py  # 5. BFS-PXWeb + kuratierte EFV/BAG -> spend_reference.json
 python3 scripts/05_extract_habe.py          # 6. BFS-HABE-XLSX -> habe.json (Arbeiter-/Mittelstandshaushalt)
 python3 scripts/06_extract_infrastruktur.py # 7. EFV-CSV (Verkehr) + NAF/BIF -> infrastruktur.json
-python3 scripts/07_extract_ownership.py     # 8. BFS STAGRE/Wald/Gebaeude + SNB + Bilanz/Raiffeisen -> ownership.json
+python3 scripts/07_extract_ownership.py     # 8. BFS STAGRE/Gebaeude + SNB + Bilanz/Raiffeisen -> ownership.json
 python3 scripts/00_reproduce_statistics.py  # 9. statistische Verfahren unabhängig nachrechnen/prüfen
 ```
 
@@ -453,16 +453,15 @@ weitgehend dasselbe Geld; NAF (nur Bund) ist nicht mit der EFV-Funktion 61 (alle
 Staatsebenen) oder der BFS-Strasseninfrastrukturrechnung (engeres Konzept) zu addieren.
 ---
 
-## 9. «Wem gehört die Schweiz?» — Reichste, Firmen, Gebäude, Mietwohnungen, Wald
+## 9. «Wem gehört die Schweiz?» — Reichste, Firmen, Gebäude, Mietwohnungen
 
 Fetchbare Primärquellen von SNB und BFS plus kuratierte Publikationswerte (Bilanz,
 Raiffeisen), eine Datendatei (`src/data/ownership.json`, erzeugt von
 `scripts/07_extract_ownership.py`). Rechenformeln in [`METHODIK.md`](METHODIK.md) §14.
 
 **Verläufe (Trends):** Neben den aktuellen Werten zeigt die Sektion mehrere Zeitreihen. Der
-STAGRE-Auslandskontroll-Anteil (Feld `firmen.<kennzahl>.serie`, 2014–2024) und der
-öffentliche Waldanteil (Feld `wald.serie`, 1975–2024, alle Jahre des Cubes) stammen direkt
-aus denselben fetchbaren Quellen. Die Vermögenskonzentration im Zeitverlauf nutzt den bereits
+STAGRE-Auslandskontroll-Anteil (Feld `firmen.<kennzahl>.serie`, 2014–2024) stammt direkt
+aus derselben fetchbaren Quelle. Die Vermögenskonzentration im Zeitverlauf nutzt den bereits
 dokumentierten WID-Top-1-%-Anteil der Schweiz (`wid`, `wid_timeseries.json`, Quelle 2). Zwei
 weitere Reihen setzen Vermögen ins Verhältnis zum BIP (Nenner: Weltbank `worldbank_gdp`,
 NY.GDP.MKTP.CN): gesamtes Privatvermögen ÷ BIP (`reichste.vermoegen_bip_serie`, SNB-RVM ÷ BIP,
@@ -543,9 +542,7 @@ kuratierte Drittquelle geführt (analog zu LITRA in §5), Konstante `MIETWOHNUNG
   Immobilienfirmen 7 %, öffentliche Hand 4 %. Der institutionelle Anteil steigt seit 2000
   (damals rund ein Viertel). Selbstprüfung: Anteile summieren auf ~100 %.
 
-**7b-quater. Boden-Kontext: Arealstatistik, Lex Koller, BlackRock (kuratiert).**
-- `bfs_areal` (BFS-Arealstatistik): Bodennutzung Landwirtschaft 35 %, Wald 32 %, Siedlung 8 %;
-  liefert die Einordnung «Wald rund ein Drittel der Landesfläche». Feld `boden.nutzung`.
+**7b-quater. Boden-Kontext: Lex Koller, BlackRock (kuratiert).**
 - `lex_koller` (BJ, via dievolkswirtschaft.ch): Ferienwohnungs-Kontingent 1500/Jahr; 2023 = 703
   Bewilligungen, 378 Erwerbe, ~47 % ausgeschöpft; >80 % der Zweitwohnsitze in Schweizer Hand.
   Feld `boden.lex_koller`.
@@ -570,24 +567,6 @@ Alle drei kuratiert (`bezug: "kuratiert"`), Belege in `sources.json`.
 - `lex_koller_ausnahmen` (Grundeigentümer-Verband): bewilligungsfreie Fälle (EU/EFTA mit
   Wohnsitz, Drittstaats-B für Hauptwohnung, Geschäftsliegenschaften). `bilanz_immo`: Bilanz-
   Flächenranking (SBB 94,4 Mio. m², Swiss Life >3 Mio. m²). Kontext bzw. Feld `boden.groesste`.
-
-**7c. Waldeigentum öffentlich/privat (`bfs_wald`).**
-BFS-Cube **px-x-0703010000_101** «Waldflächen der Schweiz in ha nach Jahr, Forstzone, Kanton,
-Eigentümertyp und Beobachtungseinheit». Deterministische PXWeb-Abfrage.
-
-- Endpunkt: `POST https://www.pxweb.bfs.admin.ch/api/v1/de/px-x-0703010000_101/px-x-0703010000_101.px`
-  → `data/raw/bfs/wald-eigentum.json` (json-stat2)
-- Auswahl: `Jahr=49` (2024), `Forstzone=0` (Schweiz), `Kanton=0` (Schweiz), `Eigentümertyp`
-  = `0`/`100`/`200` (Total/Privatwälder/Öffentliche Wälder), `Beobachtungseinheit=e012`
-  (Gesamte Waldflächen).
-- **Belegwerte 2024:** Total 1 275 891 ha, öffentlich 900 621 ha (**70,6 %**), privat
-  375 270 ha (29,4 %). Es gibt **keine** amtliche Statistik des Bodeneigentums nach
-  Nationalität (Grundbuch kantonal, kein zentrales Register); der Waldanteil ist die
-  belegbare, hektargenaue Eigentums-Kennzahl. Das ist auf der Seite so deklariert.
-- **Eigentümerzahl** (zweite Abfrage, `Beobachtungseinheit=e007`, →
-  `data/raw/bfs/wald-eigentuemer.json`): 245 975 Eigentümer total, davon 242 634 private und
-  3 341 öffentliche; Privatwald im Schnitt rund 1,5 ha (≈ zwei Fussballfelder). Felder
-  `wald.eigentuemer_total`, `wald.privat_eigentuemer`, `wald.privat_ha_avg`.
 
 ---
 
