@@ -31,3 +31,6 @@ fd86e58003d2ba34f9899d333e149f0dd3eb82fe9fc617faaaf684982dc2aabe  wid/WID_data_U
 b4a7badd44c25e253fdb26bcd0531d4fc8a8a0cc6f439edb88b9ae3a5b0a36dd  ubs/ubs_gwr_2025.pdf
 4919da345d76ddd5be72fe73829a11a8e9ac4f3da929f96e512ec36d01f4c079  bfs/population.json
 6bdc2ec85adaf227b35eeb9d641abdc02b26414be4ac2716ee1491b284e968c6  bfs/habe-einkommensklasse.xlsx
+# EFV-Finanzstatistik (fir_art_funk.csv) wird laufend revidiert; bei Re-Download kann sich
+# der gefilterte staat-Auszug (und damit die Pruefsumme) aendern.
+c5cea7190e51f2dc426c734556e543087ff919dc021cc626ab5aad94d149ce3a  efv/efv_funk_verkehr_staat.csv

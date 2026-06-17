@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/pages/HomePage.vue';
+import HintergrundPage from '@/pages/HintergrundPage.vue';
 import VerteilungPage from '@/pages/VerteilungPage.vue';
 import RechnerPage from '@/pages/RechnerPage.vue';
 import ModellePage from '@/pages/ModellePage.vue';
@@ -14,6 +15,7 @@ export const routes = [
   { path: '/rechner', name: 'rechner', component: RechnerPage, meta: { group: 'rechner', titleKey: 'routes.rechner' } },
   { path: '/verteilung', name: 'verteilung', component: VerteilungPage, meta: { group: 'verteilung', titleKey: 'routes.verteilung' } },
   { path: '/modelle', name: 'modelle', component: ModellePage, meta: { group: 'modelle', titleKey: 'routes.modelle' } },
+  { path: '/hintergrund', name: 'hintergrund', component: HintergrundPage, meta: { group: 'hintergrund', titleKey: 'routes.hintergrund' } },
   { path: '/quellen', name: 'quellen', component: QuellenPage, meta: { group: 'transparenz', titleKey: 'routes.quellen' } },
   // Rechtliche Seiten (ohne eigene Menügruppe, verlinkt aus der Fusszeile).
   { path: '/impressum', name: 'impressum', component: ImpressumPage, meta: { titleKey: 'routes.impressum' } },

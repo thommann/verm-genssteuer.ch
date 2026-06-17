@@ -60,6 +60,13 @@ main::before {
     radial-gradient(940px 780px at 56% 110%, rgba(124, 58, 237, 0.30), transparent 60%),
     linear-gradient(160deg, #1d0f3a, #0b1020 62%);
 }
+.theme-hintergrund::before {
+  background:
+    radial-gradient(1100px 820px at 84% -8%, rgba(255, 45, 107, 0.30), transparent 56%),
+    radial-gradient(960px 760px at 6% 8%, rgba(56, 214, 196, 0.24), transparent 56%),
+    radial-gradient(940px 780px at 56% 110%, rgba(124, 58, 237, 0.30), transparent 60%),
+    linear-gradient(160deg, #231042, #0b1020 62%);
+}
 .theme-verteilung::before {
   background:
     radial-gradient(1100px 820px at 84% -8%, rgba(255, 122, 51, 0.30), transparent 56%),

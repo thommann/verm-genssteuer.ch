@@ -13,6 +13,7 @@ const GROUPS = [
   { key: 'rechner', route: '/rechner', num: '1', items: ['rechner', 'wegzug', 'dynamik', 'verwendung'] },
   { key: 'verteilung', route: '/verteilung', num: '2', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
   { key: 'modelle', route: '/modelle', num: '3', items: ['wir-reports', 'zucman'] },
+  { key: 'hintergrund', route: '/hintergrund', num: '4', items: ['aufkauf', 'geldfluss', 'demokratie', 'steuerluecke', 'wirtschaft', 'loesung', 'mehr'] },
   { key: 'transparenz', route: '/quellen', num: '·', items: ['quellen'] },
 ];
 

@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import spendRef from '@/data/spend_reference.json';
+import infra from '@/data/infrastruktur.json';
 import { chf, chfCompact, pct, num } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
@@ -31,6 +32,26 @@ const oevCut = computed(() => props.revenue / K.oev_personenverkehrsertrag.value
 const incomeLeft = computed(() => props.revenue - K.einkommenssteuer_np_alle_ebenen.value);
 const premiumLeft = computed(() => props.revenue - netPraemien);
 const oevLeft = computed(() => props.revenue - K.oev_personenverkehrsertrag.value);
+
+// Gesamte jaehrliche Ausgaben der oeffentlichen Hand vervielfachen:
+// Faktor = (heutige Gesamtausgaben + Mehreinnahmen) / heutige Gesamtausgaben.
+// Basis aus infrastruktur.json (EFV-Finanzstatistik, Sektor Staat = alle Staatsebenen,
+// brutto inkl. Betrieb): funk 61 = Strassenverkehr, funk 62 = oeffentlicher Verkehr,
+// Gruppe 2 = Bildung. Quelle: efv. Aktuellstes Jahr.
+const VJ = infra.verkehr.jahre;
+const VJAHR = Object.keys(VJ).sort().at(-1);
+const OEV_TOTAL = VJ[VJAHR].oev;
+const STRASSE_TOTAL = VJ[VJAHR].strasse;
+const oevFactor = computed(() => (OEV_TOTAL + props.revenue) / OEV_TOTAL);
+const strasseFactor = computed(() => (STRASSE_TOTAL + props.revenue) / STRASSE_TOTAL);
+const oevSpendShare = computed(() => props.revenue / OEV_TOTAL);
+const strasseShare = computed(() => props.revenue / STRASSE_TOTAL);
+
+const BJ = infra.bildung.jahre;
+const BJAHR = Object.keys(BJ).sort().at(-1);
+const BILDUNG_TOTAL = BJ[BJAHR].total;
+const bildungFactor = computed(() => (BILDUNG_TOTAL + props.revenue) / BILDUNG_TOTAL);
+const bildungShare = computed(() => props.revenue / BILDUNG_TOTAL);
 
 const debtShare = computed(() => (props.debtFreeYears != null ? 1 / props.debtFreeYears : 0));
 const debtFreeYearsLabel = computed(() => {
@@ -124,6 +145,48 @@ const over = (v) => v > 1;
           <span v-else>{{ $t('spend.oevFoot', { amount: chfCompact(K.oev_personenverkehrsertrag.value, 1) }) }}</span>
         </p>
         <SourceTag id="litra" :note="$t('spend.oevSourceNote')" />
+      </template>
+    </article>
+
+    <article class="card spend">
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">🚊</span>
+        <h3>{{ $t('spend.oevSpendTitle') }}</h3>
+      </div>
+      <div class="spend-big blue">×{{ num(oevFactor, 1, 1) }}</div>
+      <p v-if="detail" class="spend-text" v-html="$t('spend.oevSpendText')" />
+      <div v-if="!mini" class="spend-meter"><div class="fill blue" :style="{ width: `${capPct(oevSpendShare) * 100}%` }" /></div>
+      <template v-if="detail">
+        <p class="spend-foot muted">{{ $t('spend.oevSpendFoot', { amount: chfCompact(OEV_TOTAL, 1), jahr: VJAHR }) }}</p>
+        <SourceTag id="efv" />
+      </template>
+    </article>
+
+    <article class="card spend">
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">🛣️</span>
+        <h3>{{ $t('spend.strasseSpendTitle') }}</h3>
+      </div>
+      <div class="spend-big accent">×{{ num(strasseFactor, 1, 1) }}</div>
+      <p v-if="detail" class="spend-text" v-html="$t('spend.strasseSpendText')" />
+      <div v-if="!mini" class="spend-meter"><div class="fill accent" :style="{ width: `${capPct(strasseShare) * 100}%` }" /></div>
+      <template v-if="detail">
+        <p class="spend-foot muted">{{ $t('spend.strasseSpendFoot', { amount: chfCompact(STRASSE_TOTAL, 1), jahr: VJAHR }) }}</p>
+        <SourceTag id="efv" />
+      </template>
+    </article>
+
+    <article class="card spend">
+      <div class="spend-head">
+        <span v-if="!mini" class="spend-icon">🎓</span>
+        <h3>{{ $t('spend.bildungSpendTitle') }}</h3>
+      </div>
+      <div class="spend-big teal">×{{ num(bildungFactor, 1, 1) }}</div>
+      <p v-if="detail" class="spend-text" v-html="$t('spend.bildungSpendText')" />
+      <div v-if="!mini" class="spend-meter"><div class="fill teal" :style="{ width: `${capPct(bildungShare) * 100}%` }" /></div>
+      <template v-if="detail">
+        <p class="spend-foot muted">{{ $t('spend.bildungSpendFoot', { amount: chfCompact(BILDUNG_TOTAL, 1), jahr: BJAHR }) }}</p>
+        <SourceTag id="efv" />
       </template>
     </article>
 
