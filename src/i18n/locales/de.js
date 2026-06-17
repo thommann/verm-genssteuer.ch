@@ -101,12 +101,6 @@ export default {
         explainText: 'Die Vermögen der Superreichen wachsen schneller, als sie ausgegeben werden können. Ihnen bleibt nichts anderes übrig, als für immer höhere Preise Häuser zu kaufen. Deshalb hast du mit deinem Lohn keine Chance mehr, auf dem Häusermarkt zu konkurrieren.',
         link: 'Warum die Superreichen alles aufkaufen',
       },
-      besitz: {
-        eyebrow: 'Der Besitz',
-        text: 'Von den 300 reichsten Menschen der Schweiz hat <span class="hl">fast die Hälfte keinen Schweizer Pass</span>.',
-        explainText: '145 der 300 Reichsten sind Ausländer mit Wohnsitz in der Schweiz, nur rund 155 sind Schweizer oder Liechtensteiner. Die Schweiz ist auch zuoberst ein Magnet für grosse Vermögen aus aller Welt. Gleichzeitig machen ausländisch kontrollierte Konzerne mit knapp einem Drittel der Firmen fast zwei Drittel des Umsatzes.',
-        link: 'Wem die Schweiz gehört',
-      },
       krankenkasse: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">steigenden Krankenkassenprämien</span> ist die wachsende Ungleichheit.',

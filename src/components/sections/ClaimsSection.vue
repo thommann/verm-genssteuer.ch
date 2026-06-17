@@ -18,7 +18,6 @@ const CLAIMS = [
   { id: 'lebensstandard', key: 'lebensstandard', route: '/hintergrund', hash: 'aufkauf', bg: ['#ff7a33', '#d6249f', '#ffb13c', '#ff2d6b'] },
   { id: 'wirtschaft', key: 'wirtschaft', route: '/hintergrund', hash: 'wirtschaft', bg: ['#ff7a33', '#ff2d6b', '#ff7a33', '#d6249f'] },
   { id: 'eigenheim', key: 'eigenheim', route: '/hintergrund', hash: 'aufkauf', bg: ['#ff2d6b', '#d6249f', '#c01651', '#ff2d6b'] },
-  { id: 'besitz', key: 'besitz', route: '/wem-gehoert-die-schweiz', hash: 'reichste', source: 'bilanz300', bg: ['#d6249f', '#7c3aed', '#ff2d6b', '#4f8bff'] },
   { id: 'krankenkasse', key: 'krankenkasse', route: '/rechner', hash: 'verwendung', bg: ['#d6249f', '#ff2d6b', '#7c3aed', '#d6249f'] },
   { id: 'oev', key: 'oev', route: '/rechner', hash: 'verwendung', bg: ['#25e3c8', '#4f8bff', '#14c98a', '#4f8bff'] },
   { id: 'strassen', key: 'strassen', route: '/rechner', hash: 'verwendung', bg: ['#4f8bff', '#a78bfa', '#3b6fe0', '#7c3aed'] },
