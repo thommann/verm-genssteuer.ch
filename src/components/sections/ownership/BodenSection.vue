@@ -208,80 +208,75 @@ const mietItems = computed(() => [
       <h3 class="block-h">
         {{ $t('ownership.auslandHeading') }}
       </h3>
-      <p
-        class="muted small intro2"
-        v-html="$t('ownership.auslandIntro')"
-      />
-      <StatGrid :style="{ margin: '8px 0 14px' }">
-        <StatCard tone="accent">
-          <template #value>
-            {{ num(boden.lex_koller.bewilligungen, 0) }}
-          </template>
-          <template #label>
-            <span
-              v-html="$t('ownership.auslandBewilligungenLabel', {
-                jahr: boden.lex_koller.jahr,
-                kontingent: num(boden.lex_koller.kontingent, 0),
-                ausschoepfung: pct(boden.lex_koller.ausschoepfung, 0),
-              })"
-            />
-          </template>
-        </StatCard>
-        <StatCard tone="gold">
-          <template #value>
-            {{ pct(boden.lex_koller.zweitwohnsitze_ch_min, 0) }}+
-          </template>
-          <template #label>
-            {{ $t('ownership.auslandZweitLabel') }}
-          </template>
-        </StatCard>
-        <StatCard>
-          <template #value>
-            {{ pct(boden.blackrock.anteil, 0) }}
-          </template>
-          <template #label>
-            <span
-              v-html="$t('ownership.auslandBlackrockLabel', {
-                wert: num(boden.blackrock.wert_mrd, 0),
-                firmen: num(boden.blackrock.firmen, 0),
-              })"
-            />
-          </template>
-        </StatCard>
-      </StatGrid>
-      <p
-        class="muted small note"
-        v-html="$t('ownership.auslandAusnahmen')"
-      />
-      <p
-        class="muted small note"
-        v-html="$t('ownership.auslandNote', {
-          faktor: num(boden.blackrock.faktor_10j, 0),
-          sps: pct(boden.blackrock.sps_anteil, 0),
-        })"
-      />
-      <p
-        class="muted small note"
-        v-html="$t('ownership.auslandReform')"
-      />
-      <span class="srcrow">
-        <SourceTag
-          id="lex_koller"
-          :note="$t('ownership.lexKollerSource', { jahr: boden.lex_koller.jahr })"
+      <div class="card artbox">
+        <p
+          class="body"
+          v-html="$t('ownership.lexLead')"
         />
-        <SourceTag
-          id="lex_koller_ausnahmen"
-          :note="$t('ownership.ausnahmenSource')"
+        <p
+          class="body"
+          v-html="$t('ownership.lexChain')"
         />
-        <SourceTag
-          id="blackrock_immo"
-          :note="$t('ownership.blackrockSource')"
+
+        <h4 class="prose-h">
+          {{ $t('ownership.lexHlocker') }}
+        </h4>
+        <p
+          class="body"
+          v-html="$t('ownership.lexLocker1')"
         />
-        <SourceTag
-          id="lex_koller_reform"
-          :note="$t('ownership.reformSource')"
+        <p
+          class="body"
+          v-html="$t('ownership.lexLocker2')"
         />
-      </span>
+
+        <h4 class="prose-h">
+          {{ $t('ownership.lexHabschaffung') }}
+        </h4>
+        <p
+          class="body"
+          v-html="$t('ownership.lexAbschaffung')"
+        />
+
+        <h4 class="prose-h">
+          {{ $t('ownership.lexHoffen') }}
+        </h4>
+        <p
+          class="body"
+          v-html="$t('ownership.lexOffen')"
+        />
+        <p
+          class="body"
+          v-html="$t('ownership.lexBlackrock', {
+            anteil: pct(boden.blackrock.anteil, 0),
+            wert: num(boden.blackrock.wert_mrd, 0),
+            firmen: num(boden.blackrock.firmen, 0),
+            faktor: num(boden.blackrock.faktor_10j, 0),
+            sps: pct(boden.blackrock.sps_anteil, 0),
+          })"
+        />
+
+        <h4 class="prose-h">
+          {{ $t('ownership.lexHplan') }}
+        </h4>
+        <p
+          class="body"
+          v-html="$t('ownership.lexPlan')"
+        />
+
+        <div class="srcrow">
+          <SourceTag id="lex_koller_bewg" />
+          <SourceTag id="lex_koller_hls" />
+          <SourceTag id="lex_koller_chronik" />
+          <SourceTag id="lex_koller_geschichte" />
+          <SourceTag id="lex_koller_srf" />
+          <SourceTag id="lex_koller_behalten" />
+          <SourceTag id="lex_koller_ausnahmen" />
+          <SourceTag id="lex_koller_euefta" />
+          <SourceTag id="blackrock_immo" />
+          <SourceTag id="lex_koller_reform" />
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -292,4 +287,16 @@ const mietItems = computed(() => [
 .block-h { margin-top: 40px; }
 .intro2 { margin-top: 8px; margin-bottom: 18px; }
 .srcrow { margin-top: 8px; }
+.artbox { margin-top: 16px; padding: 28px 30px; }
+.body {
+  margin: 0 0 14px;
+  font-size: 1.0rem;
+  line-height: 1.7;
+  color: var(--text-soft);
+  max-width: 68ch;
+}
+.body:last-of-type { margin-bottom: 0; }
+.body :deep(strong) { color: var(--text); font-weight: 800; }
+.prose-h { margin: 26px 0 10px; color: var(--text); font-size: 1.1rem; }
+.artbox .srcrow { margin-top: 24px; }
 </style>

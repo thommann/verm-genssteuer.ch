@@ -60,7 +60,7 @@
     "herausgeber": "Bilanz (Ringier); Aufbereitung u. a. 20 Minuten, SRF",
     "url": "https://www.bilanz.ch/die-300-reichsten/vermogen-der-reichsten-erreicht-historischen-hochststand-884861",
     "stand": "Liste 2025, November 2025",
-    "hinweis": "Marktnahe Schätzwerte (Verkehrswerte), keine amtliche Statistik und tendenziell ein Unterzähler, da diskret gehaltene Vermögen fehlen. Top 10 zusammen 227 Mrd. (über ein Viertel), reichster Gérard Wertheimer rund 33 Mrd. Vorjahr 2024: 833,5 Mrd. und 152 Milliardäre. Die Liste läuft bei Rang 300 auf rund 100 Mio. aus. Nationalität (Liste 2022): 145 der 300 Reichsten sind Ausländer mit Wohnsitz in der Schweiz (rund 48 %), also rund 155 Schweizer bzw. Liechtensteiner; in die Liste kommt, wer hier wohnt, unabhängig vom Pass. Der Ausländeranteil liegt über die Jahrgänge stabil bei «rund der Hälfte». Diese kuratierte Kennzahl (bezug=kuratiert) wird in src/data/ownership.json (Feld reichste) geführt und in der Sektion «Wem gehört die Schweiz?» gezeigt; es gibt keine amtliche Aufschlüsselung des reichsten 1 % nach Nationalität."
+    "hinweis": "Marktnahe Schätzwerte (Verkehrswerte), keine amtliche Statistik und tendenziell ein Unterzähler, da diskret gehaltene Vermögen fehlen. Top 10 zusammen 227 Mrd. (über ein Viertel), reichster Gérard Wertheimer rund 33 Mrd. Vorjahr 2024: 833,5 Mrd. und 152 Milliardäre. Die Liste läuft bei Rang 300 auf rund 100 Mio. aus. Nationalität (Liste 2022): 145 der 300 Reichsten sind Ausländer mit Wohnsitz in der Schweiz (rund 48 %), also rund 155 Schweizer bzw. Liechtensteiner; in die Liste kommt, wer hier wohnt, unabhängig von der Nationalität. Der Ausländeranteil liegt über die Jahrgänge stabil bei «rund der Hälfte». Diese kuratierte Kennzahl (bezug=kuratiert) wird in src/data/ownership.json (Feld reichste) geführt und in der Sektion «Wem gehört die Schweiz?» gezeigt; es gibt keine amtliche Aufschlüsselung des reichsten 1 % nach Nationalität."
   },
   {
     "id": "reichensteuer_studie",
@@ -216,15 +216,6 @@
     "hinweis": "Nominales BIP der Schweiz in laufenden Franken, Jahresreihe (z. B. 2024 rund 825 Mrd. CHF). Dient als BIP-Nenner für zwei Verläufe in der Sektion «Wem gehört die Schweiz?»: gesamtes Privatvermögen (SNB) als Vielfaches des BIP (2000–2024, von rund 4,3 auf rund 6) und Vermögen der 300 Reichsten (Bilanz) als Anteil am BIP (2022–2024, rund 100 %). Fetchbar als JSON über die offene Weltbank-API; reproduziert via scripts/07_extract_ownership.py. Die Weltbank übernimmt die offiziellen Schweizer Volkswirtschaftlichen Gesamtrechnungen (BFS/SECO)."
   },
   {
-    "id": "lex_koller",
-    "kurz": "Lex Koller (BJ)",
-    "titel": "Erwerb von Ferienwohnungen durch Personen im Ausland (Lex-Koller-Statistik)",
-    "herausgeber": "Bundesamt für Justiz (BJ), wiedergegeben in «Die Volkswirtschaft» (SECO)",
-    "url": "https://dievolkswirtschaft.ch/de/2025/12/erwerb-von-ferienwohnungen-durch-personen-im-ausland-corona-anstiegstrend-zu-ende/",
-    "stand": "Daten 2023",
-    "hinweis": "Die Lex Koller beschränkt den Erwerb von Wohneigentum durch Personen im Ausland. Gesamtschweizerisches Jahreskontingent für Ferienwohnungen: 1500 Einheiten. 2023 erteilten die Kantone 703 Bewilligungen (Vorjahr 1020), 378 Objekte wechselten effektiv die Hand; Ausschöpfung des Kontingents rund 47 % (703/1500). Grösste Käufergruppe durchgängig Deutschland, 2023 vor Frankreich, Italien, Belgien. Über den Gesamtbestand ausländisch besessener Ferienimmobilien führt der Bund keine Statistik; als Grössenordnung gilt, dass über 80 % der Zweitwohnsitze in den Tourismusgebieten Schweizern gehören (NZZ). Kuratierte Werte (bezug=kuratiert) in src/data/ownership.json (Feld boden.lex_koller)."
-  },
-  {
     "id": "blackrock_immo",
     "kurz": "BlackRock (REFLEKT/WAV)",
     "titel": "BlackRock-Beteiligungen an börsenkotierten Schweizer Immobilienunternehmen",
@@ -252,24 +243,6 @@
     "hinweis": "Anteil der Pachtflächen an der landwirtschaftlichen Nutzfläche, steigend mit dem Strukturwandel: 1980 rund 37 %, 2005 rund 43 %, 2016 rund 45 %, um 2020 gegen die Hälfte (rund 47 %). Verpachtet wird von anderen Bauern, Privatpersonen, der öffentlichen Hand und Firmen. Flächenmässig gelten die Bauern als grösste Grundbesitzergruppe der Schweiz (LID/proplanta). Kuratierte Reihe (bezug=kuratiert) in src/data/ownership.json (Feld boden.pacht)."
   },
   {
-    "id": "vbs_grundbesitz",
-    "kurz": "VBS Grundbesitz (Blick)",
-    "titel": "Grund und Boden: Die Armee als grösster Grundbesitzer der Schweiz",
-    "herausgeber": "Blick",
-    "url": "https://www.blick.ch/wirtschaft/grund-boden-wem-gehoert-die-schweiz-id10733.html",
-    "stand": "Medienbericht",
-    "hinweis": "Der Grundbesitz des Verteidigungsdepartements (VBS) umfasst rund 26 000 Objekte und rund 26 000 Hektaren Land (Reproduktionswert rund 25 Mrd. CHF); damit gilt das Militär als grösster Liegenschaftenbesitzer der Schweiz. Medienrecherche (Drittquelle), kuratiert; in src/data/ownership.json (Feld boden.groesste)."
-  },
-  {
-    "id": "sbb_immo",
-    "kurz": "SBB Grundbesitz (Blick)",
-    "titel": "So verkaufen die SBB unser Land (SBB-Grundbesitz 94,4 Mio. m²)",
-    "herausgeber": "SonntagsBlick / Blick",
-    "url": "https://www.blick.ch/wirtschaft/ceo-andreas-meyer-hat-immobilien-im-wert-von-1-5-milliarden-franken-abgestossen-so-verkaufen-die-sbb-unser-land-id8162401.html",
-    "stand": "Medienbericht",
-    "hinweis": "Die SBB besitzen rund 94,4 Mio. m² Land und sind nach der Armee der grösste Grundbesitzer der Schweiz; seit 2007 haben sie Grundstücke im Wert von über 1,5 Mrd. CHF verkauft, häufig an Banken, Immobiliengesellschaften und Pensionskassen. Medienrecherche (Drittquelle), kuratiert; in src/data/ownership.json (Feld boden.groesste)."
-  },
-  {
     "id": "ubs_wohnungen",
     "kurz": "UBS/CS Wohnungen (watson)",
     "titel": "Die neue Monsterbank wird grösster Akteur im Immobiliengeschäft (UBS + CS rund 70 000 Wohnungen)",
@@ -277,15 +250,6 @@
     "url": "https://www.watson.ch/schweiz/wirtschaft/865270518-die-neue-monsterbank-wird-auch-zum-groessten-akteur-im-immobiliengeschaeft",
     "stand": "Medienbericht 2023",
     "hinweis": "Vor der Übernahme hielt die UBS rund 37 000, die Credit Suisse rund 35 317 Wohnungen; zusammen knapp 70 000 Wohnungen, womit die UBS Swiss Life als grösste Wohnungsbesitzerin der Schweiz ablöst. Medienrecherche (Drittquelle), kuratiert; in src/data/ownership.json (Feld boden.groesste)."
-  },
-  {
-    "id": "einsiedeln",
-    "kurz": "Kloster Einsiedeln (Wikipedia)",
-    "titel": "Kloster Einsiedeln: grösster privater Grundbesitzer der Schweiz",
-    "herausgeber": "Wikipedia (nach kath.ch u. a.)",
-    "url": "https://de.wikipedia.org/wiki/Kloster_Einsiedeln",
-    "stand": "Abruf Juni 2026",
-    "hinweis": "Das Kloster Einsiedeln verfügt über rund 2140 Hektaren in fünf Kantonen (plus eine Enklave in Vorarlberg) und gilt als grösster privater Grundbesitzer der Schweiz. Drittquelle, kuratiert; in src/data/ownership.json (Feld boden.groesste)."
   },
   {
     "id": "bfs_wohneigentum",
@@ -306,6 +270,24 @@
     "hinweis": "Eigene Bilanz-Recherche zu den grössten Immobilienbesitzern der Schweiz (es gibt kein amtliches Register). In der Flächen-Rangliste steht die SBB mit 94,4 Mio. m² auf Rang 1, Swiss Life mit über 3 Mio. m² auf Rang 4; Swiss Life gilt als grösste private Immobilieneigentümerin nach Fläche. Drittquelle (Medienrecherche), kuratiert; in src/data/ownership.json (Feld boden.groesste)."
   },
   {
+    "id": "lex_koller_behalten",
+    "kurz": "Lex Koller beibehalten (Bundesrat)",
+    "titel": "Die Lex Koller beibehalten",
+    "herausgeber": "Der Bundesrat (admin.ch)",
+    "url": "https://www.admin.ch/de/nsb?id=50930",
+    "stand": "Medienmitteilung, Aufhebungsverzicht 2013/2014",
+    "hinweis": "Offizielle Begründung für den Verzicht auf die Aufhebung der Lex Koller: Die Lage am Immobilien- und Finanzmarkt hatte sich verändert, und eine Aufhebung hätte schwerwiegende volkswirtschaftliche Folgen, namentlich zusätzlichen Druck auf die ohnehin sehr hohen Immobilien- und Mietpreise sowie auf den Schweizer Franken. Der Bundesrat unterstützte die Aufhebung 2007, nahm 2013 mit einer Zusatzbotschaft davon Abstand, und das Parlament behielt die Lex Koller bei. Wie die ebenfalls amtliche Quelle lex_koller_reform blockiert die admin.ch-Seite automatisierte Abrufe, ist im Browser aber erreichbar. Drittquelle (amtlich); Kontext zur Sektion (kein Datenfeld)."
+  },
+  {
+    "id": "lex_koller_srf",
+    "kurz": "Lex Koller, Bundesstudie (SRF)",
+    "titel": "Teure Mieten bei Abschaffung der Lex Koller (10 vor 10)",
+    "herausgeber": "Schweizer Radio und Fernsehen (SRF)",
+    "url": "https://www.srf.ch/play/tv/10-vor-10/video/teure-mieten-bei-abschaffung-der-lex-koller?urn=urn:srf:video:26b9489e-effd-4802-b3e4-4b1e737743ae",
+    "stand": "Sendung 10 vor 10, Abruf Juni 2026",
+    "hinweis": "Im Streit um die vom Bundesrat angestrebte Aufhebung der Lex Koller zeigte eine Studie des Bundes, dass eine Abschaffung die Mietpreise steigen liesse (Beitragstitel «Teure Mieten bei Abschaffung der Lex Koller»). Der drohende Druck auf die ohnehin hohen Immobilien- und Mietpreise war ein Hauptgrund, weshalb die Aufhebung fallengelassen und die Lex Koller beibehalten wurde. Drittquelle; Kontext zur Sektion (kein Datenfeld)."
+  },
+  {
     "id": "lex_koller_ausnahmen",
     "kurz": "Lex-Koller-Ausnahmen",
     "titel": "Lex Koller: strenger Ruf, lockere Realität (bewilligungsfreie Fälle)",
@@ -313,6 +295,51 @@
     "url": "https://www.propertyowner.ch/de/lex-koller-strenger-ruf-lockere-realitaet/",
     "stand": "Abruf Juni 2026",
     "hinweis": "Wichtige Ausnahmen von der Bewilligungspflicht: EU-/EFTA-Staatsangehörige mit tatsächlichem Wohnsitz in der Schweiz gelten nicht als Personen im Ausland und können unbeschränkt erwerben; Drittstaatsangehörige mit Aufenthaltsbewilligung B und Wohnsitz dürfen eine selbstbewohnte Hauptwohnung bewilligungsfrei kaufen; Grenzgänger eine Zweitwohnung im Grenzraum; und Betriebsstätten bzw. Geschäftsliegenschaften sind unabhängig von Herkunft und Status bewilligungsfrei. Drittquelle; Kontext zur Sektion (kein Datenfeld)."
+  },
+  {
+    "id": "lex_koller_euefta",
+    "kurz": "Lex Koller EU/EFTA (Engel & Völkers)",
+    "titel": "Lex Koller Ratgeber: Immobilienerwerb durch EU/EFTA-Bürger",
+    "herausgeber": "Engel & Völkers (Schweiz)",
+    "url": "https://www.engelvoelkers.com/ch/de/ressourcen/lex-koller",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "EU-/EFTA-Bürger mit Aufenthaltsbewilligung B oder Niederlassungsbewilligung C und Wohnsitz in der Schweiz sind Schweizer Bürgern beim Immobilienerwerb gleichgestellt und können laut Quelle «unbeschränkt sämtliche Immobilienarten bewilligungsfrei erwerben. Dazu gehören beispielsweise auch Mehrfamilienhäuser oder Zweitwohnungen», also auch reine Renditeobjekte und nicht nur eine selbstbewohnte Wohnung. Geschäftsliegenschaften (ständige Betriebsstätte eines Handels- oder Fabrikationsgewerbes, z. B. Büro-, Fabrik- oder Hotelbauten, Arztpraxen) sind unabhängig von der Herkunft bewilligungsfrei. Drittquelle; Kontext zur Sektion (kein Datenfeld)."
+  },
+  {
+    "id": "lex_koller_geschichte",
+    "kurz": "Lex Koller Geschichte (Wikipedia)",
+    "titel": "Lex Koller: Entstehung, Lockerungen und Aufhebungsversuche",
+    "herausgeber": "Wikipedia",
+    "url": "https://de.wikipedia.org/wiki/Lex_Koller",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Geschichte des Bundesgesetzes über den Erwerb von Grundstücken durch Personen im Ausland: Vorläufer wie die «Lex von Moos» (1961) sollten die «Überfremdung des einheimischen Bodens» bekämpfen; das heutige Gesetz (Lex Friedrich, in Kraft 1985) trägt seit der Revision 1997 den Namen von Bundesrat Arnold Koller. 1997 wurde im Rahmen eines Konjunkturprogramms der Erwerb von Geschäftsliegenschaften vollständig liberalisiert; 2005 wurde der Kauf von Anteilen an börsenkotierten Schweizer Immobiliengesellschaften durch Personen im Ausland zugelassen. 2007 wollten alle grossen Parteien das Gesetz aufheben (bundesrätliche Aufhebungsvorlage); 2012 und 2013 beerdigten beide Parlamentskammern die Vorlage; ein Revisionsversuch von 2017 zur Rücknahme der Lockerungen scheiterte am Widerstand aus Wirtschaft und Politik. Drittquelle; Kontext zur Sektion (kein Datenfeld)."
+  },
+  {
+    "id": "lex_koller_bewg",
+    "kurz": "BewG (Fedlex)",
+    "titel": "Bundesgesetz vom 16. Dezember 1983 über den Erwerb von Grundstücken durch Personen im Ausland (BewG), SR 211.412.41",
+    "herausgeber": "Schweizerische Eidgenossenschaft, Fedlex",
+    "url": "https://www.fedlex.admin.ch/eli/cc/1984/1148_1148_1148/de",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Amtlicher Gesetzestext (Systematische Rechtssammlung SR 211.412.41, Amtliche Sammlung AS 1984 1148). Das Gesetz datiert vom 16. Dezember 1983 und trat am 1. Januar 1985 in Kraft (Lex Friedrich); die Änderungschronik der Fundstelle dokumentiert die späteren Revisionen, darunter die Lex-Koller-Revision von 1997. Primärquelle für Titel, Erlassdatum und Inkrafttreten."
+  },
+  {
+    "id": "lex_koller_hls",
+    "kurz": "Ausverkauf der Heimat (HLS)",
+    "titel": "Ausverkauf der Heimat",
+    "herausgeber": "Historisches Lexikon der Schweiz (HLS)",
+    "url": "https://hls-dhs-dss.ch/de/articles/017357/",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Wissenschaftliche Referenz zur Gesetzeskette gegen den «Ausverkauf der Heimat»: Bundesbeschluss vom 23. März 1961 («Lex von Moos», erstmals Bewilligungspflicht für den Grundstückerwerb durch Personen im Ausland), die Verschärfung «Lex Furgler» (in Kraft 1. Februar 1974) und das Bundesgesetz vom 16. Dezember 1983 («Lex Friedrich») als indirekter Gegenvorschlag zur Volksinitiative «gegen den Ausverkauf der Heimat». Drittquelle; Kontext zur Sektion (kein Datenfeld)."
+  },
+  {
+    "id": "lex_koller_chronik",
+    "kurz": "Lex-Koller-Chronik (law.ch)",
+    "titel": "Immobilienerwerb durch Ausländer / Lex Koller: History",
+    "herausgeber": "LAWINFO (law.ch)",
+    "url": "https://law.ch/lawinfo/immobilienerwerb-durch-auslaender/history/",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Chronologie der Namenskette mit Daten: «Lex von Moos» (23. März 1961, befristete Bewilligungspflicht), «Lex Celio» (notrechtlicher Bundesratsbeschluss vom 26. Juni 1972 gegen die Anlage ausländischen Kapitals in inländische Grundstücke), «Lex Furgler» (in Kraft 1. Februar 1974, strengere Umgehungsregeln, schärfere Voraussetzungen für Ferienwohnungen, verstärkte Bundesaufsicht), «Lex Friedrich» (BewG vom 16. Dezember 1983, in Kraft 1. Januar 1985) und «Lex Koller» (Revision 1997). Drittquelle; Kontext zur Sektion (kein Datenfeld)."
   },
   {
     "id": "hiag",

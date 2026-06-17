@@ -437,16 +437,6 @@
     "peak_quote": 0.384
   },
   "boden": {
-    "lex_koller": {
-      "jahr": 2023,
-      "kontingent": 1500,
-      "bewilligungen": 703,
-      "erwerbe": 378,
-      "zweitwohnsitze_ch_min": 0.8,
-      "quelle": "lex_koller",
-      "bezug": "kuratiert",
-      "ausschoepfung": 0.4687
-    },
     "blackrock": {
       "quelle": "blackrock_immo",
       "bezug": "kuratiert",
@@ -481,22 +471,6 @@
     "groesste": [
       {
         "bezug": "kuratiert",
-        "id": "armee",
-        "name": "Armee (VBS)",
-        "menge": 26000,
-        "einheit": "ha",
-        "quelle": "vbs_grundbesitz"
-      },
-      {
-        "bezug": "kuratiert",
-        "id": "sbb",
-        "name": "SBB",
-        "menge": 94,
-        "einheit": "Mio. m²",
-        "quelle": "sbb_immo"
-      },
-      {
-        "bezug": "kuratiert",
         "id": "ubs",
         "name": "UBS (mit CS)",
         "menge": 70000,
@@ -510,14 +484,6 @@
         "menge": 3,
         "einheit": "Mio. m²",
         "quelle": "bilanz_immo"
-      },
-      {
-        "bezug": "kuratiert",
-        "id": "einsiedeln",
-        "name": "Kloster Einsiedeln",
-        "menge": 2140,
-        "einheit": "ha",
-        "quelle": "einsiedeln"
       },
       {
         "bezug": "kuratiert",

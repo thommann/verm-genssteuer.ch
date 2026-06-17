@@ -26,7 +26,7 @@ den Eintrag in `src/data/sources.json` zeigt.
 | WIR 2026 | Mindeststeuer-Modell (Texte, Abschnitt «Zucman-Steuer»; kein Rechner-Preset) | World Inequality Lab (`wir2026`) | — (Texte + `sources.json`) | — |
 | Zucman-Steuer | Vorschlag (2 % ab 100 Mio.), heutige Last, Mehraufkommen, Tage bis ganze 2 %-Steuer passiv verdient, Arbeiterhaushalt (mittleres Fünftel) und mittelständischer Haushalt (Durchschnitt): Jahre bis Steuer aus Vermögenseinkommen, Tage aus Gesamteinkommen verdient, Einordnungen | Zucman (`woz_zucman`, `zucman_g20`); Bilanz (`bilanz300`); NZZ (`nzz_vermoegenssteuer`); Oxfam/TJN/Momentum (`reichensteuer_studie`); Haushalte: BFS HABE (`bfs_habe`); Einordnungen: BFS (`bfs`), EFV (`efv`), BAG (`bag`) | `habe.json`; Texte + `sources.json`; Einordnungen `spend_reference.json` | `05` (HABE, §6); `04` (Bezugsgrössen, §5) |
 | UBS-Studie | Gini, Ø/Median, Pyramide | UBS (`ubs`) | `ubs_gini.json`, `ubs_wealth_levels.json`, `ubs_wealth_pyramid.json` | `03_extract_wid_ubs.py` |
-| Wem gehört die Schweiz? | Nationalität und Vermögensanteil der 300 Reichsten; Firmen-/Job-/Umsatzanteil nach Kontrolle; Gebäude- und Mietwohnungseigentum. Zusätzlich Verläufe: Top-1-%-Vermögensanteil 1995–2024, Privatvermögen/BIP 2000–2024, 300/BIP 2022–2024, Auslandskontrolle 2014–2024 | Bilanz (`bilanz300`, kuratiert), SNB (`snb_haushalte`), Weltbank (`worldbank_gdp`), BFS STAGRE (`bfs_stagre`), BFS Gebäude (`bfs_gebaeude`), Raiffeisen (`raiffeisen_immo`, kuratiert), BFS Wohnungsstatistik (`bfs_wohnungen`, kuratiert), BFS Wohneigentumsquote (`bfs_wohneigentum`), BFS Landwirtschaft (`bfs_pacht`, kuratiert), Lex Koller/BJ (`lex_koller`, kuratiert), Lex-Koller-Ausnahmen (`lex_koller_ausnahmen`), Lex-Koller-Reform (`lex_koller_reform`), BlackRock/REFLEKT (`blackrock_immo`, kuratiert), grösste Eigentümer (`vbs_grundbesitz`, `sbb_immo`, `ubs_wohnungen`, `bilanz_immo`, `einsiedeln`, `hiag`, Medien), WAV Zürich (`wav_zuerich`), WID (`wid`, Trend) | `ownership.json`, `wid_timeseries.json` | `07_extract_ownership.py`, `03_extract_wid_ubs.py` |
+| Wem gehört die Schweiz? | Nationalität und Vermögensanteil der 300 Reichsten; Firmen-/Job-/Umsatzanteil nach Kontrolle; Gebäude- und Mietwohnungseigentum. Zusätzlich Verläufe: Top-1-%-Vermögensanteil 1995–2024, Privatvermögen/BIP 2000–2024, 300/BIP 2022–2024, Auslandskontrolle 2014–2024 | Bilanz (`bilanz300`, kuratiert), SNB (`snb_haushalte`), Weltbank (`worldbank_gdp`), BFS STAGRE (`bfs_stagre`), BFS Gebäude (`bfs_gebaeude`), Raiffeisen (`raiffeisen_immo`, kuratiert), BFS Wohnungsstatistik (`bfs_wohnungen`, kuratiert), BFS Wohneigentumsquote (`bfs_wohneigentum`), BFS Landwirtschaft (`bfs_pacht`, kuratiert), Lex-Koller-Geschichte (`lex_koller_bewg`, `lex_koller_hls`, `lex_koller_chronik`, `lex_koller_geschichte`, `lex_koller_srf`, `lex_koller_behalten`), Lex-Koller-Ausnahmen (`lex_koller_ausnahmen`, `lex_koller_euefta`), Lex-Koller-Reform (`lex_koller_reform`), BlackRock/REFLEKT (`blackrock_immo`, kuratiert), grösste Eigentümer (`ubs_wohnungen`, `bilanz_immo`, `hiag`, Medien), WAV Zürich (`wav_zuerich`), WID (`wid`, Trend) | `ownership.json`, `wid_timeseries.json` | `07_extract_ownership.py`, `03_extract_wid_ubs.py` |
 | Pauschalbesteuerung | Anzahl, Ertrag, Spannweite | FDK (`fdk`) | `pauschal.json` | `01_extract_fdk.py` |
 | Infrastruktur (Datensatz) | Verkehrsausgaben Staat (Strasse 9,36 / öV 9,60 / Verkehr total 19,58 Mrd, 7,8 %); Bildung 45,49 Mrd (18,0 %); Zeitreihe 2015–2023; NAF 2024 (2,65 Mrd) und BIF 2024 (4,81 Mrd) | EFV Finanzstatistik (`efv`); EFV Staatsrechnung (`efv_staatsrechnung`) | `infrastruktur.json` | `06_extract_infrastruktur.py` (Verkehr/Bildung skript; NAF/BIF kuratiert) |
 | Quellen & Methodik | Quellenliste | — | `sources.json` | kuratiert (Metadaten) |
@@ -478,7 +478,7 @@ Publikationswert — analog zu den EFV/BAG/LITRA-Konstanten in §5 (`bezug: "kur
 
 - **Wert (Liste 2022):** 145 der 300 Reichsten sind Ausländer mit Wohnsitz in der Schweiz
   (rund **48 %**), also rund **155** Schweizer bzw. Liechtensteiner. In die Liste kommt, wer
-  hier wohnt, unabhängig vom Pass. Der Ausländeranteil liegt über die Jahrgänge stabil bei
+  hier wohnt, unabhängig von der Nationalität. Der Ausländeranteil liegt über die Jahrgänge stabil bei
   «rund der Hälfte».
 - **Beleg:** Bilanz-Ranking, wiedergegeben u. a. von watson
   (<https://www.watson.ch/wirtschaft/schweiz/134475413-bilanz-ranking-so-reich-sind-die-300-reichsten-in-der-schweizer>):
@@ -542,14 +542,11 @@ kuratierte Drittquelle geführt (analog zu LITRA in §5), Konstante `MIETWOHNUNG
   Immobilienfirmen 7 %, öffentliche Hand 4 %. Der institutionelle Anteil steigt seit 2000
   (damals rund ein Viertel). Selbstprüfung: Anteile summieren auf ~100 %.
 
-**7b-quater. Boden-Kontext: Lex Koller, BlackRock (kuratiert).**
-- `lex_koller` (BJ, via dievolkswirtschaft.ch): Ferienwohnungs-Kontingent 1500/Jahr; 2023 = 703
-  Bewilligungen, 378 Erwerbe, ~47 % ausgeschöpft; >80 % der Zweitwohnsitze in Schweizer Hand.
-  Feld `boden.lex_koller`.
+**7b-quater. Boden-Kontext: BlackRock (kuratiert).**
 - `blackrock_immo` (REFLEKT/WAV): BlackRock hält ~6 % der börsenkotierten Schweizer
-  Immobilienfirmen (~2 Mrd., 17 Firmen, in 10 Jahren ~20×), Swiss Prime Site >12 % — indirekter
+  Immobilienfirmen (~2 Mrd., 17 Firmen, in 10 Jahren ~20×), Swiss Prime Site >12 %, indirekter
   Auslandsbesitz trotz Lex Koller. Feld `boden.blackrock`.
-Alle drei kuratiert (`bezug: "kuratiert"`), Belege in `sources.json`.
+Kuratiert (`bezug: "kuratiert"`), Beleg in `sources.json`.
 
 **7b-quinquies. Wohnungen, Pacht und grösste Eigentümer (kuratiert).**
 - `bfs_wohnungen` (BFS-Wohnungsstatistik, 2023): Mietwohnungen zu 45 % im Besitz von
@@ -557,9 +554,9 @@ Alle drei kuratiert (`bezug: "kuratiert"`), Belege in `sources.json`.
   nach 2000 = 32 %. Felder `wohnungen_bfs` (inkl. `baujahr`).
 - `bfs_pacht` (BFS-Strukturerhebung): Pachtanteil an der LN 1980 = 37 %, 2005 = 43 %,
   2016 = 45 %, um 2020 = 47 %; Bauern flächenmässig grösste Grundbesitzer. Feld `boden.pacht`.
-- Grösste einzelne Eigentümer (Medienrecherchen, Drittquellen): Armee/VBS ~26 000 ha
-  (`vbs_grundbesitz`), SBB 94 Mio. m² (`sbb_immo`), UBS + CS ~70 000 Wohnungen
-  (`ubs_wohnungen`), Kloster Einsiedeln ~2140 ha (`einsiedeln`). Feld `boden.groesste`.
+- Grösste einzelne Eigentümer (Medienrecherchen, Drittquellen): UBS + CS ~70 000 Wohnungen
+  (`ubs_wohnungen`), Swiss Life ~3 Mio. m² (`bilanz_immo`), Hiag ~2,6 km² (`hiag`).
+  Feld `boden.groesste`.
 - `lex_koller_reform` (Bundesrat, 15.4.2026): Vernehmlassung zur Verschärfung der Lex Koller.
 - `bfs_wohneigentum` (BFS T 09.03.02.01.03, DAM-Asset 36398362, fetchbar): Wohneigentumsquote
   je Jahr, Zeile Schweiz, Spalte «Anteil in %»; Höchststand 2015 (38,4 %), 2024 = 35,7 %.
@@ -567,6 +564,30 @@ Alle drei kuratiert (`bezug: "kuratiert"`), Belege in `sources.json`.
 - `lex_koller_ausnahmen` (Grundeigentümer-Verband): bewilligungsfreie Fälle (EU/EFTA mit
   Wohnsitz, Drittstaats-B für Hauptwohnung, Geschäftsliegenschaften). `bilanz_immo`: Bilanz-
   Flächenranking (SBB 94,4 Mio. m², Swiss Life >3 Mio. m²). Kontext bzw. Feld `boden.groesste`.
+- `lex_koller_euefta` (Engel & Völkers, fetchbar): EU/EFTA-Bürger mit Wohnsitz erwerben
+  «unbeschränkt sämtliche Immobilienarten bewilligungsfrei», inkl. Mehrfamilienhäuser und
+  Zweitwohnungen (also als Renditeobjekt); Geschäftsliegenschaften herkunftsunabhängig
+  bewilligungsfrei. Kontext zur Sektion (kein Datenfeld).
+- `lex_koller_bewg` (Fedlex, SR 211.412.41 / AS 1984 1148, fetchbar): amtlicher Gesetzestext und
+  Primärquelle für Titel, Erlassdatum (16.12.1983) und Inkrafttreten (1.1.1985, Lex Friedrich)
+  sowie die Revisionschronik (u. a. Lex Koller 1997). Kein Datenfeld.
+- `lex_koller_hls` (Historisches Lexikon der Schweiz, «Ausverkauf der Heimat», fetchbar):
+  Namenskette Lex von Moos (BB 23.3.1961) → Lex Furgler (in Kraft 1.2.1974) → Lex Friedrich
+  (BewG 16.12.1983) und der politische Kontext. Kein Datenfeld.
+- `lex_koller_chronik` (LAWINFO/law.ch, fetchbar): datierte Chronologie inkl. Lex Celio
+  (notrechtlicher BRB vom 26.6.1972) und der jeweiligen Änderungen. Kein Datenfeld.
+- `lex_koller_srf` (SRF, 10 vor 10, fetchbar): Eine Studie des Bundes zeigte, dass eine
+  Aufhebung der Lex Koller die Mietpreise steigen liesse; das war ein Hauptgrund, weshalb die
+  Aufhebung (Bundesrat 2007) fallengelassen und das Gesetz beibehalten wurde. Kein Datenfeld.
+- `lex_koller_behalten` (Bundesrat/admin.ch, «Die Lex Koller beibehalten»): amtliche Begründung
+  für den Aufhebungsverzicht, namentlich der Druck auf die hohen Immobilien-/Mietpreise und auf
+  den Schweizer Franken; Verzicht 2013, Beibehaltung durch das Parlament. Die admin.ch-Seite
+  blockiert wie `lex_koller_reform` automatisierte Abrufe (403), im Browser erreichbar. Kein Datenfeld.
+- `lex_koller_geschichte` (Wikipedia, fetchbar): Geschichte der Lex Koller für den
+  Prosa-Abschnitt. Ursprung gegen «Überfremdung des einheimischen Bodens» (Lex von Moos 1961
+  u. a.), heutiges Gesetz seit 1985, Name Koller seit der Revision 1997; Lockerungen 1997
+  (Geschäftsliegenschaften) und 2005 (börsenkotierte Anteile); Aufhebungsvorlage 2007, 2012/2013
+  vom Parlament beerdigt; Revisionsversuch 2017 gescheitert. Kontext zur Sektion (kein Datenfeld).
 
 ---
 

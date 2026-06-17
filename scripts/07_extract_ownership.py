@@ -72,12 +72,6 @@ MIETWOHNUNGEN = {
     "privat": 0.49, "institutionell": 0.33,
     "genossenschaften": 0.08, "immobilienfirmen": 0.07, "oeffentlich": 0.04,
 }
-# Lex Koller: Ferienwohnungserwerb durch Personen im Ausland (BJ, via dievolkswirtschaft.ch),
-# kuratiert. Quelle `lex_koller`.
-LEX_KOLLER = {
-    "jahr": 2023, "kontingent": 1500, "bewilligungen": 703, "erwerbe": 378,
-    "zweitwohnsitze_ch_min": 0.80,
-}
 # Indirekter Auslandsbesitz trotz Lex Koller: BlackRock an boersenkotierten Schweizer
 # Immobilienfirmen (REFLEKT/WAV), kuratiert. Quelle `blackrock_immo`.
 BLACKROCK = {"anteil": 0.06, "wert_mrd": 2.0, "firmen": 17, "faktor_10j": 20, "sps_anteil": 0.12}
@@ -96,11 +90,8 @@ PACHT_SERIE = [
 # Groesste einzelne Grundbesitzer nach Flaeche bzw. Wohnungsbestand (Medienrecherchen),
 # kuratiert. menge/einheit + Quelle je Beispiel.
 GROESSTE = [
-    {"id": "armee", "name": "Armee (VBS)", "menge": 26000, "einheit": "ha", "quelle": "vbs_grundbesitz"},
-    {"id": "sbb", "name": "SBB", "menge": 94, "einheit": "Mio. m²", "quelle": "sbb_immo"},
     {"id": "ubs", "name": "UBS (mit CS)", "menge": 70000, "einheit": "Wohnungen", "quelle": "ubs_wohnungen"},
     {"id": "swisslife", "name": "Swiss Life", "menge": 3, "einheit": "Mio. m²", "quelle": "bilanz_immo"},
-    {"id": "einsiedeln", "name": "Kloster Einsiedeln", "menge": 2140, "einheit": "ha", "quelle": "einsiedeln"},
     {"id": "hiag", "name": "Hiag (Familie Grisard)", "menge": 2.6, "einheit": "km²", "quelle": "hiag"},
 ]
 
@@ -263,16 +254,11 @@ def parse_firmen():
 
 
 def build_boden_kuratiert():
-    """Kuratierte Boden-Zusatzwerte: Lex Koller (BJ),
-    indirekter Auslandsbesitz BlackRock (REFLEKT)."""
-    lk = dict(LEX_KOLLER)
-    lk["quelle"] = "lex_koller"
-    lk["bezug"] = "kuratiert"
-    lk["ausschoepfung"] = round(lk["bewilligungen"] / lk["kontingent"], 4)
+    """Kuratierte Boden-Zusatzwerte: indirekter Auslandsbesitz BlackRock (REFLEKT)
+    und groesste einzelne Eigentuemer (Medienrecherchen)."""
     if not GROESSTE or any(g["menge"] <= 0 for g in GROESSTE):
         fail("Groesste-Eigentuemer-Liste unplausibel.")
     return {
-        "lex_koller": lk,
         "blackrock": {"quelle": "blackrock_immo", "bezug": "kuratiert", **BLACKROCK},
         "pacht": {"quelle": "bfs_pacht", "bezug": "kuratiert", "serie": PACHT_SERIE},
         "groesste": [{"bezug": "kuratiert", **g} for g in GROESSTE],
