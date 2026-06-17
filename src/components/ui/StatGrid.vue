@@ -5,7 +5,9 @@
 </script>
 
 <template>
-  <div class="stat-grid"><slot /></div>
+  <div class="stat-grid">
+    <slot />
+  </div>
 </template>
 
 <style scoped>

@@ -81,11 +81,18 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
 </script>
 
 <template>
-  <section id="international" class="section-alt">
+  <section
+    id="international"
+    class="section-alt"
+  >
     <div class="wrap">
-      <div class="eyebrow">{{ $t('international.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('international.eyebrow') }}
+      </div>
       <h2 v-html="$t('international.title')" />
-      <p class="lead">{{ $t('international.lead') }}</p>
+      <p class="lead">
+        {{ $t('international.lead') }}
+      </p>
 
       <div class="metric-toggle">
         <button
@@ -93,7 +100,9 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
           :key="m.key"
           :class="{ active: metric === m.key }"
           @click="metric = m.key"
-        >{{ m.label }}</button>
+        >
+          {{ m.label }}
+        </button>
         <span class="muted desc">{{ metrics[metric].desc }}</span>
       </div>
 
@@ -109,8 +118,14 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
           :format-y="formatY"
           :height="340"
         />
-        <ChartLegend :items="legendItems" :style="{ margin: '12px 0 6px' }" />
-        <SourceTag id="wid" :note="widNote" />
+        <ChartLegend
+          :items="legendItems"
+          :style="{ margin: '12px 0 6px' }"
+        />
+        <SourceTag
+          id="wid"
+          :note="widNote"
+        />
       </div>
 
       <div class="compare">
@@ -122,17 +137,29 @@ const maxVal = computed(() => Math.max(...ranking.value.map((c) => c.val)));
             class="rrow"
             :class="{ ch: c.land === 'Schweiz' }"
           >
-            <div class="rland">{{ c.land }}</div>
-            <div class="rtrack">
-              <div class="rfill" :style="{ width: `${Math.max(0, (c.val / maxVal) * 100)}%` }" />
+            <div class="rland">
+              {{ c.land }}
             </div>
-            <div class="rval tnum">{{ formatVal(c.val) }}</div>
+            <div class="rtrack">
+              <div
+                class="rfill"
+                :style="{ width: `${Math.max(0, (c.val / maxVal) * 100)}%` }"
+              />
+            </div>
+            <div class="rval tnum">
+              {{ formatVal(c.val) }}
+            </div>
           </div>
         </div>
         <div class="legend2">
-          <SourceTag id="wid" :note="$t('international.sourceNoteShares')" />
+          <SourceTag
+            id="wid"
+            :note="$t('international.sourceNoteShares')"
+          />
         </div>
-        <p class="muted small">{{ $t('international.note') }}</p>
+        <p class="muted small">
+          {{ $t('international.note') }}
+        </p>
       </div>
     </div>
   </section>

@@ -84,13 +84,23 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 <template>
   <section id="rechner-modell">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('calculator.modellEyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('calculator.modellEyebrow') }}
+      </div>
       <h2 v-html="$t('calculator.modellTitle')" />
-      <p class="lead">{{ $t('calculator.lead') }}</p>
+      <p class="lead">
+        {{ $t('calculator.lead') }}
+      </p>
 
-      <p v-if="isWir" class="preset-note">
+      <p
+        v-if="isWir"
+        class="preset-note"
+      >
         <span v-html="$t('calculator.presetNoteWir2022')" />
-        <SourceTag id="wir2022" :note="$t('calculator.presetNoteWir2022Source')" />
+        <SourceTag
+          id="wir2022"
+          :note="$t('calculator.presetNoteWir2022Source')"
+        />
       </p>
 
       <p
@@ -104,102 +114,122 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       />
 
       <div class="calc-grid">
-          <!-- Controls -->
-          <div class="card controls">
-            <p v-if="isWir" class="controls-lock">
-              <span v-html="$t('calculator.controlsLock')" />
-              <button type="button" class="controls-lock-link" @click="calc.applyPreset(firstOwnPreset)">{{ $t('calculator.controlsLockLink') }}</button>{{ $t('calculator.controlsLockAfter') }}
-            </p>
-            <div v-if="!isWir">
-              <RangeControl
-                v-model="state.schwelle"
-                :min="5e6"
-                :max="5e7"
-                :step="5e5"
-                :label="$t('calculator.schwelleLabel')"
-                :display="schwelleDisplay"
-                :hint="$t('calculator.schwelleHint')"
-                @update:modelValue="onSlider"
-              />
-              <RangeControl
-                v-model="state.basis"
-                :min="0.0005"
-                :max="0.05"
-                :step="0.0005"
-                :label="$t('calculator.basisLabel')"
-                :display="pct(state.basis, 2)"
-                :hint="$t('calculator.basisHint')"
-                @update:modelValue="onSlider"
-              />
-              <RangeControl
-                v-model="state.exponent"
-                :min="0"
-                :max="1.6"
-                :step="0.05"
-                :label="$t('calculator.exponentLabel')"
-                :display="num(state.exponent, 2)"
-                :hint="$t('calculator.exponentHint')"
-                @update:modelValue="onSlider"
-              />
-              <RangeControl
-                v-model="state.cap"
-                :min="0.05"
-                :max="1"
-                :step="0.05"
-                :label="$t('calculator.capLabel')"
-                :display="pct(state.cap, 0)"
-                :hint="$t('calculator.capHint')"
-                @update:modelValue="onSlider"
-              />
-            </div>
-
-            <div class="year-pick">
-              <span>{{ $t('calculator.yearLabel') }}</span>
-              <button
-                v-for="y in calc.years"
-                :key="y"
-                class="ychip"
-                :class="{ active: state.year === y }"
-                @click="state.year = y"
-              >{{ y }}</button>
-            </div>
+        <!-- Controls -->
+        <div class="card controls">
+          <p
+            v-if="isWir"
+            class="controls-lock"
+          >
+            <span v-html="$t('calculator.controlsLock')" />
+            <button
+              type="button"
+              class="controls-lock-link"
+              @click="calc.applyPreset(firstOwnPreset)"
+            >
+              {{ $t('calculator.controlsLockLink') }}
+            </button>{{ $t('calculator.controlsLockAfter') }}
+          </p>
+          <div v-if="!isWir">
+            <RangeControl
+              v-model="state.schwelle"
+              :min="5e6"
+              :max="5e7"
+              :step="5e5"
+              :label="$t('calculator.schwelleLabel')"
+              :display="schwelleDisplay"
+              :hint="$t('calculator.schwelleHint')"
+              @update:model-value="onSlider"
+            />
+            <RangeControl
+              v-model="state.basis"
+              :min="0.0005"
+              :max="0.05"
+              :step="0.0005"
+              :label="$t('calculator.basisLabel')"
+              :display="pct(state.basis, 2)"
+              :hint="$t('calculator.basisHint')"
+              @update:model-value="onSlider"
+            />
+            <RangeControl
+              v-model="state.exponent"
+              :min="0"
+              :max="1.6"
+              :step="0.05"
+              :label="$t('calculator.exponentLabel')"
+              :display="num(state.exponent, 2)"
+              :hint="$t('calculator.exponentHint')"
+              @update:model-value="onSlider"
+            />
+            <RangeControl
+              v-model="state.cap"
+              :min="0.05"
+              :max="1"
+              :step="0.05"
+              :label="$t('calculator.capLabel')"
+              :display="pct(state.cap, 0)"
+              :hint="$t('calculator.capHint')"
+              @update:model-value="onSlider"
+            />
           </div>
 
-          <!-- Tariff curve -->
-          <div class="card chartbox">
-            <h3>{{ $t('calculator.curveTitle') }}</h3>
-            <LineChart
-              :aria-label="$t('calculator.curveTitle')"
-              :series="curveSeries"
-              :x-domain="[Math.log10(model.schwelle), Math.log10(2e10)]"
-              :y-domain="[0, yMax]"
-              :x-ticks="TICKS_W.map((w) => Math.log10(w))"
-              :y-ticks="yTicks"
-              :format-x="(lx) => chfCompact(Math.pow(10, lx), 0)"
-              :format-y="(v) => pct(v, 0)"
-              :height="300"
-            />
-            <ChartLegend :items="curveLegend" :style="{ marginTop: '12px' }" />
-          </div>
-
-          <!-- Revenue by band -->
-          <div class="card chartbox band">
-            <h3>{{ $t('calculator.bandTitle') }}</h3>
-            <BarChart
-              :items="bandItems"
-              :format-value="(v) => chfCompact(v, 1)"
-              :label-header="$t('calculator.bandWealthLabel')"
-              :range-label="$t('calculator.bandRateLabel')"
-              :value-header="$t('calculator.bandRevenueLabel')"
-              accent="var(--teal)"
-            />
+          <div class="year-pick">
+            <span>{{ $t('calculator.yearLabel') }}</span>
+            <button
+              v-for="y in calc.years"
+              :key="y"
+              class="ychip"
+              :class="{ active: state.year === y }"
+              @click="state.year = y"
+            >
+              {{ y }}
+            </button>
           </div>
         </div>
 
+        <!-- Tariff curve -->
+        <div class="card chartbox">
+          <h3>{{ $t('calculator.curveTitle') }}</h3>
+          <LineChart
+            :aria-label="$t('calculator.curveTitle')"
+            :series="curveSeries"
+            :x-domain="[Math.log10(model.schwelle), Math.log10(2e10)]"
+            :y-domain="[0, yMax]"
+            :x-ticks="TICKS_W.map((w) => Math.log10(w))"
+            :y-ticks="yTicks"
+            :format-x="(lx) => chfCompact(Math.pow(10, lx), 0)"
+            :format-y="(v) => pct(v, 0)"
+            :height="300"
+          />
+          <ChartLegend
+            :items="curveLegend"
+            :style="{ marginTop: '12px' }"
+          />
+        </div>
+
+        <!-- Revenue by band -->
+        <div class="card chartbox band">
+          <h3>{{ $t('calculator.bandTitle') }}</h3>
+          <BarChart
+            :items="bandItems"
+            :format-value="(v) => chfCompact(v, 1)"
+            :label-header="$t('calculator.bandWealthLabel')"
+            :range-label="$t('calculator.bandRateLabel')"
+            :value-header="$t('calculator.bandRevenueLabel')"
+            accent="var(--teal)"
+          />
+        </div>
+      </div>
+
       <p class="disclaimer">
         <span class="srcs">
-          <SourceTag id="estv_vermoegen" :note="$t('calculator.sourceNoteEstv')" />
-          <SourceTag id="fdk" :note="$t('calculator.sourceNoteFdk')" />
+          <SourceTag
+            id="estv_vermoegen"
+            :note="$t('calculator.sourceNoteEstv')"
+          />
+          <SourceTag
+            id="fdk"
+            :note="$t('calculator.sourceNoteFdk')"
+          />
         </span>
       </p>
     </div>

@@ -27,12 +27,21 @@ const presetRows = computed(() =>
        langfristige Ertrag. Erklärungen und das Selbst-Einstellen folgen weiter unten. -->
   <section id="rechner">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('calculator.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('calculator.eyebrow') }}
+      </div>
       <h2 v-html="$t('calculator.title')" />
 
       <div class="presets">
-        <div v-for="g in presetRows" :key="g.id" class="preset-row">
-          <span v-if="g.label" class="presets-label">{{ g.label }}</span>
+        <div
+          v-for="g in presetRows"
+          :key="g.id"
+          class="preset-row"
+        >
+          <span
+            v-if="g.label"
+            class="presets-label"
+          >{{ g.label }}</span>
           <button
             v-for="p in g.items"
             :key="p.key"
@@ -47,11 +56,18 @@ const presetRows = computed(() =>
 
       <!-- Langfristige Mehreinnahmen (dauerhaft tragbar), nur die grosse Zahl. -->
       <div class="card result">
-        <div class="result-label">{{ $t('calculator.longTermLabel') }}</div>
-        <div class="result-value gold" :class="{ negative: nettoDauerhaft < 0 }">
+        <div class="result-label">
+          {{ $t('calculator.longTermLabel') }}
+        </div>
+        <div
+          class="result-value gold"
+          :class="{ negative: nettoDauerhaft < 0 }"
+        >
           {{ chfCompact(nettoDauerhaft, 1) }}
         </div>
-        <div class="result-unit">{{ $t('calculator.resultUnit') }}</div>
+        <div class="result-unit">
+          {{ $t('calculator.resultUnit') }}
+        </div>
       </div>
 
       <!-- Mögliche Verwendung auf einen Blick: Emoji, Zahl und Balken, ohne Fliesstext. -->

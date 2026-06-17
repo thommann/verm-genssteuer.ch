@@ -32,7 +32,9 @@ const firmenLegend = computed(() => firmenTrend.value.map((s) => ({ color: s.col
 <template>
   <section id="firmen">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('ownership.firmenEyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('ownership.firmenEyebrow') }}
+      </div>
       <h2>{{ $t('ownership.firmenHeading') }}</h2>
       <p
         class="lead"
@@ -45,14 +47,28 @@ const firmenLegend = computed(() => firmenTrend.value.map((s) => ({ color: s.col
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.firmenChartTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.firmenChartIntro')" />
-        <BarChart :items="firmenItems" :max="1" :format-value="pct0" accent="var(--gold)" />
-        <SourceTag id="bfs_stagre" :note="$t('ownership.firmenChartSource')" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.firmenChartIntro')"
+        />
+        <BarChart
+          :items="firmenItems"
+          :max="1"
+          :format-value="pct0"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="bfs_stagre"
+          :note="$t('ownership.firmenChartSource')"
+        />
       </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.firmenTrendTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.firmenTrendIntro')" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.firmenTrendIntro')"
+        />
         <LineChart
           :aria-label="$t('ownership.firmenTrendTitle')"
           :series="firmenTrend"
@@ -66,8 +82,14 @@ const firmenLegend = computed(() => firmenTrend.value.map((s) => ({ color: s.col
           :y-label="$t('ownership.firmenTrendYAxis')"
           :height="300"
         />
-        <ChartLegend :items="firmenLegend" :style="{ marginTop: '12px' }" />
-        <SourceTag id="bfs_stagre" :note="$t('ownership.firmenTrendSource')" />
+        <ChartLegend
+          :items="firmenLegend"
+          :style="{ marginTop: '12px' }"
+        />
+        <SourceTag
+          id="bfs_stagre"
+          :note="$t('ownership.firmenTrendSource')"
+        />
       </div>
     </div>
   </section>

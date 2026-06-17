@@ -71,33 +71,63 @@ const pyramidItems = computed(() =>
 <template>
   <section id="ubs-studie">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('ubs.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('ubs.eyebrow') }}
+      </div>
       <h2 v-html="$t('ubs.title')" />
-      <p class="lead" v-html="$t('ubs.lead')" />
+      <p
+        class="lead"
+        v-html="$t('ubs.lead')"
+      />
 
       <StatGrid :style="{ margin: '24px 0 28px' }">
         <StatCard tone="accent">
-          <template #value>{{ gini(ch.gini) }}</template>
-          <template #label><span v-html="$t('ubs.giniCardLabel')" /></template>
+          <template #value>
+            {{ gini(ch.gini) }}
+          </template>
+          <template #label>
+            <span v-html="$t('ubs.giniCardLabel')" />
+          </template>
         </StatCard>
         <StatCard tone="gold">
-          <template #value><span v-html="$t('ubs.rankCardValue', { rank: chRank })" /></template>
-          <template #label>{{ $t('ubs.rankCardLabel', { total: sorted.length }) }}</template>
+          <template #value>
+            <span v-html="$t('ubs.rankCardValue', { rank: chRank })" />
+          </template>
+          <template #label>
+            {{ $t('ubs.rankCardLabel', { total: sorted.length }) }}
+          </template>
         </StatCard>
         <StatCard>
-          <template #value>{{ gini(highest.gini) }}–{{ gini(lowest.gini) }}</template>
-          <template #label>{{ $t('ubs.spreadCardLabel', { highest: highest.land, lowest: lowest.land }) }}</template>
+          <template #value>
+            {{ gini(highest.gini) }}–{{ gini(lowest.gini) }}
+          </template>
+          <template #label>
+            {{ $t('ubs.spreadCardLabel', { highest: highest.land, lowest: lowest.land }) }}
+          </template>
         </StatCard>
       </StatGrid>
 
       <div class="card chartbox">
         <h3>{{ $t('ubs.giniChartTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ubs.giniChartIntro')" />
-        <BarChart :items="items" :max="1" :format-value="gini" accent="var(--gold)" />
-        <SourceTag id="ubs" :note="$t('ubs.giniChartSource')" />
+        <p
+          class="muted intro"
+          v-html="$t('ubs.giniChartIntro')"
+        />
+        <BarChart
+          :items="items"
+          :max="1"
+          :format-value="gini"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="ubs"
+          :note="$t('ubs.giniChartSource')"
+        />
       </div>
 
-      <h3 class="block-h">{{ $t('ubs.avgMedianHeading') }}</h3>
+      <h3 class="block-h">
+        {{ $t('ubs.avgMedianHeading') }}
+      </h3>
       <p
         class="muted small intro2"
         v-html="$t('ubs.avgMedianIntro', {
@@ -109,27 +139,51 @@ const pyramidItems = computed(() =>
 
       <StatGrid :style="{ margin: '24px 0 28px' }">
         <StatCard tone="accent">
-          <template #value>{{ usd(chW.avg) }}</template>
-          <template #label>{{ $t('ubs.avgCardLabel', { rank: chAvgRank }) }}</template>
+          <template #value>
+            {{ usd(chW.avg) }}
+          </template>
+          <template #label>
+            {{ $t('ubs.avgCardLabel', { rank: chAvgRank }) }}
+          </template>
         </StatCard>
         <StatCard tone="gold">
-          <template #value>{{ usd(chW.median) }}</template>
-          <template #label>{{ $t('ubs.medianCardLabel', { rank: chMedRank }) }}</template>
+          <template #value>
+            {{ usd(chW.median) }}
+          </template>
+          <template #label>
+            {{ $t('ubs.medianCardLabel', { rank: chMedRank }) }}
+          </template>
         </StatCard>
         <StatCard>
-          <template #value>×{{ num(chRatio, 1) }}</template>
-          <template #label>{{ $t('ubs.ratioCardLabel') }}</template>
+          <template #value>
+            ×{{ num(chRatio, 1) }}
+          </template>
+          <template #label>
+            {{ $t('ubs.ratioCardLabel') }}
+          </template>
         </StatCard>
       </StatGrid>
 
       <div class="card chartbox">
         <h3>{{ $t('ubs.ratioChartTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ubs.ratioChartIntro')" />
-        <BarChart :items="ratioItems" :format-value="ratioFmt" accent="var(--gold)" />
-        <SourceTag id="ubs" :note="$t('ubs.ratioChartSource')" />
+        <p
+          class="muted intro"
+          v-html="$t('ubs.ratioChartIntro')"
+        />
+        <BarChart
+          :items="ratioItems"
+          :format-value="ratioFmt"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="ubs"
+          :note="$t('ubs.ratioChartSource')"
+        />
       </div>
 
-      <h3 class="block-h">{{ $t('ubs.pyramidHeading') }}</h3>
+      <h3 class="block-h">
+        {{ $t('ubs.pyramidHeading') }}
+      </h3>
       <p
         class="muted small intro2"
         v-html="$t('ubs.pyramidIntro', {
@@ -141,9 +195,19 @@ const pyramidItems = computed(() =>
       />
       <div class="card chartbox">
         <h3>{{ $t('ubs.pyramidChartTitle') }}</h3>
-        <p class="muted intro">{{ $t('ubs.pyramidChartIntro') }}</p>
-        <BarChart :items="pyramidItems" :max="1" :format-value="(v) => pct(v, 1)" accent="var(--gold)" />
-        <SourceTag id="ubs" :note="$t('ubs.pyramidChartSource')" />
+        <p class="muted intro">
+          {{ $t('ubs.pyramidChartIntro') }}
+        </p>
+        <BarChart
+          :items="pyramidItems"
+          :max="1"
+          :format-value="(v) => pct(v, 1)"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="ubs"
+          :note="$t('ubs.pyramidChartSource')"
+        />
       </div>
     </div>
   </section>

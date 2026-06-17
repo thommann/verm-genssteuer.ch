@@ -21,24 +21,47 @@ const hasHead = computed(() => !!(props.labelHeader || props.rangeLabel || props
 
 <template>
   <div :class="['bars', { 'with-range': hasRange }]">
-    <div v-if="hasRange && hasHead" class="bar-row bar-head">
-      <div class="bar-label col-head">{{ labelHeader }}</div>
-      <div class="bar-range col-head">{{ rangeLabel }}</div>
-      <div class="bar-value-head col-head">{{ valueHeader }}</div>
+    <div
+      v-if="hasRange && hasHead"
+      class="bar-row bar-head"
+    >
+      <div class="bar-label col-head">
+        {{ labelHeader }}
+      </div>
+      <div class="bar-range col-head">
+        {{ rangeLabel }}
+      </div>
+      <div class="bar-value-head col-head">
+        {{ valueHeader }}
+      </div>
     </div>
-    <div v-for="it in items" :key="it.label" class="bar-row">
+    <div
+      v-for="it in items"
+      :key="it.label"
+      class="bar-row"
+    >
       <div class="bar-label">
         <span>{{ it.label }}</span>
-        <span v-if="it.sub" class="bar-sub">{{ it.sub }}</span>
+        <span
+          v-if="it.sub"
+          class="bar-sub"
+        >{{ it.sub }}</span>
       </div>
-      <div v-if="hasRange" class="bar-range tnum">{{ it.range }}</div>
+      <div
+        v-if="hasRange"
+        class="bar-range tnum"
+      >
+        {{ it.range }}
+      </div>
       <div class="bar-track">
         <div
           class="bar-fill"
           :style="{ width: widthPct(it.value), background: it.color || accent }"
         />
       </div>
-      <div class="bar-value tnum">{{ formatValue(it.value) }}</div>
+      <div class="bar-value tnum">
+        {{ formatValue(it.value) }}
+      </div>
     </div>
   </div>
 </template>

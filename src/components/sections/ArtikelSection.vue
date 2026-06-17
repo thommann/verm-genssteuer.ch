@@ -30,21 +30,45 @@ const video = computed(() => {
 </script>
 
 <template>
-  <section :id="anchor" class="claim-band art-band" :style="bandVars(bg)">
+  <section
+    :id="anchor"
+    class="claim-band art-band"
+    :style="bandVars(bg)"
+  >
     <div class="wrap">
-      <div class="eyebrow">{{ $t(`${ns}.${id}.eyebrow`) }}</div>
+      <div class="eyebrow">
+        {{ $t(`${ns}.${id}.eyebrow`) }}
+      </div>
       <h2 v-html="$t(`${ns}.${id}.title`)" />
-      <p class="lead" v-html="$t(`${ns}.${id}.lead`)" />
+      <p
+        class="lead"
+        v-html="$t(`${ns}.${id}.lead`)"
+      />
 
-      <template v-for="(b, i) in blocks" :key="i">
-        <h3 v-if="b.t === 'h'" class="block-h">{{ b.x }}</h3>
+      <template
+        v-for="(b, i) in blocks"
+        :key="i"
+      >
+        <h3
+          v-if="b.t === 'h'"
+          class="block-h"
+        >
+          {{ b.x }}
+        </h3>
 
-        <blockquote v-else-if="b.t === 'q'" class="pullquote">
+        <blockquote
+          v-else-if="b.t === 'q'"
+          class="pullquote"
+        >
           <p v-html="b.x" />
           <cite v-if="b.by">{{ b.by }}</cite>
         </blockquote>
 
-        <p v-else class="body" v-html="b.x" />
+        <p
+          v-else
+          class="body"
+          v-html="b.x"
+        />
       </template>
 
       <a
@@ -54,8 +78,14 @@ const video = computed(() => {
         target="_blank"
         rel="noopener"
       >
-        <span class="vl-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+        <span
+          class="vl-icon"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          ><path d="M8 5v14l11-7z" /></svg>
         </span>
         <span class="vl-text">
           {{ $t('hintergrund.videoCta') }}
@@ -64,7 +94,11 @@ const video = computed(() => {
       </a>
 
       <div class="srcrow">
-        <SourceTag v-for="(s, i) in sources" :key="i" :id="s" />
+        <SourceTag
+          v-for="(s, i) in sources"
+          :id="s"
+          :key="i"
+        />
       </div>
     </div>
   </section>

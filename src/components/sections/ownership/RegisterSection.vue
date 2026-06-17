@@ -11,24 +11,51 @@ const { blocks, sources } = useProseBlocks('boden.eigentum');
 </script>
 
 <template>
-  <section id="bodeneigentum" class="section-alt">
+  <section
+    id="bodeneigentum"
+    class="section-alt"
+  >
     <div class="wrap">
-      <div class="eyebrow">{{ $t('boden.eigentum.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('boden.eigentum.eyebrow') }}
+      </div>
       <h2 v-html="$t('boden.eigentum.title')" />
-      <p class="lead" v-html="$t('boden.eigentum.lead')" />
+      <p
+        class="lead"
+        v-html="$t('boden.eigentum.lead')"
+      />
 
       <div class="card artbox">
-        <template v-for="(b, i) in blocks" :key="i">
-          <h3 v-if="b.t === 'h'" class="block-h">{{ b.x }}</h3>
-          <blockquote v-else-if="b.t === 'q'" class="pullquote">
+        <template
+          v-for="(b, i) in blocks"
+          :key="i"
+        >
+          <h3
+            v-if="b.t === 'h'"
+            class="block-h"
+          >
+            {{ b.x }}
+          </h3>
+          <blockquote
+            v-else-if="b.t === 'q'"
+            class="pullquote"
+          >
             <p v-html="b.x" />
             <cite v-if="b.by">{{ b.by }}</cite>
           </blockquote>
-          <p v-else class="body" v-html="b.x" />
+          <p
+            v-else
+            class="body"
+            v-html="b.x"
+          />
         </template>
 
         <div class="srcrow">
-          <SourceTag v-for="(s, i) in sources" :key="i" :id="s" />
+          <SourceTag
+            v-for="(s, i) in sources"
+            :id="s"
+            :key="i"
+          />
         </div>
       </div>
     </div>

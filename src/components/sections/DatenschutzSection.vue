@@ -5,12 +5,21 @@
 </script>
 
 <template>
-  <section id="datenschutz" class="section-alt legal">
+  <section
+    id="datenschutz"
+    class="section-alt legal"
+  >
     <div class="wrap">
-      <div class="eyebrow">{{ $t('datenschutz.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('datenschutz.eyebrow') }}
+      </div>
       <h2>{{ $t('datenschutz.title') }}</h2>
-      <p class="lead">{{ $t('datenschutz.lead') }}</p>
-      <p class="muted legal-updated">{{ $t('datenschutz.updated') }}</p>
+      <p class="lead">
+        {{ $t('datenschutz.lead') }}
+      </p>
+      <p class="muted legal-updated">
+        {{ $t('datenschutz.updated') }}
+      </p>
 
       <div class="card legal-block">
         <h3>{{ $t('datenschutz.controllerTitle') }}</h3>

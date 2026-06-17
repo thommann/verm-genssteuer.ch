@@ -3,21 +3,38 @@ import sources from '@/data/sources.json';
 </script>
 
 <template>
-  <section id="quellen" class="section-alt">
+  <section
+    id="quellen"
+    class="section-alt"
+  >
     <div class="wrap">
-      <div class="eyebrow">{{ $t('sources.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('sources.eyebrow') }}
+      </div>
       <h2 v-html="$t('sources.title')" />
-      <p class="lead">{{ $t('sources.lead') }}</p>
+      <p class="lead">
+        {{ $t('sources.lead') }}
+      </p>
 
       <div class="src-list">
-        <a v-for="s in sources" :key="s.id" :href="s.url" target="_blank" rel="noopener" class="src card">
+        <a
+          v-for="s in sources"
+          :key="s.id"
+          :href="s.url"
+          target="_blank"
+          rel="noopener"
+          class="src card"
+        >
           <div class="src-head">
             <span class="src-kurz">{{ s.kurz }}</span>
             <span class="pill">{{ s.stand }}</span>
           </div>
           <div class="src-titel">{{ s.titel }}</div>
           <div class="src-hg">{{ s.herausgeber }}</div>
-          <div v-if="s.hinweis" class="src-hinweis">{{ s.hinweis }}</div>
+          <div
+            v-if="s.hinweis"
+            class="src-hinweis"
+          >{{ s.hinweis }}</div>
           <div class="src-url">{{ s.url }} ↗</div>
         </a>
       </div>
@@ -34,7 +51,10 @@ import sources from '@/data/sources.json';
       </div>
 
       <footer class="foot">
-        <p class="muted" v-html="$t('sources.footer')" />
+        <p
+          class="muted"
+          v-html="$t('sources.footer')"
+        />
       </footer>
     </div>
   </section>

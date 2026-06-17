@@ -5,17 +5,28 @@
 </script>
 
 <template>
-  <section id="impressum" class="section-alt legal">
+  <section
+    id="impressum"
+    class="section-alt legal"
+  >
     <div class="wrap">
-      <div class="eyebrow">{{ $t('impressum.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('impressum.eyebrow') }}
+      </div>
       <h2>{{ $t('impressum.title') }}</h2>
-      <p class="lead">{{ $t('impressum.lead') }}</p>
+      <p class="lead">
+        {{ $t('impressum.lead') }}
+      </p>
 
       <div class="legal-grid">
         <div class="card legal-card">
           <h3>{{ $t('impressum.operatorTitle') }}</h3>
-          <p class="legal-name">{{ $t('impressum.operatorName') }}</p>
-          <p class="muted">{{ $t('impressum.operatorRole') }}</p>
+          <p class="legal-name">
+            {{ $t('impressum.operatorName') }}
+          </p>
+          <p class="muted">
+            {{ $t('impressum.operatorRole') }}
+          </p>
         </div>
 
         <div class="card legal-card">
@@ -37,7 +48,10 @@
         <p v-html="$t('impressum.liabilityBody')" />
       </div>
 
-      <p class="muted legal-hint" v-html="$t('impressum.privacyHint')" />
+      <p
+        class="muted legal-hint"
+        v-html="$t('impressum.privacyHint')"
+      />
     </div>
   </section>
 </template>

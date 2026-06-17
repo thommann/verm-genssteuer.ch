@@ -16,29 +16,49 @@ const avg = computed(() => totalRev.value / count);
 <template>
   <section id="pauschal">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('pauschal.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('pauschal.eyebrow') }}
+      </div>
       <h2 v-html="$t('pauschal.title', { count: num(count) })" />
-      <p class="lead" v-html="$t('pauschal.lead')" />
+      <p
+        class="lead"
+        v-html="$t('pauschal.lead')"
+      />
 
       <StatGrid>
         <StatCard tone="accent">
-          <template #value>{{ num(count) }}</template>
-          <template #label>{{ $t('pauschal.cardCountLabel') }}</template>
+          <template #value>
+            {{ num(count) }}
+          </template>
+          <template #label>
+            {{ $t('pauschal.cardCountLabel') }}
+          </template>
         </StatCard>
         <StatCard tone="gold">
-          <template #value>{{ chfCompact(totalRev, 0) }}</template>
-          <template #label>{{ $t('pauschal.cardRevenueLabel') }}</template>
+          <template #value>
+            {{ chfCompact(totalRev, 0) }}
+          </template>
+          <template #label>
+            {{ $t('pauschal.cardRevenueLabel') }}
+          </template>
         </StatCard>
         <StatCard>
-          <template #value>{{ chfCompact(avg, 0) }}</template>
-          <template #label>{{ $t('pauschal.cardAvgLabel') }}</template>
+          <template #value>
+            {{ chfCompact(avg, 0) }}
+          </template>
+          <template #label>
+            {{ $t('pauschal.cardAvgLabel') }}
+          </template>
         </StatCard>
       </StatGrid>
 
       <p class="muted small">
         {{ $t('pauschal.note', { lowest: chf(pauschal.lowest), highest: chf(pauschal.highest) }) }}
       </p>
-      <SourceTag id="fdk" :note="$t('pauschal.sourceNote')" />
+      <SourceTag
+        id="fdk"
+        :note="$t('pauschal.sourceNote')"
+      />
     </div>
   </section>
 </template>

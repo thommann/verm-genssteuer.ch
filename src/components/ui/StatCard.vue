@@ -11,7 +11,10 @@ defineProps({
 
 <template>
   <div class="card stat-card">
-    <span class="stat-v" :class="tone"><slot name="value" /></span>
+    <span
+      class="stat-v"
+      :class="tone"
+    ><slot name="value" /></span>
     <span class="stat-l"><slot name="label" /></span>
     <slot />
   </div>

@@ -46,7 +46,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="progress" :style="{ transform: `scaleX(${progress})` }" aria-hidden="true" />
+  <div
+    class="progress"
+    :style="{ transform: `scaleX(${progress})` }"
+    aria-hidden="true"
+  />
   <transition name="totop">
     <button
       v-if="showTop"

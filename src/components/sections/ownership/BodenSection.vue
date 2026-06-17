@@ -69,7 +69,9 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
 <template>
   <section id="boden">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('ownership.bodenEyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('ownership.bodenEyebrow') }}
+      </div>
       <h2>{{ $t('ownership.bodenHeading') }}</h2>
       <p
         class="lead"
@@ -78,27 +80,66 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           oeffentlich: pct(wald.oeffentlich_share, 0),
         })"
       />
-      <p class="muted small note" v-html="$t('ownership.registerNote')" />
-      <span class="srcrow"><SourceTag id="wav_zuerich" :note="$t('ownership.registerSource')" /></span>
+      <p
+        class="muted small note"
+        v-html="$t('ownership.registerNote')"
+      />
+      <span class="srcrow"><SourceTag
+        id="wav_zuerich"
+        :note="$t('ownership.registerSource')"
+      /></span>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.gebChartTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.gebChartIntro')" />
-        <BarChart :items="gebaeudeItems" :max="1" :format-value="(v) => pct(v, 1)" accent="var(--gold)" />
-        <SourceTag id="bfs_gebaeude" :note="$t('ownership.gebChartSource', { jahr: gebaeude.jahr })" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.gebChartIntro')"
+        />
+        <BarChart
+          :items="gebaeudeItems"
+          :max="1"
+          :format-value="(v) => pct(v, 1)"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="bfs_gebaeude"
+          :note="$t('ownership.gebChartSource', { jahr: gebaeude.jahr })"
+        />
       </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.mietChartTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.mietChartIntro', { institutionell: pct(mietwohnungen.institutionell, 0) })" />
-        <BarChart :items="mietItems" :max="1" :format-value="pct0" accent="var(--gold)" />
-        <SourceTag id="raiffeisen_immo" :note="$t('ownership.mietChartSource', { jahr: mietwohnungen.jahr })" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.mietChartIntro', { institutionell: pct(mietwohnungen.institutionell, 0) })"
+        />
+        <BarChart
+          :items="mietItems"
+          :max="1"
+          :format-value="pct0"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="raiffeisen_immo"
+          :note="$t('ownership.mietChartSource', { jahr: mietwohnungen.jahr })"
+        />
       </div>
       <div class="card chartbox">
         <h3>{{ $t('ownership.baujahrTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.baujahrIntro', { privat: pct(wohnBfs.privat, 0) })" />
-        <BarChart :items="baujahrItems" :max="1" :format-value="pct0" accent="var(--gold)" />
-        <SourceTag id="bfs_wohnungen" :note="$t('ownership.baujahrSource', { jahr: wohnBfs.jahr })" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.baujahrIntro', { privat: pct(wohnBfs.privat, 0) })"
+        />
+        <BarChart
+          :items="baujahrItems"
+          :max="1"
+          :format-value="pct0"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="bfs_wohnungen"
+          :note="$t('ownership.baujahrSource', { jahr: wohnBfs.jahr })"
+        />
       </div>
       <div class="card chartbox">
         <h3>{{ $t('ownership.wohneigentumTitle') }}</h3>
@@ -124,7 +165,10 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           :y-label="$t('ownership.wohneigentumLine')"
           :height="280"
         />
-        <SourceTag id="bfs_wohneigentum" :note="$t('ownership.wohneigentumSource')" />
+        <SourceTag
+          id="bfs_wohneigentum"
+          :note="$t('ownership.wohneigentumSource')"
+        />
       </div>
 
       <div class="card chartbox">
@@ -138,16 +182,30 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
             schnitt: num(wald.privat_ha_avg, 1),
           })"
         />
-        <BarChart :items="waldItems" :max="1" :format-value="(v) => pct(v, 1)" accent="var(--gold)" />
+        <BarChart
+          :items="waldItems"
+          :max="1"
+          :format-value="(v) => pct(v, 1)"
+          accent="var(--gold)"
+        />
         <span class="srcrow">
-          <SourceTag id="bfs_wald" :note="$t('ownership.waldChartSource', { jahr: wald.jahr })" />
-          <SourceTag id="bfs_areal" :note="$t('ownership.arealSource')" />
+          <SourceTag
+            id="bfs_wald"
+            :note="$t('ownership.waldChartSource', { jahr: wald.jahr })"
+          />
+          <SourceTag
+            id="bfs_areal"
+            :note="$t('ownership.arealSource')"
+          />
         </span>
       </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.waldTrendTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.waldTrendIntro')" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.waldTrendIntro')"
+        />
         <LineChart
           :aria-label="$t('ownership.waldTrendTitle')"
           :series="waldTrend"
@@ -161,12 +219,18 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           :y-label="$t('ownership.waldTrendYAxis')"
           :height="300"
         />
-        <SourceTag id="bfs_wald" :note="$t('ownership.waldTrendSource')" />
+        <SourceTag
+          id="bfs_wald"
+          :note="$t('ownership.waldTrendSource')"
+        />
       </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.pachtTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.pachtIntro')" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.pachtIntro')"
+        />
         <LineChart
           :aria-label="$t('ownership.pachtTitle')"
           :series="pachtTrend"
@@ -180,43 +244,82 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           :y-label="$t('ownership.pachtLine')"
           :height="280"
         />
-        <SourceTag id="bfs_pacht" :note="$t('ownership.pachtSource')" />
+        <SourceTag
+          id="bfs_pacht"
+          :note="$t('ownership.pachtSource')"
+        />
       </div>
 
-      <h3 class="block-h">{{ $t('ownership.groessteHeading') }}</h3>
-      <p class="muted small intro2">{{ $t('ownership.groessteIntro') }}</p>
+      <h3 class="block-h">
+        {{ $t('ownership.groessteHeading') }}
+      </h3>
+      <p class="muted small intro2">
+        {{ $t('ownership.groessteIntro') }}
+      </p>
       <StatGrid :style="{ margin: '8px 0 14px' }">
-        <StatCard v-for="g in groesste" :key="g.id" tone="accent">
-          <template #value>{{ num(g.menge, 1) }}<span class="unit"> {{ g.einheit }}</span></template>
-          <template #label>{{ $t('ownership.groesste_' + g.id) }}</template>
+        <StatCard
+          v-for="g in groesste"
+          :key="g.id"
+          tone="accent"
+        >
+          <template #value>
+            {{ num(g.menge, 1) }}<span class="unit"> {{ g.einheit }}</span>
+          </template>
+          <template #label>
+            {{ $t('ownership.groesste_' + g.id) }}
+          </template>
           <SourceTag :id="g.quelle" />
         </StatCard>
       </StatGrid>
 
-      <h3 class="block-h">{{ $t('ownership.auslandHeading') }}</h3>
-      <p class="muted small intro2" v-html="$t('ownership.auslandIntro')" />
+      <h3 class="block-h">
+        {{ $t('ownership.auslandHeading') }}
+      </h3>
+      <p
+        class="muted small intro2"
+        v-html="$t('ownership.auslandIntro')"
+      />
       <StatGrid :style="{ margin: '8px 0 14px' }">
         <StatCard tone="accent">
-          <template #value>{{ num(boden.lex_koller.bewilligungen, 0) }}</template>
-          <template #label><span v-html="$t('ownership.auslandBewilligungenLabel', {
-            jahr: boden.lex_koller.jahr,
-            kontingent: num(boden.lex_koller.kontingent, 0),
-            ausschoepfung: pct(boden.lex_koller.ausschoepfung, 0),
-          })" /></template>
+          <template #value>
+            {{ num(boden.lex_koller.bewilligungen, 0) }}
+          </template>
+          <template #label>
+            <span
+              v-html="$t('ownership.auslandBewilligungenLabel', {
+                jahr: boden.lex_koller.jahr,
+                kontingent: num(boden.lex_koller.kontingent, 0),
+                ausschoepfung: pct(boden.lex_koller.ausschoepfung, 0),
+              })"
+            />
+          </template>
         </StatCard>
         <StatCard tone="gold">
-          <template #value>{{ pct(boden.lex_koller.zweitwohnsitze_ch_min, 0) }}+</template>
-          <template #label>{{ $t('ownership.auslandZweitLabel') }}</template>
+          <template #value>
+            {{ pct(boden.lex_koller.zweitwohnsitze_ch_min, 0) }}+
+          </template>
+          <template #label>
+            {{ $t('ownership.auslandZweitLabel') }}
+          </template>
         </StatCard>
         <StatCard>
-          <template #value>{{ pct(boden.blackrock.anteil, 0) }}</template>
-          <template #label><span v-html="$t('ownership.auslandBlackrockLabel', {
-            wert: num(boden.blackrock.wert_mrd, 0),
-            firmen: num(boden.blackrock.firmen, 0),
-          })" /></template>
+          <template #value>
+            {{ pct(boden.blackrock.anteil, 0) }}
+          </template>
+          <template #label>
+            <span
+              v-html="$t('ownership.auslandBlackrockLabel', {
+                wert: num(boden.blackrock.wert_mrd, 0),
+                firmen: num(boden.blackrock.firmen, 0),
+              })"
+            />
+          </template>
         </StatCard>
       </StatGrid>
-      <p class="muted small note" v-html="$t('ownership.auslandAusnahmen')" />
+      <p
+        class="muted small note"
+        v-html="$t('ownership.auslandAusnahmen')"
+      />
       <p
         class="muted small note"
         v-html="$t('ownership.auslandNote', {
@@ -224,12 +327,27 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           sps: pct(boden.blackrock.sps_anteil, 0),
         })"
       />
-      <p class="muted small note" v-html="$t('ownership.auslandReform')" />
+      <p
+        class="muted small note"
+        v-html="$t('ownership.auslandReform')"
+      />
       <span class="srcrow">
-        <SourceTag id="lex_koller" :note="$t('ownership.lexKollerSource', { jahr: boden.lex_koller.jahr })" />
-        <SourceTag id="lex_koller_ausnahmen" :note="$t('ownership.ausnahmenSource')" />
-        <SourceTag id="blackrock_immo" :note="$t('ownership.blackrockSource')" />
-        <SourceTag id="lex_koller_reform" :note="$t('ownership.reformSource')" />
+        <SourceTag
+          id="lex_koller"
+          :note="$t('ownership.lexKollerSource', { jahr: boden.lex_koller.jahr })"
+        />
+        <SourceTag
+          id="lex_koller_ausnahmen"
+          :note="$t('ownership.ausnahmenSource')"
+        />
+        <SourceTag
+          id="blackrock_immo"
+          :note="$t('ownership.blackrockSource')"
+        />
+        <SourceTag
+          id="lex_koller_reform"
+          :note="$t('ownership.reformSource')"
+        />
       </span>
     </div>
   </section>

@@ -46,7 +46,9 @@ const top300Bip = computed(() => {
 <template>
   <section id="reichste">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('ownership.reichsteEyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('ownership.reichsteEyebrow') }}
+      </div>
       <h2>{{ $t('ownership.reichsteHeading') }}</h2>
       <p
         class="lead"
@@ -60,9 +62,20 @@ const top300Bip = computed(() => {
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.reichsteChartTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.reichsteChartIntro')" />
-        <BarChart :items="reichsteItems" :max="1" :format-value="pct0" accent="var(--gold)" />
-        <SourceTag id="bilanz300" :note="$t('ownership.reichsteSource', { jahr: reichste.jahr })" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.reichsteChartIntro')"
+        />
+        <BarChart
+          :items="reichsteItems"
+          :max="1"
+          :format-value="pct0"
+          accent="var(--gold)"
+        />
+        <SourceTag
+          id="bilanz300"
+          :note="$t('ownership.reichsteSource', { jahr: reichste.jahr })"
+        />
       </div>
 
       <div class="card chartbox conc">
@@ -77,8 +90,14 @@ const top300Bip = computed(() => {
           })"
         />
         <div class="srcrow">
-          <SourceTag id="bilanz300" :note="$t('ownership.konzSourceBilanz', { jahr: reichste.vermoegen_300_jahr })" />
-          <SourceTag id="snb_haushalte" :note="$t('ownership.konzSourceSnb', { jahr: reichste.privatvermoegen_jahr })" />
+          <SourceTag
+            id="bilanz300"
+            :note="$t('ownership.konzSourceBilanz', { jahr: reichste.vermoegen_300_jahr })"
+          />
+          <SourceTag
+            id="snb_haushalte"
+            :note="$t('ownership.konzSourceSnb', { jahr: reichste.privatvermoegen_jahr })"
+          />
         </div>
       </div>
 
@@ -89,14 +108,23 @@ const top300Bip = computed(() => {
           v-html="$t('ownership.top300BipStat', { jahr: top300Bip.jahr })"
         />
         <div class="srcrow">
-          <SourceTag id="bilanz300" :note="$t('ownership.top300BipSourceBilanz', { jahr: top300Bip.jahr })" />
-          <SourceTag id="worldbank_gdp" :note="$t('ownership.bipTrendSourceGdp')" />
+          <SourceTag
+            id="bilanz300"
+            :note="$t('ownership.top300BipSourceBilanz', { jahr: top300Bip.jahr })"
+          />
+          <SourceTag
+            id="worldbank_gdp"
+            :note="$t('ownership.bipTrendSourceGdp')"
+          />
         </div>
       </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.konzTrendTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.konzTrendIntro')" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.konzTrendIntro')"
+        />
         <LineChart
           :aria-label="$t('ownership.konzTrendTitle')"
           :series="top1Trend"
@@ -110,12 +138,18 @@ const top300Bip = computed(() => {
           :y-label="$t('ownership.konzTrendYAxis')"
           :height="300"
         />
-        <SourceTag id="wid" :note="$t('ownership.konzTrendSource')" />
+        <SourceTag
+          id="wid"
+          :note="$t('ownership.konzTrendSource')"
+        />
       </div>
 
       <div class="card chartbox">
         <h3>{{ $t('ownership.bipTrendTitle') }}</h3>
-        <p class="muted intro" v-html="$t('ownership.bipTrendIntro')" />
+        <p
+          class="muted intro"
+          v-html="$t('ownership.bipTrendIntro')"
+        />
         <LineChart
           :aria-label="$t('ownership.bipTrendTitle')"
           :series="vermoegenBipTrend"
@@ -130,8 +164,14 @@ const top300Bip = computed(() => {
           :height="300"
         />
         <div class="srcrow">
-          <SourceTag id="snb_haushalte" :note="$t('ownership.bipTrendSourceSnb')" />
-          <SourceTag id="worldbank_gdp" :note="$t('ownership.bipTrendSourceGdp')" />
+          <SourceTag
+            id="snb_haushalte"
+            :note="$t('ownership.bipTrendSourceSnb')"
+          />
+          <SourceTag
+            id="worldbank_gdp"
+            :note="$t('ownership.bipTrendSourceGdp')"
+          />
         </div>
       </div>
     </div>

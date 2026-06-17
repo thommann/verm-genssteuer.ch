@@ -51,9 +51,14 @@ const lastLabel = computed(() => ({
 <template>
   <section id="dynamik">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('projection.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('projection.eyebrow') }}
+      </div>
       <h2 v-html="$t('projection.title')" />
-      <p class="lead" v-html="$t('projection.lead')" />
+      <p
+        class="lead"
+        v-html="$t('projection.lead')"
+      />
 
       <div class="proj-grid">
         <div class="card chartbox">
@@ -77,7 +82,9 @@ const lastLabel = computed(() => ({
           </div>
           <!-- Pfeil zeigt die Leserichtung von oben (erstes Jahr) nach unten (2032),
                unabhängig vom Trend. -->
-          <div class="arrow">↓</div>
+          <div class="arrow">
+            ↓
+          </div>
           <div class="sidestat">
             <span class="sv gold">{{ chfCompact(last, 1) }}</span>
             <span class="sl">{{ lastLabel }}</span>
@@ -92,13 +99,25 @@ const lastLabel = computed(() => ({
             :display="pct(state.rendite, 1)"
             :hint="$t('projection.renditeHint')"
           />
-          <p class="muted small" v-html="$t('projection.formula')" />
+          <p
+            class="muted small"
+            v-html="$t('projection.formula')"
+          />
         </div>
       </div>
       <div class="srcs">
-        <SourceTag id="estv_vermoegen" :note="$t('projection.sourceNoteEstv')" />
-        <SourceTag id="fdk" :note="$t('projection.sourceNoteFdk')" />
-        <SourceTag id="wir2022_wachstum" :note="$t('projection.sourceNoteRendite')" />
+        <SourceTag
+          id="estv_vermoegen"
+          :note="$t('projection.sourceNoteEstv')"
+        />
+        <SourceTag
+          id="fdk"
+          :note="$t('projection.sourceNoteFdk')"
+        />
+        <SourceTag
+          id="wir2022_wachstum"
+          :note="$t('projection.sourceNoteRendite')"
+        />
       </div>
     </div>
   </section>

@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   modelValue: { type: Number, required: true },
   min: { type: Number, required: true },
   max: { type: Number, required: true },
@@ -26,8 +26,13 @@ const onInput = (e) => emit('update:modelValue', Number(e.target.value));
       :step="step"
       :value="modelValue"
       @input="onInput"
-    />
-    <p v-if="hint" class="range-hint">{{ hint }}</p>
+    >
+    <p
+      v-if="hint"
+      class="range-hint"
+    >
+      {{ hint }}
+    </p>
   </div>
 </template>
 

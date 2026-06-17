@@ -60,9 +60,22 @@ const lastPt = (s) => { const f = finitePts(s.points); return f[f.length - 1]; }
   >
     <!-- y grid + ticks -->
     <g class="grid">
-      <g v-for="t in yTicks" :key="`y${t}`">
-        <line :x1="pad.l" :x2="width - pad.r" :y1="sy(t)" :y2="sy(t)" />
-        <text :x="pad.l - 8" :y="sy(t)" text-anchor="end" dominant-baseline="middle">{{ formatY(t) }}</text>
+      <g
+        v-for="t in yTicks"
+        :key="`y${t}`"
+      >
+        <line
+          :x1="pad.l"
+          :x2="width - pad.r"
+          :y1="sy(t)"
+          :y2="sy(t)"
+        />
+        <text
+          :x="pad.l - 8"
+          :y="sy(t)"
+          text-anchor="end"
+          dominant-baseline="middle"
+        >{{ formatY(t) }}</text>
       </g>
     </g>
     <!-- x ticks -->
@@ -85,7 +98,10 @@ const lastPt = (s) => { const f = finitePts(s.points); return f[f.length - 1]; }
       :y2="sy(0)"
     />
     <!-- series -->
-    <g v-for="s in series" :key="s.name">
+    <g
+      v-for="s in series"
+      :key="s.name"
+    >
       <path
         :d="linePath(s.points)"
         fill="none"
@@ -103,7 +119,13 @@ const lastPt = (s) => { const f = finitePts(s.points); return f[f.length - 1]; }
         :fill="s.color"
       />
     </g>
-    <text v-if="yLabel" class="ylabel" :x="14" :y="pad.t + 4" text-anchor="start">{{ yLabel }}</text>
+    <text
+      v-if="yLabel"
+      class="ylabel"
+      :x="14"
+      :y="pad.t + 4"
+      text-anchor="start"
+    >{{ yLabel }}</text>
     <text
       v-if="xLabel"
       class="xlabel"

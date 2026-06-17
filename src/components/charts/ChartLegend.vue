@@ -10,8 +10,14 @@ defineProps({
 
 <template>
   <div class="legend">
-    <span v-for="it in items" :key="it.label">
-      <i class="sw" :style="{ background: it.color }" /> {{ it.label }}
+    <span
+      v-for="it in items"
+      :key="it.label"
+    >
+      <i
+        class="sw"
+        :style="{ background: it.color }"
+      /> {{ it.label }}
     </span>
   </div>
 </template>

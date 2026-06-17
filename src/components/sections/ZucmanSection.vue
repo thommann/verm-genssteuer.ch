@@ -35,46 +35,95 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
 <template>
   <section id="zucman">
     <div class="wrap">
-      <div class="eyebrow">{{ $t('zucman.eyebrow') }}</div>
+      <div class="eyebrow">
+        {{ $t('zucman.eyebrow') }}
+      </div>
       <h2 v-html="$t('zucman.title')" />
-      <p class="lead" v-html="$t('zucman.lead')" />
+      <p
+        class="lead"
+        v-html="$t('zucman.lead')"
+      />
 
-      <h3 class="block-h">{{ $t('zucman.wantHeading') }}</h3>
-      <p class="body" v-html="$t('zucman.wantText')" />
+      <h3 class="block-h">
+        {{ $t('zucman.wantHeading') }}
+      </h3>
+      <p
+        class="body"
+        v-html="$t('zucman.wantText')"
+      />
       <div class="srcrow">
-        <SourceTag id="woz_zucman" :note="$t('zucman.wantSource')" />
-        <SourceTag id="bilanz300" :note="$t('zucman.baseSource')" />
+        <SourceTag
+          id="woz_zucman"
+          :note="$t('zucman.wantSource')"
+        />
+        <SourceTag
+          id="bilanz300"
+          :note="$t('zucman.baseSource')"
+        />
       </div>
 
-      <h3 class="block-h">{{ $t('zucman.todayHeading') }}</h3>
-      <p class="body" v-html="$t('zucman.todayText')" />
+      <h3 class="block-h">
+        {{ $t('zucman.todayHeading') }}
+      </h3>
+      <p
+        class="body"
+        v-html="$t('zucman.todayText')"
+      />
       <ul class="calclist">
         <li v-html="$t('zucman.todayItem1')" />
         <li v-html="$t('zucman.todayItem2')" />
         <li v-html="$t('zucman.todaySum')" />
       </ul>
       <div class="srcrow">
-        <SourceTag id="nzz_vermoegenssteuer" :note="$t('zucman.todaySource')" />
-        <SourceTag id="reichensteuer_studie" :note="$t('zucman.todaySource2')" />
+        <SourceTag
+          id="nzz_vermoegenssteuer"
+          :note="$t('zucman.todaySource')"
+        />
+        <SourceTag
+          id="reichensteuer_studie"
+          :note="$t('zucman.todaySource2')"
+        />
       </div>
 
-      <h3 class="block-h">{{ $t('zucman.extraHeading') }}</h3>
-      <p class="body" v-html="$t('zucman.extraText')" />
+      <h3 class="block-h">
+        {{ $t('zucman.extraHeading') }}
+      </h3>
+      <p
+        class="body"
+        v-html="$t('zucman.extraText')"
+      />
       <div class="card calcbox">
-        <span class="calc-line" v-html="$t('zucman.calcLine')" />
-        <span class="calc-result" v-html="$t('zucman.calcResult')" />
+        <span
+          class="calc-line"
+          v-html="$t('zucman.calcLine')"
+        />
+        <span
+          class="calc-result"
+          v-html="$t('zucman.calcResult')"
+        />
       </div>
 
       <div class="card daysbox">
-        <span class="calc-line" v-html="$t('zucman.daysLine')" />
+        <span
+          class="calc-line"
+          v-html="$t('zucman.daysLine')"
+        />
         <span class="days-result">~{{ recoveryMonths }}&nbsp;<span class="recovery-unit">{{ $t('zucman.recoveryUnit') }}</span></span>
-        <span class="days-sub" v-html="$t('zucman.daysSub')" />
+        <span
+          class="days-sub"
+          v-html="$t('zucman.daysSub')"
+        />
       </div>
       <div class="srcrow">
-        <SourceTag id="zucman_g20" :note="$t('zucman.daysSource')" />
+        <SourceTag
+          id="zucman_g20"
+          :note="$t('zucman.daysSource')"
+        />
       </div>
 
-      <h3 class="block-h">{{ $t('zucman.medHeading') }}</h3>
+      <h3 class="block-h">
+        {{ $t('zucman.medHeading') }}
+      </h3>
       <div class="card medbox">
         <span class="calc-line">{{ $t('zucman.medLine') }}</span>
         <div class="med-figures">
@@ -87,14 +136,26 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
             <span class="med-lab">{{ $t('zucman.medRowMittel') }}</span>
           </div>
         </div>
-        <span class="days-sub" v-html="$t('zucman.medCaption')" />
+        <span
+          class="days-sub"
+          v-html="$t('zucman.medCaption')"
+        />
       </div>
       <div class="srcrow">
-        <SourceTag id="bfs_habe" :note="$t('zucman.medSource')" />
+        <SourceTag
+          id="bfs_habe"
+          :note="$t('zucman.medSource')"
+        />
       </div>
 
-      <h3 class="block-h">{{ $t('zucman.meaningHeading') }}</h3>
-      <SpendGrid :revenue="REVENUE" :debt-free-years="debtFreeYearsFlat" mini />
+      <h3 class="block-h">
+        {{ $t('zucman.meaningHeading') }}
+      </h3>
+      <SpendGrid
+        :revenue="REVENUE"
+        :debt-free-years="debtFreeYearsFlat"
+        mini
+      />
     </div>
   </section>
 </template>
