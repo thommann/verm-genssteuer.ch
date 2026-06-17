@@ -13,9 +13,17 @@ const props = defineProps({
   height: { type: Number, default: 340 },
   width: { type: Number, default: 820 },
   yLabel: { type: String, default: '' },
+  xLabel: { type: String, default: '' },
 });
 
-const pad = { t: 16, r: 18, b: 34, l: 52 };
+// Mehr Platz unten/links, sobald eine Achse beschriftet ist, damit die
+// Achsentitel nicht mit den Tick-Labels kollidieren.
+const pad = computed(() => ({
+  t: 16,
+  r: 18,
+  b: props.xLabel ? 52 : 34,
+  l: props.yLabel ? 64 : 52,
+}));
 
 const allPts = computed(() => props.series.flatMap((s) => s.points).filter((p) => p.y != null && Number.isFinite(p.y)));
 
@@ -28,8 +36,8 @@ const yd = computed(() => props.yDomain || [
   Math.max(...allPts.value.map((p) => p.y)),
 ]);
 
-const sx = (x) => pad.l + ((x - xd.value[0]) / (xd.value[1] - xd.value[0] || 1)) * (props.width - pad.l - pad.r);
-const sy = (y) => props.height - pad.b - ((y - yd.value[0]) / (yd.value[1] - yd.value[0] || 1)) * (props.height - pad.t - pad.b);
+const sx = (x) => pad.value.l + ((x - xd.value[0]) / (xd.value[1] - xd.value[0] || 1)) * (props.width - pad.value.l - pad.value.r);
+const sy = (y) => props.height - pad.value.b - ((y - yd.value[0]) / (yd.value[1] - yd.value[0] || 1)) * (props.height - pad.value.t - pad.value.b);
 
 // Nur reale Messpunkte zeichnen, fehlende Werte (z. B. Welt 2024) brechen die Linie,
 // statt auf 0 zu stürzen.
@@ -87,6 +95,13 @@ const lastPt = (s) => { const f = finitePts(s.points); return f[f.length - 1]; }
       />
     </g>
     <text v-if="yLabel" class="ylabel" :x="14" :y="pad.t + 4" text-anchor="start">{{ yLabel }}</text>
+    <text
+      v-if="xLabel"
+      class="xlabel"
+      :x="pad.l + (width - pad.l - pad.r) / 2"
+      :y="height - 6"
+      text-anchor="middle"
+    >{{ xLabel }}</text>
   </svg>
 </template>
 
@@ -95,5 +110,5 @@ const lastPt = (s) => { const f = finitePts(s.points); return f[f.length - 1]; }
 .grid line { stroke: var(--border); stroke-width: 1; opacity: 0.45; }
 .grid text, .axis text { fill: var(--text-mute); font-size: 12px; font-variant-numeric: tabular-nums; }
 .zero { stroke: var(--text-mute); stroke-width: 1.2; stroke-dasharray: 2 3; }
-.ylabel { fill: var(--text-mute); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+.ylabel, .xlabel { fill: var(--text-mute); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
 </style>
