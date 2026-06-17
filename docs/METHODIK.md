@@ -649,35 +649,22 @@ Privatpersonen 49 %, institutionelle Anleger 33 %, Genossenschaften 8 %, Immobil
 öffentliche Hand 4 %. Kuratierte Konstante `MIETWOHNUNGEN`; Selbstprüfung: Anteile summieren auf
 ~100 %. Modellbasierte Schätzung, keine amtliche Vollerhebung (so deklariert).
 
-**Boden / Wald (Feld `wald`).** Aus dem BFS-Cube px-x-0703010000_101 (Quelle `bfs_wald`),
-Beobachtungseinheit «Gesamte Waldflächen» (ha), Schweiz, neuestes Jahr:
+**Boden (Feld `boden`).** Der Boden-Kontext ist kuratiert: Lex-Koller-Bewilligungen mit
+`ausschoepfung = bewilligungen / kontingent` (`lex_koller`) und BlackRocks indirekter Anteil
+(`blackrock_immo`). Ebenfalls kuratiert: Mietwohnungseigentum nach Bauperiode (`wohnungen_bfs`,
+BFS 2023: vor 1946 65 % → nach 2000 32 % privat), Pachtanteil-Reihe der Landwirtschaft
+(`boden.pacht`, 1980–2020) und die grössten einzelnen Eigentümer (`boden.groesste`,
+Medienrecherchen). Fetchbar dagegen die Wohneigentumsquote (Feld `wohneigentum`): aus der
+BFS-Tabelle T 09.03.02.01.03 je Jahr die Schweiz-Quote (Spalte «Anteil in %», nur Werte
+20–50 % übernommen), Höchststand 2015 (38,4 %), 2024 = 35,7 %. Eine amtliche Statistik des
+Bodeneigentums nach Nationalität existiert nicht; das Grundbuch ist kantonal und kennt kein
+zentrales Register.
 
-```
-oeffentlich_share = Öffentliche Wälder / (Eigentümertyp-Total)
-```
-
-Belegwert 2024: `oeffentlich_share = 70,6 %` von 1 275 891 ha. Selbstprüfung: Privat +
-Öffentlich ≈ Total und 0,6 ≤ öffentlicher Anteil ≤ 0,8. Eine zweite Cube-Abfrage (`e007`)
-liefert die Eigentümerzahl (245 975 total / 242 634 privat); `privat_ha_avg = privat_ha /
-privat_eigentuemer ≈ 1,5 ha`. Boden-Kontext (Feld `boden`) ist kuratiert: Arealstatistik-
-Nutzungsanteile (`bfs_areal`), Lex-Koller-Bewilligungen mit `ausschoepfung = bewilligungen /
-kontingent` (`lex_koller`) und BlackRocks indirekter Anteil (`blackrock_immo`). Ebenfalls
-kuratiert: Mietwohnungseigentum nach Bauperiode (`wohnungen_bfs`, BFS 2023: vor 1946 65 % →
-nach 2000 32 % privat), Pachtanteil-Reihe der Landwirtschaft (`boden.pacht`, 1980–2020) und
-die grössten einzelnen Eigentümer (`boden.groesste`, Medienrecherchen). Fetchbar dagegen die
-Wohneigentumsquote (Feld `wohneigentum`): aus der BFS-Tabelle T 09.03.02.01.03 je Jahr die
-Schweiz-Quote (Spalte «Anteil in %», nur Werte 20–50 % übernommen), Höchststand 2015 (38,4 %),
-2024 = 35,7 %. Eine amtliche Statistik des
-Bodeneigentums nach Nationalität existiert nicht; der Waldanteil ist die einzige
-hektargenaue, amtliche Eigentums-Kennzahl und wird als solche deklariert.
-
-**Verläufe (Felder `…serie`).** Drei Zeitreihen zeigen die Veränderung der
+**Verläufe (Felder `…serie`).** Zwei Zeitreihen zeigen die Veränderung der
 Besitzverhältnisse: Auslandskontroll-Anteil je STAGRE-Kennzahl über alle Jahre mit Werten
-(`firmen.<kennzahl>.serie`, 2014–2024), öffentlicher Waldanteil je Jahr (`wald.serie`,
-1975–2024, alle 50 Jahre des Cubes, je Jahr `oeffentlich_share = Öffentliche / Total`), sowie
-der WID-Top-1-%-Vermögensanteil der Schweiz (aus `wid_timeseries.json`, §-Verfahren wie in der
-International-Sektion). Keine zusätzlichen Rohzahlen, nur Aggregation der bereits
-dokumentierten Quellen.
+(`firmen.<kennzahl>.serie`, 2014–2024) sowie der WID-Top-1-%-Vermögensanteil der Schweiz (aus
+`wid_timeseries.json`, §-Verfahren wie in der International-Sektion). Keine zusätzlichen
+Rohzahlen, nur Aggregation der bereits dokumentierten Quellen.
 
 Zwei Verläufe setzen Vermögen ins Verhältnis zum nominalen BIP (Weltbank `worldbank_gdp`,
 NY.GDP.MKTP.CN, in Mrd. CHF):
@@ -707,7 +694,7 @@ python3 scripts/03_extract_wid_ubs.py    # -> WID-Zeitreihen, Ranking, UBS-Gini/
 python3 scripts/04_extract_spend_reference.py  # -> spend_reference.json (BFS live + EFV/BAG kuratiert)
 python3 scripts/05_extract_habe.py       # -> habe.json (Arbeiter-/Mittelstandshaushalt)
 python3 scripts/06_extract_infrastruktur.py    # -> infrastruktur.json (EFV-Verkehr skript + NAF/BIF kuratiert)
-python3 scripts/07_extract_ownership.py  # -> ownership.json (Reichste, Firmen, Gebäude, Mietwohnungen, Wald)
+python3 scripts/07_extract_ownership.py  # -> ownership.json (Reichste, Firmen, Gebäude, Mietwohnungen, Boden)
 
 # 3. Alle Verfahren unabhängig nachrechnen und prüfen:
 python3 scripts/00_reproduce_statistics.py   # erwartet: alle Prüfungen OK

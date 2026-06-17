@@ -216,15 +216,6 @@
     "hinweis": "Nominales BIP der Schweiz in laufenden Franken, Jahresreihe (z. B. 2024 rund 825 Mrd. CHF). Dient als BIP-Nenner für zwei Verläufe in der Sektion «Wem gehört die Schweiz?»: gesamtes Privatvermögen (SNB) als Vielfaches des BIP (2000–2024, von rund 4,3 auf rund 6) und Vermögen der 300 Reichsten (Bilanz) als Anteil am BIP (2022–2024, rund 100 %). Fetchbar als JSON über die offene Weltbank-API; reproduziert via scripts/07_extract_ownership.py. Die Weltbank übernimmt die offiziellen Schweizer Volkswirtschaftlichen Gesamtrechnungen (BFS/SECO)."
   },
   {
-    "id": "bfs_areal",
-    "kurz": "BFS Arealstatistik",
-    "titel": "Arealstatistik der Schweiz: Bodennutzung nach Hauptkategorien",
-    "herausgeber": "Bundesamt für Statistik (BFS)",
-    "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/raum-umwelt/bodennutzung-bedeckung.html",
-    "stand": "Arealstatistik, Erhebung 2013/18",
-    "hinweis": "Bodennutzung der Schweiz nach Hauptkategorien: Landwirtschaftsflächen rund 35 %, Wald und Gehölze rund 32 %, Siedlungsflächen rund 8 %, Rest (Gewässer, Gletscher, Fels, unproduktive Vegetation) rund 25 %. Die Siedlungsfläche stieg über rund 24 Jahre von 6,0 % auf 7,5 %; rund 90 % der neuen Siedlungsflächen entstanden auf vormaligem Landwirtschaftsland. Kuratierte Kontextwerte (bezug=kuratiert) in src/data/ownership.json (Feld boden.nutzung); dienen der Einordnung «Wald rund ein Drittel der Landesfläche»."
-  },
-  {
     "id": "lex_koller",
     "kurz": "Lex Koller (BJ)",
     "titel": "Erwerb von Ferienwohnungen durch Personen im Ausland (Lex-Koller-Statistik)",
@@ -294,7 +285,7 @@
     "herausgeber": "Wikipedia (nach kath.ch u. a.)",
     "url": "https://de.wikipedia.org/wiki/Kloster_Einsiedeln",
     "stand": "Abruf Juni 2026",
-    "hinweis": "Das Kloster Einsiedeln verfügt über rund 2140 Hektaren in fünf Kantonen (plus eine Enklave in Vorarlberg) und gilt als grösster privater Grundbesitzer der Schweiz; mit rund 1058 ha Wald zudem grösster privater Waldbesitzer. Drittquelle, kuratiert; in src/data/ownership.json (Feld boden.groesste)."
+    "hinweis": "Das Kloster Einsiedeln verfügt über rund 2140 Hektaren in fünf Kantonen (plus eine Enklave in Vorarlberg) und gilt als grösster privater Grundbesitzer der Schweiz. Drittquelle, kuratiert; in src/data/ownership.json (Feld boden.groesste)."
   },
   {
     "id": "bfs_wohneigentum",
@@ -349,15 +340,6 @@
     "url": "https://www.admin.ch/de/newnsb/4mzivVX5Ko4dpap06YtuI",
     "stand": "Medienmitteilung 15. April 2026",
     "hinweis": "Der Bundesrat eröffnete am 15. April 2026 die Vernehmlassung (bis 15. Juli 2026) zur Verschärfung der Lex Koller. Geplant sind u. a. eine Bewilligungspflicht für den Wohnungskauf durch Drittstaatsangehörige, eine Einschränkung des Ferienwohnungskaufs sowie ein grundsätzliches Verbot für Personen im Ausland, börsenkotierte Anteile an Wohnimmobiliengesellschaften und regelmässig gehandelte Anteile an Immobilienfonds zu erwerben. Kontext zur Sektion (kein Datenfeld)."
-  },
-  {
-    "id": "bfs_wald",
-    "kurz": "BFS Waldeigentum",
-    "titel": "Waldflächen der Schweiz nach Eigentümertyp (öffentlich/privat), 2024",
-    "herausgeber": "Bundesamt für Statistik (BFS), Schweizerische Forststatistik",
-    "url": "https://www.pxweb.bfs.admin.ch/pxweb/de/px-x-0703010000_101/px-x-0703010000_101/px-x-0703010000_101.px",
-    "stand": "Cube px-x-0703010000_101, Stand 2024",
-    "hinweis": "BFS-Cube «Waldflächen der Schweiz in ha nach Jahr, Forstzone, Kanton, Eigentümertyp und Beobachtungseinheit». Auswahl: Schweiz, Forstzone Schweiz, Eigentümertyp Total/Privatwälder/Öffentliche Wälder, Beobachtungseinheit «Gesamte Waldflächen» (Code e012), Jahr 2024. Gesamte Waldfläche 1 275 891 ha (rund ein Drittel der Landesfläche), davon 900 621 ha (70,6 %) öffentliche Wälder (Gemeinden, Bürger-/Burgergemeinden, Korporationen, Kantone, Bund) und 375 270 ha (29,4 %) Privatwälder. Es gibt in der Schweiz keine amtliche Statistik des Bodeneigentums nach Nationalität (Grundbuch ist kantonal, kein zentrales Register); der Waldanteil ist die belegbare, hektargenaue Eigentums-Kennzahl zum Boden. Reproduzierbar via scripts/06_extract_ownership.py → src/data/ownership.json (Feld wald)."
   },
   {
     "id": "f35_beschaffung",

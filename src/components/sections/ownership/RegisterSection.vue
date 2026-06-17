@@ -78,7 +78,8 @@ h2 { max-width: 22ch; }
 .body:last-of-type { margin-bottom: 0; }
 .body :deep(strong) { color: var(--text); font-weight: 800; }
 .body :deep(.hl) { color: var(--accent); font-weight: 800; }
-h2 :deep(.hl) { color: var(--accent); }
+/* Sektionstitel ohne Marker-Hintergrund: die Hervorhebung bleibt eine reine Farbe. */
+h2 :deep(.hl) { background: none; padding: 0; border-radius: 0; color: var(--accent); }
 .pullquote {
   margin: 24px 0 8px;
   padding: 4px 0 4px 20px;

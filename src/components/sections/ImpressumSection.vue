@@ -57,7 +57,7 @@
 </template>
 
 <style scoped>
-.legal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 28px 0 16px; }
+.legal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--card-gap); margin: 28px 0 var(--card-gap); }
 .legal-card { padding: 22px; }
 .legal-card h3 { font-size: 0.95rem; color: var(--text-soft); margin: 0 0 10px; }
 .legal-name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin: 0 0 2px; }

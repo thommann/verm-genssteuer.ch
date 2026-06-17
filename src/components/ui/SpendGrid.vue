@@ -388,7 +388,7 @@ const over = (v) => v > 1;
 
 <style scoped>
 /* Standard: 1 Spalte (Mobile), 2 ab 560px, 3 ab 900px (Desktop). */
-.spend-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+.spend-grid { display: grid; grid-template-columns: 1fr; gap: var(--card-gap); }
 @media (min-width: 560px) { .spend-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 900px) { .spend-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 /* Jede Kachel ist selbst ein Grid und teilt ihre Zeilen ueber subgrid mit den Nachbarn
