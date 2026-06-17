@@ -649,8 +649,7 @@ Privatpersonen 49 %, institutionelle Anleger 33 %, Genossenschaften 8 %, Immobil
 öffentliche Hand 4 %. Kuratierte Konstante `MIETWOHNUNGEN`; Selbstprüfung: Anteile summieren auf
 ~100 %. Modellbasierte Schätzung, keine amtliche Vollerhebung (so deklariert).
 
-**Boden (Feld `boden`).** Der Boden-Kontext ist kuratiert: Lex-Koller-Bewilligungen mit
-`ausschoepfung = bewilligungen / kontingent` (`lex_koller`) und BlackRocks indirekter Anteil
+**Boden (Feld `boden`).** Der Boden-Kontext ist kuratiert: BlackRocks indirekter Anteil
 (`blackrock_immo`). Ebenfalls kuratiert: Mietwohnungseigentum nach Bauperiode (`wohnungen_bfs`,
 BFS 2023: vor 1946 65 % → nach 2000 32 % privat), Pachtanteil-Reihe der Landwirtschaft
 (`boden.pacht`, 1980–2020) und die grössten einzelnen Eigentümer (`boden.groesste`,
