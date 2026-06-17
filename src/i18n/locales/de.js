@@ -248,7 +248,7 @@ export default {
   spend: {
     eyebrow: 'Was tun mit dem Geld?',
     title: '{revenue} pro Jahr: wofür?',
-    lead: 'Dieselben Einnahmen, fünf mögliche Verwendungen. Stell oben am Rechner ein Steuermodell ein und sieh hier in Echtzeit, was damit für alle möglich wäre.',
+    lead: 'Dieselben Einnahmen, viele mögliche Verwendungen. Stell oben am Rechner ein Steuermodell ein und sieh hier in Echtzeit, was damit für alle möglich wäre.',
     interactiveSummary: 'Selbst rechnen: Jahr wählen und Budget aufteilen',
     modeCompare: 'Vergleich',
     modeAllocate: 'Selbst aufteilen',
