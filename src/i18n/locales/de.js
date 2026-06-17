@@ -32,7 +32,7 @@ export default {
       transparenz: 'Transparenz',
     },
     items: {
-      start: 'Aussagen',
+      start: 'Startseite',
       aufkauf: 'Der Aufkauf',
       geldfluss: 'Der Geldfluss',
       demokratie: 'Demokratie',

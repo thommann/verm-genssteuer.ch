@@ -10,10 +10,10 @@ const router = useRouter();
 // in DOM-Reihenfolge; die Beschriftungen liegen in nav.groups.<key> und nav.items.<id>.
 // num nummeriert die drei Themen im Menübaum.
 const GROUPS = [
-  { key: 'hintergrund', route: '/hintergrund', num: '1', items: ['aufkauf', 'geldfluss', 'demokratie', 'steuerluecke', 'wirtschaft', 'loesung', 'mehr'] },
-  { key: 'rechner', route: '/rechner', num: '2', items: ['rechner', 'wegzug', 'dynamik', 'verwendung'] },
-  { key: 'verteilung', route: '/verteilung', num: '3', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
-  { key: 'modelle', route: '/modelle', num: '4', items: ['wir-reports', 'zucman'] },
+  { key: 'hintergrund', route: '/hintergrund', num: '2', items: ['aufkauf', 'geldfluss', 'demokratie', 'steuerluecke', 'wirtschaft', 'loesung', 'mehr'] },
+  { key: 'rechner', route: '/rechner', num: '3', items: ['rechner', 'wegzug', 'dynamik', 'verwendung'] },
+  { key: 'verteilung', route: '/verteilung', num: '4', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
+  { key: 'modelle', route: '/modelle', num: '5', items: ['wir-reports', 'zucman'] },
   { key: 'transparenz', route: '/quellen', num: '·', items: ['quellen'] },
 ];
 
@@ -130,11 +130,14 @@ onUnmounted(() => {
           <ul class="menu-tree">
             <li>
               <router-link
-                class="mt-link mt-home"
+                class="mt-link mt-home mt-group-link"
                 :class="{ active: route.path === '/' }"
                 to="/"
                 @click="closeMenu"
-              >{{ $t('nav.items.start') }}</router-link>
+              >
+                <span class="mt-num" aria-hidden="true">1</span>
+                <span>{{ $t('nav.items.start') }}</span>
+              </router-link>
             </li>
             <li v-for="g in GROUPS" :key="g.key" class="mt-group">
               <router-link
