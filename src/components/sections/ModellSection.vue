@@ -8,6 +8,7 @@ import { chfCompact, pct, num } from '@/lib/format.js';
 import RangeControl from '@/components/ui/RangeControl.vue';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
+import ChartLegend from '@/components/charts/ChartLegend.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const k = kennzahlen.unbeschraenkt['2022'];
@@ -66,6 +67,11 @@ const bandItems = computed(() =>
 );
 
 const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
+
+const curveLegend = computed(() => [
+  { color: 'var(--accent)', label: t('calculator.curveLegendMarginal') },
+  { color: 'var(--gold)', label: t('calculator.curveLegendAvg') },
+]);
 
 // Bei aktivem WIR-Modell steuern die Regler (Potenzkurve) nicht das angezeigte Modell;
 // erkannt an der Preset-Gruppe statt an einer fest verdrahteten Schlüsselliste.
@@ -173,10 +179,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
               :format-y="(v) => pct(v, 0)"
               :height="300"
             />
-            <div class="legend">
-              <span><i class="sw" style="background: var(--accent)" /> {{ $t('calculator.curveLegendMarginal') }}</span>
-              <span><i class="sw" style="background: var(--gold)" /> {{ $t('calculator.curveLegendAvg') }}</span>
-            </div>
+            <ChartLegend :items="curveLegend" :style="{ marginTop: '12px' }" />
           </div>
 
           <!-- Revenue by band -->
@@ -248,10 +251,7 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
   color: var(--teal); text-decoration: underline; cursor: pointer;
 }
 
-.chartbox { padding: 22px 24px; }
 .chartbox h3 { margin-bottom: 14px; }
-.legend { display: flex; gap: 18px; font-size: 0.8rem; color: var(--text-soft); margin-top: 12px; flex-wrap: wrap; }
-.legend .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
 
 .year-pick { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
 .year-pick span { color: var(--text-mute); font-size: 0.85rem; font-weight: 600; }
@@ -262,7 +262,6 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
 .ychip.active { background: var(--gold); border-color: var(--gold); color: #1a1400; }
 
 .disclaimer { font-size: 0.82rem; color: var(--text-mute); margin-top: 22px; max-width: 75ch; display: flex; flex-direction: column; gap: 8px; }
-.disclaimer .srcs { display: flex; gap: 18px; flex-wrap: wrap; }
 
 @media (max-width: 820px) {
   .calc-grid { grid-template-columns: 1fr; }

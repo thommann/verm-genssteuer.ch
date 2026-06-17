@@ -112,7 +112,7 @@ const debtFreeYearsFlat = K.staatsschuld_maastricht.value / REVENUE;
 .calclist li { margin-bottom: 8px; font-size: 0.94rem; line-height: 1.55; }
 .calclist :deep(strong) { color: var(--text); }
 
-.srcrow { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; }
+.srcrow { margin-top: 14px; }
 
 .calcbox {
   margin: 18px 0 4px; padding: 22px 24px;

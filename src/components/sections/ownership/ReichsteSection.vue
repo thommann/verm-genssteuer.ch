@@ -142,12 +142,9 @@ const top300Bip = computed(() => {
 .sv { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
 .sv.accent { color: var(--accent); }
 .sv.gold { color: var(--gold); }
-/* Einheitlicher Abstand zwischen allen Karten der Sektion. */
-.chartbox { padding: 24px 26px; margin-top: 24px; }
-.chartbox h3 { margin-bottom: 8px; }
-.intro { font-size: 0.92rem; max-width: 70ch; margin-bottom: 20px; }
+/* Padding/h3/intro/srcrow kommen global (main.css); hier nur der Sektionsrhythmus. */
+.chartbox { margin-top: 24px; }
 .conc { display: flex; flex-direction: column; gap: 10px; }
 .conc .big { font-size: 2.6rem; }
 .conc-text { font-size: 0.95rem; max-width: 70ch; margin: 0; }
-.srcrow { display: flex; flex-wrap: wrap; gap: 16px; }
 </style>

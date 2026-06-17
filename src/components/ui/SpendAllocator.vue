@@ -276,7 +276,4 @@ const remainingPct = computed(() => (props.revenue ? (remaining.value / props.re
 .fill.teal, .seg.teal { background: var(--teal); }
 .fill.violet, .seg.violet { background: var(--violet); }
 .fill.blue, .seg.blue { background: var(--blue); }
-
-.srcs { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
-.srcs-lab { font-size: 0.74rem; font-weight: 600; color: var(--text-mute); }
 </style>

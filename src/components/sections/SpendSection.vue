@@ -77,6 +77,5 @@ const mode = ref('vergleich'); // 'vergleich' | 'aufteilen'
 .basis-hint { font-size: 0.82rem; margin: 0 0 18px; }
 
 .disclaimer { font-size: 0.82rem; margin-top: 16px; max-width: 75ch; }
-.srcs { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
-.srcs-lab { font-size: 0.74rem; font-weight: 600; color: var(--text-mute); }
+.srcs { margin-top: 12px; }
 </style>

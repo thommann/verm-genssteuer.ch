@@ -92,7 +92,7 @@ const wegzugDisplay = computed(() =>
 }
 .wegzug-info :deep(strong) { color: var(--text); }
 .rb-rows { display: flex; flex-direction: column; gap: 6px; }
-.srcs { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; }
+.srcs { margin-top: 12px; }
 
 @media (max-width: 820px) { .wegzug-card { padding: 18px; } }
 </style>

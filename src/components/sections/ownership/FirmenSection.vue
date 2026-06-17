@@ -5,6 +5,7 @@ import ownership from '@/data/ownership.json';
 import { pct, pct0 } from '@/lib/format.js';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
+import ChartLegend from '@/components/charts/ChartLegend.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const { t } = useI18n();
@@ -25,6 +26,7 @@ const firmenTrend = computed(() => [
   { name: t('ownership.firmenJobs'), color: 'var(--gold)',
     points: firmen.beschaeftigte.serie.map((p) => ({ x: p.jahr, y: p.ausland_share })) },
 ]);
+const firmenLegend = computed(() => firmenTrend.value.map((s) => ({ color: s.color, label: s.name })));
 </script>
 
 <template>
@@ -64,19 +66,9 @@ const firmenTrend = computed(() => [
           :y-label="$t('ownership.firmenTrendYAxis')"
           :height="300"
         />
-        <div class="legend">
-          <span v-for="s in firmenTrend" :key="s.name"><i class="sw" :style="{ background: s.color }" /> {{ s.name }}</span>
-        </div>
+        <ChartLegend :items="firmenLegend" :style="{ marginTop: '12px' }" />
         <SourceTag id="bfs_stagre" :note="$t('ownership.firmenTrendSource')" />
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.chartbox { padding: 24px 26px; }
-.chartbox h3 { margin-bottom: 8px; }
-.intro { font-size: 0.92rem; max-width: 70ch; margin-bottom: 20px; }
-.legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 12px; font-size: 0.85rem; color: var(--text-soft); }
-.legend .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 7px; vertical-align: middle; }
-</style>

@@ -6,6 +6,8 @@ import { num, pct, pct0 } from '@/lib/format.js';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
+import StatGrid from '@/components/ui/StatGrid.vue';
+import StatCard from '@/components/ui/StatCard.vue';
 
 const { t } = useI18n();
 const gebaeude = ownership.gebaeude;
@@ -183,37 +185,37 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
 
       <h3 class="block-h">{{ $t('ownership.groessteHeading') }}</h3>
       <p class="muted small intro2">{{ $t('ownership.groessteIntro') }}</p>
-      <div class="grid sgrid">
-        <div v-for="g in groesste" :key="g.id" class="scard card">
-          <span class="sv accent">{{ num(g.menge, 1) }}<span class="unit"> {{ g.einheit }}</span></span>
-          <span class="sl">{{ $t('ownership.groesste_' + g.id) }}</span>
+      <StatGrid :style="{ margin: '8px 0 14px' }">
+        <StatCard v-for="g in groesste" :key="g.id" tone="accent">
+          <template #value>{{ num(g.menge, 1) }}<span class="unit"> {{ g.einheit }}</span></template>
+          <template #label>{{ $t('ownership.groesste_' + g.id) }}</template>
           <SourceTag :id="g.quelle" />
-        </div>
-      </div>
+        </StatCard>
+      </StatGrid>
 
       <h3 class="block-h">{{ $t('ownership.auslandHeading') }}</h3>
       <p class="muted small intro2" v-html="$t('ownership.auslandIntro')" />
-      <div class="grid sgrid">
-        <div class="scard card">
-          <span class="sv accent">{{ num(boden.lex_koller.bewilligungen, 0) }}</span>
-          <span class="sl" v-html="$t('ownership.auslandBewilligungenLabel', {
+      <StatGrid :style="{ margin: '8px 0 14px' }">
+        <StatCard tone="accent">
+          <template #value>{{ num(boden.lex_koller.bewilligungen, 0) }}</template>
+          <template #label><span v-html="$t('ownership.auslandBewilligungenLabel', {
             jahr: boden.lex_koller.jahr,
             kontingent: num(boden.lex_koller.kontingent, 0),
             ausschoepfung: pct(boden.lex_koller.ausschoepfung, 0),
-          })" />
-        </div>
-        <div class="scard card">
-          <span class="sv gold">{{ pct(boden.lex_koller.zweitwohnsitze_ch_min, 0) }}+</span>
-          <span class="sl">{{ $t('ownership.auslandZweitLabel') }}</span>
-        </div>
-        <div class="scard card">
-          <span class="sv">{{ pct(boden.blackrock.anteil, 0) }}</span>
-          <span class="sl" v-html="$t('ownership.auslandBlackrockLabel', {
+          })" /></template>
+        </StatCard>
+        <StatCard tone="gold">
+          <template #value>{{ pct(boden.lex_koller.zweitwohnsitze_ch_min, 0) }}+</template>
+          <template #label>{{ $t('ownership.auslandZweitLabel') }}</template>
+        </StatCard>
+        <StatCard>
+          <template #value>{{ pct(boden.blackrock.anteil, 0) }}</template>
+          <template #label><span v-html="$t('ownership.auslandBlackrockLabel', {
             wert: num(boden.blackrock.wert_mrd, 0),
             firmen: num(boden.blackrock.firmen, 0),
-          })" />
-        </div>
-      </div>
+          })" /></template>
+        </StatCard>
+      </StatGrid>
       <p class="muted small note" v-html="$t('ownership.auslandAusnahmen')" />
       <p
         class="muted small note"
@@ -234,19 +236,9 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
 </template>
 
 <style scoped>
-.chartbox { padding: 24px 26px; }
-.chartbox h3 { margin-bottom: 8px; }
-.intro { font-size: 0.92rem; max-width: 70ch; margin-bottom: 20px; }
 .small { font-size: 0.85rem; max-width: 75ch; }
 .note { margin-top: 16px; color: var(--text-mute); }
 .block-h { margin-top: 40px; }
 .intro2 { margin-top: 8px; margin-bottom: 18px; }
-.sgrid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 8px 0 14px; }
-.scard { padding: 22px; display: flex; flex-direction: column; gap: 6px; }
-.sv { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; }
-.sv.accent { color: var(--accent); }
-.sv.gold { color: var(--gold); }
-.sl { color: var(--text-soft); font-size: 0.88rem; }
-.sv .unit { font-size: 1rem; font-weight: 700; color: var(--text-soft); }
-.srcrow { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 8px; }
+.srcrow { margin-top: 8px; }
 </style>

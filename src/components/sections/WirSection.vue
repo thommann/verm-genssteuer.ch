@@ -112,5 +112,5 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
 .vtitle { color: var(--text); font-weight: 700; font-size: 1rem; }
 .vhint { color: var(--text-mute); font-size: 0.78rem; }
 
-.srcs { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 18px; }
+.srcs { margin-top: 18px; }
 </style>

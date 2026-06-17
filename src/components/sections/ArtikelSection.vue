@@ -156,10 +156,5 @@ const video = computed(() => {
 .vl-text { display: flex; flex-direction: column; line-height: 1.25; }
 .vl-title { font-weight: 600; font-size: 0.84rem; color: rgba(255, 255, 255, 0.85); }
 
-.srcrow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  margin-top: 26px;
-}
+.srcrow { margin-top: 26px; }
 </style>

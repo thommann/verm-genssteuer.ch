@@ -5,9 +5,14 @@ import dist from '@/data/estv_distribution.json';
 import kennzahlen from '@/data/estv_kennzahlen.json';
 import { chf, pct, num, chfCompact } from '@/lib/format.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
+import ChartLegend from '@/components/charts/ChartLegend.vue';
 
 const { t } = useI18n();
 const YEAR = 2022;
+const legendItems = computed(() => [
+  { color: 'var(--blue)', label: t('distribution.legendPeople') },
+  { color: 'var(--gold)', label: t('distribution.legendMoney') },
+]);
 const k = kennzahlen.unbeschraenkt['2022'];
 
 const rows = computed(() => {
@@ -40,10 +45,7 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
       <p class="lead dist-lead" v-html="$t('distribution.lead', { share: pct(k.share_ge5M, 0), median: chf(k.median) })" />
       <p class="dist-lead-src"><SourceTag id="estv_vermoegen" :note="$t('distribution.leadSourceNote')" /></p>
       <div class="card chart-card">
-        <div class="legend">
-          <span><i class="sw" style="background: var(--blue)" /> {{ $t('distribution.legendPeople') }}</span>
-          <span><i class="sw" style="background: var(--gold)" /> {{ $t('distribution.legendMoney') }}</span>
-        </div>
+        <ChartLegend :items="legendItems" :style="{ marginBottom: '16px' }" />
         <div class="dist">
           <div v-for="r in rows" :key="r.label" class="drow">
             <div class="dlabel">{{ r.label }}</div>
@@ -96,8 +98,6 @@ const maxShare = computed(() => Math.max(...rows.value.flatMap((r) => [r.shareCo
 .ml { color: var(--text-soft); font-size: 0.88rem; }
 
 .chart-card { padding: 24px; }
-.legend { display: flex; gap: 20px; font-size: 0.84rem; color: var(--text-soft); margin-bottom: 16px; flex-wrap: wrap; }
-.legend .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
 
 .dist { display: flex; flex-direction: column; gap: 9px; }
 .drow { display: grid; grid-template-columns: 110px 1fr; align-items: center; gap: 14px; }

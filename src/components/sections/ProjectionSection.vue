@@ -105,9 +105,8 @@ const lastLabel = computed(() => ({
 </template>
 
 <style scoped>
-.srcs { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; }
+.srcs { margin-top: 14px; }
 .proj-grid { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: stretch; }
-.chartbox { padding: 22px 24px; }
 .side { padding: 24px; display: flex; flex-direction: column; gap: 6px; justify-content: center; }
 .sidestat { display: flex; flex-direction: column; }
 .sv { font-size: 1.7rem; font-weight: 800; }

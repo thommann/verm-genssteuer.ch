@@ -70,5 +70,5 @@ h2 :deep(.hl) { color: var(--accent); }
   display: block; margin-top: 10px; font-style: normal;
   font-size: 0.86rem; font-weight: 700; color: var(--text-mute);
 }
-.srcrow { display: flex; flex-wrap: wrap; gap: 12px 18px; margin-top: 26px; }
+.srcrow { margin-top: 26px; }
 </style>
