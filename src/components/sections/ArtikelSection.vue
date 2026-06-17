@@ -105,6 +105,23 @@ const video = computed(() => {
 </template>
 
 <style scoped>
+/* Eigener Verlauf fuer die Artikel-Baender: Diese Baender sind viel hoeher als die kurzen
+   Aussage-Baender der Startseite. Mit dem dortigen, an der Band-Hoehe (90 %) bemessenen
+   Radial-Verlauf wuerde die erste Farbe (--g1) auf der grossen Hoehe zu einer riesigen,
+   nahezu einfarbigen Flaeche aufgeblaeht, die abrupt in die Folgefarbe kippt (sichtbarer
+   Farb-Streifen). Stattdessen sitzen --g1 und --g2 als hoehen-begrenzte Farbtupfer oben und
+   unten, und der lange Mittelteil wird vom weichen linearen Verlauf --g3 -> --g4 getragen.
+   Der Fade laeuft ueber color-mix in dieselbe Farbe mit Alpha 0 (statt nach 'transparent',
+   also faktisch nach Schwarz), damit der Uebergang nicht truebt und kein Banding zeigt. */
+.claim-band.art-band {
+  background:
+    radial-gradient(140% clamp(420px, 60vh, 780px) at 16% 0,
+      var(--g1, #ff2d6b), color-mix(in srgb, var(--g1, #ff2d6b) 0%, transparent) 72%),
+    radial-gradient(140% clamp(420px, 60vh, 780px) at 84% 100%,
+      var(--g2, #ff7a33), color-mix(in srgb, var(--g2, #ff7a33) 0%, transparent) 72%),
+    linear-gradient(170deg, var(--g3, #d6249f), var(--g4, #ff2d6b));
+}
+
 /* Etwas staerkerer Dunkel-Schleier als bei den kurzen Aussage-Baendern, damit der lange
    Fliesstext auf dem Verlauf gut lesbar bleibt. */
 .claim-band.art-band::after { background: rgba(5, 7, 15, 0.22); }
