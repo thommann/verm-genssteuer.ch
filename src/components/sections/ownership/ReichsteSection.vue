@@ -59,18 +59,6 @@ const top300Bip = computed(() => {
         })"
       />
 
-      <div class="card chartbox conc">
-        <span class="sv gold big">{{ pct(top300Bip.anteil, 0) }}</span>
-        <p
-          class="conc-text"
-          v-html="$t('ownership.top300BipStat', { jahr: top300Bip.jahr })"
-        />
-        <div class="srcrow">
-          <SourceTag id="bilanz300" :note="$t('ownership.top300BipSourceBilanz', { jahr: top300Bip.jahr })" />
-          <SourceTag id="worldbank_gdp" :note="$t('ownership.bipTrendSourceGdp')" />
-        </div>
-      </div>
-
       <div class="card chartbox">
         <h3>{{ $t('ownership.reichsteChartTitle') }}</h3>
         <p class="muted intro" v-html="$t('ownership.reichsteChartIntro')" />
@@ -92,6 +80,18 @@ const top300Bip = computed(() => {
         <div class="srcrow">
           <SourceTag id="bilanz300" :note="$t('ownership.konzSourceBilanz', { jahr: reichste.vermoegen_300_jahr })" />
           <SourceTag id="snb_haushalte" :note="$t('ownership.konzSourceSnb', { jahr: reichste.privatvermoegen_jahr })" />
+        </div>
+      </div>
+
+      <div class="card chartbox conc">
+        <span class="sv gold big">{{ pct(top300Bip.anteil, 0) }}</span>
+        <p
+          class="conc-text"
+          v-html="$t('ownership.top300BipStat', { jahr: top300Bip.jahr })"
+        />
+        <div class="srcrow">
+          <SourceTag id="bilanz300" :note="$t('ownership.top300BipSourceBilanz', { jahr: top300Bip.jahr })" />
+          <SourceTag id="worldbank_gdp" :note="$t('ownership.bipTrendSourceGdp')" />
         </div>
       </div>
 
