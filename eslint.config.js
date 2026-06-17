@@ -1,12 +1,11 @@
+import js from '@eslint/js';
 import globals from 'globals';
 import pluginVue from 'eslint-plugin-vue';
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
 
-// Flat-Config für ESLint mit Vue- und TypeScript-Regeln (offizielles @vue/eslint-config).
-// Die TypeScript-Regeln laufen ohne Typprüfung (recommended, nicht type-checked), weil das
-// Projekt reines JavaScript in <script setup> nutzt; so greifen die TS-Regeln auf .vue/.js,
-// ohne ein tsconfig/Typsystem zu verlangen.
-export default defineConfigWithVueTs(
+// Flat-Config für ESLint mit Vue-Regeln. Reines JavaScript-Projekt: ESLint-Core
+// (recommended) plus eslint-plugin-vue (flat/recommended) auf .js und .vue. Die SFC-Scripts
+// werden über den vue-eslint-parser mit dem Standard-JS-Parser (espree) gelesen.
+export default [
   {
     name: 'app/ignores',
     ignores: [
@@ -18,8 +17,13 @@ export default defineConfigWithVueTs(
     ],
   },
 
-  pluginVue.configs['flat/recommended'],
-  vueTsConfigs.recommended,
+  {
+    name: 'app/language',
+    languageOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+  },
+
+  js.configs.recommended,
+  ...pluginVue.configs['flat/recommended'],
 
   {
     name: 'app/source',
@@ -28,13 +32,14 @@ export default defineConfigWithVueTs(
   },
   {
     name: 'app/node',
-    files: ['*.{js,mjs}', 'marketing/**/*.mjs'],
+    files: ['*.{js,mjs}'],
     languageOptions: { globals: { ...globals.node } },
   },
   {
-    name: 'app/e2e',
-    // Die page.evaluate-Callbacks laufen im Browser, der Testrahmen in Node: beide Globals.
-    files: ['e2e/**/*.js'],
+    name: 'app/browser-in-node',
+    // e2e- und Marketing-Skripte laufen in Node, enthalten aber page.evaluate-Callbacks,
+    // die im Browser ausgeführt werden: darum beide Global-Sätze.
+    files: ['e2e/**/*.js', 'marketing/**/*.mjs'],
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
 
@@ -47,9 +52,6 @@ export default defineConfigWithVueTs(
       'vue/no-v-html': 'off',
       // «App» ist die konventionelle Wurzelkomponente; die Mehrwort-Pflicht gilt sonst.
       'vue/multi-word-component-names': ['error', { ignores: ['App'] }],
-      // Die SFC-Scripts sind bewusst JavaScript (kein lang-Attribut). Die Vue+TS-Tooling
-      // lintet sie trotzdem; ein unbekanntes lang bleibt verboten.
-      'vue/block-lang': ['error', { script: { allowNoLang: true } }],
     },
   },
-);
+];
