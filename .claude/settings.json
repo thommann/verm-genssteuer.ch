@@ -7,11 +7,23 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "mcp__github__create_pull_request|mcp__github__update_pull_request|mcp__github__add_issue_comment|mcp__github__add_comment_to_pending_review|mcp__github__add_reply_to_pull_request_comment|mcp__github__issue_write|mcp__github__pull_request_review_write|mcp__github__create_or_update_file|mcp__github__push_files",
+        "matcher": "mcp__github__add_issue_comment|mcp__github__add_comment_to_pending_review|mcp__github__add_reply_to_pull_request_comment|mcp__github__issue_write|mcp__github__pull_request_review_write|mcp__github__create_or_update_file|mcp__github__push_files",
         "hooks": [
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/block-claude-signature.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__github__create_pull_request",
+        "hooks": [
+          {
+            "type": "agent",
+            "statusMessage": "Entferne Claude-Signatur aus der PR-Beschreibung",
+            "prompt": "Eine Pull Request wurde gerade erstellt. Die Hook-Eingabe lautet: $ARGUMENTS. Ermittle daraus den Repository-Owner, den Repository-Namen und die Pull-Request-Nummer (die Tool-Antwort enthaelt die PR-URL der Form .../pull/NN; Owner und Repo stehen auch in tool_input). Lies mit mcp__github__pull_request_read (method get) den aktuellen Body. Pruefe, ob der Body irgendeine KI-Attribution oder Signatur enthaelt, insbesondere eine angehaengte Fusszeile: eine Zeile, die mit 'Generated' beginnt und Claude bzw. Claude Code nennt, ein Co-authored-by-Trailer mit Claude, ein Link auf claude.ai/code, ein Roboter-Emoji oder eine Anthropic-Noreply-Adresse. Falls ja: entferne ausschliesslich diese Attribution samt einer eventuell direkt darueber stehenden Trennlinie (---), lasse den restlichen Beschreibungstext unveraendert und rufe mcp__github__update_pull_request mit dem bereinigten Body auf. Fuege selbst keinerlei neue Attribution, Signatur oder Hinweise hinzu. Falls keine Attribution vorhanden ist, tue nichts."
           }
         ]
       }
