@@ -51,9 +51,9 @@ const MAX_WEALTH = Math.max(...bins.map((b) => b.mid));
 const rateNum = (r) => num(r * 100, 0);
 const bandRange = (lo, hi) => {
   const m = model.value.avgRate;
-  const a = m(lo);
-  const b = m(Number.isFinite(hi) ? hi : MAX_WEALTH);
-  return Math.abs(a - b) < 1e-9 ? `${rateNum(a)} %` : `${rateNum(a)}–${rateNum(b)} %`;
+  const a = rateNum(m(lo));
+  const b = rateNum(m(Number.isFinite(hi) ? hi : MAX_WEALTH));
+  return a === b ? `${a} %` : `${a}–${b} %`;
 };
 
 const bandItems = computed(() =>
