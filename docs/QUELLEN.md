@@ -16,7 +16,7 @@ den Eintrag in `src/data/sources.json` zeigt.
 | Aussagen (Startseite) | Kampagnen-Aussagen mit konkreten Zahlen: Milliardäre zahlen halb so viel / Mittelstand doppelt so viel (Einkommensteuerlast); reales Vermögenswachstum «fast 10 %» p. a. (Wegzug-Argument; obere Lesart der belegten 6 bis 9 % WIR 2022 / 7,1 % Zucman) | Zucman (`zucman_g20`) | — (Texte + `sources.json`) | — |
 | Hintergrund (7 Artikel) | Erklärende Texte zu Aufkauf, Geldfluss, Demokratie, Steuerlücke, Wirtschaft, Lösung, Überblick. Belegte Zahlen: reales Vermögenswachstum 7,1 %/1,8 % bzw. 6–9 %/3,2 %; effektiver Steuersatz Milliardäre ~0,5 % bzw. ~0,3 %; ~103 Tage bzw. ~4 Jahre; 2 % Mindeststeuer; 200–250 Mrd. USD weltweit; Schweizer Vermögenseinkommen 6,9 %/2,6 %; 32 %/19 %. Argumente von Gary Stevenson und Zucman qualitativ zugeordnet. | Zucman (`zucman_g20`, `woz_zucman`, `wir2026`); WIR 2022 (`wir2022_wachstum`); Oxfam/TJN/Momentum (`reichensteuer_studie`, `reichensteuer_studie_ch`); BFS HABE (`bfs_habe`); EFV (`efv`); Gary Stevenson (`gary_wiki`, `gary_equals`); Demokratie (`social_europe_demokratie`); Schweiz-Zahl (`workzeitung_reiche`) | — (Texte in `de.js` unter `hintergrund.*` + `sources.json`); Zahlen aus `habe.json` bzw. belegt in `sources.json` | — (keine neuen Rohzahlen; wiederverwendete, bereits dokumentierte Werte) |
 | Verteilung | Anteile/Anzahl je Klasse, Median, Mittel | ESTV (`estv_vermoegen`) | `estv_distribution.json`, `estv_kennzahlen.json` | `02_extract_estv.py` |
-| Verteilung: «Wem gehört der Boden» | Erklärtext zur Transparenzlücke des Grundbuchs (Abschnitt am Fuss der Verteilungs-Seite): Einzelauskunft nur pro Grundstück (Art. 970 ZGB, GBV Art. 26 Abs. 2), Verbot von Serienabfragen (GBV Art. 27 Abs. 2), behördenexklusive landesweite Grundstücksuche (Art. 949c ZGB, GBV Art. 34a–34i), Datenschutz als Begründung. Keine Bodenzahlen (qualitativ). | ZGB (`zgb_grundbuch`); GBV (`gbv_oeffentlichkeit`); DSG (`dsg`); Steiger Legal (`grundbuch_sperre`) | — (Gesetzestexte/Texte in `de.js` unter `boden.eigentum` + `sources.json`) | — (Rechtsnormen direkt zitiert, keine Rohzahlen) |
+| Wem gehört die Schweiz: «Wem gehört der Boden» | Erklärtext zur Transparenzlücke des Grundbuchs (Abschnitt am Fuss der Seite «Wem gehört die Schweiz?»): Einzelauskunft nur pro Grundstück (Art. 970 ZGB, GBV Art. 26 Abs. 2), Verbot von Serienabfragen (GBV Art. 27 Abs. 2), behördenexklusive landesweite Grundstücksuche (Art. 949c ZGB, GBV Art. 34a–34i), Datenschutz als Begründung. Keine Bodenzahlen (qualitativ). | ZGB (`zgb_grundbuch`); GBV (`gbv_oeffentlichkeit`); DSG (`dsg`); Steiger Legal (`grundbuch_sperre`) | — (Gesetzestexte/Texte in `de.js` unter `boden.eigentum` + `sources.json`) | — (Rechtsnormen direkt zitiert, keine Rohzahlen) |
 | Rechner | Aufkommen, Tarifkurve, Bänder, Gleichgewicht | ESTV (`estv_vermoegen`) + FDK (`fdk`, M im Tail) | `calculator_bins.json`, `calculator_params.json` | `02_extract_estv.py` (M aus `01`) |
 | Rechner (Wegzug-Szenario) | Netto-Fiskalgewinn: neue Steuer der Verbliebenen minus heutige Steuern der Abgewanderten. Heutige Last aufgeteilt in Vermögenssteuer (VST_RATE = 0,28 %, NZZ, auf steuerbares Vermögen) und Einkommenssteuer auf Kapital (EST_RATE = 0,9 %, Mittelwert aus Duschmalé-Beispiel, Martínez/KOF, Bandbreite 0,7–1,2 %). Pauschalbesteuerte im Pareto-Tail der Bins eingerechnet (kein separater Term). Herleitung, Bandbreiten und Deklaration: METHODIK §12. | NZZ (`nzz_vermoegenssteuer`); Martínez/KOF (`reichensteuer_studie_ch`) | Konstanten `VST_RATE = 0,0028`, `EST_RATE = 0,009` in `src/composables/useCalculator.js` | Schätzung, als solche deklariert; Mittelwert der Bandbreite |
 | Was tun? | Aufkommen (Zähler); Vergleichsgrössen (Nenner), inkl. öV-, Strassen- und Bildungs-Gesamtausgaben vervielfachen (alle Staatsebenen, inkl. Betrieb) | ESTV+FDK; BFS (`bfs`), EFV (`efv`), BAG (`bag`), LITRA (`litra`) | (Rechner) + `spend_reference.json` + `infrastruktur.json` | `02`/`01`; `04` (BFS live, EFV/BAG/LITRA kuratiert, §5); `06` (Total funk 61/62/2, §8) |
@@ -26,6 +26,7 @@ den Eintrag in `src/data/sources.json` zeigt.
 | WIR 2026 | Mindeststeuer-Modell (Texte, Abschnitt «Zucman-Steuer»; kein Rechner-Preset) | World Inequality Lab (`wir2026`) | — (Texte + `sources.json`) | — |
 | Zucman-Steuer | Vorschlag (2 % ab 100 Mio.), heutige Last, Mehraufkommen, Tage bis ganze 2 %-Steuer passiv verdient, Arbeiterhaushalt (mittleres Fünftel) und mittelständischer Haushalt (Durchschnitt): Jahre bis Steuer aus Vermögenseinkommen, Tage aus Gesamteinkommen verdient, Einordnungen | Zucman (`woz_zucman`, `zucman_g20`); Bilanz (`bilanz300`); NZZ (`nzz_vermoegenssteuer`); Oxfam/TJN/Momentum (`reichensteuer_studie`); Haushalte: BFS HABE (`bfs_habe`); Einordnungen: BFS (`bfs`), EFV (`efv`), BAG (`bag`) | `habe.json`; Texte + `sources.json`; Einordnungen `spend_reference.json` | `05` (HABE, §6); `04` (Bezugsgrössen, §5) |
 | UBS-Studie | Gini, Ø/Median, Pyramide | UBS (`ubs`) | `ubs_gini.json`, `ubs_wealth_levels.json`, `ubs_wealth_pyramid.json` | `03_extract_wid_ubs.py` |
+| Wem gehört die Schweiz? | Nationalität und Vermögensanteil der 300 Reichsten; Firmen-/Job-/Umsatzanteil nach Kontrolle; Gebäude-, Mietwohnungs- und Waldeigentum. Zusätzlich Verläufe: Top-1-%-Vermögensanteil 1995–2024, Privatvermögen/BIP 2000–2024, 300/BIP 2022–2024, Auslandskontrolle 2014–2024, Waldeigentum 1975–2024 | Bilanz (`bilanz300`, kuratiert), SNB (`snb_haushalte`), Weltbank (`worldbank_gdp`), BFS STAGRE (`bfs_stagre`), BFS Gebäude (`bfs_gebaeude`), Raiffeisen (`raiffeisen_immo`, kuratiert), BFS Wald (`bfs_wald`, inkl. Eigentümerzahl), BFS Arealstatistik (`bfs_areal`, kuratiert), BFS Wohnungsstatistik (`bfs_wohnungen`, kuratiert), BFS Wohneigentumsquote (`bfs_wohneigentum`), BFS Landwirtschaft (`bfs_pacht`, kuratiert), Lex Koller/BJ (`lex_koller`, kuratiert), Lex-Koller-Ausnahmen (`lex_koller_ausnahmen`), Lex-Koller-Reform (`lex_koller_reform`), BlackRock/REFLEKT (`blackrock_immo`, kuratiert), grösste Eigentümer (`vbs_grundbesitz`, `sbb_immo`, `ubs_wohnungen`, `bilanz_immo`, `einsiedeln`, `hiag`, Medien), WAV Zürich (`wav_zuerich`), WID (`wid`, Trend) | `ownership.json`, `wid_timeseries.json` | `07_extract_ownership.py`, `03_extract_wid_ubs.py` |
 | Pauschalbesteuerung | Anzahl, Ertrag, Spannweite | FDK (`fdk`) | `pauschal.json` | `01_extract_fdk.py` |
 | Infrastruktur (Datensatz) | Verkehrsausgaben Staat (Strasse 9,36 / öV 9,60 / Verkehr total 19,58 Mrd, 7,8 %); Bildung 45,49 Mrd (18,0 %); Zeitreihe 2015–2023; NAF 2024 (2,65 Mrd) und BIF 2024 (4,81 Mrd) | EFV Finanzstatistik (`efv`); EFV Staatsrechnung (`efv_staatsrechnung`) | `infrastruktur.json` | `06_extract_infrastruktur.py` (Verkehr/Bildung skript; NAF/BIF kuratiert) |
 | Quellen & Methodik | Quellenliste | — | `sources.json` | kuratiert (Metadaten) |
@@ -51,7 +52,8 @@ python3 scripts/03_extract_wid_ubs.py       # 4. WID-CSV+UBS   -> Zeitreihen, Ra
 python3 scripts/04_extract_spend_reference.py  # 5. BFS-PXWeb + kuratierte EFV/BAG -> spend_reference.json
 python3 scripts/05_extract_habe.py          # 6. BFS-HABE-XLSX -> habe.json (Arbeiter-/Mittelstandshaushalt)
 python3 scripts/06_extract_infrastruktur.py # 7. EFV-CSV (Verkehr) + NAF/BIF -> infrastruktur.json
-python3 scripts/00_reproduce_statistics.py  # 8. statistische Verfahren unabhängig nachrechnen/prüfen
+python3 scripts/07_extract_ownership.py     # 8. BFS STAGRE/Wald/Gebaeude + SNB + Bilanz/Raiffeisen -> ownership.json
+python3 scripts/00_reproduce_statistics.py  # 9. statistische Verfahren unabhängig nachrechnen/prüfen
 ```
 
 **Voraussetzungen:** Python 3 mit `openpyxl` (`pip install openpyxl`) und das
@@ -449,6 +451,142 @@ Spalte «Rechnung»):
 Hinweis Doppelzählung: BIF-Bahninfrastruktur und die Leistungsvereinbarung Bund–SBB sind
 weitgehend dasselbe Geld; NAF (nur Bund) ist nicht mit der EFV-Funktion 61 (alle
 Staatsebenen) oder der BFS-Strasseninfrastrukturrechnung (engeres Konzept) zu addieren.
+---
+
+## 9. «Wem gehört die Schweiz?» — Reichste, Firmen, Gebäude, Mietwohnungen, Wald
+
+Fetchbare Primärquellen von SNB und BFS plus kuratierte Publikationswerte (Bilanz,
+Raiffeisen), eine Datendatei (`src/data/ownership.json`, erzeugt von
+`scripts/07_extract_ownership.py`). Rechenformeln in [`METHODIK.md`](METHODIK.md) §14.
+
+**Verläufe (Trends):** Neben den aktuellen Werten zeigt die Sektion mehrere Zeitreihen. Der
+STAGRE-Auslandskontroll-Anteil (Feld `firmen.<kennzahl>.serie`, 2014–2024) und der
+öffentliche Waldanteil (Feld `wald.serie`, 1975–2024, alle Jahre des Cubes) stammen direkt
+aus denselben fetchbaren Quellen. Die Vermögenskonzentration im Zeitverlauf nutzt den bereits
+dokumentierten WID-Top-1-%-Anteil der Schweiz (`wid`, `wid_timeseries.json`, Quelle 2). Zwei
+weitere Verläufe setzen Vermögen ins Verhältnis zum BIP (Nenner: Weltbank `worldbank_gdp`,
+NY.GDP.MKTP.CN): gesamtes Privatvermögen ÷ BIP (`reichste.vermoegen_bip_serie`, SNB-RVM ÷ BIP,
+2000–2024) und die 300 Reichsten ÷ BIP (`reichste.top300_bip_serie`, kuratierte Bilanz-
+Gesamtwerte 2022 = 821, 2023 = 795, 2024 = 833,5 ÷ BIP). Die ältere Bilanz-Reihe ist nicht frei
+verfügbar, daher beginnt die 300/BIP-Kurve erst 2022.
+
+**7a. Nationalität der 300 Reichsten (`bilanz300`, kuratiert).**
+«Bilanz – Die 300 Reichsten der Schweiz» weist je Liste aus, wie viele der 300 Ausländer mit
+Wohnsitz in der Schweiz sind. Das ist **kein** fetchbarer Datensatz (die Liste ist
+redaktionell/teils hinter einer Schranke), sondern ein belegter, kuratierter
+Publikationswert — analog zu den EFV/BAG/LITRA-Konstanten in §5 (`bezug: "kuratiert"`).
+
+- **Wert (Liste 2022):** 145 der 300 Reichsten sind Ausländer mit Wohnsitz in der Schweiz
+  (rund **48 %**), also rund **155** Schweizer bzw. Liechtensteiner. In die Liste kommt, wer
+  hier wohnt, unabhängig vom Pass. Der Ausländeranteil liegt über die Jahrgänge stabil bei
+  «rund der Hälfte».
+- **Beleg:** Bilanz-Ranking, wiedergegeben u. a. von watson
+  (<https://www.watson.ch/wirtschaft/schweiz/134475413-bilanz-ranking-so-reich-sind-die-300-reichsten-in-der-schweizer>):
+  «Beinahe die Hälfte – genauer 145 der Top 300 – sind Ausländer, die ihren Wohnsitz in der
+  Schweiz haben.» Kuratierte Konstante `BILANZ_REICHSTE` in `07_extract_ownership.py`
+  (Selbstprüfung 0 < Ausländer < Total) → `ownership.json` (Feld `reichste`).
+- **Abgrenzung:** Das betrifft die **300 Reichsten** (die äusserste Spitze), nicht das ganze
+  reichste 1 %. Eine amtliche Aufschlüsselung des Top 1 % nach Nationalität gibt es nicht
+  (die ESTV-Vermögensstatistik kennt keine Nationalitäts-Dimension). Das ist auf der Seite so
+  deklariert.
+
+**7a-bis. Vermögensanteil der 300 Reichsten (`bilanz300` + `snb_haushalte`).**
+Wie viel des gesamten Privatvermögens auf die 300 Reichsten entfällt.
+
+- Zähler (kuratiert, Bilanz): Gesamtvermögen der 300 = **851,5 Mrd. CHF** (Liste 2025).
+- Nenner (fetchbar, SNB): Reinvermögen aller privaten Haushalte aus dem Cube
+  **`frsekgevehup`**, Code **`RVM`** (Finanz- und Sachvermögen minus Verpflichtungen), in
+  Mio. CHF, neuestes Jahr. Bezug per CSV über die offene SNB-Daten-API:
+  `https://data.snb.ch/api/cube/frsekgevehup/data/csv/de` → `data/raw/snb/haushalte-vermoegen.csv`.
+  Neuester Wert (2025): **5132 Mrd. CHF**.
+- Anteil: 851,5 ÷ 5132 = **0,166 ≈ 17 %**. Abgrenzung: SNB misst die Haushaltsbilanz, die
+  Bilanz-Vermögen sind marktnahe Schätzwerte inkl. Firmenbeteiligungen; Grössenordnung
+  vergleichbar, Methodik nicht identisch.
+
+**7b. Firmen nach Kontrolle (`bfs_stagre`).**
+BFS **Statistik der Unternehmensgruppen (STAGRE)**, Tabelle **T 6.6.3** «Anzahl
+Unternehmensgruppen, Unternehmen, Beschäftigte und Umsatz nach Sitzland».
+
+- Direkte URL: `https://dam-api.bfs.admin.ch/hub/api/dam/assets/36244614/master`
+  → `data/raw/bfs/stagre-sitzland.xlsx`
+- **Wo genau:** vier Blätter (`Gruppen`, `Unternehmen`, `Besch.`, `Umsatz`); Header-Zeile
+  «Sitzland» trägt die Jahre 2014–2024. Je Blatt Zeile **«Total»** und Zeile **«Schweiz»**
+  (= inländisch kontrolliert); Auslandskontrolle = Total − Schweiz. Gelesen wird je Blatt das
+  neueste Jahr mit beiden Werten (Unternehmen/Beschäftigte/Gruppen 2024, Umsatz 2023).
+- **Belegwerte:** Unternehmen 2024 = 66 293 (Schweiz 46 822 = 70,6 %, Ausland 19 471 =
+  29,4 %); Beschäftigte 2024 = 2 136 580 (Ausland 27,0 %); Umsatz 2023 = 2 572,5 Mrd. CHF
+  (Ausland 62,7 %).
+
+**7b-bis. Gebäude nach Eigentümertyp (`bfs_gebaeude`).**
+BFS «Statistik der Eigentümertypen der Gebäude», registerbasiert (Gebäude- und
+Wohnungsregister verknüpft mit Grundbuch), Stand 2022.
+
+- Direkte URL: `https://www.bfs.admin.ch/bfsstatic/dam/assets/27885505/master`
+  → `data/raw/bfs/gebaeude-eigentuemertyp.xlsx`
+- **Wo genau:** Blatt **«2022»**, Zeile **«Total (Schweiz ohne ZH und VS)»**. Spalten:
+  Total (Sp. 2), Natürliche Person(en) (Sp. 3), Juristische Person Total (Sp. 4),
+  Gemeinschaft Total (Sp. 15), Gemischt (Sp. 20), Unbekannt (Sp. 21).
+- **Belegwerte:** von 1 438 755 Gebäuden 964 272 = **67,0 %** natürliche Personen, 171 612 =
+  11,9 % juristische Personen, 206 568 = 14,4 % Gemeinschaften, 96 303 = 6,7 % gemischt/
+  unbekannt. Caveat: Gebäudezählung (nicht Wohnungen) und ohne ZH und VS; die institutionelle
+  Konzentration bei den Mietwohnungen ist grösser. Selbstprüfung: Summe der Typen ≈ Total.
+
+**7b-ter. Mietwohnungen nach Eigentümer (`raiffeisen_immo`, kuratiert).**
+Raiffeisen Economic Research «Immobilien Schweiz Q4/20» (Datenbasis Wüest Partner),
+Medienmitteilung 12.11.2020. Modellbasierte Schätzung, keine amtliche Vollerhebung; als
+kuratierte Drittquelle geführt (analog zu LITRA in §5), Konstante `MIETWOHNUNGEN` im Skript.
+
+- URL (HTTP 200): `https://www.raiffeisen.ch/rch/de/ueber-uns/news/rch/immobilien-schweiz-q4-20.html`
+- **Belegwerte (Mietwohnungsbestand):** Privatpersonen 49 %, institutionelle Anleger
+  (Pensionskassen, Versicherungen, Immobilienfonds) 33 %, Genossenschaften 8 %, klassische
+  Immobilienfirmen 7 %, öffentliche Hand 4 %. Der institutionelle Anteil steigt seit 2000
+  (damals rund ein Viertel). Selbstprüfung: Anteile summieren auf ~100 %.
+
+**7b-quater. Boden-Kontext: Arealstatistik, Lex Koller, BlackRock (kuratiert).**
+- `bfs_areal` (BFS-Arealstatistik): Bodennutzung Landwirtschaft 35 %, Wald 32 %, Siedlung 8 %;
+  liefert die Einordnung «Wald rund ein Drittel der Landesfläche». Feld `boden.nutzung`.
+- `lex_koller` (BJ, via dievolkswirtschaft.ch): Ferienwohnungs-Kontingent 1500/Jahr; 2023 = 703
+  Bewilligungen, 378 Erwerbe, ~47 % ausgeschöpft; >80 % der Zweitwohnsitze in Schweizer Hand.
+  Feld `boden.lex_koller`.
+- `blackrock_immo` (REFLEKT/WAV): BlackRock hält ~6 % der börsenkotierten Schweizer
+  Immobilienfirmen (~2 Mrd., 17 Firmen, in 10 Jahren ~20×), Swiss Prime Site >12 % — indirekter
+  Auslandsbesitz trotz Lex Koller. Feld `boden.blackrock`.
+Alle drei kuratiert (`bezug: "kuratiert"`), Belege in `sources.json`.
+
+**7b-quinquies. Wohnungen, Pacht und grösste Eigentümer (kuratiert).**
+- `bfs_wohnungen` (BFS-Wohnungsstatistik, 2023): Mietwohnungen zu 45 % im Besitz von
+  Privatpersonen, rund ein Drittel institutionell; nach Bauperiode vor 1946 = 65 % privat,
+  nach 2000 = 32 %. Felder `wohnungen_bfs` (inkl. `baujahr`).
+- `bfs_pacht` (BFS-Strukturerhebung): Pachtanteil an der LN 1980 = 37 %, 2005 = 43 %,
+  2016 = 45 %, um 2020 = 47 %; Bauern flächenmässig grösste Grundbesitzer. Feld `boden.pacht`.
+- Grösste einzelne Eigentümer (Medienrecherchen, Drittquellen): Armee/VBS ~26 000 ha
+  (`vbs_grundbesitz`), SBB 94 Mio. m² (`sbb_immo`), UBS + CS ~70 000 Wohnungen
+  (`ubs_wohnungen`), Kloster Einsiedeln ~2140 ha (`einsiedeln`). Feld `boden.groesste`.
+- `lex_koller_reform` (Bundesrat, 15.4.2026): Vernehmlassung zur Verschärfung der Lex Koller.
+- `bfs_wohneigentum` (BFS T 09.03.02.01.03, DAM-Asset 36398362, fetchbar): Wohneigentumsquote
+  je Jahr, Zeile Schweiz, Spalte «Anteil in %»; Höchststand 2015 (38,4 %), 2024 = 35,7 %.
+  Feld `wohneigentum` (serie/peak). Selbstprüfung: nur plausible Quoten (20–50 %) je Blatt.
+- `lex_koller_ausnahmen` (Grundeigentümer-Verband): bewilligungsfreie Fälle (EU/EFTA mit
+  Wohnsitz, Drittstaats-B für Hauptwohnung, Geschäftsliegenschaften). `bilanz_immo`: Bilanz-
+  Flächenranking (SBB 94,4 Mio. m², Swiss Life >3 Mio. m²). Kontext bzw. Feld `boden.groesste`.
+
+**7c. Waldeigentum öffentlich/privat (`bfs_wald`).**
+BFS-Cube **px-x-0703010000_101** «Waldflächen der Schweiz in ha nach Jahr, Forstzone, Kanton,
+Eigentümertyp und Beobachtungseinheit». Deterministische PXWeb-Abfrage.
+
+- Endpunkt: `POST https://www.pxweb.bfs.admin.ch/api/v1/de/px-x-0703010000_101/px-x-0703010000_101.px`
+  → `data/raw/bfs/wald-eigentum.json` (json-stat2)
+- Auswahl: `Jahr=49` (2024), `Forstzone=0` (Schweiz), `Kanton=0` (Schweiz), `Eigentümertyp`
+  = `0`/`100`/`200` (Total/Privatwälder/Öffentliche Wälder), `Beobachtungseinheit=e012`
+  (Gesamte Waldflächen).
+- **Belegwerte 2024:** Total 1 275 891 ha, öffentlich 900 621 ha (**70,6 %**), privat
+  375 270 ha (29,4 %). Es gibt **keine** amtliche Statistik des Bodeneigentums nach
+  Nationalität (Grundbuch kantonal, kein zentrales Register); der Waldanteil ist die
+  belegbare, hektargenaue Eigentums-Kennzahl. Das ist auf der Seite so deklariert.
+- **Eigentümerzahl** (zweite Abfrage, `Beobachtungseinheit=e007`, →
+  `data/raw/bfs/wald-eigentuemer.json`): 245 975 Eigentümer total, davon 242 634 private und
+  3 341 öffentliche; Privatwald im Schnitt rund 1,5 ha (≈ zwei Fussballfelder). Felder
+  `wald.eigentuemer_total`, `wald.privat_eigentuemer`, `wald.privat_ha_avg`.
 
 ---
 

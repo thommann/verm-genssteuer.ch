@@ -563,7 +563,7 @@ sind keine Tabellenwerte, sondern belegte Näherungskonstanten aus externen Stud
 
 ---
 
-## 14. Verkehrs-/Infrastrukturausgaben (EFV-Finanzstatistik)
+## 13. Verkehrs-/Infrastrukturausgaben (EFV-Finanzstatistik)
 
 Quelle und Beschaffung: [`docs/QUELLEN.md`](./QUELLEN.md) §8. Skript:
 `06_extract_infrastruktur.py`. Datengrundlage: EFV-Finanzstatistik (FS-Modell), Datei
@@ -592,10 +592,112 @@ mit der Funktion 61 (alle Staatsebenen) zu addieren.
 
 ---
 
-## 13. Reproduktion
+## 14. «Wem gehört die Schweiz?» — Anteile und Faktor
+
+Die Sektion «Wem gehört die Schweiz?» (Verteilungs-Seite, Anker `#eigentum`) zeigt direkt aus
+den Quellen gelesene Grössen, keine Modellrechnung. Erzeugt von
+`scripts/07_extract_ownership.py` → `src/data/ownership.json`.
+
+**Die Reichsten (Feld `reichste`, kuratiert).** Aus «Bilanz – Die 300 Reichsten» (Quelle
+`bilanz300`): Liste 2022, `auslaender = 145` von `total = 300` sind Ausländer mit Wohnsitz in
+der Schweiz, der Rest Schweizer bzw. Liechtensteiner.
+
+```
+schweizer        = total − auslaender = 155
+auslaender_share = auslaender / total = 145 / 300 = 0,483
+schweizer_share  = schweizer  / total = 155 / 300 = 0,517
+```
+
+Belegter, kuratierter Publikationswert (`bezug = "kuratiert"`, Konstante `BILANZ_REICHSTE` im
+Skript), analog zu den EFV/BAG/LITRA-Grössen in §8; keine fetchbare Datei. Selbstprüfung:
+`0 < auslaender < total`. Abgrenzung: betrifft die 300 Reichsten, nicht das gesamte reichste
+1 %; eine amtliche Aufschlüsselung des Top 1 % nach Nationalität existiert nicht.
+
+Vermögensanteil derselben 300 am gesamten Privatvermögen (Felder `vermoegen_300_mrd`,
+`privatvermoegen_mrd`, `anteil_privatvermoegen`): Zähler = 851,5 Mrd. (Bilanz-Liste 2025,
+kuratiert), Nenner = Reinvermögen aller Haushalte aus dem SNB-Cube `frsekgevehup`, Code `RVM`,
+neuestes Jahr (fetchbar, Quelle `snb_haushalte`):
+
+```
+anteil_privatvermoegen = vermoegen_300_mrd / privatvermoegen_mrd = 851,5 / 5132 = 0,166
+```
+
+Selbstprüfung: `3000 ≤ privatvermoegen_mrd ≤ 8000` und `0,1 ≤ anteil ≤ 0,3`.
+
+**Firmen (Feld `firmen`).** Aus der STAGRE-Tabelle T 6.6.3 nach Sitzland (Quelle
+`bfs_stagre`), je Blatt (Unternehmen, Beschäftigte, Umsatz, Gruppen) das neueste Jahr mit
+Werten. «Schweiz» = inländisch kontrolliert, Auslandskontrolle = Rest:
+
+```
+ch_share      = Schweiz / Total
+ausland_share = (Total − Schweiz) / Total
+```
+
+Belegwerte: Unternehmen 2024 `ausland_share = 29,4 %`, Beschäftigte 2024 `27,0 %`, Umsatz
+2023 `62,7 %`. Selbstprüfung: der Umsatzanteil der Auslandskontrolle liegt über ihrem
+Firmenanteil (wenige grosse Konzerne, viel Umsatz).
+
+**Gebäude (Feld `gebaeude`).** Aus der BFS-Tabelle «Gebäude nach Eigentümertyp» (Quelle
+`bfs_gebaeude`), Blatt 2022, Zeile «Total (Schweiz ohne ZH und VS)». Top-Level-Eigentümertypen
+geteilt durch das Total: natürliche Personen 67,0 %, juristische Personen 11,9 %,
+Gemeinschaften 14,4 %, gemischt/unbekannt 6,7 %. Selbstprüfung: Summe der Typen ≈ Total,
+Anteil natürlicher Personen zwischen 0,6 und 0,75.
+
+**Mietwohnungen (Feld `mietwohnungen`, kuratiert).** Eigentümeranteile am Mietwohnungsbestand
+aus Raiffeisen «Immobilien Schweiz Q4/20» (Quelle `raiffeisen_immo`, Datenbasis Wüest Partner):
+Privatpersonen 49 %, institutionelle Anleger 33 %, Genossenschaften 8 %, Immobilienfirmen 7 %,
+öffentliche Hand 4 %. Kuratierte Konstante `MIETWOHNUNGEN`; Selbstprüfung: Anteile summieren auf
+~100 %. Modellbasierte Schätzung, keine amtliche Vollerhebung (so deklariert).
+
+**Boden / Wald (Feld `wald`).** Aus dem BFS-Cube px-x-0703010000_101 (Quelle `bfs_wald`),
+Beobachtungseinheit «Gesamte Waldflächen» (ha), Schweiz, neuestes Jahr:
+
+```
+oeffentlich_share = Öffentliche Wälder / (Eigentümertyp-Total)
+```
+
+Belegwert 2024: `oeffentlich_share = 70,6 %` von 1 275 891 ha. Selbstprüfung: Privat +
+Öffentlich ≈ Total und 0,6 ≤ öffentlicher Anteil ≤ 0,8. Eine zweite Cube-Abfrage (`e007`)
+liefert die Eigentümerzahl (245 975 total / 242 634 privat); `privat_ha_avg = privat_ha /
+privat_eigentuemer ≈ 1,5 ha`. Boden-Kontext (Feld `boden`) ist kuratiert: Arealstatistik-
+Nutzungsanteile (`bfs_areal`), Lex-Koller-Bewilligungen mit `ausschoepfung = bewilligungen /
+kontingent` (`lex_koller`) und BlackRocks indirekter Anteil (`blackrock_immo`). Ebenfalls
+kuratiert: Mietwohnungseigentum nach Bauperiode (`wohnungen_bfs`, BFS 2023: vor 1946 65 % →
+nach 2000 32 % privat), Pachtanteil-Reihe der Landwirtschaft (`boden.pacht`, 1980–2020) und
+die grössten einzelnen Eigentümer (`boden.groesste`, Medienrecherchen). Fetchbar dagegen die
+Wohneigentumsquote (Feld `wohneigentum`): aus der BFS-Tabelle T 09.03.02.01.03 je Jahr die
+Schweiz-Quote (Spalte «Anteil in %», nur Werte 20–50 % übernommen), Höchststand 2015 (38,4 %),
+2024 = 35,7 %. Eine amtliche Statistik des
+Bodeneigentums nach Nationalität existiert nicht; der Waldanteil ist die einzige
+hektargenaue, amtliche Eigentums-Kennzahl und wird als solche deklariert.
+
+**Verläufe (Felder `…serie`).** Drei Zeitreihen zeigen die Veränderung der
+Besitzverhältnisse: Auslandskontroll-Anteil je STAGRE-Kennzahl über alle Jahre mit Werten
+(`firmen.<kennzahl>.serie`, 2014–2024), öffentlicher Waldanteil je Jahr (`wald.serie`,
+1975–2024, alle 50 Jahre des Cubes, je Jahr `oeffentlich_share = Öffentliche / Total`), sowie
+der WID-Top-1-%-Vermögensanteil der Schweiz (aus `wid_timeseries.json`, §-Verfahren wie in der
+International-Sektion). Keine zusätzlichen Rohzahlen, nur Aggregation der bereits
+dokumentierten Quellen.
+
+Zwei Verläufe setzen Vermögen ins Verhältnis zum nominalen BIP (Weltbank `worldbank_gdp`,
+NY.GDP.MKTP.CN, in Mrd. CHF):
+
+```
+Privatvermögen ÷ BIP (Feld vermoegen_bip_serie) = RVM(jahr) / BIP(jahr)   # 2000–2024
+   2000 ≈ 4,3×   →   2024 ≈ 6,0×
+300 ÷ BIP (Feld top300_bip_serie) = Bilanz-Gesamtvermögen(jahr) / BIP(jahr) # 2022–2024 ≈ 1,0
+```
+
+`RVM` = SNB-Reinvermögen (§oben); die Bilanz-Gesamtwerte (2022 = 821, 2023 = 795, 2024 = 833,5
+Mrd.) sind kuratiert (`BILANZ_SERIE`), frei belegt aus der jährlichen Berichterstattung.
+Selbstprüfung: Vermögen/BIP-Reihe ≥ 10 Punkte und zuletzt ≥ 4×; 300/BIP-Reihe ≥ 2 Punkte.
+
+---
+
+## 15. Reproduktion
 
 ```bash
-# 1. Rohdaten direkt von ESTV/WID/FDK/UBS/BFS/EFV laden (benötigt curl):
+# 1. Rohdaten direkt von ESTV/WID/FDK/UBS/BFS/EFV/SNB laden (benötigt curl):
 bash scripts/fetch_sources.sh
 
 # 2. Aus den Rohdaten alle JSON erzeugen (benötigt openpyxl + pdftotext/poppler-utils):
@@ -605,6 +707,7 @@ python3 scripts/03_extract_wid_ubs.py    # -> WID-Zeitreihen, Ranking, UBS-Gini/
 python3 scripts/04_extract_spend_reference.py  # -> spend_reference.json (BFS live + EFV/BAG kuratiert)
 python3 scripts/05_extract_habe.py       # -> habe.json (Arbeiter-/Mittelstandshaushalt)
 python3 scripts/06_extract_infrastruktur.py    # -> infrastruktur.json (EFV-Verkehr skript + NAF/BIF kuratiert)
+python3 scripts/07_extract_ownership.py  # -> ownership.json (Reichste, Firmen, Gebäude, Mietwohnungen, Wald)
 
 # 3. Alle Verfahren unabhängig nachrechnen und prüfen:
 python3 scripts/00_reproduce_statistics.py   # erwartet: alle Prüfungen OK

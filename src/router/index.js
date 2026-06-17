@@ -4,6 +4,7 @@ import HintergrundPage from '@/pages/HintergrundPage.vue';
 import VerteilungPage from '@/pages/VerteilungPage.vue';
 import RechnerPage from '@/pages/RechnerPage.vue';
 import ModellePage from '@/pages/ModellePage.vue';
+import EigentumPage from '@/pages/EigentumPage.vue';
 import QuellenPage from '@/pages/QuellenPage.vue';
 import ImpressumPage from '@/pages/ImpressumPage.vue';
 import DatenschutzPage from '@/pages/DatenschutzPage.vue';
@@ -13,6 +14,7 @@ import DatenschutzPage from '@/pages/DatenschutzPage.vue';
 export const routes = [
   { path: '/', name: 'home', component: HomePage, meta: { titleKey: 'routes.home' } },
   { path: '/rechner', name: 'rechner', component: RechnerPage, meta: { group: 'rechner', titleKey: 'routes.rechner' } },
+  { path: '/wem-gehoert-die-schweiz', name: 'eigentum', component: EigentumPage, meta: { group: 'eigentum', titleKey: 'routes.eigentum' } },
   { path: '/verteilung', name: 'verteilung', component: VerteilungPage, meta: { group: 'verteilung', titleKey: 'routes.verteilung' } },
   { path: '/modelle', name: 'modelle', component: ModellePage, meta: { group: 'modelle', titleKey: 'routes.modelle' } },
   { path: '/hintergrund', name: 'hintergrund', component: HintergrundPage, meta: { group: 'hintergrund', titleKey: 'routes.hintergrund' } },

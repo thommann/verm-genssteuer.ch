@@ -1,0 +1,754 @@
+{
+  "reichste": {
+    "quelle": "bilanz300",
+    "bezug": "kuratiert",
+    "jahr": 2022,
+    "total": 300,
+    "auslaender": 145,
+    "schweizer": 155,
+    "auslaender_share": 0.4833,
+    "schweizer_share": 0.5167,
+    "vermoegen_300_mrd": 851.5,
+    "vermoegen_300_jahr": 2025,
+    "privatvermoegen_mrd": 5132.0,
+    "privatvermoegen_jahr": 2025,
+    "anteil_privatvermoegen": 0.1659,
+    "vermoegen_bip_serie": [
+      {
+        "jahr": 2000,
+        "vielfaches": 4.29
+      },
+      {
+        "jahr": 2001,
+        "vielfaches": 4.11
+      },
+      {
+        "jahr": 2002,
+        "vielfaches": 4.01
+      },
+      {
+        "jahr": 2003,
+        "vielfaches": 4.11
+      },
+      {
+        "jahr": 2004,
+        "vielfaches": 4.17
+      },
+      {
+        "jahr": 2005,
+        "vielfaches": 4.3
+      },
+      {
+        "jahr": 2006,
+        "vielfaches": 4.39
+      },
+      {
+        "jahr": 2007,
+        "vielfaches": 4.35
+      },
+      {
+        "jahr": 2008,
+        "vielfaches": 4.04
+      },
+      {
+        "jahr": 2009,
+        "vielfaches": 4.31
+      },
+      {
+        "jahr": 2010,
+        "vielfaches": 4.28
+      },
+      {
+        "jahr": 2011,
+        "vielfaches": 4.43
+      },
+      {
+        "jahr": 2012,
+        "vielfaches": 4.67
+      },
+      {
+        "jahr": 2013,
+        "vielfaches": 4.84
+      },
+      {
+        "jahr": 2014,
+        "vielfaches": 4.99
+      },
+      {
+        "jahr": 2015,
+        "vielfaches": 5.12
+      },
+      {
+        "jahr": 2016,
+        "vielfaches": 5.19
+      },
+      {
+        "jahr": 2017,
+        "vielfaches": 5.46
+      },
+      {
+        "jahr": 2018,
+        "vielfaches": 5.29
+      },
+      {
+        "jahr": 2019,
+        "vielfaches": 5.57
+      },
+      {
+        "jahr": 2020,
+        "vielfaches": 5.97
+      },
+      {
+        "jahr": 2021,
+        "vielfaches": 6.05
+      },
+      {
+        "jahr": 2022,
+        "vielfaches": 5.76
+      },
+      {
+        "jahr": 2023,
+        "vielfaches": 5.86
+      },
+      {
+        "jahr": 2024,
+        "vielfaches": 5.95
+      }
+    ],
+    "top300_bip_serie": [
+      {
+        "jahr": 2022,
+        "anteil": 1.0378
+      },
+      {
+        "jahr": 2023,
+        "anteil": 0.9893
+      },
+      {
+        "jahr": 2024,
+        "anteil": 1.0108
+      }
+    ]
+  },
+  "firmen": {
+    "quelle": "bfs_stagre",
+    "unternehmen": {
+      "jahr": 2024,
+      "total": 66293.0,
+      "ch": 46822.0,
+      "ausland": 19471.0,
+      "ch_share": 0.7063,
+      "ausland_share": 0.2937,
+      "serie": [
+        {
+          "jahr": 2014,
+          "ausland_share": 0.2928
+        },
+        {
+          "jahr": 2015,
+          "ausland_share": 0.29
+        },
+        {
+          "jahr": 2016,
+          "ausland_share": 0.2886
+        },
+        {
+          "jahr": 2017,
+          "ausland_share": 0.2885
+        },
+        {
+          "jahr": 2018,
+          "ausland_share": 0.2897
+        },
+        {
+          "jahr": 2019,
+          "ausland_share": 0.298
+        },
+        {
+          "jahr": 2020,
+          "ausland_share": 0.2961
+        },
+        {
+          "jahr": 2021,
+          "ausland_share": 0.3001
+        },
+        {
+          "jahr": 2022,
+          "ausland_share": 0.3056
+        },
+        {
+          "jahr": 2023,
+          "ausland_share": 0.3003
+        },
+        {
+          "jahr": 2024,
+          "ausland_share": 0.2937
+        }
+      ]
+    },
+    "beschaeftigte": {
+      "jahr": 2024,
+      "total": 2136580.0,
+      "ch": 1559435.0,
+      "ausland": 577145.0,
+      "ch_share": 0.7299,
+      "ausland_share": 0.2701,
+      "serie": [
+        {
+          "jahr": 2014,
+          "ausland_share": 0.2624
+        },
+        {
+          "jahr": 2015,
+          "ausland_share": 0.2609
+        },
+        {
+          "jahr": 2016,
+          "ausland_share": 0.2592
+        },
+        {
+          "jahr": 2017,
+          "ausland_share": 0.2629
+        },
+        {
+          "jahr": 2018,
+          "ausland_share": 0.2658
+        },
+        {
+          "jahr": 2019,
+          "ausland_share": 0.2719
+        },
+        {
+          "jahr": 2020,
+          "ausland_share": 0.2708
+        },
+        {
+          "jahr": 2021,
+          "ausland_share": 0.2736
+        },
+        {
+          "jahr": 2022,
+          "ausland_share": 0.2796
+        },
+        {
+          "jahr": 2023,
+          "ausland_share": 0.2716
+        },
+        {
+          "jahr": 2024,
+          "ausland_share": 0.2701
+        }
+      ]
+    },
+    "umsatz": {
+      "jahr": 2023,
+      "total": 2572532.4,
+      "ch": 959298.1,
+      "ausland": 1613234.3,
+      "ch_share": 0.3729,
+      "ausland_share": 0.6271,
+      "serie": [
+        {
+          "jahr": 2014,
+          "ausland_share": 0.6607
+        },
+        {
+          "jahr": 2015,
+          "ausland_share": 0.6303
+        },
+        {
+          "jahr": 2016,
+          "ausland_share": 0.6061
+        },
+        {
+          "jahr": 2017,
+          "ausland_share": 0.6507
+        },
+        {
+          "jahr": 2018,
+          "ausland_share": 0.6623
+        },
+        {
+          "jahr": 2019,
+          "ausland_share": 0.6661
+        },
+        {
+          "jahr": 2020,
+          "ausland_share": 0.6381
+        },
+        {
+          "jahr": 2021,
+          "ausland_share": 0.6509
+        },
+        {
+          "jahr": 2022,
+          "ausland_share": 0.6457
+        },
+        {
+          "jahr": 2023,
+          "ausland_share": 0.6271
+        }
+      ]
+    },
+    "gruppen": {
+      "jahr": 2024,
+      "total": 35496.0,
+      "ch": 22024.0,
+      "ausland": 13472.0,
+      "ch_share": 0.6205,
+      "ausland_share": 0.3795,
+      "serie": [
+        {
+          "jahr": 2014,
+          "ausland_share": 0.3948
+        },
+        {
+          "jahr": 2015,
+          "ausland_share": 0.3837
+        },
+        {
+          "jahr": 2016,
+          "ausland_share": 0.3817
+        },
+        {
+          "jahr": 2017,
+          "ausland_share": 0.3719
+        },
+        {
+          "jahr": 2018,
+          "ausland_share": 0.3831
+        },
+        {
+          "jahr": 2019,
+          "ausland_share": 0.3914
+        },
+        {
+          "jahr": 2020,
+          "ausland_share": 0.3858
+        },
+        {
+          "jahr": 2021,
+          "ausland_share": 0.3875
+        },
+        {
+          "jahr": 2022,
+          "ausland_share": 0.3945
+        },
+        {
+          "jahr": 2023,
+          "ausland_share": 0.3875
+        },
+        {
+          "jahr": 2024,
+          "ausland_share": 0.3795
+        }
+      ]
+    }
+  },
+  "gebaeude": {
+    "quelle": "bfs_gebaeude",
+    "jahr": 2022,
+    "total": 1438755,
+    "natuerliche": 964272,
+    "juristische": 171612,
+    "gemeinschaft": 206568,
+    "gemischt": 80692,
+    "unbekannt": 15611,
+    "natuerliche_share": 0.6702,
+    "juristische_share": 0.1193,
+    "gemeinschaft_share": 0.1436,
+    "uebrige_share": 0.0669
+  },
+  "mietwohnungen": {
+    "quelle": "raiffeisen_immo",
+    "bezug": "kuratiert",
+    "jahr": 2020,
+    "privat": 0.49,
+    "institutionell": 0.33,
+    "genossenschaften": 0.08,
+    "immobilienfirmen": 0.07,
+    "oeffentlich": 0.04
+  },
+  "wohnungen_bfs": {
+    "quelle": "bfs_wohnungen",
+    "bezug": "kuratiert",
+    "jahr": 2023,
+    "privat": 0.45,
+    "baujahr": {
+      "vor_1946": 0.65,
+      "nach_2000": 0.32
+    }
+  },
+  "wohneigentum": {
+    "quelle": "bfs_wohneigentum",
+    "serie": [
+      {
+        "jahr": 2013,
+        "quote": 0.375
+      },
+      {
+        "jahr": 2014,
+        "quote": 0.374
+      },
+      {
+        "jahr": 2015,
+        "quote": 0.384
+      },
+      {
+        "jahr": 2016,
+        "quote": 0.382
+      },
+      {
+        "jahr": 2017,
+        "quote": 0.38
+      },
+      {
+        "jahr": 2018,
+        "quote": 0.366
+      },
+      {
+        "jahr": 2019,
+        "quote": 0.364
+      },
+      {
+        "jahr": 2020,
+        "quote": 0.362
+      },
+      {
+        "jahr": 2021,
+        "quote": 0.363
+      },
+      {
+        "jahr": 2022,
+        "quote": 0.359
+      },
+      {
+        "jahr": 2023,
+        "quote": 0.358
+      },
+      {
+        "jahr": 2024,
+        "quote": 0.357
+      }
+    ],
+    "jahr": 2024,
+    "quote": 0.357,
+    "peak_jahr": 2015,
+    "peak_quote": 0.384
+  },
+  "wald": {
+    "quelle": "bfs_wald",
+    "jahr": 2024,
+    "total_ha": 1275891,
+    "privat_ha": 375270,
+    "oeffentlich_ha": 900621,
+    "privat_share": 0.2941,
+    "oeffentlich_share": 0.7059,
+    "eigentuemer_total": 245975,
+    "privat_eigentuemer": 242634,
+    "oeff_eigentuemer": 3341,
+    "privat_ha_avg": 1.55,
+    "serie": [
+      {
+        "jahr": 1975,
+        "oeffentlich_share": 0.733
+      },
+      {
+        "jahr": 1976,
+        "oeffentlich_share": 0.7326
+      },
+      {
+        "jahr": 1977,
+        "oeffentlich_share": 0.7336
+      },
+      {
+        "jahr": 1978,
+        "oeffentlich_share": 0.7328
+      },
+      {
+        "jahr": 1979,
+        "oeffentlich_share": 0.7323
+      },
+      {
+        "jahr": 1980,
+        "oeffentlich_share": 0.7356
+      },
+      {
+        "jahr": 1981,
+        "oeffentlich_share": 0.732
+      },
+      {
+        "jahr": 1982,
+        "oeffentlich_share": 0.7342
+      },
+      {
+        "jahr": 1983,
+        "oeffentlich_share": 0.737
+      },
+      {
+        "jahr": 1984,
+        "oeffentlich_share": 0.7365
+      },
+      {
+        "jahr": 1985,
+        "oeffentlich_share": 0.7357
+      },
+      {
+        "jahr": 1986,
+        "oeffentlich_share": 0.7359
+      },
+      {
+        "jahr": 1987,
+        "oeffentlich_share": 0.7334
+      },
+      {
+        "jahr": 1988,
+        "oeffentlich_share": 0.7359
+      },
+      {
+        "jahr": 1989,
+        "oeffentlich_share": 0.7342
+      },
+      {
+        "jahr": 1990,
+        "oeffentlich_share": 0.7312
+      },
+      {
+        "jahr": 1991,
+        "oeffentlich_share": 0.7324
+      },
+      {
+        "jahr": 1992,
+        "oeffentlich_share": 0.7297
+      },
+      {
+        "jahr": 1993,
+        "oeffentlich_share": 0.7319
+      },
+      {
+        "jahr": 1994,
+        "oeffentlich_share": 0.7322
+      },
+      {
+        "jahr": 1995,
+        "oeffentlich_share": 0.7297
+      },
+      {
+        "jahr": 1996,
+        "oeffentlich_share": 0.729
+      },
+      {
+        "jahr": 1997,
+        "oeffentlich_share": 0.7301
+      },
+      {
+        "jahr": 1998,
+        "oeffentlich_share": 0.7307
+      },
+      {
+        "jahr": 1999,
+        "oeffentlich_share": 0.73
+      },
+      {
+        "jahr": 2000,
+        "oeffentlich_share": 0.7291
+      },
+      {
+        "jahr": 2001,
+        "oeffentlich_share": 0.7279
+      },
+      {
+        "jahr": 2002,
+        "oeffentlich_share": 0.7277
+      },
+      {
+        "jahr": 2003,
+        "oeffentlich_share": 0.7274
+      },
+      {
+        "jahr": 2004,
+        "oeffentlich_share": 0.7129
+      },
+      {
+        "jahr": 2005,
+        "oeffentlich_share": 0.7102
+      },
+      {
+        "jahr": 2006,
+        "oeffentlich_share": 0.7108
+      },
+      {
+        "jahr": 2007,
+        "oeffentlich_share": 0.711
+      },
+      {
+        "jahr": 2008,
+        "oeffentlich_share": 0.7106
+      },
+      {
+        "jahr": 2009,
+        "oeffentlich_share": 0.7106
+      },
+      {
+        "jahr": 2010,
+        "oeffentlich_share": 0.7106
+      },
+      {
+        "jahr": 2011,
+        "oeffentlich_share": 0.7108
+      },
+      {
+        "jahr": 2012,
+        "oeffentlich_share": 0.7108
+      },
+      {
+        "jahr": 2013,
+        "oeffentlich_share": 0.711
+      },
+      {
+        "jahr": 2014,
+        "oeffentlich_share": 0.711
+      },
+      {
+        "jahr": 2015,
+        "oeffentlich_share": 0.7061
+      },
+      {
+        "jahr": 2016,
+        "oeffentlich_share": 0.706
+      },
+      {
+        "jahr": 2017,
+        "oeffentlich_share": 0.7068
+      },
+      {
+        "jahr": 2018,
+        "oeffentlich_share": 0.7065
+      },
+      {
+        "jahr": 2019,
+        "oeffentlich_share": 0.7067
+      },
+      {
+        "jahr": 2020,
+        "oeffentlich_share": 0.7067
+      },
+      {
+        "jahr": 2021,
+        "oeffentlich_share": 0.7075
+      },
+      {
+        "jahr": 2022,
+        "oeffentlich_share": 0.7077
+      },
+      {
+        "jahr": 2023,
+        "oeffentlich_share": 0.706
+      },
+      {
+        "jahr": 2024,
+        "oeffentlich_share": 0.7059
+      }
+    ]
+  },
+  "boden": {
+    "nutzung": {
+      "quelle": "bfs_areal",
+      "bezug": "kuratiert",
+      "landwirtschaft": 0.35,
+      "wald": 0.32,
+      "siedlung": 0.08
+    },
+    "lex_koller": {
+      "jahr": 2023,
+      "kontingent": 1500,
+      "bewilligungen": 703,
+      "erwerbe": 378,
+      "zweitwohnsitze_ch_min": 0.8,
+      "quelle": "lex_koller",
+      "bezug": "kuratiert",
+      "ausschoepfung": 0.4687
+    },
+    "blackrock": {
+      "quelle": "blackrock_immo",
+      "bezug": "kuratiert",
+      "anteil": 0.06,
+      "wert_mrd": 2.0,
+      "firmen": 17,
+      "faktor_10j": 20,
+      "sps_anteil": 0.12
+    },
+    "pacht": {
+      "quelle": "bfs_pacht",
+      "bezug": "kuratiert",
+      "serie": [
+        {
+          "jahr": 1980,
+          "anteil": 0.37
+        },
+        {
+          "jahr": 2005,
+          "anteil": 0.43
+        },
+        {
+          "jahr": 2016,
+          "anteil": 0.45
+        },
+        {
+          "jahr": 2020,
+          "anteil": 0.47
+        }
+      ]
+    },
+    "groesste": [
+      {
+        "bezug": "kuratiert",
+        "id": "armee",
+        "name": "Armee (VBS)",
+        "menge": 26000,
+        "einheit": "ha",
+        "quelle": "vbs_grundbesitz"
+      },
+      {
+        "bezug": "kuratiert",
+        "id": "sbb",
+        "name": "SBB",
+        "menge": 94,
+        "einheit": "Mio. m²",
+        "quelle": "sbb_immo"
+      },
+      {
+        "bezug": "kuratiert",
+        "id": "ubs",
+        "name": "UBS (mit CS)",
+        "menge": 70000,
+        "einheit": "Wohnungen",
+        "quelle": "ubs_wohnungen"
+      },
+      {
+        "bezug": "kuratiert",
+        "id": "swisslife",
+        "name": "Swiss Life",
+        "menge": 3,
+        "einheit": "Mio. m²",
+        "quelle": "bilanz_immo"
+      },
+      {
+        "bezug": "kuratiert",
+        "id": "einsiedeln",
+        "name": "Kloster Einsiedeln",
+        "menge": 2140,
+        "einheit": "ha",
+        "quelle": "einsiedeln"
+      },
+      {
+        "bezug": "kuratiert",
+        "id": "hiag",
+        "name": "Hiag (Familie Grisard)",
+        "menge": 2.6,
+        "einheit": "km²",
+        "quelle": "hiag"
+      }
+    ]
+  }
+}
