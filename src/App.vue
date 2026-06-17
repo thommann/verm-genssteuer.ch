@@ -219,10 +219,7 @@ onUnmounted(() => {
     <router-view />
   </main>
 
-  <footer
-    class="site-footer"
-    :class="{ flush: route.meta.bleedEnd }"
-  >
+  <footer class="site-footer">
     <div class="wrap site-footer-inner">
       <router-link
         to="/#slogan"
@@ -382,18 +379,16 @@ onUnmounted(() => {
 /* Globale Fusszeile mit den rechtlichen Seiten. Erscheint auf jeder Route.
    position/z-index sind nötig, weil <main> als eigener Stacking-Context (isolation)
    seinen fixierten Verlauf (main::before) sonst über die Fusszeile legt und deren
-   Text verdeckt. Ein eigener Stacking-Context hebt die Fusszeile darüber. */
+   Text verdeckt. Ein eigener Stacking-Context hebt die Fusszeile darüber.
+   Die Fusszeile schliesst bündig (kein margin-top) an den Inhalt an: die Sektionen
+   bringen ihren eigenen Innenabstand mit, und auf Seiten, die mit einem vollflächigen
+   Farbband enden (Startseite, Hintergrund), verhindert das eine durchscheinende Naht. */
 .site-footer {
   position: relative;
   z-index: 1;
-  margin-top: 40px;
   border-top: 1px solid var(--border);
   background: rgba(5, 7, 15, 0.4);
 }
-/* Seiten, die mit einem vollflächigen Farbband enden (meta.bleedEnd: Startseite mit dem
-   Slogan-Band, Hintergrund mit dem letzten Artikel-Band): ein 40px-Abstand würde die dunkle
-   Grundfläche als Naht durchscheinen lassen. Daher Fusszeile bündig anschliessen. */
-.site-footer.flush { margin-top: 0; }
 .site-footer-inner {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
   gap: 12px 24px; padding-top: 18px; padding-bottom: 18px;

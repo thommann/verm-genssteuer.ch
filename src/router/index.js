@@ -11,17 +11,13 @@ import DatenschutzPage from '@/pages/DatenschutzPage.vue';
 
 // Drei Themen plus Startseite und Quellen. Die meta.group-Schlüssel verbinden eine Route
 // mit ihrer Menü-Überschrift (nav.groups.<group>) und der aktiven Hervorhebung.
-// meta.bleedEnd markiert Seiten, die mit einem vollflächigen Farbband enden (Startseite:
-// Slogan-Band, Hintergrund: letztes Artikel-Band). Dort schliesst die Fusszeile bündig an
-// (App.vue: .site-footer.flush), sonst zeigt der sonstige 40px-Abstand die dunkle
-// Grundfläche als Naht zwischen Band und Fusszeile.
 export const routes = [
-  { path: '/', name: 'home', component: HomePage, meta: { titleKey: 'routes.home', bleedEnd: true } },
+  { path: '/', name: 'home', component: HomePage, meta: { titleKey: 'routes.home' } },
   { path: '/rechner', name: 'rechner', component: RechnerPage, meta: { group: 'rechner', titleKey: 'routes.rechner' } },
   { path: '/wem-gehoert-die-schweiz', name: 'eigentum', component: EigentumPage, meta: { group: 'eigentum', titleKey: 'routes.eigentum' } },
   { path: '/verteilung', name: 'verteilung', component: VerteilungPage, meta: { group: 'verteilung', titleKey: 'routes.verteilung' } },
   { path: '/modelle', name: 'modelle', component: ModellePage, meta: { group: 'modelle', titleKey: 'routes.modelle' } },
-  { path: '/hintergrund', name: 'hintergrund', component: HintergrundPage, meta: { group: 'hintergrund', titleKey: 'routes.hintergrund', bleedEnd: true } },
+  { path: '/hintergrund', name: 'hintergrund', component: HintergrundPage, meta: { group: 'hintergrund', titleKey: 'routes.hintergrund' } },
   { path: '/quellen', name: 'quellen', component: QuellenPage, meta: { group: 'transparenz', titleKey: 'routes.quellen' } },
   // Rechtliche Seiten (ohne eigene Menügruppe, verlinkt aus der Fusszeile).
   { path: '/impressum', name: 'impressum', component: ImpressumPage, meta: { titleKey: 'routes.impressum' } },
