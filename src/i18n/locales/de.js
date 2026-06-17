@@ -601,6 +601,27 @@ export default {
   // eyebrow/title/lead, eine Block-Liste blocks (t: 'p' Absatz, 'h' Zwischentitel, 'q' Zitat,
   // 'fig' Kennzahl-Karte mit Quellen-id s) und eine Quellenzeile sources[]. Zahlen sind ueber
   // ihre Quellen-id belegt (sources.json), Argumente von Gary/Zucman qualitativ zugeordnet.
+  boden: {
+    eigentum: {
+      eyebrow: 'Die Transparenzlücke',
+      title: 'Warum niemand <span class="hl">nachzählen darf</span>, wem die Schweiz gehört',
+      lead: 'Du kannst für jedes einzelne Grundstück erfahren, wem es gehört. Du darfst diese Auskünfte aber nicht zu einem Gesamtbild zusammensetzen. Genau die Frage, wem wie viel des Landes gehört, hält das Gesetz verschlossen.',
+      blocks: [
+        { t: 'p', x: 'Das Grundbuch ist öffentlich, aber nur Parzelle für Parzelle. Artikel 970 Absatz 2 des Zivilgesetzbuchs gibt jeder Person das Recht, ohne jeden Interessennachweis drei Dinge zu erfahren: die Bezeichnung des Grundstücks, den Namen und die Identifikation des Eigentümers sowie die Eigentumsform und das Erwerbsdatum. Wer das ganze Grundbuchblatt sehen will, muss nach Absatz 1 ein Interesse glaubhaft machen, und blosse Neugier genügt dafür nicht.' },
+        { t: 'p', x: 'Die eigentliche Begrenzung steht in der Grundbuchverordnung. Artikel 26 Absatz 2 hält fest: «Eine Auskunft oder ein Auszug darf nur für ein bestimmtes Grundstück abgegeben werden.» Du fragst also immer nur nach einem einzelnen Stück Boden, nie danach, was einer bestimmten Person alles gehört.' },
+        { t: 'h', x: 'Die Suche ist absichtlich kaputt gebaut' },
+        { t: 'p', x: 'Für die Online-Register schreibt Artikel 27 Absatz 2 der Grundbuchverordnung vor, die Kantone «stellen sicher, dass die Daten nur grundstücksbezogen abgerufen werden können und dass die Auskunftssysteme vor Serienabfragen geschützt sind». Massenabfragen wurden nicht vergessen, sie sind verboten. Im Kanton Zürich können Eigentümer ihren Eintrag in der Online-Abfrage sogar vollständig sperren lassen.' },
+        { t: 'h', x: 'Das Werkzeug existiert, nur nicht für dich' },
+        { t: 'p', x: 'Eine Suche, die vom Namen einer Person ausgeht und alles findet, was ihr im ganzen Land gehört, gibt es tatsächlich. Sie heisst gesamtschweizerische Grundstücksuche, steht in Artikel 949c des Zivilgesetzbuchs und in den Artikeln 34a bis 34i der Grundbuchverordnung und wird vom Bund betrieben. Zugriff haben aber nur berechtigte Behörden zur Erfüllung ihrer gesetzlichen Aufgaben. Die Frage, die der Öffentlichkeit verwehrt bleibt, lässt sich also auf Knopfdruck beantworten, nur eben nicht von dir.' },
+        { t: 'h', x: 'Datenschutz als Begründung' },
+        { t: 'p', x: 'Das Gesetz nennt seinen Grund offen. Artikel 970 Absatz 3 verlangt, bei jeder weiteren Öffnung von Daten den Schutz der Persönlichkeit zu beachten, und das Datenschutzgesetz gilt selbst für öffentlich zugängliche Daten. Den einzelnen Eigentümer davor zu schützen, dass jemand ein Profil über ihn anlegt, ist ein berechtigtes Ziel.' },
+        { t: 'p', x: 'Dieselbe Regel schützt aber nicht nur die Privatperson, sondern ebenso den grössten Bodenbesitzer des Landes. Sie macht es unmöglich, nachzuzählen, wie viel des Schweizer Bodens sich an der Spitze sammelt. So wird der Datenschutz zum Mantel, unter dem die Konzentration von Grund und Boden der demokratischen Kontrolle entzogen bleibt. Eine Gesellschaft, die nicht sehen darf, wem ihr Boden gehört, kann auch nicht darüber streiten, ob er sich in zu wenigen Händen sammelt.' },
+        { t: 'p', x: 'Belegbar bleibt nur, was der Bund selbst aggregiert und veröffentlicht, etwa die Waldstatistik, die immerhin zwischen öffentlichem und privatem Wald unterscheidet. Für den gesamten Boden, für die Frage wem wie viel gehört, gibt es keine solche Zahl. Das ist kein Versehen, sondern Folge der Bauweise des Systems. <a href="/verteilung#verteilung">Wie stark sich Vermögen in der Schweiz konzentriert</a>, zeigt der Abschnitt weiter oben.' },
+      ],
+      sources: ['zgb_grundbuch', 'gbv_oeffentlichkeit', 'dsg', 'grundbuch_sperre'],
+    },
+  },
+
   hintergrund: {
     videoCta: 'Video von Gary’s Economics ansehen',
     aufkauf: {
@@ -653,25 +674,6 @@ export default {
       ],
       video: { url: 'https://www.youtube.com/watch?v=g0lEbH2kEw8', title: 'UK Budget – The End of Democracy?' },
       sources: ['social_europe_demokratie', 'woz_zucman'],
-    },
-
-    bodeneigentum: {
-      eyebrow: 'Die Transparenzlücke',
-      title: 'Warum niemand <span class="hl">nachzählen darf</span>, wem die Schweiz gehört',
-      lead: 'Du kannst für jedes einzelne Grundstück erfahren, wem es gehört. Du darfst diese Auskünfte aber nicht zu einem Gesamtbild zusammensetzen. Genau die Frage, wem wie viel des Landes gehört, hält das Gesetz verschlossen.',
-      blocks: [
-        { t: 'p', x: 'Das Grundbuch ist öffentlich, aber nur Parzelle für Parzelle. Artikel 970 Absatz 2 des Zivilgesetzbuchs gibt jeder Person das Recht, ohne jeden Interessennachweis drei Dinge zu erfahren: die Bezeichnung des Grundstücks, den Namen und die Identifikation des Eigentümers sowie die Eigentumsform und das Erwerbsdatum. Wer das ganze Grundbuchblatt sehen will, muss nach Absatz 1 ein Interesse glaubhaft machen, und blosse Neugier genügt dafür nicht.' },
-        { t: 'p', x: 'Die eigentliche Begrenzung steht in der Grundbuchverordnung. Artikel 26 Absatz 2 hält fest: «Eine Auskunft oder ein Auszug darf nur für ein bestimmtes Grundstück abgegeben werden.» Du fragst also immer nur nach einem einzelnen Stück Boden, nie danach, was einer bestimmten Person alles gehört.' },
-        { t: 'h', x: 'Die Suche ist absichtlich kaputt gebaut' },
-        { t: 'p', x: 'Für die Online-Register schreibt Artikel 27 Absatz 2 der Grundbuchverordnung vor, die Kantone «stellen sicher, dass die Daten nur grundstücksbezogen abgerufen werden können und dass die Auskunftssysteme vor Serienabfragen geschützt sind». Massenabfragen wurden nicht vergessen, sie sind verboten. Im Kanton Zürich können Eigentümer ihren Eintrag in der Online-Abfrage sogar vollständig sperren lassen.' },
-        { t: 'h', x: 'Das Werkzeug existiert, nur nicht für dich' },
-        { t: 'p', x: 'Eine Suche, die vom Namen einer Person ausgeht und alles findet, was ihr im ganzen Land gehört, gibt es tatsächlich. Sie heisst gesamtschweizerische Grundstücksuche, steht in Artikel 949c des Zivilgesetzbuchs und in den Artikeln 34a bis 34i der Grundbuchverordnung und wird vom Bund betrieben. Zugriff haben aber nur berechtigte Behörden zur Erfüllung ihrer gesetzlichen Aufgaben. Die Frage, die der Öffentlichkeit verwehrt bleibt, lässt sich also auf Knopfdruck beantworten, nur eben nicht von dir.' },
-        { t: 'h', x: 'Datenschutz als Begründung' },
-        { t: 'p', x: 'Das Gesetz nennt seinen Grund offen. Artikel 970 Absatz 3 verlangt, bei jeder weiteren Öffnung von Daten den Schutz der Persönlichkeit zu beachten, und das Datenschutzgesetz gilt selbst für öffentlich zugängliche Daten. Den einzelnen Eigentümer davor zu schützen, dass jemand ein Profil über ihn anlegt, ist ein berechtigtes Ziel.' },
-        { t: 'p', x: 'Dieselbe Regel schützt aber nicht nur die Privatperson, sondern ebenso den grössten Bodenbesitzer des Landes. Sie macht es unmöglich, nachzuzählen, wie viel des Schweizer Bodens sich an der Spitze sammelt. So wird der Datenschutz zum Mantel, unter dem die Konzentration von Grund und Boden der demokratischen Kontrolle entzogen bleibt. Eine Gesellschaft, die nicht sehen darf, wem ihr Boden gehört, kann auch nicht darüber streiten, ob er sich in zu wenigen Händen sammelt.' },
-        { t: 'p', x: 'Belegbar bleibt nur, was der Bund selbst aggregiert und veröffentlicht, etwa die Waldstatistik, die immerhin zwischen öffentlichem und privatem Wald unterscheidet. Für den gesamten Boden, für die Frage wem wie viel gehört, gibt es keine solche Zahl. Das ist kein Versehen, sondern Folge der Bauweise des Systems. <a href="/verteilung#verteilung">Wie stark sich Vermögen in der Schweiz konzentriert</a>, zeigt der Abschnitt zur Verteilung.' },
-      ],
-      sources: ['zgb_grundbuch', 'gbv_oeffentlichkeit', 'dsg', 'grundbuch_sperre'],
     },
 
     steuerluecke: {
