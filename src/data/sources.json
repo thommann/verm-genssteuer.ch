@@ -223,5 +223,41 @@
     "url": "https://www.youtube.com/@garyseconomics",
     "stand": "Abruf Juni 2026",
     "hinweis": "Primaerquelle von Gary Stevensons Argumenten in Videoform. Die je Hintergrund-Artikel verlinkten Videos sind ueber die YouTube-oEmbed-API geprueft (author_name «Garys Economics», Titel und Erreichbarkeit bestaetigt): Aufkauf «The rich will fuel a huge asset price rally» (clwnPPhqK2A); Geldfluss «How COVID-19 MAKES the Rich Richer - Gary EXPLAINS the theory» (EiblHqbpXHs); Demokratie «UK Budget – The End of Democracy?» (g0lEbH2kEw8); Steuerluecke «How the rich make taxes unpopular» (rQg24dralYY); Wirtschaft «COVID-19 & INEQUALITY: Why the rich are getting richer but the economy will NOT recover» (1YrDt8z0dKE); Loesung «Is a wealth tax actually possible?» (gHrxoKEnvEs). Die Videos belegen qualitativ die zugeordneten Argumente, keine einzelnen Zahlen."
+  },
+  {
+    "id": "zgb_grundbuch",
+    "kurz": "ZGB, Öffentlichkeit des Grundbuchs",
+    "titel": "Schweizerisches Zivilgesetzbuch (ZGB, SR 210): Art. 970 (Öffentlichkeit des Grundbuchs), Art. 949c (gesamtschweizerische Grundstücksuche)",
+    "herausgeber": "Schweizerische Eidgenossenschaft, Fedlex",
+    "url": "https://www.fedlex.admin.ch/eli/cc/24/233_245_233/de",
+    "stand": "Fassung in Kraft seit 1. Januar 2023, Abruf Juni 2026",
+    "hinweis": "Art. 970 Abs. 1: Einsicht oder Auszug erhält nur, wer ein Interesse glaubhaft macht. Abs. 2: ohne Interessennachweis ist jede Person nur zur Auskunft über die Bezeichnung des Grundstücks, den Namen und die Identifikation des Eigentümers sowie Eigentumsform und Erwerbsdatum berechtigt. Abs. 3: der Bundesrat bezeichnet weitere öffentliche Angaben und beachtet dabei den Schutz der Persönlichkeit. Art. 949c: die gesamtschweizerische Suche nach Grundstücken einer Person ist berechtigten Behörden zur Erfüllung ihrer gesetzlichen Aufgaben vorbehalten, nicht der Öffentlichkeit."
+  },
+  {
+    "id": "gbv_oeffentlichkeit",
+    "kurz": "Grundbuchverordnung (GBV)",
+    "titel": "Grundbuchverordnung (GBV, SR 211.432.1): Art. 26 (öffentlich zugängliche Daten), Art. 27 (elektronischer Zugang), Art. 34a–34i (Grundstücksuchdienst)",
+    "herausgeber": "Schweizerische Eidgenossenschaft, Fedlex",
+    "url": "https://www.fedlex.admin.ch/eli/cc/2011/667/de",
+    "stand": "Fassung in Kraft seit 1. Januar 2023, Abruf Juni 2026",
+    "hinweis": "Art. 26 Abs. 2 wörtlich: «Eine Auskunft oder ein Auszug darf nur für ein bestimmtes Grundstück abgegeben werden.» Art. 27 Abs. 2 wörtlich: «Sie stellen sicher, dass die Daten nur grundstücksbezogen abgerufen werden können und dass die Auskunftssysteme vor Serienabfragen geschützt sind.» Art. 34a–34i: der Bund (Eidg. Amt für Grundbuch- und Bodenrecht EGBA) betreibt den nationalen Grundstücksuchdienst, Zugriff nur für berechtigte Behörden."
+  },
+  {
+    "id": "dsg",
+    "kurz": "Datenschutzgesetz (DSG)",
+    "titel": "Bundesgesetz über den Datenschutz (DSG, SR 235.1)",
+    "herausgeber": "Schweizerische Eidgenossenschaft, Fedlex",
+    "url": "https://www.fedlex.admin.ch/eli/cc/2022/491/de",
+    "stand": "In Kraft seit 1. September 2023, Abruf Juni 2026",
+    "hinweis": "Das Datenschutzrecht gilt auch für öffentlich zugängliche Personendaten. Das systematische Zusammenführen einzeln zugänglicher Grundbuchdaten zu Personen- oder Eigentumsprofilen bleibt ihm unterstellt; dies stützt die Begründung der grundstücksbezogenen Beschränkung."
+  },
+  {
+    "id": "grundbuch_sperre",
+    "kurz": "Steiger Legal, Online-Grundbuch Zürich",
+    "titel": "Eigentümer im Kanton Zürich können Abfrage im Online-Grundbuch sperren lassen",
+    "herausgeber": "Steiger Legal (Martin Steiger)",
+    "url": "https://steigerlegal.ch/2025/01/10/sperrung-online-grundbuch-kanton-zuerich/",
+    "stand": "10. Januar 2025, Abruf Juni 2026",
+    "hinweis": "Belegt, dass Kantone die öffentliche Online-Abfrage zusätzlich einschränken: im Kanton Zürich können Eigentümer ihren Eintrag von der Online-Abfrage des Grundbuchs sperren lassen."
   }
 ]

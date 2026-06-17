@@ -11,6 +11,7 @@ const ARTS = [
   { id: 'aufkauf', bg: ['#ff7a33', '#d6249f', '#ff2d6b', '#d6249f'] },
   { id: 'geldfluss', bg: ['#d6249f', '#7c3aed', '#ff2d6b', '#7c3aed'] },
   { id: 'demokratie', bg: ['#7c3aed', '#4f8bff', '#a78bfa', '#3b6fe0'] },
+  { id: 'bodeneigentum', bg: ['#0f9d7a', '#14c98a', '#4f8bff', '#0f9d7a'] },
   { id: 'steuerluecke', bg: ['#ff2d6b', '#ff7a33', '#d6249f', '#ff7a33'] },
   { id: 'wirtschaft', bg: ['#14c98a', '#25e3c8', '#4f8bff', '#14c98a'] },
   { id: 'loesung', bg: ['#4f8bff', '#7c3aed', '#3b6fe0', '#7c3aed'] },
