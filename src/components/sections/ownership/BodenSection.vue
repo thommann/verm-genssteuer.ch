@@ -114,9 +114,12 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           :series="wohneigentumTrend"
           :x-domain="[woYears[0], woYears[woYears.length - 1]]"
           :x-ticks="woYears.filter((y) => y % 2 === 1)"
-          :y-domain="[0.3, 0.4]"
+          :y-domain="[0.34, 0.39]"
+          :y-ticks="[0.34, 0.36, 0.38]"
           :format-x="(v) => String(v)"
           :format-y="pct0"
+          :x-label="$t('ownership.axisYear')"
+          :y-label="$t('ownership.wohneigentumLine')"
           :height="280"
         />
         <SourceTag id="bfs_wohneigentum" :note="$t('ownership.wohneigentumSource')" />
@@ -161,9 +164,12 @@ const waldYears = computed(() => wald.serie.map((p) => p.jahr));
           :series="pachtTrend"
           :x-domain="[pachtYears[0], pachtYears[pachtYears.length - 1]]"
           :x-ticks="pachtYears"
-          :y-domain="[0, 0.6]"
+          :y-domain="[0.35, 0.5]"
+          :y-ticks="[0.35, 0.4, 0.45, 0.5]"
           :format-x="(v) => String(v)"
           :format-y="pct0"
+          :x-label="$t('ownership.axisYear')"
+          :y-label="$t('ownership.pachtLine')"
           :height="280"
         />
         <SourceTag id="bfs_pacht" :note="$t('ownership.pachtSource')" />
