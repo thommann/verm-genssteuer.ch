@@ -13,8 +13,7 @@ const props = defineProps({
   anchor: { type: String, required: true },
   bg: { type: Array, required: true },
   // i18n-Namensraum des Artikels (Standard: hintergrund). So laesst sich dasselbe
-  // Artikel-Band auch auf anderen Seiten einsetzen, z. B. unter boden.* auf der
-  // Verteilungs-Seite.
+  // Artikel-Band bei Bedarf auch mit Texten aus einem anderen Namensraum einsetzen.
   ns: { type: String, default: 'hintergrund' },
 });
 

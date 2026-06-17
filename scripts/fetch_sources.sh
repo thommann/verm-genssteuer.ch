@@ -19,7 +19,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 RAW="$ROOT/data/raw"
-mkdir -p "$RAW/estv" "$RAW/wid" "$RAW/fdk" "$RAW/ubs" "$RAW/bfs" "$RAW/efv"
+mkdir -p "$RAW/estv" "$RAW/wid" "$RAW/fdk" "$RAW/ubs" "$RAW/bfs" "$RAW/efv" "$RAW/snb" "$RAW/worldbank"
 
 ua='Mozilla/5.0 (compatible; verm-genssteuer-fetch/1.0)'
 get() { # get <url> <zielpfad>
@@ -78,7 +78,7 @@ echo "== 6/6  BFS — Haushaltsbudgeterhebung nach Einkommensklasse (HABE 2015-2
 # Direkt herunterladbares Excel (Asset 10867300), Blatt «2015-2017».
 get "https://dam-api.bfs.admin.ch/hub/api/dam/assets/10867300/master" "$RAW/bfs/habe-einkommensklasse.xlsx"
 
-echo "== 7/7  EFV — Finanzstatistik (FS-Modell): Verkehr/Infrastruktur, Sektor Staat =="
+echo "== 7/12  EFV — Finanzstatistik (FS-Modell): Verkehr/Infrastruktur, Sektor Staat =="
 # EFV, Finanzierungsrechnung nach Sachgruppen und Funktionen (fir_art_funk.csv, ~1,2 GB).
 # Der konsolidierte Sektor «staat» liegt am Dateianfang; wir laden nur diesen Anfang per
 # Byte-Range und filtern die staat-Zeilen heraus -> kleine, pruefbare Rohdatei. HRM2-
@@ -91,8 +91,63 @@ curl -fsSL --retry 4 --retry-delay 2 --max-time 600 -A "$ua" \
   "https://www.data.finance.admin.ch/static/assets/datasets/fs_dashboard/fir_art_funk.csv" \
   | grep ',"staat",' > "$RAW/efv/efv_funk_verkehr_staat.csv"
 
+echo "== 8/12  BFS — Unternehmensgruppen nach Sitzland (STAGRE, T 6.6.3, 2014-2024) =="
+# Bundesamt fuer Statistik, Statistik der Unternehmensgruppen (STAGRE): Anzahl
+# Gruppen, Unternehmen, Beschaeftigte und Umsatz nach Sitzland (= Land des
+# Gruppenoberhaupts). Direkt herunterladbares Excel (DAM-Asset 36244614).
+get "https://dam-api.bfs.admin.ch/hub/api/dam/assets/36244614/master" "$RAW/bfs/stagre-sitzland.xlsx"
+
+echo "== 9/12  BFS — Waldflaeche nach Eigentuemertyp (Cube px-x-0703010000_101) =="
+# Bundesamt fuer Statistik, «Waldflaechen der Schweiz in ha nach Jahr, Forstzone,
+# Kanton, Eigentuemertyp und Beobachtungseinheit». Deterministische PXWeb-Abfrage:
+# Schweiz, Forstzone Schweiz, Eigentuemertyp Total/Privat/Oeffentlich,
+# Beobachtungseinheit «Gesamte Waldflaechen» (e012), ALLE Jahre (Zeitreihe 1975-2024).
+echo "  -> $RAW/bfs/wald-eigentum.json"
+curl -fsS --retry 4 --retry-delay 2 --max-time 60 -A "$ua" \
+  -H "Content-Type: application/json" \
+  -X POST "https://www.pxweb.bfs.admin.ch/api/v1/de/px-x-0703010000_101/px-x-0703010000_101.px" \
+  -d '{"query":[
+    {"code":"Forstzone","selection":{"filter":"item","values":["0"]}},
+    {"code":"Kanton","selection":{"filter":"item","values":["0"]}},
+    {"code":"Eigentümertyp","selection":{"filter":"item","values":["0","100","200"]}},
+    {"code":"Beobachtungseinheit","selection":{"filter":"item","values":["e012"]}}
+  ],"response":{"format":"json-stat2"}}' -o "$RAW/bfs/wald-eigentum.json"
+# Zusatz: Anzahl Waldeigentuemer (Beobachtungseinheit e007), neuestes Jahr (Code 49 = 2024).
+echo "  -> $RAW/bfs/wald-eigentuemer.json"
+curl -fsS --retry 4 --retry-delay 2 --max-time 60 -A "$ua" \
+  -H "Content-Type: application/json" \
+  -X POST "https://www.pxweb.bfs.admin.ch/api/v1/de/px-x-0703010000_101/px-x-0703010000_101.px" \
+  -d '{"query":[
+    {"code":"Jahr","selection":{"filter":"item","values":["49"]}},
+    {"code":"Forstzone","selection":{"filter":"item","values":["0"]}},
+    {"code":"Kanton","selection":{"filter":"item","values":["0"]}},
+    {"code":"Eigentümertyp","selection":{"filter":"item","values":["0","100","200"]}},
+    {"code":"Beobachtungseinheit","selection":{"filter":"item","values":["e007"]}}
+  ],"response":{"format":"json-stat2"}}' -o "$RAW/bfs/wald-eigentuemer.json"
+
+echo "== 10/12 SNB — Reinvermoegen der privaten Haushalte (Cube frsekgevehup) =="
+# Schweizerische Nationalbank, «Vermoegensbilanz der privaten Haushalte - Jahr».
+# Code RVM = Reinvermoegen (Finanz- und Sachvermoegen minus Verpflichtungen),
+# in Mio. CHF, Jahresreihe. CSV ueber die offene SNB-Daten-API.
+get "https://data.snb.ch/api/cube/frsekgevehup/data/csv/de" "$RAW/snb/haushalte-vermoegen.csv"
+
+echo "== 11/12 BFS — Gebaeude nach Eigentuemertyp (Statistik der Eigentuemertypen) =="
+# Bundesamt fuer Statistik, «Gebaeude nach Eigentuemertyp, Rechtsform und
+# Gemeinschaftstyp, nach Kanton» (registerbasiert, GWR + Grundbuch), Stand 2022.
+# Direkt herunterladbares Excel (DAM-Asset 27885505), Blatt «2022».
+get "https://www.bfs.admin.ch/bfsstatic/dam/assets/27885505/master" "$RAW/bfs/gebaeude-eigentuemertyp.xlsx"
+# BFS-Tabelle T 09.03.02.01.03 «Bewohnte Wohnungen nach Bewohnertyp und Wohneigentumsquote»
+# (ein Blatt je Jahr 2010-2024), DAM-Asset 36398362. Liefert die Wohneigentumsquote-Reihe.
+get "https://dam-api.bfs.admin.ch/hub/api/dam/assets/36398362/master" "$RAW/bfs/wohneigentumsquote.xlsx"
+
+echo "== 12/12 Weltbank — Nominales BIP der Schweiz (current LCU, CHF) =="
+# World Bank, Indikator NY.GDP.MKTP.CN (GDP, current LCU = laufende CHF), Schweiz (CHE).
+# Speist die nationalen Volkswirtschaftlichen Gesamtrechnungen (BFS/SECO); fetchbar als
+# JSON. Dient als BIP-Nenner fuer die Verlaeufe «Privatvermoegen vs. BIP» und «300 vs. BIP».
+get "https://api.worldbank.org/v2/country/CHE/indicator/NY.GDP.MKTP.CN?format=json&per_page=80" "$RAW/worldbank/che_gdp_current_chf.json"
+
 echo
 echo "== Pruefsummen =="
-( cd "$RAW" && sha256sum estv/* wid/*.csv fdk/*.pdf ubs/*.pdf bfs/*.json bfs/*.xlsx efv/*.csv )
+( cd "$RAW" && sha256sum estv/* wid/*.csv fdk/*.pdf ubs/*.pdf bfs/*.json bfs/*.xlsx efv/*.csv snb/*.csv worldbank/*.json )
 echo
 echo "Fertig. Vergleiche bei Bedarf mit data/CHECKSUMS.txt."

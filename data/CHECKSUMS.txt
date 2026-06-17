@@ -34,3 +34,11 @@ b4a7badd44c25e253fdb26bcd0531d4fc8a8a0cc6f439edb88b9ae3a5b0a36dd  ubs/ubs_gwr_20
 # EFV-Finanzstatistik (fir_art_funk.csv) wird laufend revidiert; bei Re-Download kann sich
 # der gefilterte staat-Auszug (und damit die Pruefsumme) aendern.
 c5cea7190e51f2dc426c734556e543087ff919dc021cc626ab5aad94d149ce3a  efv/efv_funk_verkehr_staat.csv
+09473a33db230d97015829dc75d27f94b771f3b7d895765a7e7eca4d775986fb  bfs/stagre-sitzland.xlsx
+069448a2221bebde8c618b69155b0d78df0fcb67b78b0f23df68d34933770ddd  bfs/wald-eigentum.json
+f6deb906c9ed29575dbe917486e8a8fbbf3e7fd7ebcf6a3c17eb2a174e474b11  bfs/wald-eigentuemer.json
+818fc3875b248ffca52a210d407e8b051e92e5f844f8efa61ab8a252e87d4e48  bfs/gebaeude-eigentuemertyp.xlsx
+6975c628a62d0a540eeac8005ca38ccdc4eaedd7504e20dd028fa99c08c61306  bfs/wohneigentumsquote.xlsx
+1f8d3b472ed549aafd5dd773f0be59345a49e13411de9772ed86a5a4a081562f  snb/haushalte-vermoegen.csv
+# Weltbank-BIP wird jaehrlich revidiert; Re-Download kann die Pruefsumme aendern.
+a09d36b2b4af6beea02a0a3ac0570cae6b9f87d88284d50c224c62bda272c178  worldbank/che_gdp_current_chf.json

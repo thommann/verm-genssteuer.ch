@@ -60,7 +60,7 @@
     "herausgeber": "Bilanz (Ringier); Aufbereitung u. a. 20 Minuten, SRF",
     "url": "https://www.bilanz.ch/die-300-reichsten/vermogen-der-reichsten-erreicht-historischen-hochststand-884861",
     "stand": "Liste 2025, November 2025",
-    "hinweis": "Marktnahe Schätzwerte (Verkehrswerte), keine amtliche Statistik und tendenziell ein Unterzähler, da diskret gehaltene Vermögen fehlen. Top 10 zusammen 227 Mrd. (über ein Viertel), reichster Gérard Wertheimer rund 33 Mrd. Vorjahr 2024: 833,5 Mrd. und 152 Milliardäre. Die Liste läuft bei Rang 300 auf rund 100 Mio. aus."
+    "hinweis": "Marktnahe Schätzwerte (Verkehrswerte), keine amtliche Statistik und tendenziell ein Unterzähler, da diskret gehaltene Vermögen fehlen. Top 10 zusammen 227 Mrd. (über ein Viertel), reichster Gérard Wertheimer rund 33 Mrd. Vorjahr 2024: 833,5 Mrd. und 152 Milliardäre. Die Liste läuft bei Rang 300 auf rund 100 Mio. aus. Nationalität (Liste 2022): 145 der 300 Reichsten sind Ausländer mit Wohnsitz in der Schweiz (rund 48 %), also rund 155 Schweizer bzw. Liechtensteiner; in die Liste kommt, wer hier wohnt, unabhängig vom Pass. Der Ausländeranteil liegt über die Jahrgänge stabil bei «rund der Hälfte». Diese kuratierte Kennzahl (bezug=kuratiert) wird in src/data/ownership.json (Feld reichste) geführt und in der Sektion «Wem gehört die Schweiz?» gezeigt; es gibt keine amtliche Aufschlüsselung des reichsten 1 % nach Nationalität."
   },
   {
     "id": "reichensteuer_studie",
@@ -169,6 +169,195 @@
     "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/wirtschaftliche-soziale-situation-bevoelkerung/einkommen-verbrauch-vermoegen/haushaltsbudget.assetdetail.10867300.html",
     "stand": "Tabelle nach Einkommensklasse T20.02.01.00.12, Blatt 2015–2017 (neueste Querschnittsperiode)",
     "hinweis": "Tabelle «Haushaltseinkommen und -ausgaben nach Einkommensklasse» (T20.02.01.00.12, Asset 10867300), Blatt 2015–2017. Die fünf Einkommensklassen sind die Quintile der Bruttoeinkommensverteilung (Note 8 der Tabelle), je 20 % der Haushalte. Reproduzierbar via scripts/05_extract_habe.py → src/data/habe.json; je Spalte werden die Zeilen «Bruttoeinkommen», «Einkommen aus Vermögen und Vermietung» und «Steuern» (in CHF/Monat, Mittelwert) gelesen. Arbeiterhaushalt = mittleres Einkommensfünftel (enthält den Median, Bruttoeinkommen 8573 CHF/Monat): Einkommen aus Vermögen und Vermietung 219 CHF/Monat = 2,6 %, Steuern (Einkommen und Vermögen) 868 CHF/Monat = 10,1 % des Bruttoeinkommens. Zeit, die ganze Jahressteuer allein aus dem passiven Vermögenseinkommen zu verdienen: 10,1 % ÷ 2,6 % ≈ 868 ÷ 219 ≈ 4,0 Jahre, gegenüber den ~103 Tagen der Superreichen also rund vierzehnmal so lange. Aus dem gesamten Einkommen (vor allem Arbeit) ist dieselbe Steuersumme in 10,1 % eines Jahres ≈ 37 Tagen verdient. Mittelständischer Haushalt = Durchschnitt aller Haushalte (Spalte «Sämtliche», Bruttoeinkommen 9951 CHF/Monat): Steuern 1166 CHF/Monat = 11,7 %, Einkommen aus Vermögen und Vermietung 444 CHF/Monat = 4,5 %; das ergibt 11,7 % ÷ 4,5 % ≈ 2,6 Jahre bzw. ≈ 43 Tage. Der Durchschnitt liegt beim Vermögenseinkommen über dem Median, weil die Vermögensspitze den Schnitt nach oben zieht (oberstes Fünftel: Vermögenseinkommen 6,9 % des Bruttoeinkommens). Die HABE rechnet keinen Eigenmietwert als Einkommen ein. Die Querschnittstabellen erscheinen nur als Mehrjahres-Pool; 2015–2017 ist die aktuellste."
+  },
+  {
+    "id": "bfs_stagre",
+    "kurz": "BFS Unternehmensgruppen (STAGRE)",
+    "titel": "Statistik der Unternehmensgruppen (STAGRE): Gruppen, Unternehmen, Beschäftigte und Umsatz nach Sitzland, 2014–2024",
+    "herausgeber": "Bundesamt für Statistik (BFS)",
+    "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/industrie-dienstleistungen/stagre/stamet.html",
+    "stand": "Tabelle T 6.6.3, Daten bis 2024 (Umsatz bis 2023)",
+    "hinweis": "Tabelle «Anzahl Unternehmensgruppen, Unternehmen, Beschäftigte und Umsatz nach Sitzland» (T 6.6.3, DAM-Asset 36244614), vier Blätter. «Sitzland» = Land des Gruppenoberhaupts; Zeile «Schweiz» = inländisch kontrolliert, Auslandskontrolle = «Total» minus «Schweiz». Je Blatt das neueste Jahr mit beiden Werten. 2024: 66 293 Unternehmen in Gruppen, davon 46 822 (70,6 %) schweizerisch und 19 471 (29,4 %) ausländisch kontrolliert; Beschäftigte 2 136 580, davon 73,0 % schweizerisch, 27,0 % ausländisch kontrolliert. Umsatz 2023: 2 572,5 Mrd. CHF, davon nur 37,3 % schweizerisch, aber 62,7 % ausländisch kontrolliert. Kernaussage: ausländisch kontrollierte Konzerne stellen knapp ein Drittel der Firmen und gut ein Viertel der Jobs, machen aber fast zwei Drittel des Umsatzes. Reproduzierbar via scripts/06_extract_ownership.py → src/data/ownership.json (Feld firmen)."
+  },
+  {
+    "id": "snb_haushalte",
+    "kurz": "SNB Haushaltsvermögen",
+    "titel": "Vermögensbilanz der privaten Haushalte: Reinvermögen (Finanz- und Sachvermögen minus Verpflichtungen)",
+    "herausgeber": "Schweizerische Nationalbank (SNB)",
+    "url": "https://data.snb.ch/de/topics/uvo/cube/frsekgevehup",
+    "stand": "Cube frsekgevehup, Jahresreihe, neuestes Jahr 2025",
+    "hinweis": "Reinvermögen aller privaten Haushalte der Schweiz (Code RVM): Finanzanlagen plus Immobilien minus Verpflichtungen. Neuester Wert (2025): rund 5132 Mrd. CHF. Dient als Nenner für die Vermögenskonzentration an der Spitze: die 300 Reichsten (851,5 Mrd., Bilanz-Liste 2025, Quelle bilanz300) besitzen davon rund 17 % (851,5 ÷ 5132 = 0,166). Abgrenzung: SNB misst die Haushaltsbilanz, die Bilanz-Vermögen sind marktnahe Schätzwerte inklusive Firmenbeteiligungen; Grössenordnung vergleichbar, Methodik nicht identisch. Reproduzierbar via scripts/06_extract_ownership.py → src/data/ownership.json (Feld reichste), CSV über die offene SNB-Daten-API (Code RVM, neuestes Jahr)."
+  },
+  {
+    "id": "bfs_gebaeude",
+    "kurz": "BFS Gebäudeeigentum",
+    "titel": "Statistik der Eigentümertypen der Gebäude: Gebäude nach Eigentümertyp (registerbasiert, GWR und Grundbuch), 2022",
+    "herausgeber": "Bundesamt für Statistik (BFS)",
+    "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/bau-wohnungswesen.assetdetail.27885505.html",
+    "stand": "Tabelle T 09.02.05.04, Blatt 2022 (Schweiz ohne ZH und VS)",
+    "hinweis": "Gebäude nach Eigentümertyp, registerbasiert (Gebäude- und Wohnungsregister verknüpft mit Grundbuch), Stand 31.12.2022, DAM-Asset 27885505, Blatt «2022», Zeile «Total (Schweiz ohne ZH und VS)». Von 1 438 755 Gebäuden gehören 964 272 (67,0 %) natürlichen Personen, 171 612 (11,9 %) juristischen Personen (v. a. AG, Genossenschaften, Stiftungen, öffentliche Hand), 206 568 (14,4 %) Gemeinschaften (Erbengemeinschaften, einfache Gesellschaften) und 96 303 (6,7 %) gemischtem oder unbekanntem Eigentum. Caveat: Gebäudezählung (nicht Wohnungen) und ohne die Kantone Zürich und Wallis; die Zählung gewichtet Einfamilienhäuser stark, die institutionelle Konzentration bei den Mietwohnungen ist grösser. Reproduzierbar via scripts/06_extract_ownership.py → src/data/ownership.json (Feld gebaeude)."
+  },
+  {
+    "id": "raiffeisen_immo",
+    "kurz": "Raiffeisen Immobilien Schweiz",
+    "titel": "Immobilien Schweiz Q4/20: Eigentümeranteile am Schweizer Wohnungs- und Mietwohnungsbestand",
+    "herausgeber": "Raiffeisen Economic Research (Datenbasis Wüest Partner)",
+    "url": "https://www.raiffeisen.ch/rch/de/ueber-uns/news/rch/immobilien-schweiz-q4-20.html",
+    "stand": "Studie «Immobilien Schweiz Q4/20», Medienmitteilung 12.11.2020",
+    "hinweis": "Eigentümerstruktur des Mietwohnungsbestands der Schweiz: Privatpersonen 49 %, institutionelle Anleger (Pensionskassen, Versicherungen, Immobilienfonds) 33 %, Genossenschaften 8 %, klassische Immobilienfirmen 7 %, öffentliche Hand 4 %. Über den gesamten Wohnungsbestand (rund 4,5 Mio. Einheiten) halten Privatpersonen 57 %. Der Anteil institutioneller Anleger an den Mietwohnungen steigt seit Jahren (2000 rund ein Viertel). Modellbasierte Schätzung von Wüest Partner / Raiffeisen, keine amtliche Vollerhebung; als kuratierte Drittquelle geführt (analog zu LITRA, bezug=kuratiert), reproduziert via scripts/06_extract_ownership.py → src/data/ownership.json (Feld mietwohnungen)."
+  },
+  {
+    "id": "worldbank_gdp",
+    "kurz": "Weltbank BIP Schweiz",
+    "titel": "Nominales Bruttoinlandsprodukt der Schweiz (current LCU, CHF), Indikator NY.GDP.MKTP.CN",
+    "herausgeber": "Weltbank (Datengrundlage: Volkswirtschaftliche Gesamtrechnung BFS/SECO)",
+    "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CN?locations=CH",
+    "stand": "Indikator NY.GDP.MKTP.CN, Jahresreihe bis 2024",
+    "hinweis": "Nominales BIP der Schweiz in laufenden Franken, Jahresreihe (z. B. 2024 rund 825 Mrd. CHF). Dient als BIP-Nenner für zwei Verläufe in der Sektion «Wem gehört die Schweiz?»: gesamtes Privatvermögen (SNB) als Vielfaches des BIP (2000–2024, von rund 4,3 auf rund 6) und Vermögen der 300 Reichsten (Bilanz) als Anteil am BIP (2022–2024, rund 100 %). Fetchbar als JSON über die offene Weltbank-API; reproduziert via scripts/07_extract_ownership.py. Die Weltbank übernimmt die offiziellen Schweizer Volkswirtschaftlichen Gesamtrechnungen (BFS/SECO)."
+  },
+  {
+    "id": "bfs_areal",
+    "kurz": "BFS Arealstatistik",
+    "titel": "Arealstatistik der Schweiz: Bodennutzung nach Hauptkategorien",
+    "herausgeber": "Bundesamt für Statistik (BFS)",
+    "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/raum-umwelt/bodennutzung-bedeckung.html",
+    "stand": "Arealstatistik, Erhebung 2013/18",
+    "hinweis": "Bodennutzung der Schweiz nach Hauptkategorien: Landwirtschaftsflächen rund 35 %, Wald und Gehölze rund 32 %, Siedlungsflächen rund 8 %, Rest (Gewässer, Gletscher, Fels, unproduktive Vegetation) rund 25 %. Die Siedlungsfläche stieg über rund 24 Jahre von 6,0 % auf 7,5 %; rund 90 % der neuen Siedlungsflächen entstanden auf vormaligem Landwirtschaftsland. Kuratierte Kontextwerte (bezug=kuratiert) in src/data/ownership.json (Feld boden.nutzung); dienen der Einordnung «Wald rund ein Drittel der Landesfläche»."
+  },
+  {
+    "id": "lex_koller",
+    "kurz": "Lex Koller (BJ)",
+    "titel": "Erwerb von Ferienwohnungen durch Personen im Ausland (Lex-Koller-Statistik)",
+    "herausgeber": "Bundesamt für Justiz (BJ), wiedergegeben in «Die Volkswirtschaft» (SECO)",
+    "url": "https://dievolkswirtschaft.ch/de/2025/12/erwerb-von-ferienwohnungen-durch-personen-im-ausland-corona-anstiegstrend-zu-ende/",
+    "stand": "Daten 2023",
+    "hinweis": "Die Lex Koller beschränkt den Erwerb von Wohneigentum durch Personen im Ausland. Gesamtschweizerisches Jahreskontingent für Ferienwohnungen: 1500 Einheiten. 2023 erteilten die Kantone 703 Bewilligungen (Vorjahr 1020), 378 Objekte wechselten effektiv die Hand; Ausschöpfung des Kontingents rund 47 % (703/1500). Grösste Käufergruppe durchgängig Deutschland, 2023 vor Frankreich, Italien, Belgien. Über den Gesamtbestand ausländisch besessener Ferienimmobilien führt der Bund keine Statistik; als Grössenordnung gilt, dass über 80 % der Zweitwohnsitze in den Tourismusgebieten Schweizern gehören (NZZ). Kuratierte Werte (bezug=kuratiert) in src/data/ownership.json (Feld boden.lex_koller)."
+  },
+  {
+    "id": "blackrock_immo",
+    "kurz": "BlackRock (REFLEKT/WAV)",
+    "titel": "BlackRock-Beteiligungen an börsenkotierten Schweizer Immobilienunternehmen",
+    "herausgeber": "REFLEKT / WAV-Recherchekollektiv",
+    "url": "https://reflekt.ch/blackrock/",
+    "stand": "Recherche, Daten um 2020",
+    "hinweis": "Obwohl die Lex Koller den direkten Erwerb von Wohnimmobilien durch Personen im Ausland verbietet, ist die indirekte Beteiligung über börsenkotierte Aktien zulässig. Der weltgrösste Vermögensverwalter BlackRock hält laut WAV-Recherche rund 6 % der Aktien der börsenkotierten Schweizer Immobilienunternehmen (rund 2 Mrd. CHF, verteilt auf 17 Firmen); innert zehn Jahren hat sich die Beteiligung fast verzwanzigfacht (2010: sechs Firmen, knapp 100 Mio.). An der Swiss Prime Site hält BlackRock über 12 %. Kuratierte Drittquelle (bezug=kuratiert) in src/data/ownership.json (Feld boden.blackrock); zeigt den indirekten Auslandsbesitz trotz Lex Koller."
+  },
+  {
+    "id": "bfs_wohnungen",
+    "kurz": "BFS Wohnungsstatistik",
+    "titel": "Gebäude- und Wohnungsstatistik: Eigentümertyp der Mietwohnungen, kumuliert 2021–2023",
+    "herausgeber": "Bundesamt für Statistik (BFS)",
+    "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/bau-wohnungswesen/wohnungen/mietwohnungen.html",
+    "stand": "Datenstand 31.12.2023 (kumuliert 2021–2023)",
+    "hinweis": "Eigentümertyp der Mietwohnungen (registerbasiert). 2023 gehörten rund 45 % der Mietwohnungen Privatpersonen, rund ein Drittel institutionellen Anlegern (Pensionskassen, Versicherungen, Immobilienfonds); der Privatanteil sinkt (2021 noch 47 %). Deutlich nach Bauperiode: Mietwohnungen aus der Zeit vor 1946 gehören zu 65 % Privatpersonen, jene nach 2000 nur noch zu 32 %, der Rest institutionellen Eigentümern. Regional am tiefsten in Genf (27 % privat), am höchsten im Wallis (69 %) und Tessin (67 %). Kuratierte BFS-Werte (bezug=kuratiert) in src/data/ownership.json (Feld wohnungen_bfs); ergänzt die ältere Raiffeisen-Schätzung um eine amtliche, aktuellere Quelle samt Bauperioden-Trend."
+  },
+  {
+    "id": "bfs_pacht",
+    "kurz": "BFS Landwirtschaft (Pacht)",
+    "titel": "Landwirtschaftliche Strukturerhebung: Pachtanteil an der landwirtschaftlichen Nutzfläche",
+    "herausgeber": "Bundesamt für Statistik (BFS)",
+    "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/land-forstwirtschaft/landwirtschaft/strukturen.html",
+    "stand": "Strukturerhebung, Reihe 1980–2020",
+    "hinweis": "Anteil der Pachtflächen an der landwirtschaftlichen Nutzfläche, steigend mit dem Strukturwandel: 1980 rund 37 %, 2005 rund 43 %, 2016 rund 45 %, um 2020 gegen die Hälfte (rund 47 %). Verpachtet wird von anderen Bauern, Privatpersonen, der öffentlichen Hand und Firmen. Flächenmässig gelten die Bauern als grösste Grundbesitzergruppe der Schweiz (LID/proplanta). Kuratierte Reihe (bezug=kuratiert) in src/data/ownership.json (Feld boden.pacht)."
+  },
+  {
+    "id": "vbs_grundbesitz",
+    "kurz": "VBS Grundbesitz (Blick)",
+    "titel": "Grund und Boden: Die Armee als grösster Grundbesitzer der Schweiz",
+    "herausgeber": "Blick",
+    "url": "https://www.blick.ch/wirtschaft/grund-boden-wem-gehoert-die-schweiz-id10733.html",
+    "stand": "Medienbericht",
+    "hinweis": "Der Grundbesitz des Verteidigungsdepartements (VBS) umfasst rund 26 000 Objekte und rund 26 000 Hektaren Land (Reproduktionswert rund 25 Mrd. CHF); damit gilt das Militär als grösster Liegenschaftenbesitzer der Schweiz. Medienrecherche (Drittquelle), kuratiert; in src/data/ownership.json (Feld boden.groesste)."
+  },
+  {
+    "id": "sbb_immo",
+    "kurz": "SBB Grundbesitz (Blick)",
+    "titel": "So verkaufen die SBB unser Land (SBB-Grundbesitz 94,4 Mio. m²)",
+    "herausgeber": "SonntagsBlick / Blick",
+    "url": "https://www.blick.ch/wirtschaft/ceo-andreas-meyer-hat-immobilien-im-wert-von-1-5-milliarden-franken-abgestossen-so-verkaufen-die-sbb-unser-land-id8162401.html",
+    "stand": "Medienbericht",
+    "hinweis": "Die SBB besitzen rund 94,4 Mio. m² Land und sind nach der Armee der grösste Grundbesitzer der Schweiz; seit 2007 haben sie Grundstücke im Wert von über 1,5 Mrd. CHF verkauft, häufig an Banken, Immobiliengesellschaften und Pensionskassen. Medienrecherche (Drittquelle), kuratiert; in src/data/ownership.json (Feld boden.groesste)."
+  },
+  {
+    "id": "ubs_wohnungen",
+    "kurz": "UBS/CS Wohnungen (watson)",
+    "titel": "Die neue Monsterbank wird grösster Akteur im Immobiliengeschäft (UBS + CS rund 70 000 Wohnungen)",
+    "herausgeber": "watson",
+    "url": "https://www.watson.ch/schweiz/wirtschaft/865270518-die-neue-monsterbank-wird-auch-zum-groessten-akteur-im-immobiliengeschaeft",
+    "stand": "Medienbericht 2023",
+    "hinweis": "Vor der Übernahme hielt die UBS rund 37 000, die Credit Suisse rund 35 317 Wohnungen; zusammen knapp 70 000 Wohnungen, womit die UBS Swiss Life als grösste Wohnungsbesitzerin der Schweiz ablöst. Medienrecherche (Drittquelle), kuratiert; in src/data/ownership.json (Feld boden.groesste)."
+  },
+  {
+    "id": "einsiedeln",
+    "kurz": "Kloster Einsiedeln (Wikipedia)",
+    "titel": "Kloster Einsiedeln: grösster privater Grundbesitzer der Schweiz",
+    "herausgeber": "Wikipedia (nach kath.ch u. a.)",
+    "url": "https://de.wikipedia.org/wiki/Kloster_Einsiedeln",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Das Kloster Einsiedeln verfügt über rund 2140 Hektaren in fünf Kantonen (plus eine Enklave in Vorarlberg) und gilt als grösster privater Grundbesitzer der Schweiz; mit rund 1058 ha Wald zudem grösster privater Waldbesitzer. Drittquelle, kuratiert; in src/data/ownership.json (Feld boden.groesste)."
+  },
+  {
+    "id": "bfs_wohneigentum",
+    "kurz": "BFS Wohneigentumsquote",
+    "titel": "Bewohnte Wohnungen nach Bewohnertyp und Wohneigentumsquote, nach Kanton (T 09.03.02.01.03), 2010–2024",
+    "herausgeber": "Bundesamt für Statistik (BFS)",
+    "url": "https://www.bfs.admin.ch/bfs/de/home/statistiken/bau-wohnungswesen/wohnungen/wohnverhaeltnisse.html",
+    "stand": "Strukturerhebung, Reihe 2010–2024",
+    "hinweis": "Wohneigentumsquote = Anteil der dauernd bewohnten Wohnungen, die von ihren Eigentümern selbst bewohnt werden. Tabelle T 09.03.02.01.03 (DAM-Asset 36398362), ein Blatt je Jahr; gelesen wird die Zeile «Schweiz», Spalte «Wohneigentumsquote, Anteil in %». Reihe: Höchststand 2015 (38,4 %), seither rückläufig auf 35,7 % (2024), im internationalen Vergleich tief. Reproduzierbar via scripts/07_extract_ownership.py → src/data/ownership.json (Feld wohneigentum, inkl. serie/peak)."
+  },
+  {
+    "id": "bilanz_immo",
+    "kurz": "Bilanz Immo-Ranking",
+    "titel": "Ranking: Die grössten Schweizer Immobilienbesitzer",
+    "herausgeber": "Bilanz",
+    "url": "https://www.bilanz.ch/panorama/bildergalerie/ranking-das-sind-die-grossten-schweizer-immo-besitzer",
+    "stand": "Bilanz-Recherche (ohne Gewähr auf Vollständigkeit)",
+    "hinweis": "Eigene Bilanz-Recherche zu den grössten Immobilienbesitzern der Schweiz (es gibt kein amtliches Register). In der Flächen-Rangliste steht die SBB mit 94,4 Mio. m² auf Rang 1, Swiss Life mit über 3 Mio. m² auf Rang 4; Swiss Life gilt als grösste private Immobilieneigentümerin nach Fläche. Drittquelle (Medienrecherche), kuratiert; in src/data/ownership.json (Feld boden.groesste)."
+  },
+  {
+    "id": "lex_koller_ausnahmen",
+    "kurz": "Lex-Koller-Ausnahmen",
+    "titel": "Lex Koller: strenger Ruf, lockere Realität (bewilligungsfreie Fälle)",
+    "herausgeber": "Grundeigentümer Verband Schweiz",
+    "url": "https://www.propertyowner.ch/de/lex-koller-strenger-ruf-lockere-realitaet/",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Wichtige Ausnahmen von der Bewilligungspflicht: EU-/EFTA-Staatsangehörige mit tatsächlichem Wohnsitz in der Schweiz gelten nicht als Personen im Ausland und können unbeschränkt erwerben; Drittstaatsangehörige mit Aufenthaltsbewilligung B und Wohnsitz dürfen eine selbstbewohnte Hauptwohnung bewilligungsfrei kaufen; Grenzgänger eine Zweitwohnung im Grenzraum; und Betriebsstätten bzw. Geschäftsliegenschaften sind unabhängig von Herkunft und Status bewilligungsfrei. Drittquelle; Kontext zur Sektion (kein Datenfeld)."
+  },
+  {
+    "id": "hiag",
+    "kurz": "Hiag/Grisard (Bilanz)",
+    "titel": "Hiag: Das diskrete Immobilienreich der Grisards",
+    "herausgeber": "Bilanz",
+    "url": "https://www.bilanz.ch/unternehmen/hiag-das-diskrete-immobilienreich-der-grisards-127603",
+    "stand": "Medienbericht",
+    "hinweis": "Das Familienunternehmen Hiag (Familie Grisard) verfügt über Industrieareale mit rund 2,6 km² Gesamtfläche und ist einer der grössten privatwirtschaftlichen Flächenbesitzer der Schweiz. Bilanz-Recherche (Drittquelle), kuratiert; in src/data/ownership.json (Feld boden.groesste)."
+  },
+  {
+    "id": "wav_zuerich",
+    "kurz": "WAV «Wem gehört Zürich»",
+    "titel": "Diesen Unternehmen gehört der Zürcher Wohnraum (Grundbuch-Auswertung)",
+    "herausgeber": "Tsri / WAV-Recherchekollektiv",
+    "url": "https://tsri.ch/a/ubs-swiss-life-abz-diesen-unternehmen-gehoert-der-zuercher-wohnraum",
+    "stand": "Recherche",
+    "hinweis": "Es gibt kein nationales Eigentümerregister: Wer Wohnraum besitzt, wird erst durch aufwendige manuelle Auswertungen der kantonalen Grundbücher sichtbar. Das WAV-Recherchekollektiv hat dies für die Stadt Zürich getan und die grössten Wohnraum-Eigentümer offengelegt. Drittquelle; belegt die Aussage, dass Bodenbesitz in der Schweiz nicht zentral erfasst ist."
+  },
+  {
+    "id": "lex_koller_reform",
+    "kurz": "Lex-Koller-Reform (Bundesrat)",
+    "titel": "Bundesrat will den Grundstückerwerb für Personen im Ausland weiter beschränken",
+    "herausgeber": "Der Bundesrat (admin.ch)",
+    "url": "https://www.admin.ch/de/newnsb/4mzivVX5Ko4dpap06YtuI",
+    "stand": "Medienmitteilung 15. April 2026",
+    "hinweis": "Der Bundesrat eröffnete am 15. April 2026 die Vernehmlassung (bis 15. Juli 2026) zur Verschärfung der Lex Koller. Geplant sind u. a. eine Bewilligungspflicht für den Wohnungskauf durch Drittstaatsangehörige, eine Einschränkung des Ferienwohnungskaufs sowie ein grundsätzliches Verbot für Personen im Ausland, börsenkotierte Anteile an Wohnimmobiliengesellschaften und regelmässig gehandelte Anteile an Immobilienfonds zu erwerben. Kontext zur Sektion (kein Datenfeld)."
+  },
+  {
+    "id": "bfs_wald",
+    "kurz": "BFS Waldeigentum",
+    "titel": "Waldflächen der Schweiz nach Eigentümertyp (öffentlich/privat), 2024",
+    "herausgeber": "Bundesamt für Statistik (BFS), Schweizerische Forststatistik",
+    "url": "https://www.pxweb.bfs.admin.ch/pxweb/de/px-x-0703010000_101/px-x-0703010000_101/px-x-0703010000_101.px",
+    "stand": "Cube px-x-0703010000_101, Stand 2024",
+    "hinweis": "BFS-Cube «Waldflächen der Schweiz in ha nach Jahr, Forstzone, Kanton, Eigentümertyp und Beobachtungseinheit». Auswahl: Schweiz, Forstzone Schweiz, Eigentümertyp Total/Privatwälder/Öffentliche Wälder, Beobachtungseinheit «Gesamte Waldflächen» (Code e012), Jahr 2024. Gesamte Waldfläche 1 275 891 ha (rund ein Drittel der Landesfläche), davon 900 621 ha (70,6 %) öffentliche Wälder (Gemeinden, Bürger-/Burgergemeinden, Korporationen, Kantone, Bund) und 375 270 ha (29,4 %) Privatwälder. Es gibt in der Schweiz keine amtliche Statistik des Bodeneigentums nach Nationalität (Grundbuch ist kantonal, kein zentrales Register); der Waldanteil ist die belegbare, hektargenaue Eigentums-Kennzahl zum Boden. Reproduzierbar via scripts/06_extract_ownership.py → src/data/ownership.json (Feld wald)."
   },
   {
     "id": "f35_beschaffung",
