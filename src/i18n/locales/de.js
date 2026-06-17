@@ -6,7 +6,7 @@ export default {
   // Seitentitel je Route (Browser-Tab); werden mit nav.brand zusammengesetzt.
   routes: {
     home: 'Das reichste 1 %',
-    hintergrund: 'Warum die Ungleichheit wächst',
+    hintergrund: 'Was passiert gerade?',
     verteilung: 'Wie ungleich ist die Schweiz?',
     rechner: 'Vermögenssteuer-Rechner',
     modelle: 'Steuermodelle der Forschung',
@@ -25,7 +25,7 @@ export default {
     toTop: 'Nach oben',
     // Überschriften der Themengruppen im Menü.
     groups: {
-      hintergrund: 'Warum passiert das alles?',
+      hintergrund: 'Was passiert gerade?',
       verteilung: 'Wie ungleich ist die Schweiz?',
       rechner: 'Was bringt eine Steuer?',
       modelle: 'Welche Modelle gibt es?',

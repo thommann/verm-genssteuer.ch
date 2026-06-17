@@ -10,10 +10,10 @@ const router = useRouter();
 // in DOM-Reihenfolge; die Beschriftungen liegen in nav.groups.<key> und nav.items.<id>.
 // num nummeriert die drei Themen im Menübaum.
 const GROUPS = [
-  { key: 'rechner', route: '/rechner', num: '1', items: ['rechner', 'wegzug', 'dynamik', 'verwendung'] },
-  { key: 'verteilung', route: '/verteilung', num: '2', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
-  { key: 'modelle', route: '/modelle', num: '3', items: ['wir-reports', 'zucman'] },
-  { key: 'hintergrund', route: '/hintergrund', num: '4', items: ['aufkauf', 'geldfluss', 'demokratie', 'steuerluecke', 'wirtschaft', 'loesung', 'mehr'] },
+  { key: 'hintergrund', route: '/hintergrund', num: '1', items: ['aufkauf', 'geldfluss', 'demokratie', 'steuerluecke', 'wirtschaft', 'loesung', 'mehr'] },
+  { key: 'rechner', route: '/rechner', num: '2', items: ['rechner', 'wegzug', 'dynamik', 'verwendung'] },
+  { key: 'verteilung', route: '/verteilung', num: '3', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
+  { key: 'modelle', route: '/modelle', num: '4', items: ['wir-reports', 'zucman'] },
   { key: 'transparenz', route: '/quellen', num: '·', items: ['quellen'] },
 ];
 
