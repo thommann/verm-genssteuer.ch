@@ -67,11 +67,9 @@ const bandItems = computed(() =>
 
 const schwelleDisplay = computed(() => chfCompact(state.schwelle, 0));
 
-const isWir2022 = computed(() =>
-  ['wir2022_1', 'wir2022_2', 'wir2022_3'].includes(state.activePreset)
-);
-// Bei aktivem WIR-Modell steuern die Regler (Potenzkurve) nicht das angezeigte Modell.
-const isWirActive = computed(() => isWir2022.value);
+// Bei aktivem WIR-Modell steuern die Regler (Potenzkurve) nicht das angezeigte Modell;
+// erkannt an der Preset-Gruppe statt an einer fest verdrahteten Schlüsselliste.
+const isWir = computed(() => PRESETS[state.activePreset]?.group === 'wir22');
 
 // Erstes Preset der Gruppe «Unsere»: Ziel beim Zurückwechseln zum eigenen Modell.
 const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group === 'meine');
@@ -84,13 +82,13 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       <h2 v-html="$t('calculator.modellTitle')" />
       <p class="lead">{{ $t('calculator.lead') }}</p>
 
-      <p v-if="isWir2022" class="preset-note">
+      <p v-if="isWir" class="preset-note">
         <span v-html="$t('calculator.presetNoteWir2022')" />
         <SourceTag id="wir2022" :note="$t('calculator.presetNoteWir2022Source')" />
       </p>
 
       <p
-        v-if="!isWirActive"
+        v-if="!isWir"
         class="threshold-info"
         v-html="$t('calculator.thresholdInfo', {
           cnt: num(k.cnt_ge5M),
@@ -102,11 +100,11 @@ const firstOwnPreset = Object.keys(PRESETS).find((key) => PRESETS[key].group ===
       <div class="calc-grid">
           <!-- Controls -->
           <div class="card controls">
-            <p v-if="isWirActive" class="controls-lock">
+            <p v-if="isWir" class="controls-lock">
               <span v-html="$t('calculator.controlsLock')" />
               <button type="button" class="controls-lock-link" @click="calc.applyPreset(firstOwnPreset)">{{ $t('calculator.controlsLockLink') }}</button>{{ $t('calculator.controlsLockAfter') }}
             </p>
-            <div v-if="!isWirActive">
+            <div v-if="!isWir">
               <RangeControl
                 v-model="state.schwelle"
                 :min="5e6"

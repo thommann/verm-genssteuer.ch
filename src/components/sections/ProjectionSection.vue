@@ -41,9 +41,6 @@ const trend = computed(() => {
   if (Math.abs(delta) < first.value * 0.02) return 'flat';
   return delta < 0 ? 'down' : 'up';
 });
-// Der Pfeil zeigt die Leserichtung von oben (erstes Jahr) nach unten (2032)
-// und steht daher unabhängig vom Trend immer nach unten.
-const trendArrow = '↓';
 const lastLabel = computed(() => ({
   down: t('projection.lastLabelDown'),
   up: t('projection.lastLabelUp'),
@@ -77,7 +74,9 @@ const lastLabel = computed(() => ({
             <span class="sv accent">{{ chfCompact(first, 1) }}</span>
             <span class="sl">{{ $t('projection.firstLabel') }}</span>
           </div>
-          <div class="arrow">{{ trendArrow }}</div>
+          <!-- Pfeil zeigt die Leserichtung von oben (erstes Jahr) nach unten (2032),
+               unabhängig vom Trend. -->
+          <div class="arrow">↓</div>
           <div class="sidestat">
             <span class="sv gold">{{ chfCompact(last, 1) }}</span>
             <span class="sl">{{ lastLabel }}</span>

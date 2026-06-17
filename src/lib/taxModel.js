@@ -153,15 +153,3 @@ export function dynamicProjection(cohorts, model, rendite, startYear = 2022, nYe
   }
   return series;
 }
-
-/** Gleichgewichts-Vermögen W*, bei dem der Ø-Satz gerade die Rendite r erreicht. */
-export function equilibriumWealth(model, rendite, hi = 1e12) {
-  let lo = model.schwelle;
-  if (model.avgRate(hi) < rendite) return null; // Cap zu tief: kein Gleichgewicht
-  for (let i = 0; i < 80; i += 1) {
-    const mid = Math.sqrt(lo * hi);
-    if (model.avgRate(mid) < rendite) lo = mid;
-    else hi = mid;
-  }
-  return Math.sqrt(lo * hi);
-}

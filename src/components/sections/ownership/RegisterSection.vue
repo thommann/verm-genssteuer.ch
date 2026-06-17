@@ -4,17 +4,10 @@
 // Fliesstext in einer Karte), nicht als farbiges Vollband. Text und Belege
 // liegen in i18n unter boden.eigentum (Block-Liste: 'p' Absatz, 'h' Zwischentitel,
 // 'q' Zitat), die Quellen als Tags am Fuss.
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useProseBlocks } from '@/composables/useProseBlocks.js';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
-const { tm, rt } = useI18n();
-const r = (v) => (v == null ? '' : rt(v));
-
-const blocks = computed(() =>
-  (tm('boden.eigentum.blocks') || []).map((b) => ({ t: r(b.t), x: r(b.x), by: r(b.by) })),
-);
-const sources = computed(() => (tm('boden.eigentum.sources') || []).map(r));
+const { blocks, sources } = useProseBlocks('boden.eigentum');
 </script>
 
 <template>

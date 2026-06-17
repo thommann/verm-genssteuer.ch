@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ownership from '@/data/ownership.json';
-import { num, pct } from '@/lib/format.js';
+import { num, pct, pct0 } from '@/lib/format.js';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
@@ -15,9 +15,8 @@ const wohneigentum = ownership.wohneigentum;
 const wald = ownership.wald;
 const boden = ownership.boden;
 const groesste = boden.groesste;
-const pct0 = (v) => pct(v, 0);
 
-// Privatanteil an den Mietwohnungen nach Bauperiode (BFS) – Neubauten gehören seltener Privaten.
+// Privatanteil an den Mietwohnungen nach Bauperiode (BFS): Neubauten gehören seltener Privaten.
 const baujahrItems = computed(() => [
   { label: t('ownership.baujahrVor'), value: wohnBfs.baujahr.vor_1946, color: 'var(--gold)' },
   { label: t('ownership.baujahrNach'), value: wohnBfs.baujahr.nach_2000, color: 'var(--accent)' },

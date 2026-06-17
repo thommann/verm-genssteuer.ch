@@ -26,7 +26,7 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
             <li v-html="$t('wir.card2022Li2')" />
             <li v-html="$t('wir.card2022Li3')" />
           </ul>
-          <a class="btn btn-ghost" :href="'https://wir2022.wid.world'" target="_blank" rel="noopener">
+          <a class="btn btn-ghost" href="https://wir2022.wid.world" target="_blank" rel="noopener">
             {{ $t('wir.card2022Link') }}
           </a>
         </div>
@@ -42,7 +42,7 @@ const VIDEO_URL = 'https://www.youtube.com/watch?v=4jRnYfigc3I';
             <li v-html="$t('wir.card2026Li2')" />
             <li v-html="$t('wir.card2026Li3')" />
           </ul>
-          <a class="btn btn-ghost" :href="'https://wir2026.wid.world'" target="_blank" rel="noopener">
+          <a class="btn btn-ghost" href="https://wir2026.wid.world" target="_blank" rel="noopener">
             {{ $t('wir.card2026Link') }}
           </a>
         </div>

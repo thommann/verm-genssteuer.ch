@@ -9,6 +9,7 @@
 import { reactive } from 'vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 import { useScrollSpy } from '@/composables/useScrollSpy.js';
+import { bandVars } from '@/lib/gradient.js';
 
 // Hauptaussage: gleicher Verlauf wie die Hauptbotschaft-Slide (Variante A) im Deck.
 const HERO_BG = ['#ff2d6b', '#ff7a33', '#d6249f', '#ff2d6b'];
@@ -30,8 +31,6 @@ const CLAIMS = [
   { id: 'kein-wegzug', key: 'keinWegzug', route: '/hintergrund', hash: 'loesung', source: 'zucman_g20', bg: ['#3b6fe0', '#a78bfa', '#4f8bff', '#7c3aed'] },
   { id: 'schon-fair', key: 'schonFair', route: '/hintergrund', hash: 'loesung', bg: ['#a78bfa', '#25e3c8', '#7c3aed', '#14c98a'] },
 ];
-
-const vars = (bg) => ({ '--g1': bg[0], '--g2': bg[1], '--g3': bg[2], '--g4': bg[3] });
 
 // Slogan-Band zum Abschluss der Startseite: Haupt-Slogan gross, die übrigen Kampagnen-
 // Hashtags als Tag-Reihe darunter. Hashtags sind Marken-Tags und bleiben unübersetzt;
@@ -60,7 +59,7 @@ const toggle = (id) => { open[id] = !open[id]; };
 <template>
   <div id="aussagen">
     <!-- Hauptaussage zuoberst, volle Breite, verlinkbar (#start). -->
-    <header id="start" class="claim-band hero-band" :style="vars(HERO_BG)">
+    <header id="start" class="claim-band hero-band" :style="bandVars(HERO_BG)">
       <div class="wrap">
         <div class="eyebrow">{{ $t('hero.eyebrow') }}</div>
         <h1 class="band-text" v-html="$t('hero.title')" />
@@ -97,7 +96,7 @@ const toggle = (id) => { open[id] = !open[id]; };
       :key="c.id"
       class="claim-band"
       :class="{ dark: c.dark }"
-      :style="vars(c.bg)"
+      :style="bandVars(c.bg)"
     >
       <div class="wrap">
         <div class="eyebrow">{{ $t(`claims.items.${c.key}.eyebrow`) }}</div>
@@ -132,7 +131,7 @@ const toggle = (id) => { open[id] = !open[id]; };
 
     <!-- Slogan-Band: Abschluss der Kampagne, Haupt-Slogan plus Hashtag-Reihe. Keine
          Aussage im Sinne der Claims (kein Erklär-Link, keine Zahl/Quelle). -->
-    <section id="slogan" class="claim-band slogan-band" :style="vars(SLOGAN_BG)">
+    <section id="slogan" class="claim-band slogan-band" :style="bandVars(SLOGAN_BG)">
       <div class="wrap">
         <div class="eyebrow">{{ $t('slogans.eyebrow') }}</div>
         <p class="slogan-main">{{ HERO_SLOGAN }}</p>

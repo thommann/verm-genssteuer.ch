@@ -5,8 +5,9 @@
 // hintergrund.<id>. Der Fliesstext ist eine Block-Liste (t: 'p' Absatz, 'h' Zwischentitel,
 // 'q' Zitat). Die Quellen der Sektion stehen als Quellen-Tags am Fuss.
 import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
 import SourceTag from '@/components/ui/SourceTag.vue';
+import { useProseBlocks } from '@/composables/useProseBlocks.js';
+import { bandVars } from '@/lib/gradient.js';
 
 const props = defineProps({
   id: { type: String, required: true },
@@ -17,23 +18,8 @@ const props = defineProps({
   ns: { type: String, default: 'hintergrund' },
 });
 
-const { tm, rt } = useI18n();
-
-// tm() liefert die Block-Liste; deren Blatt-Werte koennen vorkompilierte Nachrichten sein,
-// darum jedes Feld ueber rt() in einen reinen String aufloesen.
-const r = (v) => (v == null ? '' : rt(v));
-
 const base = computed(() => `${props.ns}.${props.id}`);
-
-const blocks = computed(() =>
-  (tm(`${base.value}.blocks`) || []).map((b) => ({
-    t: r(b.t),
-    x: r(b.x),
-    by: r(b.by),
-  })),
-);
-
-const sources = computed(() => (tm(`${base.value}.sources`) || []).map(r));
+const { tm, r, blocks, sources } = useProseBlocks(() => base.value);
 
 // Passendes Video von Gary's Economics (Uploader und Titel ueber YouTube-oEmbed geprueft,
 // dokumentiert in docs/QUELLEN.md).
@@ -41,12 +27,10 @@ const video = computed(() => {
   const v = tm(`${base.value}.video`);
   return v && v.url ? { url: r(v.url), title: r(v.title) } : null;
 });
-
-const vars = (bg) => ({ '--g1': bg[0], '--g2': bg[1], '--g3': bg[2], '--g4': bg[3] });
 </script>
 
 <template>
-  <section :id="anchor" class="claim-band art-band" :style="vars(bg)">
+  <section :id="anchor" class="claim-band art-band" :style="bandVars(bg)">
     <div class="wrap">
       <div class="eyebrow">{{ $t(`${ns}.${id}.eyebrow`) }}</div>
       <h2 v-html="$t(`${ns}.${id}.title`)" />

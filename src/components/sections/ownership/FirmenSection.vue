@@ -2,14 +2,13 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ownership from '@/data/ownership.json';
-import { pct } from '@/lib/format.js';
+import { pct, pct0 } from '@/lib/format.js';
 import BarChart from '@/components/charts/BarChart.vue';
 import LineChart from '@/components/charts/LineChart.vue';
 import SourceTag from '@/components/ui/SourceTag.vue';
 
 const { t } = useI18n();
 const firmen = ownership.firmen;
-const pct0 = (v) => pct(v, 0);
 
 // Anteil der ausländisch kontrollierten Gruppen je Kennzahl (wenige Firmen/Jobs,
 // viel Umsatz).
