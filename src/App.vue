@@ -12,7 +12,7 @@ const router = useRouter();
 const GROUPS = [
   { key: 'hintergrund', route: '/hintergrund', num: '2', items: ['aufkauf', 'geldfluss', 'demokratie', 'steuerluecke', 'wirtschaft', 'loesung', 'mehr'] },
   { key: 'rechner', route: '/rechner', num: '3', items: ['rechner', 'wegzug', 'dynamik', 'verwendung'] },
-  { key: 'verteilung', route: '/verteilung', num: '4', items: ['verteilung', 'international', 'ubs-studie', 'pauschal'] },
+  { key: 'verteilung', route: '/verteilung', num: '4', items: ['verteilung', 'international', 'ubs-studie', 'pauschal', 'bodeneigentum'] },
   { key: 'modelle', route: '/modelle', num: '5', items: ['wir-reports', 'zucman'] },
   { key: 'transparenz', route: '/quellen', num: '·', items: ['quellen'] },
 ];

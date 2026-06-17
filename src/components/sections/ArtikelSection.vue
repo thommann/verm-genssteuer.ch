@@ -12,6 +12,10 @@ const props = defineProps({
   id: { type: String, required: true },
   anchor: { type: String, required: true },
   bg: { type: Array, required: true },
+  // i18n-Namensraum des Artikels (Standard: hintergrund). So laesst sich dasselbe
+  // Artikel-Band auch auf anderen Seiten einsetzen, z. B. unter boden.* auf der
+  // Verteilungs-Seite.
+  ns: { type: String, default: 'hintergrund' },
 });
 
 const { tm, rt } = useI18n();
@@ -20,20 +24,22 @@ const { tm, rt } = useI18n();
 // darum jedes Feld ueber rt() in einen reinen String aufloesen.
 const r = (v) => (v == null ? '' : rt(v));
 
+const base = computed(() => `${props.ns}.${props.id}`);
+
 const blocks = computed(() =>
-  (tm(`hintergrund.${props.id}.blocks`) || []).map((b) => ({
+  (tm(`${base.value}.blocks`) || []).map((b) => ({
     t: r(b.t),
     x: r(b.x),
     by: r(b.by),
   })),
 );
 
-const sources = computed(() => (tm(`hintergrund.${props.id}.sources`) || []).map(r));
+const sources = computed(() => (tm(`${base.value}.sources`) || []).map(r));
 
 // Passendes Video von Gary's Economics (Uploader und Titel ueber YouTube-oEmbed geprueft,
 // dokumentiert in docs/QUELLEN.md).
 const video = computed(() => {
-  const v = tm(`hintergrund.${props.id}.video`);
+  const v = tm(`${base.value}.video`);
   return v && v.url ? { url: r(v.url), title: r(v.title) } : null;
 });
 
@@ -43,9 +49,9 @@ const vars = (bg) => ({ '--g1': bg[0], '--g2': bg[1], '--g3': bg[2], '--g4': bg[
 <template>
   <section :id="anchor" class="claim-band art-band" :style="vars(bg)">
     <div class="wrap">
-      <div class="eyebrow">{{ $t(`hintergrund.${id}.eyebrow`) }}</div>
-      <h2 v-html="$t(`hintergrund.${id}.title`)" />
-      <p class="lead" v-html="$t(`hintergrund.${id}.lead`)" />
+      <div class="eyebrow">{{ $t(`${ns}.${id}.eyebrow`) }}</div>
+      <h2 v-html="$t(`${ns}.${id}.title`)" />
+      <p class="lead" v-html="$t(`${ns}.${id}.lead`)" />
 
       <template v-for="(b, i) in blocks" :key="i">
         <h3 v-if="b.t === 'h'" class="block-h">{{ b.x }}</h3>
