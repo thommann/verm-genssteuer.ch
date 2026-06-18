@@ -134,7 +134,7 @@ export default {
       kriminalitaet: {
         eyebrow: 'Das Problem',
         text: 'Der Grund für die <span class="hl">steigende Kriminalität</span> ist die wachsende Ungleichheit.',
-        explainText: 'Je ungleicher eine Gesellschaft, desto mehr wird in ihr gestohlen und getötet. Wo wenige fast alles besitzen und vielen die Perspektive fehlt, steigt die Kriminalität, und in ihre Mühlen geraten vor allem jene, die wenig haben. Weniger Ungleichheit ist deshalb auch der wirksamste Schutz vor Kriminalität.',
+        explainText: 'Je ungleicher eine Gesellschaft, desto mehr Gewalt und Diebstahl entstehen in ihr. Wo wenige fast alles besitzen und vielen die Perspektive fehlt, steigt die Kriminalität, und in ihre Mühlen geraten vor allem jene, die wenig haben. Weniger Ungleichheit ist deshalb auch der wirksamste Schutz vor Kriminalität.',
         link: 'Warum Ungleichheit die Kriminalität anheizt',
       },
       standort: {
@@ -776,7 +776,7 @@ export default {
     kriminalitaet: {
       eyebrow: 'Die soziale Folge',
       title: 'Warum Ungleichheit die <span class="hl">Kriminalität</span> anheizt',
-      lead: 'Je weiter eine Gesellschaft auseinanderdriftet, desto mehr Diebstahl und Gewalt entstehen in ihr. Der Zusammenhang zwischen Ungleichheit und Kriminalität ist gut belegt, und in seine Mühlen geraten vor allem jene, die unten stehen.',
+      lead: 'Je weiter eine Gesellschaft auseinanderdriftet, desto mehr Gewalt und Diebstahl entstehen in ihr. Der Zusammenhang zwischen Ungleichheit und Kriminalität ist gut belegt, und in seine Mühlen geraten vor allem jene, die unten stehen.',
       blocks: [
         { t: 'p', x: 'In der Schweiz ist die Kriminalität zuletzt deutlich gestiegen. Die Polizeiliche Kriminalstatistik zählte 2024 rund 563 600 Straftaten gegen das Strafgesetzbuch, 7,9 Prozent mehr als im Vorjahr. Die Vermögensdelikte legten zum dritten Mal in Folge zu, um rund 8 Prozent, und sind der Haupttreiber. Auch die Gewaltstraftaten nahmen weiter zu, um 3,3 Prozent, und die schweren Gewaltstraftaten erreichten den höchsten Wert seit 2009. Einzig die vollendeten Tötungsdelikte gingen in diesem Jahr zurück.' },
         { t: 'p', x: 'Dass mehr Ungleichheit mehr Kriminalität bedeutet, ist keine Vermutung, sondern eine der am besten untersuchten Beziehungen der Kriminologie. Die Verbindung von Ungleichheit und Tötungsdelikten ist in bis zu 40 Studien gezeigt worden; zwischen Ländern unterscheiden sich die Mordraten um das Fünffache, je nachdem wie ungleich die Einkommen verteilt sind.' },
