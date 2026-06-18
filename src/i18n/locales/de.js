@@ -131,6 +131,12 @@ export default {
         explainText: 'Die Schweiz hat keine natürlichen Ressourcen. Was uns ausmacht, ist unser hervorragendes Bildungssystem, unsere zuverlässige Infrastruktur und unsere weltberühmte Qualitätsarbeit. Doch in die Bildung kann nicht mehr investiert werden, die Infrastruktur ist mittlerweile alt und unterfinanziert und Arbeit wird mit hohen Abgaben und Steuern bestraft.',
         link: 'Warum Ungleichheit die Wirtschaft abwürgt',
       },
+      kriminalitaet: {
+        eyebrow: 'Das Problem',
+        text: 'Der Grund für die <span class="hl">steigende Kriminalität</span> ist die wachsende Ungleichheit.',
+        explainText: 'Je ungleicher eine Gesellschaft, desto mehr Gewalt und Diebstahl entstehen in ihr. Wo wenige fast alles besitzen und vielen die Perspektive fehlt, steigt die Kriminalität, und in ihre Mühlen geraten vor allem jene, die wenig haben. Weniger Ungleichheit ist deshalb auch der wirksamste Schutz vor Kriminalität.',
+        link: 'Warum Ungleichheit die Kriminalität anheizt',
+      },
       standort: {
         eyebrow: 'Was funktioniert',
         text: 'Der Schweiz geht es so gut, weil wir mit der Vermögenssteuer auch die <span class="hl">Superreichen</span> besteuern.',
@@ -687,7 +693,7 @@ export default {
     changesBody: 'Diese Datenschutzerklärung kann angepasst werden, wenn sich die Website oder die rechtlichen Vorgaben ändern. Massgebend ist die jeweils hier veröffentlichte Fassung.',
   },
 
-  // Hintergrund-Seite: sieben erklaerende Artikel (HintergrundPage.vue / ArtikelSection.vue),
+  // Hintergrund-Seite: acht erklaerende Artikel (HintergrundPage.vue / ArtikelSection.vue),
   // gestuetzt auf Gabriel Zucman und Gary Stevenson (Gary's Economics). Jeder Artikel hat
   // eyebrow/title/lead, eine Block-Liste blocks (t: 'p' Absatz, 'h' Zwischentitel, 'q' Zitat,
   // 'fig' Kennzahl-Karte mit Quellen-id s) und eine Quellenzeile sources[]. Zahlen sind ueber
@@ -765,6 +771,26 @@ export default {
       ],
       video: { url: 'https://www.youtube.com/watch?v=g0lEbH2kEw8', title: 'UK Budget – The End of Democracy?' },
       sources: ['social_europe_demokratie', 'woz_zucman'],
+    },
+
+    kriminalitaet: {
+      eyebrow: 'Die soziale Folge',
+      title: 'Warum Ungleichheit die <span class="hl">Kriminalität</span> anheizt',
+      lead: 'Je weiter eine Gesellschaft auseinanderdriftet, desto mehr Gewalt und Diebstahl entstehen in ihr. Der Zusammenhang zwischen Ungleichheit und Kriminalität ist gut belegt, und in seine Mühlen geraten vor allem jene, die unten stehen.',
+      blocks: [
+        { t: 'p', x: 'In der Schweiz ist die Kriminalität zuletzt deutlich gestiegen. Die Polizeiliche Kriminalstatistik zählte 2024 rund 563 600 Straftaten gegen das Strafgesetzbuch, 7,9 Prozent mehr als im Vorjahr. Die Vermögensdelikte legten zum dritten Mal in Folge zu, um rund 8 Prozent, und sind der Haupttreiber. Auch die Gewaltstraftaten nahmen weiter zu, um 3,3 Prozent, und die schweren Gewaltstraftaten erreichten den höchsten Wert seit 2009.' },
+        { t: 'p', x: 'Dass mehr Ungleichheit mehr Kriminalität bedeutet, ist keine Vermutung, sondern eine der am besten untersuchten Beziehungen der Kriminologie. Die Verbindung von Ungleichheit und Tötungsdelikten ist in bis zu 40 Studien gezeigt worden; zwischen Ländern unterscheiden sich die Mordraten um das Fünffache, je nachdem wie ungleich die Einkommen verteilt sind.' },
+        { t: 'p', x: 'Den kausalen Kern hat eine Weltbank-Studie von Pablo Fajnzylber, Daniel Lederman und Norman Loayza herausgearbeitet. Sie werteten Tötungs- und Raubraten über viele Länder und Jahre aus und kamen zum Schluss, dass steigende Einkommensungleichheit die Kriminalitätsraten erhöht, und dieser Befund hält selbst dann, wenn man andere Ursachen herausrechnet. Entscheidend ist die Ungleichheit, nicht die blosse Höhe des Durchschnittseinkommens: Ein reiches Land mit grossen Abständen ist gefährdeter als ein ärmeres, in dem die Abstände klein sind.' },
+        { t: 'p', x: 'Wie viel auf dem Spiel steht, zeigt ein Rechenbeispiel von The Equality Trust. Würde ein Land seine Ungleichheit vom spanischen auf das tiefere kanadische Niveau senken, fielen rund 20 Prozent der Tötungsdelikte und rund 23 Prozent der Raubdelikte weg. Weniger Ungleichheit ist damit auch Kriminalprävention, und zwar oft wirksamer als eine Massnahme, die erst beim fertigen Täter ansetzt.' },
+        { t: 'h', x: 'Gewalt und Diebstahl folgen verschiedenen Spuren' },
+        { t: 'p', x: 'Die Wirkung fällt je nach Delikt verschieden aus, deshalb lohnt die Unterscheidung. Am deutlichsten hängen Eigentumsdelikte und ein Teil der Gewaltdelikte, nämlich Tötung, Mord und Raub, mit steigender Ungleichheit zusammen; bei anderen Gewalttaten wie Körperverletzung oder Vergewaltigung ist der Zusammenhang weniger eindeutig. Wo wenige fast alles besitzen und vielen die Aussicht auf ein gutes Auskommen fehlt, wächst zuerst der Diebstahl, denn wer wenig hat und wenig erwarten darf, greift eher nach dem Eigentum anderer.' },
+        { t: 'p', x: 'Bei der Gewalt wirkt ein zweiter Mechanismus. In stark geschichteten Gesellschaften entscheidet der Rang über fast alles, und Gewalt entzündet sich oft daran, dass Menschen sich herabgesehen, missachtet oder blossgestellt fühlen. Je grösser die Abstände zwischen oben und unten, desto schärfer der Kampf um Status und desto eher schlägt eine Kränkung in Gewalt um.' },
+        { t: 'q', x: 'Gewalt ist in ungleicheren Gesellschaften häufiger, weil sie sich oft daran entzündet, dass Menschen sich herabgesehen und missachtet fühlen.', by: 'Sinngemäss The Equality Trust' },
+        { t: 'h', x: 'Wer in die Mühlen gerät' },
+        { t: 'p', x: 'Die Statistik der Verurteilten und Gefangenen ist eindeutig: Die meisten Mehrfachtäter stammen aus benachteiligten Verhältnissen. In einer Untersuchung von Per-Olof Wikström und Kyle Treiber kamen 70,4 Prozent der hartnäckigen Täter aus solchen Verhältnissen. Daraus folgt aber nicht, dass Armut kriminell macht, denn umgekehrt wurden 93 Prozent der benachteiligten Jugendlichen gar nie zu Mehrfachtätern. Nicht die Armut treibt in die Kriminalität, sondern die Bedingungen, die grosse Ungleichheit schafft: fehlende Perspektiven, das Gefühl, abgehängt zu sein, und ein Alltag, in dem das nächste Geld knapp ist.' },
+        { t: 'p', x: 'Daraus ergibt sich der Punkt, um den es hier geht. Die Kriminalität, die in den Statistiken sichtbar wird, ist zu einem grossen Teil Eigentums- und Beschaffungskriminalität, und in sie geraten vor allem jene, die wenig haben und wenig erwarten dürfen. Das ist kein Argument gegen die Armen, sondern eines gegen die Ungleichheit, die solche Verhältnisse erst schafft. Wer die Kriminalität senken will, setzt deshalb besser bei den Abständen an als allein bei der Polizei. <a href="/verteilung#verteilung">Wie stark sich Vermögen in der Schweiz konzentriert</a>, zeigt der Abschnitt zur Verteilung; <a href="/hintergrund#loesung">warum eine Vermögenssteuer hier ansetzt</a>, steht im Abschnitt zur Lösung.' },
+      ],
+      sources: ['bfs_pks', 'equalitytrust_violence', 'worldbank_crime', 'equalitytrust_crime', 'wikstroem_treiber'],
     },
 
     steuerluecke: {

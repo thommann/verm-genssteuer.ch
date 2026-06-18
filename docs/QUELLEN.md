@@ -13,8 +13,8 @@ den Eintrag in `src/data/sources.json` zeigt.
 | Sektion (UI) | Datenpunkte | Quelle (`id`) | Datei in `src/data/` | erzeugt durch |
 |---|---|---|---|---|
 | Hero | Anteil ≥ 5 Mio., Anzahl, Median, Ø/Median | ESTV (`estv_vermoegen`) | `estv_kennzahlen.json` | `02_extract_estv.py` |
-| Aussagen (Startseite) | Kampagnen-Aussagen mit konkreten Zahlen: Milliardäre zahlen halb so viel / Mittelstand doppelt so viel (Einkommensteuerlast); reales Vermögenswachstum «fast 10 %» p. a. (Wegzug-Argument; obere Lesart der belegten 6 bis 9 % WIR 2022 / 7,1 % Zucman) | Zucman (`zucman_g20`) | — (Texte + `sources.json`) | — |
-| Hintergrund (7 Artikel) | Erklärende Texte zu Aufkauf, Geldfluss, Demokratie, Steuerlücke, Wirtschaft, Lösung, Überblick. Belegte Zahlen: reales Vermögenswachstum 7,1 %/1,8 % bzw. 6–9 %/3,2 %; effektiver Steuersatz Milliardäre ~0,5 % bzw. ~0,3 %; ~103 Tage bzw. ~4 Jahre; 2 % Mindeststeuer; 200–250 Mrd. USD weltweit; Schweizer Vermögenseinkommen 6,9 %/2,6 %; 32 %/19 %. Argumente von Gary Stevenson und Zucman qualitativ zugeordnet. | Zucman (`zucman_g20`, `woz_zucman`, `wir2026`); WIR 2022 (`wir2022_wachstum`); Oxfam/TJN/Momentum (`reichensteuer_studie`, `reichensteuer_studie_ch`); BFS HABE (`bfs_habe`); EFV (`efv`); Gary Stevenson (`gary_wiki`, `gary_equals`); Demokratie (`social_europe_demokratie`); Schweiz-Zahl (`workzeitung_reiche`) | — (Texte in `de.js` unter `hintergrund.*` + `sources.json`); Zahlen aus `habe.json` bzw. belegt in `sources.json` | — (keine neuen Rohzahlen; wiederverwendete, bereits dokumentierte Werte) |
+| Aussagen (Startseite) | Kampagnen-Aussagen mit konkreten Zahlen: Milliardäre zahlen halb so viel / Mittelstand doppelt so viel (Einkommensteuerlast); reales Vermögenswachstum «fast 10 %» p. a. (Wegzug-Argument; obere Lesart der belegten 6 bis 9 % WIR 2022 / 7,1 % Zucman); steigende Kriminalität (Trend belegt durch die PKS 2024) | Zucman (`zucman_g20`); BFS PKS (`bfs_pks`) | — (Texte + `sources.json`) | — |
+| Hintergrund (8 Artikel) | Erklärende Texte zu Aufkauf, Geldfluss, Demokratie, Kriminalität, Steuerlücke, Wirtschaft, Lösung, Überblick. Belegte Zahlen: reales Vermögenswachstum 7,1 %/1,8 % bzw. 6–9 %/3,2 %; effektiver Steuersatz Milliardäre ~0,5 % bzw. ~0,3 %; ~103 Tage bzw. ~4 Jahre; 2 % Mindeststeuer; 200–250 Mrd. USD weltweit; Schweizer Vermögenseinkommen 6,9 %/2,6 %; 32 %/19 %. Artikel «Kriminalität»: Schweizer Trend (PKS 2024: 563 633 StGB-Straftaten, +7,9 %; Vermögensdelikte +8 % im dritten Jahr; Gewaltstraftaten +3,3 %), bis zu 40 Studien / fünffache Mordraten-Spanne, 20 %/23 % weniger Tötungs-/Raubdelikte (Spanien→Kanada), 70,4 % / 93 % Täter-Hintergrund. Argumente von Gary Stevenson, Zucman und der Kriminalitätsforschung qualitativ zugeordnet. | Zucman (`zucman_g20`, `woz_zucman`, `wir2026`); WIR 2022 (`wir2022_wachstum`); Oxfam/TJN/Momentum (`reichensteuer_studie`, `reichensteuer_studie_ch`); BFS HABE (`bfs_habe`); EFV (`efv`); Gary Stevenson (`gary_wiki`, `gary_equals`); Demokratie (`social_europe_demokratie`); Schweiz-Zahl (`workzeitung_reiche`); Kriminalität (`bfs_pks`, `equalitytrust_crime`, `equalitytrust_violence`, `worldbank_crime`, `wikstroem_treiber`) | — (Texte in `de.js` unter `hintergrund.*` + `sources.json`); Zahlen aus `habe.json` bzw. belegt in `sources.json` | — (keine neuen Rohzahl-Dateien; alle Zahlen direkt aus den fetchbaren Quellen in `sources.json` zitiert) |
 | Verteilung | Anteile/Anzahl je Klasse, Median, Mittel | ESTV (`estv_vermoegen`) | `estv_distribution.json`, `estv_kennzahlen.json` | `02_extract_estv.py` |
 | Wem gehört die Schweiz: «Wem gehört der Boden» | Erklärtext zur Transparenzlücke des Grundbuchs (Abschnitt am Fuss der Seite «Wem gehört die Schweiz?»): Einzelauskunft nur pro Grundstück (Art. 970 ZGB, GBV Art. 26 Abs. 2), Verbot von Serienabfragen (GBV Art. 27 Abs. 2), behördenexklusive landesweite Grundstücksuche (Art. 949c ZGB, GBV Art. 34a–34i), Datenschutz als Begründung. Keine Bodenzahlen (qualitativ). | ZGB (`zgb_grundbuch`); GBV (`gbv_oeffentlichkeit`); DSG (`dsg`); Steiger Legal (`grundbuch_sperre`) | — (Gesetzestexte/Texte in `de.js` unter `boden.eigentum` + `sources.json`) | — (Rechtsnormen direkt zitiert, keine Rohzahlen) |
 | Rechner | Aufkommen, Tarifkurve, Bänder, Gleichgewicht | ESTV (`estv_vermoegen`) + FDK (`fdk`, M im Tail) | `calculator_bins.json`, `calculator_params.json` | `02_extract_estv.py` (M aus `01`) |
@@ -330,10 +330,13 @@ Arbeiterhaushalt 8 573 / 2,6 % / 10,1 % → **~4,0 Jahre / ~37 Tage**; Durchschn
 
 ## 7. Hintergrund-Artikel — Gary Stevenson & Gabriel Zucman
 
-**Was:** Die sieben erklärenden Artikel der Seite `/hintergrund` (Komponente
-`ArtikelSection.vue`, Texte in `src/i18n/locales/de.js` unter `hintergrund.*`). Sie führen
-**keine neuen Rohzahlen** ein. Alle gezeigten Kennzahlen sind bereits an anderer Stelle
-dokumentiert und werden hier nur wiederverwendet:
+**Was:** Die acht erklärenden Artikel der Seite `/hintergrund` (Komponente
+`ArtikelSection.vue`, Texte in `src/i18n/locales/de.js` unter `hintergrund.*`). Sieben davon
+(Aufkauf, Geldfluss, Demokratie, Steuerlücke, Wirtschaft, Lösung, Überblick) führen **keine
+neuen Rohzahlen** ein; alle gezeigten Kennzahlen sind bereits an anderer Stelle dokumentiert
+und werden hier nur wiederverwendet. Der achte Artikel («Warum Ungleichheit die Kriminalität
+anheizt») zitiert ausschliesslich Werte direkt aus fünf fetchbaren Quellen, die unten in
+Abschnitt 7b deklariert sind:
 
 | Kennzahl im Artikel | Quelle (`id`) | dokumentiert in |
 |---|---|---|
@@ -365,6 +368,43 @@ Argumente ihren Urhebern zu und belegen sie mit verlinkten Quellen.
 
 Diese Quellen liefern keine reproduzierbare Datendatei; sie belegen die Zuordnung der
 Argumente. Sie sind in `src/data/sources.json` mit allen Pflichtfeldern deklariert.
+
+### 7b. Artikel «Warum Ungleichheit die Kriminalität anheizt»
+
+Der Artikel (`hintergrund.kriminalitaet`, Anker `#kriminalitaet`, verlinkt von der
+Startseiten-Aussage `claims.items.kriminalitaet`) zeigt nur Zahlen, die direkt aus diesen
+fünf fetchbaren Quellen stammen. Jede ist mit allen Pflichtfeldern in `sources.json`
+deklariert; die genaue Fundstelle steht im jeweiligen `hinweis`.
+
+- **`bfs_pks`** — <https://www.bfs.admin.ch/bfs/de/home/statistiken/kriminalitaet-strafrecht/erhebungen/pks.html>
+  (kanonische BFS-Seite, HTTP 200). Belegt den Schweizer Trend «steigende Kriminalität»:
+  Polizeiliche Kriminalstatistik, Jahresbericht 2024 (Co-Publikation BFS/KKPKS, 24.03.2025):
+  563 633 StGB-Straftaten (+7,9 %), Vermögensdelikte +8 % (dritter Anstieg in Folge),
+  Gewaltstraftaten +3,3 % (48 943), schwere Gewaltstraftaten 2456 (+19,4 %, höchster Wert seit
+  2009), vollendete Tötungsdelikte −15,1 %. Die verbatim Zahlen stehen im Jahresbericht 2024 und
+  in der fetchbaren KKPKS-Meldung (<https://www.kkpks.ch/de/meldungen/polizeiliche-kriminalstatistik-pks-jahresbericht-2024-328>);
+  belegt zugleich die Startseiten-Aussage `claims.items.kriminalitaet` (mit `SourceTag`).
+- **`equalitytrust_violence`** — <https://equalitytrust.org.uk/violence/> (HTTP 200, Abruf
+  Juni 2026). Belegt «bis zu 40 Studien» zum Zusammenhang Ungleichheit/Tötungsdelikte und die
+  «fünffache» Spanne der Mordraten zwischen Ländern sowie den Status-/Missachtungsmechanismus
+  (wörtlich «looked down, disrespected and loss of face»).
+- **`worldbank_crime`** — <https://documents1.worldbank.org/curated/en/198251468752978462/pdf/multi-page.pdf>
+  (HTTP 200, direktes PDF aus dem Weltbank-Dokumentenportal). Fajnzylber/Lederman/Loayza 1998.
+  Kausaler Kern, Executive Summary S. vii wörtlich: «increases in income inequality raise crime
+  rates … even after controlling for other potential determinants of homicide and robbery rates».
+- **`equalitytrust_crime`** — <https://equalitytrust.org.uk/crime/> (HTTP 200, Abruf Juni 2026).
+  Belegt die Unterscheidung Eigentums-/Gewaltdelikte (wörtlich «Property crime and some types of
+  violent crime – homicide, murder and robbery – are related very strongly to changing income
+  inequality») und das Rechenbeispiel Spanien→Kanada (rund 20 % weniger Tötungs-, 23 % weniger
+  Raubdelikte).
+- **`wikstroem_treiber`** — <https://pmc.ncbi.nlm.nih.gov/articles/PMC4962323/> (HTTP 200,
+  American Behavioral Scientist 2016). Belegt «70.4%» der Mehrfachtäter aus benachteiligten
+  Verhältnissen und zugleich, dass «93%» der benachteiligten Jugendlichen nicht zu
+  Mehrfachtätern werden.
+
+Diese Quellen liefern keine reproduzierbare Datendatei (kein Eintrag in
+`scripts/00_reproduce_statistics.py`); die zitierten Werte sind direkt an der jeweiligen
+Quelle prüfbar. Der Artikel bringt keine Schweizer Rohzahl und keine eigene Berechnung.
 
 **Videos von Gary’s Economics (`gary_youtube`):** Jeder Artikel verlinkt ein passendes Video
 von Gary Stevensons YouTube-Kanal. Uploader und Titel sind je Video über die
