@@ -629,7 +629,7 @@ export default {
     impressum: 'Impressum',
     datenschutz: 'Datenschutz',
     quellen: 'Quellen',
-    start: 'Aussagen',
+    start: 'Startseite',
   },
 
   // Impressum (ImpressumSection.vue). Die Seite ist nicht kommerziell; die
