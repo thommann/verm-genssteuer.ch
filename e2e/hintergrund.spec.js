@@ -1,11 +1,13 @@
 import { test, expect } from '@playwright/test';
 
-// Smoke-Test der Hintergrund-Seite: Alle sieben Artikel rendern, der i18n-Block-Renderer
+// Smoke-Test der Hintergrund-Seite: Alle acht Artikel rendern, der i18n-Block-Renderer
 // (tm/rt) liefert echten Text, Kennzahl-Karten und Quellen-Tags sind vorhanden, und es
 // gibt keine ungeloesten i18n-Schluessel im Sichtbereich.
-const ANCHORS = ['aufkauf', 'geldfluss', 'demokratie', 'steuerluecke', 'wirtschaft', 'loesung', 'mehr'];
+const ANCHORS = ['aufkauf', 'geldfluss', 'demokratie', 'kriminalitaet', 'steuerluecke', 'wirtschaft', 'loesung', 'mehr'];
+// Artikel ohne Gary-Video (verlinken kein YouTube-Video).
+const NO_VIDEO = ['kriminalitaet'];
 
-test('Hintergrund-Seite rendert alle sieben Artikel', async ({ page }) => {
+test('Hintergrund-Seite rendert alle acht Artikel', async ({ page }) => {
   const errors = [];
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
 
@@ -25,9 +27,9 @@ test('Hintergrund-Seite rendert alle sieben Artikel', async ({ page }) => {
   expect(firstBg).not.toBe('');
   await expect(page.locator('.source-tag').first()).toBeVisible();
 
-  // Jeder Artikel verlinkt ein Gary-Video (YouTube).
+  // Jeder Artikel mit Video verlinkt ein Gary-Video (YouTube); Artikel in NO_VIDEO haben keines.
   const videoLinks = page.locator('a.video-link');
-  await expect(videoLinks).toHaveCount(ANCHORS.length);
+  await expect(videoLinks).toHaveCount(ANCHORS.length - NO_VIDEO.length);
   for (const h of await videoLinks.evaluateAll((els) => els.map((e) => e.getAttribute('href')))) {
     expect(h).toContain('youtube.com');
   }

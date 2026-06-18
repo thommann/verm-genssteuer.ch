@@ -457,5 +457,41 @@
     "url": "https://steigerlegal.ch/2025/01/10/sperrung-online-grundbuch-kanton-zuerich/",
     "stand": "10. Januar 2025, Abruf Juni 2026",
     "hinweis": "Belegt, dass Kantone die öffentliche Online-Abfrage zusätzlich einschränken: im Kanton Zürich können Eigentümer ihren Eintrag von der Online-Abfrage des Grundbuchs sperren lassen."
+  },
+  {
+    "id": "equalitytrust_crime",
+    "kurz": "The Equality Trust (Kriminalität)",
+    "titel": "The Equality Trust: Crime (Zusammenhang von Einkommensungleichheit und Kriminalität)",
+    "herausgeber": "The Equality Trust",
+    "url": "https://equalitytrust.org.uk/crime/",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Forschungsüberblick der britischen NGO The Equality Trust (aufbauend u. a. auf Wilkinson und Pickett). Wörtlich: «The link between economic inequality and both property crime and violent crime is well established.» Zur Unterscheidung der Deliktarten: «Property crime and some types of violent crime – homicide, murder and robbery – are related very strongly to changing income inequality», während der Zusammenhang bei anderen Gewalttaten wie Vergewaltigung und Körperverletzung mehrdeutiger ist. Grössenordnung (zitiertes Rechenbeispiel der Seite): eine Senkung der Ungleichheit von spanischem auf kanadisches Niveau brächte rund 20 % weniger Tötungsdelikte und rund 23 % weniger Raubdelikte. Belegt qualitativ die Argumente im Hintergrund-Artikel «Warum Ungleichheit die Kriminalität anheizt», keine Schweizer Rohzahl."
+  },
+  {
+    "id": "equalitytrust_violence",
+    "kurz": "The Equality Trust (Gewalt)",
+    "titel": "The Equality Trust: Violence (Ungleichheit und Gewaltkriminalität)",
+    "herausgeber": "The Equality Trust",
+    "url": "https://equalitytrust.org.uk/violence/",
+    "stand": "Abruf Juni 2026",
+    "hinweis": "Forschungsüberblick der britischen NGO The Equality Trust. Wörtlich: «The link between inequality and homicide rates has been shown in as many as 40 studies» und «there are five-fold differences in murder rates between different countries related to inequality». Zum Mechanismus: Gewalt sei in ungleicheren Gesellschaften häufiger, weil sie oft dadurch ausgelöst werde, dass Menschen sich «looked down, disrespected and loss of face» fühlten (Status, Missachtung, Gesichtsverlust). Belegt qualitativ die Argumente im Hintergrund-Artikel «Warum Ungleichheit die Kriminalität anheizt», keine Schweizer Rohzahl."
+  },
+  {
+    "id": "worldbank_crime",
+    "kurz": "Weltbank (Fajnzylber/Lederman/Loayza)",
+    "titel": "Determinants of Crime Rates in Latin America and the World: An Empirical Assessment",
+    "herausgeber": "Pablo Fajnzylber, Daniel Lederman, Norman Loayza; The World Bank (Latin American and Caribbean Studies, Viewpoints)",
+    "url": "https://documents1.worldbank.org/curated/en/198251468752978462/pdf/multi-page.pdf",
+    "stand": "1998 (Journal-Fassung «Inequality and Violent Crime», Journal of Law and Economics 45(1), 2002)",
+    "hinweis": "Empirische Weltbank-Studie über Tötungs- und Raubraten in einem grossen Länderpanel. Kernbefund wörtlich (Executive Summary, S. vii): «The results show that increases in income inequality raise crime rates, deterrence effects are significant, crime tends to be counter-cyclical, and criminal inertia is significant even after controlling for other potential determinants of homicide and robbery rates.» Entscheidend ist die Einkommensungleichheit, nicht die blosse Höhe des Durchschnittseinkommens; die Autoren deuten den Zusammenhang als Wirkung von der Ungleichheit auf die Kriminalität. Direkt fetchbares PDF aus dem offiziellen Dokumentenportal der Weltbank (HTTP 200). Belegt qualitativ den kausalen Kern im Hintergrund-Artikel «Warum Ungleichheit die Kriminalität anheizt»."
+  },
+  {
+    "id": "wikstroem_treiber",
+    "kurz": "Wikström & Treiber (Benachteiligung & Kriminalität)",
+    "titel": "Social Disadvantage and Crime: A Criminological Puzzle",
+    "herausgeber": "Per-Olof H. Wikström, Kyle Treiber; American Behavioral Scientist",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4962323/",
+    "stand": "2016, Abruf Juni 2026",
+    "hinweis": "Kriminologische Untersuchung zum Zusammenhang von sozialer Benachteiligung und Straffälligkeit (Peterborough-Studie, PADS+). Wörtlich: «Those who work with persistent offenders (and prisoners) on a regular basis are keenly aware that most come from disadvantaged backgrounds» und «Although most persistent offenders come from disadvantaged backgrounds, most people from disadvantaged backgrounds do not become persistent offenders.» Konkret: «a substantial majority (70.4%) of the sample's persistent offenders came from disadvantaged backgrounds, but the majority of young people from disadvantaged backgrounds (93%) did not become persistent offenders.» Belegt im Hintergrund-Artikel «Warum Ungleichheit die Kriminalität anheizt», dass die meisten Mehrfachtäter und Gefangenen aus benachteiligten Verhältnissen stammen, Benachteiligung aber nicht Kriminalität bedeutet."
   }
 ]
