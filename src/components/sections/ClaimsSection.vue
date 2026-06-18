@@ -23,7 +23,7 @@ const CLAIMS = [
   { id: 'strassen', key: 'strassen', route: '/rechner', hash: 'verwendung', bg: ['#4f8bff', '#a78bfa', '#3b6fe0', '#7c3aed'] },
   { id: 'bildung', key: 'bildung', route: '/rechner', hash: 'verwendung', bg: ['#25e3c8', '#7c3aed', '#14c98a', '#a78bfa'] },
   { id: 'erfolgsmodell', key: 'erfolgsmodell', route: '/hintergrund', hash: 'wirtschaft', bg: ['#ff2d6b', '#ff7a33', '#d6249f', '#ff7a33'] },
-  { id: 'kriminalitaet', key: 'kriminalitaet', route: '/hintergrund', hash: 'kriminalitaet', bg: ['#ff2d6b', '#7c3aed', '#c01651', '#3b6fe0'] },
+  { id: 'kriminalitaet', key: 'kriminalitaet', route: '/hintergrund', hash: 'kriminalitaet', source: 'bfs_pks', bg: ['#ff2d6b', '#7c3aed', '#c01651', '#3b6fe0'] },
   { id: 'mittelstand', key: 'mittelstand', route: '/hintergrund', hash: 'steuerluecke', source: 'zucman_g20', dark: true, bg: ['#ffce5c', '#ff7a33', '#ffb13c', '#ff7a33'] },
   { id: 'faire-steuern', key: 'faireSteuern', route: '/hintergrund', hash: 'steuerluecke', source: 'zucman_g20', bg: ['#a78bfa', '#ff2d6b', '#7c3aed', '#d6249f'] },
   { id: 'standort', key: 'standort', route: '/hintergrund', hash: 'loesung', bg: ['#14c98a', '#25e3c8', '#14c98a', '#4f8bff'] },
