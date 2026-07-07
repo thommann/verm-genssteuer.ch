@@ -8,20 +8,24 @@ import EigentumPage from '@/pages/EigentumPage.vue';
 import QuellenPage from '@/pages/QuellenPage.vue';
 import ImpressumPage from '@/pages/ImpressumPage.vue';
 import DatenschutzPage from '@/pages/DatenschutzPage.vue';
+import { routeTable } from './routes';
 
-// Drei Themen plus Startseite und Quellen. Die meta.group-Schlüssel verbinden eine Route
-// mit ihrer Menü-Überschrift (nav.groups.<group>) und der aktiven Hervorhebung.
+// Pfade und meta liegen in routes.js (auch von Prerendering und Sitemap genutzt);
+// hier werden nur die Seiten-Komponenten über den Routen-Namen angehängt.
+const pages = {
+  home: HomePage,
+  rechner: RechnerPage,
+  eigentum: EigentumPage,
+  verteilung: VerteilungPage,
+  modelle: ModellePage,
+  hintergrund: HintergrundPage,
+  quellen: QuellenPage,
+  impressum: ImpressumPage,
+  datenschutz: DatenschutzPage,
+};
+
 export const routes = [
-  { path: '/', name: 'home', component: HomePage, meta: { titleKey: 'routes.home' } },
-  { path: '/rechner', name: 'rechner', component: RechnerPage, meta: { group: 'rechner', titleKey: 'routes.rechner' } },
-  { path: '/wem-gehoert-die-schweiz', name: 'eigentum', component: EigentumPage, meta: { group: 'eigentum', titleKey: 'routes.eigentum' } },
-  { path: '/verteilung', name: 'verteilung', component: VerteilungPage, meta: { group: 'verteilung', titleKey: 'routes.verteilung' } },
-  { path: '/modelle', name: 'modelle', component: ModellePage, meta: { group: 'modelle', titleKey: 'routes.modelle' } },
-  { path: '/hintergrund', name: 'hintergrund', component: HintergrundPage, meta: { group: 'hintergrund', titleKey: 'routes.hintergrund' } },
-  { path: '/quellen', name: 'quellen', component: QuellenPage, meta: { group: 'transparenz', titleKey: 'routes.quellen' } },
-  // Rechtliche Seiten (ohne eigene Menügruppe, verlinkt aus der Fusszeile).
-  { path: '/impressum', name: 'impressum', component: ImpressumPage, meta: { titleKey: 'routes.impressum' } },
-  { path: '/datenschutz', name: 'datenschutz', component: DatenschutzPage, meta: { titleKey: 'routes.datenschutz' } },
+  ...routeTable.map((route) => ({ ...route, component: pages[route.name] })),
   // Unbekannte Pfade führen zurück zur Startseite.
   { path: '/:pathMatch(.*)*', redirect: '/' },
 ];
