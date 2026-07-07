@@ -77,10 +77,23 @@ Reine Zahlenformatierung (CHF/%/Mio.) liegt weiterhin in `src/lib/format.js` (`d
 
 ```bash
 npm install
+npx playwright install chromium   # einmalig: Browser für Tests und Prerendering
 npm run dev      # Entwicklungsserver
-npm run build    # Produktions-Build nach dist/
+npm run build    # Produktions-Build nach dist/ inkl. Prerendering und Sitemap
 npm run preview  # Build lokal ansehen
 ```
+
+### Suchmaschinen (Prerendering)
+
+GitHub Pages kennt kein serverseitiges Rendering; eine reine SPA wäre für Suchmaschinen
+fast unsichtbar (leere `index.html`, Unterseiten mit Status 404 über den SPA-Fallback).
+Darum rendert `scripts/prerender.mjs` nach jedem Build alle Routen aus
+`src/router/routes.js` mit einem Headless-Browser zu statischen HTML-Dateien
+(`dist/rechner.html` usw.; Pages liefert `/rechner` daraus mit Status 200) und erzeugt
+`dist/sitemap.xml`. Titel, Meta-Description, Canonical und Open-Graph-Tags je Route setzt
+`src/lib/head.js` (Texte unter `seo.descriptions` in `src/i18n/locales/de.js`); beim
+Prerendern werden sie statisch ins HTML eingebacken. `public/robots.txt` verweist auf die
+Sitemap. Die leere App-Shell bleibt als `404.html` der Fallback für unbekannte Pfade.
 
 ## Datenherkunft & Reproduzierbarkeit
 

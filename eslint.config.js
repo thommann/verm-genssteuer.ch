@@ -37,9 +37,10 @@ export default [
   },
   {
     name: 'app/browser-in-node',
-    // e2e- und Marketing-Skripte laufen in Node, enthalten aber page.evaluate-Callbacks,
-    // die im Browser ausgeführt werden: darum beide Global-Sätze.
-    files: ['e2e/**/*.js', 'marketing/**/*.mjs'],
+    // e2e-, Marketing- und Prerender-Skripte laufen in Node, enthalten aber
+    // page.evaluate/waitForFunction-Callbacks, die im Browser ausgeführt werden: darum
+    // beide Global-Sätze.
+    files: ['e2e/**/*.js', 'marketing/**/*.mjs', 'scripts/**/*.mjs'],
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
 

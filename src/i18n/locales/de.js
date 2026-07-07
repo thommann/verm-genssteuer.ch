@@ -16,6 +16,22 @@ export default {
     datenschutz: 'Datenschutz',
   },
 
+  // Meta-Descriptions je Route (Suchmaschinen-Snippet und Social-Media-Vorschau);
+  // gesetzt in src/lib/head.js, beim Prerendering statisch ins HTML eingebacken.
+  seo: {
+    descriptions: {
+      home: 'Interaktive, quellenbasierte Visualisierung der Schweizer Vermögensverteilung (ESTV, WID, UBS) und einer progressiven Vermögenssteuer für das reichste 1 %. Spiele mit Steuermodellen und sieh, was mit dem Geld möglich wäre.',
+      rechner: 'Interaktiver Vermögenssteuer-Rechner: Freibetrag, Steuersätze und Rendite einstellen und live sehen, was eine progressive Vermögenssteuer für das reichste 1 % der Schweiz einbringen würde.',
+      eigentum: 'Wem gehört die Schweiz? Quellenbasierte Zahlen zu Boden, Immobilien und Firmen zeigen, wie sich das Eigentum am Land bei den Reichsten konzentriert.',
+      verteilung: 'Wie ungleich ist die Schweiz? Interaktive Grafiken zur Vermögensverteilung auf Basis von ESTV, WID und UBS zeigen die Konzentration beim reichsten 1 %.',
+      modelle: 'Steuermodelle aus der Forschung im Vergleich: wie progressive Vermögenssteuern und Mindeststeuern ausgestaltet werden können und was die Vorschläge unterscheidet.',
+      hintergrund: 'Hintergrund zur wachsenden Ungleichheit in der Schweiz: wie sich Vermögen an der Spitze konzentrieren, was das für Kaufkraft und Demokratie bedeutet und welche Rolle eine Vermögenssteuer spielt.',
+      quellen: 'Quellen und Methodik: Jede Zahl auf vermögenssteuer.ch ist mit öffentlichen Originalquellen belegt, dokumentiert und reproduzierbar.',
+      impressum: 'Impressum von vermögenssteuer.ch: Verantwortung und Kontakt.',
+      datenschutz: 'Datenschutzerklärung von vermögenssteuer.ch: welche Daten beim Besuch anfallen und wie sie verwendet werden.',
+    },
+  },
+
   // Navigation und Abschnitts-Menü (App.vue)
   nav: {
     brand: 'vermögenssteuer.ch',
