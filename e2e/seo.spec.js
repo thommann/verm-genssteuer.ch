@@ -26,12 +26,15 @@ test('robots.txt erlaubt Crawling und verweist auf die Sitemap', async ({ reques
   expect(body).toContain(`Sitemap: ${SITE_ORIGIN}/sitemap.xml`);
 });
 
-test('sitemap.xml führt alle Routen mit kanonischer URL', async ({ request }) => {
+test('sitemap.xml führt alle Routen mit kanonischer URL und lastmod', async ({ request }) => {
   const res = await request.get('/sitemap.xml');
   expect(res.status()).toBe(200);
   const body = await res.text();
+  // lastmod (ISO-Datum des letzten Inhalts-Commits) direkt nach jedem loc-Element,
+  // siehe Sitemap-Erzeugung in scripts/prerender.mjs.
+  expect(body).toMatch(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/);
   for (const route of routeTable) {
-    expect(body).toContain(`<loc>${canonicalUrl(route.path)}</loc>`);
+    expect(body).toContain(`<loc>${canonicalUrl(route.path)}</loc><lastmod>`);
   }
 });
 
