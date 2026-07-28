@@ -9,6 +9,7 @@
 //   dist/sitemap.xml        alle Routen, referenziert aus public/robots.txt
 // Die leere App-Shell bleibt als 404.html (SPA-Fallback für unbekannte Pfade) erhalten.
 import { createServer } from 'node:http';
+import { execFileSync } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -16,7 +17,8 @@ import { extname, join } from 'node:path';
 import { chromium } from '@playwright/test';
 import { routeTable, canonicalUrl } from '../src/router/routes.js';
 
-const dist = fileURLToPath(new URL('../dist', import.meta.url));
+const root = fileURLToPath(new URL('..', import.meta.url));
+const dist = join(root, 'dist');
 
 const contentTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -72,11 +74,32 @@ for (const route of routeTable) {
 await browser.close();
 server.close();
 
+// lastmod: Datum des letzten Commits, der Seiteninhalte berührt (nicht die Build-Zeit,
+// sonst würde jeder Rebuild ohne Inhaltsänderung fälschlich Frische signalisieren).
+// Ein gemeinsames Datum für alle Routen, weil Navigation, Fusszeile, Texte
+// (src/i18n) und Daten (src/data) seitenübergreifend geteilt sind: ein inhaltlicher
+// Commit ändert praktisch immer das gerenderte HTML mehrerer Seiten. Der Pfadfilter
+// braucht die volle Git-History (Checkout mit fetch-depth: 0 in deploy.yml); ohne
+// Git-Repo entfällt lastmod, die Sitemap bleibt gültig.
+const lastmod = (() => {
+  try {
+    return execFileSync('git', ['log', '-1', '--format=%cs', '--', 'src', 'public', 'index.html'], {
+      cwd: root,
+      encoding: 'utf8',
+    }).trim();
+  } catch {
+    return '';
+  }
+})();
+
 // Sitemap aus derselben Routen-Tabelle, damit sie nie von den Routen abweicht.
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...routeTable.map((route) => `  <url><loc>${canonicalUrl(route.path)}</loc></url>`),
+  ...routeTable.map(
+    (route) =>
+      `  <url><loc>${canonicalUrl(route.path)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}</url>`,
+  ),
   '</urlset>',
   '',
 ].join('\n');

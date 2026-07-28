@@ -90,7 +90,8 @@ fast unsichtbar (leere `index.html`, Unterseiten mit Status 404 über den SPA-Fa
 Darum rendert `scripts/prerender.mjs` nach jedem Build alle Routen aus
 `src/router/routes.js` mit einem Headless-Browser zu statischen HTML-Dateien
 (`dist/rechner.html` usw.; Pages liefert `/rechner` daraus mit Status 200) und erzeugt
-`dist/sitemap.xml`. Titel, Meta-Description, Canonical und Open-Graph-Tags je Route setzt
+`dist/sitemap.xml` (mit `lastmod` aus dem Datum des letzten Commits, der Seiteninhalte
+berührt). Titel, Meta-Description, Canonical und Open-Graph-Tags je Route setzt
 `src/lib/head.js` (Texte unter `seo.descriptions` in `src/i18n/locales/de.js`); beim
 Prerendern werden sie statisch ins HTML eingebacken. `public/robots.txt` verweist auf die
 Sitemap. Die leere App-Shell bleibt als `404.html` der Fallback für unbekannte Pfade.

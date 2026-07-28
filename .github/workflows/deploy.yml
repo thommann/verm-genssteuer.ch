@@ -20,8 +20,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Volle History, damit scripts/prerender.mjs den lastmod der Sitemap aus dem
+      # letzten Inhalts-Commit (Pfadfilter auf src/, public/, index.html) ermitteln
+      # kann; bei fetch-depth 1 sähe Git jeden Pfad als im HEAD-Commit neu angelegt.
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
